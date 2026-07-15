@@ -1,65 +1,180 @@
+<div align="center">
+
 # Maker Flow
 
-**个人专属 MVP 极速孵化流水线** — 重基建，轻逻辑。
+### 个人专属 MVP 极速孵化流水线
 
-AI 负责出方案与组装，模版与流程预制好；用户在两个卡点确认，避免方向跑偏。
+**重基建，轻逻辑。** 把重复的配置消灭掉，让「想法 → 公网验证」的摩擦力降到最低。
 
-## 六步流程
+你负责 **提需求** 和 **两次确认**，AI 智能体按预制技能库与模版集执行。
 
-| 步 | 执行者 | 动作 | 文档 |
-|----|--------|------|------|
-| 1 | 用户 | 提供需求 | [prompts/01-requirement.example.md](prompts/01-requirement.example.md) |
-| 2 | AI | 根据需求定出 **PRO** | [prompts/02-pro-draft.md](prompts/02-pro-draft.md) + [skills/pro-generation.md](skills/pro-generation.md) |
-| 3 | 用户 ↔ AI | **确认 PRO** | [prompts/03-pro-confirmed.example.md](prompts/03-pro-confirmed.example.md) |
-| 4 | AI | 检索模版，组建 **MVP** | [prompts/04-assemble-mvp.md](prompts/04-assemble-mvp.md) + [skills/](skills/) |
-| 5 | 用户 ↔ AI | **确认 MVP** | 本地 `docker compose` 验收 |
-| 6 | — | **上线部署** | [skills/deploy.md](skills/deploy.md) + [release/](release/) |
+<br/>
 
-完整说明：[docs/workflow.md](docs/workflow.md)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Workflow](https://img.shields.io/badge/steps-6%20step-purple.svg)](#六步流水线)
+[![Stack](https://img.shields.io/badge/template-Go%20API-00ADD8.svg)](templates/go-api/)
+[![Agent](https://img.shields.io/badge/for-AI%20Agents-22c55e.svg)](AGENTS.md)
 
-## 仓库结构
+<br/>
+
+[快速开始](docs/getting-started.md) · [架构图解](docs/overview.md) · [给 Agent 看](AGENTS.md) · [文档索引](docs/README.md)
+
+</div>
+
+---
+
+## 为什么需要它
+
+独立开发者最大的摩擦，往往不在写业务代码，而在**每次从零配环境**：
+
+| 没有 Maker Flow | 有 Maker Flow |
+|-----------------|---------------|
+| 每个点子重新选框架、写 Docker、配 Nginx | 模版集开箱即用 |
+| AI 一口气生成，方向错了才发现 | **两次确认**：PRO → MVP |
+| Prompt 和部署流程靠脑子记 | 技能库写死 SOP，Agent 照章办事 |
+| 想法多，基建重复劳动 | 专注验证，10 分钟级公网上线 |
+
+> **这不是某个具体产品**，而是一套可 Fork、可 Star、可反复复用的 **MVP 工厂**。
+
+---
+
+## 六步流水线
+
+```mermaid
+flowchart LR
+    A["① 你：一句话需求"] --> B["② AI：出 PRO"]
+    B --> C{"③ 确认 PRO"}
+    C -->|通过| D["④ AI：选模版 · 组装 MVP"]
+    C -->|修改| B
+    D --> E{"⑤ 确认 MVP"}
+    E -->|通过| F["⑥ 部署上线"]
+    E -->|迭代| D
+    F --> G["🌐 公网流量验证"]
+```
+
+| 步 | 你 | AI 智能体 |
+|:--:|-----|-----------|
+| 1 | 提供需求 | — |
+| 2 | — | 输出 PRO（方案，**不写代码**） |
+| 3 | **确认 PRO** | 等待 |
+| 4 | — | 检索模版 → 组装到 `workspace/` |
+| 5 | **本地验收** | 按 PRO 修改 |
+| 6 | 触发部署 | 执行 `release/` 脚本 |
+
+两次确认是核心设计：**先对齐「做什么」，再动手「怎么做」。**
+
+---
+
+## 仓库里有什么
 
 ```
-maker-flow/
-├── ai-engine/       # AI 连接配置（.env、providers、参数）
-├── skills/          # 技能库：各阶段 SOP，约束 AI 怎么做
-├── templates/       # 模版集：镜像、demo 源码、文档（供 AI 检索）
-├── prompts/         # 分阶段 Prompt（PRO 与组装分开）
-├── release/         # 部署基建（Nginx、Cloudflare、脚本）
-├── scripts/         # ai-run.sh 等工具
-└── docs/
+        ┌─────────────┐
+        │   你 + AI   │
+        └──────┬──────┘
+               │
+    ┌──────────┼──────────┐
+    ▼          ▼          ▼
+ skills/   templates/   release/
+ 技能库      模版集       发布基建
+  (HOW)      (WHAT)      (SHIP)
 ```
 
-## 快速开始
+| 模块 | 目录 | 一句话 |
+|------|------|--------|
+| 技能库 | [`skills/`](skills/) | 约束 Agent：PRO 怎么写、模版怎么选、怎么部署 |
+| 模版集 | [`templates/`](templates/) | Go API 等预制工程，含 Docker + 中间件 |
+| AI 连接 | [`ai-engine/`](ai-engine/) | 可选：Ollama / OpenAI 等兼容 API |
+| 发布基建 | [`release/`](release/) | Nginx + Cloudflare + 一键部署脚本 |
+| 工作区 | [`workspace/`](workspace/) | Agent 组装出的 MVP 落在这里 |
+
+---
+
+## 60 秒上手
 
 ```bash
-# 1. 配置 AI 连接
-cp ai-engine/.env.example ai-engine/.env
-
-# 2. 填写需求，生成 PRO（步骤 1-2）
-# 编辑 prompts/01-requirement.example.md 与 prompts/02-pro-draft.md
-./scripts/ai-run.sh prompts/02-pro-draft.md
-
-# 3. 与 AI 迭代直到 PRO 确认，写入 prompts/03-pro-confirmed.example.md
-
-# 4. 组装 MVP（步骤 4）
-./scripts/ai-run.sh prompts/04-assemble-mvp.md
-
-# 5. 本地验证
-cd workspace/my-mvp   # 或 AI 指定的输出目录
-docker compose up --build
-
-# 6. 部署见 release/ 与 skills/deploy.md
+git clone https://github.com/LJTian/maker-flow.git && cd maker-flow
 ```
 
-## 三大块职责
+**方式 A — Cursor Agent（推荐）**
 
-| 块 | 目录 | 职责 |
-|----|------|------|
-| **AI 连接** | `ai-engine/` | 连什么模型、参数边界 |
-| **技能库** | `skills/` | PRO 怎么写、模版怎么选、怎么部署 |
-| **模版集** | `templates/` | 可检索的预制工程（含 `index.md` 目录） |
+1. 用 Cursor 打开本仓库
+2. 新建对话，输入：
+
+   > 按 @AGENTS.md 和 docs/workflow.md，我要做一个 [你的想法]，从步骤 ① 开始。
+
+3. 在步骤 ③、⑤ 确认 PRO 和 MVP
+
+**方式 B — 命令行**
+
+```bash
+cp ai-engine/.env.example ai-engine/.env   # 配置 AI_BASE_URL
+chmod +x scripts/ai-run.sh
+./scripts/ai-run.sh prompts/02-pro-draft.md
+```
+
+**方式 C — 先验模版（无需 AI）**
+
+```bash
+cp -r templates/go-api workspace/smoke-test
+cd workspace/smoke-test && cp .env.example .env
+docker compose up --build
+curl http://localhost:8080/health
+```
+
+完整教程 → **[docs/getting-started.md](docs/getting-started.md)**
+
+---
+
+## 适合谁
+
+- 经常有**天马行空的想法**，想快速丢到公网看反馈
+- 已经用 **Cursor / Claude** 等 Agent，但厌倦了每次从零 prompt
+- 想要一套**可 Fork 的私人流水线**，而不是又一个 Todo Demo
+- 认同 **重基建、轻逻辑**：基建写一次，点子跑 N 次
+
+---
+
+## Star / Fork 之后
+
+| 动作 | 建议 |
+|------|------|
+| Star | 跟踪更新，有新的技能库 / 模版会推到这里 |
+| Fork | 改成自己的流水线；替换 `release/` 里的域名与服务器 |
+| 每个新点子 | Agent 组装到 `workspace/<名字>/`，互不干扰 |
+| 固定 Agent 行为 | 把 [AGENTS.md](AGENTS.md) 加入 IDE 规则，或对话 `@AGENTS.md` |
+
+---
+
+## 推荐设备分工
+
+| 设备 | 角色 |
+|------|------|
+| GPU 机（可选） | 纯推理节点，主力机通过 `AI_BASE_URL` 远程调用 |
+| M 系 Mac | 开发、验收、`workspace/` |
+| 云服务器 | Nginx 网关，端口池 `8080–8090` 挂多个 MVP |
+
+---
+
+## 文档导航
+
+| 给人看 | 给 AI 智能体看 |
+|--------|----------------|
+| [快速开始](docs/getting-started.md) | [AGENTS.md](AGENTS.md) |
+| [架构图解](docs/overview.md) | [workflow.md](docs/workflow.md) |
+| [文档索引](docs/README.md) | [agent-bootstrap.md](docs/agent-bootstrap.md) |
+
+---
+
+<div align="center">
+
+**如果这套流水线对你有用，欢迎 Star — 这是对「重基建」最好的认可。**
+
+<br/>
+
+[开始使用](docs/getting-started.md) · [Fork 成自己的工厂](https://github.com/LJTian/maker-flow/fork)
+
+</div>
 
 ## License
 
-Private / 个人使用。
+MIT · 个人使用，按需调整。

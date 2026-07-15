@@ -1,33 +1,25 @@
-# Go API 模版
+# go-api
 
-高并发 REST API 最小骨架，供步骤 ④ AI 组装时复制使用。
+Template id: `go-api`. REST API scaffold for step-4 assembly.
 
-## 预设能力
+## Capabilities
 
-- CORS、结构化日志、全局异常恢复
-- `GET /health`、`GET /api/v1/ping`
-- Dockerfile + docker-compose.yml
+- CORS, structured logs, panic recover
+- `GET /health`, `GET /api/v1/ping`
+- Docker + compose (host port via `HOST_PORT`, default 8080)
 
-## 本地运行
+## Agent usage
 
-```bash
-cp .env.example .env
-docker compose up --build
-curl http://localhost:8080/health
-```
+1. Copy this directory to `workspace/<name>/` (do not edit the template in place).
+2. Add handlers under `internal/handler/`; register routes in `internal/server/server.go`.
+3. Follow `skills/mvp-assembly.md`.
 
-## 目录
+## Layout
 
 ```
-go-api/
-├── cmd/server/
-├── internal/{config,handler,middleware,server}/
-├── Dockerfile
-├── docker-compose.yml
-└── go.mod
+cmd/server/
+internal/{config,handler,middleware,server}/
+Dockerfile
+docker-compose.yml
+go.mod
 ```
-
-## AI 组装时
-
-按 PRO 在 `internal/handler/` 增加业务 handler，在 `internal/server/server.go` 注册路由。  
-输出目录约定见 `skills/mvp-assembly.md`。

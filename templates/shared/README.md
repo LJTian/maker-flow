@@ -1,20 +1,21 @@
-# 模版集共享约定
+# Template shared conventions
 
-## Docker 基础镜像
+For agents assembling under `workspace/` from any template.
 
-| 语言 | 构建镜像 | 运行镜像 |
-|------|----------|----------|
+## Images
+
+| Lang | Build | Runtime |
+|------|-------|---------|
 | Go | `golang:1.22-alpine` | `alpine:3.20` |
 
-## 环境变量
+## Env names
 
-- `APP_NAME` / `APP_ENV` / `HTTP_ADDR` / `LOG_LEVEL`
-- `HOST_PORT` — 与 `release/` 端口池对齐
+`APP_NAME`, `APP_ENV`, `HTTP_ADDR`, `LOG_LEVEL`, `HOST_PORT` (compose host map → release port pool)
 
-## 健康检查
+## Health
 
 `GET /health` → `{"status":"ok"}`
 
-## 端口池
+## Ports
 
-服务器 `8080–8090`，见 `release/nginx/`。
+Server pool `8080–8090`; see `release/`.

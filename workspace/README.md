@@ -1,7 +1,11 @@
-# workspace
+# workspace/
 
-AI 在步骤 ④ 组装的 MVP 输出目录。每个子目录为独立可运行项目。
+Agent **write target** for step-4 assembled MVPs.
 
-验证：`cd workspace/<项目名> && docker compose up --build`
+## Rules
 
-已 gitignore，仅保留 `.gitkeep`。
+- MUST create `workspace/<kebab-name>/` for each MVP.
+- MUST NOT commit generated apps to git by default (directory is gitignored except README / `.gitkeep`).
+- Verify with `docker compose up --build` and PRO acceptance criteria (step 5).
+
+Each subdirectory is an independent runnable project.

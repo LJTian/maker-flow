@@ -1,37 +1,35 @@
-# The Release
+# release/
 
-将本地验证通过的 Docker 容器在 **10 分钟内** 暴露到公网。
+Deploy primitives for **step 6**. Agents MUST follow `skills/deploy.md` and MUST wait for step-5 human approval.
 
-## 目录
+## Layout
 
 ```
 release/
-├── nginx/          # 反向代理配置与片段
-├── cloudflare/     # DNS、SSL、子域名分配
-└── deploy/         # 推送与路由脚本
+├── nginx/          # reverse-proxy snippets
+├── cloudflare/     # DNS / SSL / subdomain registry
+└── deploy/         # push + route scripts
 ```
 
-## 端口池
+## Port pool
 
-| 子域名示例 | 主机端口 | 用途 |
-|------------|----------|------|
-| `test.your-domain.com` | 8080 | 通路测试 |
-| `idea1.your-domain.com` | 8080 | MVP #1 |
-| `idea2.your-domain.com` | 8081 | MVP #2 |
-| … | 8082–8090 | 预留 |
+| Host port | Example |
+|-----------|---------|
+| 8080 | first MVP / test |
+| 8081–8090 | subsequent MVPs |
 
-容器内端口固定为 8080，仅 **主机映射端口** 按 MVP 递增。
+Container listens on 8080; only host mapping increments.
 
-## 标准上线流程
+## Agent deploy sequence
 
-1. 本地 `docker compose up` 通过
-2. `release/deploy/push-and-route.sh` 同步镜像/compose 到服务器并重启
-3. 复制 `nginx/snippets/mvp-server.conf.example` 为新 server 块
-4. Cloudflare 添加子域名（Proxied 橙云）
-5. 访问 `https://ideaN.your-domain.com`
+1. Confirm step-5 approval.
+2. Register subdomain + port in cloudflare registry example / live registry.
+3. Run `deploy/push-and-route.sh` with `MVP_NAME`, `MVP_PORT`, `DOMAIN`, `DEPLOY_HOST`, `DEPLOY_PATH`.
+4. Install nginx server block from `nginx/snippets/mvp-server.conf.example`.
+5. Ensure Cloudflare DNS Proxied; verify `GET /health` on public URL.
 
-## 前置条件
+## Prerequisites
 
-- 云服务器：Docker、Docker Compose、Nginx
-- 域名 NS 已指向 Cloudflare
-- SSH 免密或 `DEPLOY_SSH` 环境变量
+- Server: Docker, Compose, Nginx
+- Domain NS → Cloudflare
+- SSH access for `DEPLOY_HOST`
