@@ -1,25 +1,20 @@
-# 技能库
+# skills/
 
-约束 AI 在各阶段**怎么做**。Prompt 负责**说什么**，技能库负责**做到什么标准**。
+Authoritative **HOW** contracts for agents. Prompt files say what to ask; skills say what “done” means.
 
-| 技能 | 文件 | 用于步骤 |
-|------|------|----------|
-| PRO 生成 | [pro-generation.md](pro-generation.md) | ② |
-| 模版检索 | [template-matching.md](template-matching.md) | ④ |
-| MVP 组装 | [mvp-assembly.md](mvp-assembly.md) | ④ |
-| 上线部署 | [deploy.md](deploy.md) | ⑥ |
+| Skill | File | Step |
+|-------|------|------|
+| PRO generation | `pro-generation.md` | 2 |
+| Template matching | `template-matching.md` | 4 |
+| MVP assembly | `mvp-assembly.md` | 4 |
+| Deploy | `deploy.md` | 6 |
 
-## 使用方式
+## Agent rules
 
-在对应 Prompt 中引用技能路径，或在对话中要求 AI 先读技能再执行：
+- MUST read the skill for the active step **before** acting.
+- MUST treat skill sections labeled MUST / MUST NOT as hard constraints.
+- If skill and prompt conflict, **skill wins**.
 
-```
-请先阅读 skills/pro-generation.md，再按 prompts/02-pro-draft.md 生成 PRO。
-```
+## Extend
 
-## 扩展
-
-新增场景时增加技能文件即可，例如：
-
-- `skills/add-postgres.md` — PRO 含数据库时的组装约束
-- `skills/api-only.md` — 无 DB 的纯 API MVP
+Add a new `skills/<name>.md` and register it in this table + the matching step in `docs/workflow.md`.

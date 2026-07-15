@@ -1,16 +1,18 @@
-# 分阶段 Prompt
+# prompts/
 
-| 文件 | 步骤 | 说明 |
-|------|------|------|
-| [01-requirement.example.md](01-requirement.example.md) | ① | 用户需求 |
-| [02-pro-draft.md](02-pro-draft.md) | ② | 生成 PRO（无代码） |
-| [03-pro-confirmed.example.md](03-pro-confirmed.example.md) | ③ | 定稿 PRO（卡点） |
-| [04-assemble-mvp.md](04-assemble-mvp.md) | ④ | 检索模版 + 组装 MVP |
+Stage input contracts for agents. Prefer reading the matching `skills/` file first.
 
-```bash
-./scripts/ai-run.sh prompts/02-pro-draft.md
-# 确认 PRO 后
-./scripts/ai-run.sh prompts/04-assemble-mvp.md
-```
+| File | Step | Agent duty |
+|------|------|------------|
+| `01-requirement.example.md` | 1 | Capture / normalize human requirement |
+| `02-pro-draft.md` | 2 | Draft PRO only (no code) |
+| `03-pro-confirmed.example.md` | 3 | Persist human-approved PRO (gate artifact) |
+| `04-assemble-mvp.md` | 4 | Match template + assemble into `workspace/` |
 
-配套技能见 [skills/](../skills/)。
+## Rules
+
+- Step 2 body: inject requirement into `02-pro-draft.md` (or equivalent message).
+- Step 4 body: inject **confirmed** PRO; refuse if gate 3 missing.
+- Optional CLI: `./scripts/ai-run.sh prompts/<file>.md`
+
+Skills: `../skills/`.

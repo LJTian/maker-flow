@@ -1,34 +1,27 @@
-# 模版集
+# templates/
 
-可独立复制、供 AI 在步骤 ④ **检索选用** 的预制工程。
+Searchable scaffold set for step 4. Agents MUST NOT invent a new project layout when a catalog entry matches.
 
-## 目录
+## Catalog
 
-检索入口：[index.md](index.md)
+**Entry point:** `index.md` (tags, `when_to_use`, path).
 
-| 模版 | 路径 | 默认端口 |
-|------|------|----------|
-| Go API | [go-api/](go-api/) | 8080 |
+| id | path | port |
+|----|------|------|
+| `go-api` | `go-api/` | 8080 |
 
-## 模版内容
+## What each template provides
 
-每个模版包含：
+- Locked `Dockerfile` + `docker-compose.yml`
+- Runnable demo source
+- `.env.example` + README
 
-- **镜像** — `Dockerfile` 锁定构建与运行环境
-- **demo 源码** — 可运行的最小 API 骨架
-- **文档** — `README.md`、`.env.example`
+Shared conventions: `shared/`.
 
-## 共享约定
+## Agent write rule
 
-见 [shared/](shared/)。
+1. Match via `index.md` (`skills/template-matching.md`).
+2. Copy selected template → `workspace/<name>/`.
+3. Implement PRO only (`skills/mvp-assembly.md`).
 
-## 手动复制（不经过 AI）
-
-```bash
-cp -r templates/go-api workspace/my-idea-1
-cd workspace/my-idea-1
-cp .env.example .env
-docker compose up --build
-```
-
-AI 组装时默认输出到 `workspace/<项目名>/`，见 `skills/mvp-assembly.md`。
+Do not leave assembled MVPs inside `templates/`.
