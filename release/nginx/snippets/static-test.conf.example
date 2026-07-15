@@ -1,0 +1,13 @@
+# 静态通路测试页 — 用于验证 Cloudflare → Nginx 链路
+
+server {
+    listen 80;
+    server_name test.your-domain.com;
+
+    root /var/www/maker-flow-test;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

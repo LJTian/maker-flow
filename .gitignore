@@ -1,0 +1,40 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Build artifacts
+bin/
+dist/
+build/
+__pycache__/
+*.pyc
+*.pyo
+.go-cache/
+
+# Logs & runtime
+*.log
+logs/
+tmp/
+data/
+workspace/*
+!workspace/.gitkeep
+!workspace/README.md
+
+# Docker local overrides
+docker-compose.override.yml
+
+# Node (if added later)
+node_modules/

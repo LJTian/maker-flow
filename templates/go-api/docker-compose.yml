@@ -1,0 +1,25 @@
+services:
+  api:
+    build: .
+    ports:
+      - "${HOST_PORT:-8080}:8080"
+    env_file:
+      - .env
+    restart unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # 按需启用 PostgreSQL
+  # db:
+  #   image: postgres:16-alpine
+  #   environment:
+  #     POSTGRES_USER: app
+  #     POSTGRES_PASSWORD: app
+  #     POSTGRES_DB: app
+  #   volumes:
+  #     - pgdata:/data
+  # volumes:
+  #   pgdata:
