@@ -17,28 +17,29 @@ workspace/<项目名>/
 
 ## 组装步骤
 
-1. **构建镜像基座** — 若应用依赖 `templates/images/`（如 `go-api`），先执行：
+1. **构建镜像基座** — 若 app 依赖 `templates/images/`，先执行：
    ```bash
    ./scripts/build-images.sh
    ```
-   确认 `docker images` 可见 `maker-flow/go-builder:1.22` 与 `maker-flow/go-runtime:1.22`。  
-   **MUST NOT** 把基座 Dockerfile 复制进 `workspace/`；应用只通过 `FROM` 继承。
-2. **复制模版** — 将 `templates/<模版ID>/` 复制到 `workspace/<项目名>/`（列出需复制的路径）
-3. **修改配置** — `.env.example` → `.env`，`APP_NAME`、端口等
-4. **实现业务** — 按 PRO 的 API 契约与数据模型（Gin）：
-   - 路由注册（`internal/server/server.go`，`r.GET` / `Group`）
-   - handler（`internal/handler/`，`func(c *gin.Context)`）
-   - request/response struct + `ShouldBindJSON`（按需）
-   - 可选 SQL migration 或 init 脚本
-5. **更新 compose** — 若 PRO 需要 DB，取消 `docker-compose.yml` 中 postgres 注释并接线
-6. **自检清单** — 对照 PRO 验收标准，标明哪些已覆盖
+   确认可见 `maker-flow/go-builder:1.22` 与 `maker-flow/go-runtime:1.22`。  
+   **MUST NOT** 把基座 Dockerfile 复制进 `workspace/`。
+2. **复制模版** — 将每个选定的 `templates/apps/<id>/` 复制到工作区：
+   - 单 app：`workspace/<项目名>/`
+   - 多 app：`workspace/<项目名>/<id>/`（如 `api/`、`worker/`、`cli/`），或 PRO 约定的布局
+3. **合并 patterns（可选）** — 按检索结果，将 pattern 包拷入**需要它的那个 app** 目录下的 `internal/...` 并接线
+4. **修改配置** — 各 app 的 `.env.example` → `.env`；多 app 时端口 / 名称勿冲突
+5. **实现业务** — 按 PRO 与各 app 技术栈（Gin / Cobra / worker）分别实现
+6. **更新 compose** — 多服务可在项目根用 compose 编排多个 build context，或各 app 独立 compose
+7. **自检清单** — 对照 PRO 验收标准（覆盖所有选定 app）
 
 ## 代码原则
 
-- 沿用模版已有中间件（CORS、日志、异常恢复）与 **Gin** handler 风格
+- 沿用各选定 app 模版的中间件 / 日志 / 入口风格
+- 多 app 时明确进程边界与通信方式（HTTP / 队列占位等），避免糊成单进程
+- 合并 pattern 时保持包名清晰、可测
 - 不引入 PRO 未列出的依赖
 - 改动尽量小，能跑优先
-- **依赖与编译在容器内完成**（`docker compose up --build`）；不要求本机 `go mod tidy` / `go build`
+- **依赖与编译在容器内完成**（各 app `docker compose up --build`）；不要求本机 Go 工具链
 
 ## 输出格式
 
@@ -55,6 +56,7 @@ docker compose up --build
 
 ## 禁止
 
+- 不把 `templates/patterns/` 单独部署为公网服务
 - 不重写模版基础设施代码；不修改 `templates/images/` 基座（除非任务明确要求）
 - 不在应用 Dockerfile 中重复安装基座已提供的包（ca-certificates 等）
 - 不输出 PRO 范围外的功能

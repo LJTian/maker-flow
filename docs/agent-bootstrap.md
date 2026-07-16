@@ -19,7 +19,7 @@ Human quick start: [getting-started.md](getting-started.md) · Repo intro: [READ
 | Step | Read first | Then |
 |------|------------|------|
 | 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` |
-| ④ | `template-matching.md` → `templates/CATALOG.md` → `mvp-assembly.md` | write under `workspace/` |
+| ④ | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | write under `workspace/` |
 | 6 | `skills/deploy.md` | `release/` |
 
 Optional LLM transport: `ai-engine/.env` + `scripts/ai-run.sh` (not required if the host agent is the LLM).
@@ -36,6 +36,6 @@ Optional LLM transport: `ai-engine/.env` + `scripts/ai-run.sh` (not required if 
 Only to verify host Docker works — not a substitute for step 4:
 
 ```bash
-cp -r templates/go-api workspace/_smoke
+cp -r templates/apps/go-api workspace/_smoke
 cd workspace/_smoke && cp .env.example .env && docker compose up --build
 ```

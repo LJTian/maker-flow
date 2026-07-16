@@ -48,9 +48,10 @@ docs/          # workflow + architecture contracts
 - MUST NOT emit implementation code at step 2.
 - MUST NOT assemble (step 4) without confirmed PRO (step 3).
 - MUST NOT deploy (step 6) without MVP approval (step 5).
-- MUST select a template via `templates/index.md` before coding.
-- MUST resolve image bases via `templates/images/index.md` and run `./scripts/build-images.sh` before app image builds when bases are missing.
-- MUST write assembled projects under `workspace/<kebab-name>/`.
+- MUST select **one or more** apps via `templates/CATALOG.md` / `templates/index.md` before coding (each app must map to a PRO responsibility).
+- MUST resolve image bases via `templates/images/index.md` and run `./scripts/build-images.sh` when bases are missing.
+- MAY attach 0–N patterns from `templates/patterns/` (copy into the app that needs them; never deploy alone).
+- MUST write assembled projects under `workspace/<kebab-name>/` (multi-app: `workspace/<name>/<app-id>/`).
 - MUST NOT copy `templates/images/` into `workspace/`; inherit via `FROM` only.
 - Prefer **container builds** (`./scripts/build-images.sh` then `docker compose up --build`); do not require host Go toolchain for verification.
 
@@ -63,3 +64,4 @@ docs/          # workflow + architecture contracts
 | Agent bootstrap | `docs/agent-bootstrap.md` |
 | Skills index | `skills/CATALOG.md` |
 | Template catalog | `templates/CATALOG.md` |
+| Pattern catalog | `templates/patterns/index.md` |

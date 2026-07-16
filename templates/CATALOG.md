@@ -1,7 +1,7 @@
 # 模版集检索目录
 
-> **给 AI：** 步骤 ④ 选型前 **MUST** 先读本文件，再读明细 [`index.md`](index.md) / [`images/index.md`](images/index.md)。  
-> **给人类：** 一眼看清仓库里已有哪些模版；点链接看详情。
+> **给 AI：** 步骤 ④ 选型前 **MUST** 先读本文件，再读明细。  
+> **给人类：** 一眼看清 apps / images / patterns。
 
 ---
 
@@ -9,52 +9,66 @@
 
 | 类别 | 数量 | 检索明细 |
 |------|:----:|----------|
-| 应用模版 (apps) | 1 | [index.md](index.md) |
+| 应用模版 (apps) | 3 | [index.md](index.md) · [`apps/`](apps/) |
 | 镜像基座 (images) | 2 | [images/index.md](images/index.md) |
-| 模式库 (patterns) | 0 | 规划中（apps + patterns 分层） |
+| 模式库 (patterns) | 5 | [patterns/index.md](patterns/index.md) |
 
 ---
 
-## 应用模版
+## 应用模版 (apps)
 
 | id | 路径 | 标签 | 何时用 | 依赖镜像 |
 |----|------|------|--------|----------|
-| `go-api` | [`go-api/`](go-api/) | `go` `gin` `rest` `api` `docker` | Go + Gin REST API MVP | `go-builder` + `go-runtime` |
+| `go-api` | [`apps/go-api/`](apps/go-api/) | `go` `gin` `rest` `api` `docker` | Go + Gin REST API MVP | `go-builder` + `go-runtime` |
+| `go-cli` | [`apps/go-cli/`](apps/go-cli/) | `go` `cli` `cobra` | 命令行工具 / 子命令骨架 | `go-builder`（+ runtime 可选） |
+| `go-worker` | [`apps/go-worker/`](apps/go-worker/) | `go` `worker` `concurrency` `pool` | 多协程任务消费 + graceful shutdown | `go-builder` + `go-runtime` |
 
-**默认端口：** `8080` · **文档：** [go-api/README.md](go-api/README.md)
+Agent：**1～N 个 app** 整目录复制到 `workspace/`（多 app 时用子目录区分）。
 
 ---
 
-## 镜像基座（继承式）
+## 镜像基座 (images)
 
-应用 Dockerfile 只写业务层，通过 `FROM maker-flow/<id>:<tag>` 继承。
-
-| id | 本地标签 | 路径 | 用途 |
-|----|----------|------|------|
-| `go-builder` | `maker-flow/go-builder:1.22` | [`images/go-builder/`](images/go-builder/) | Go 编译阶段 |
-| `go-runtime` | `maker-flow/go-runtime:1.22` | [`images/go-runtime/`](images/go-runtime/) | 运行阶段 |
+| id | 本地标签 | 路径 |
+|----|----------|------|
+| `go-builder` | `maker-flow/go-builder:1.22` | [`images/go-builder/`](images/go-builder/) |
+| `go-runtime` | `maker-flow/go-runtime:1.22` | [`images/go-runtime/`](images/go-runtime/) |
 
 ```bash
-./scripts/build-images.sh   # 组装 / compose 前必做（本机首次或基座变更后）
+./scripts/build-images.sh
 ```
+
+---
+
+## 模式库 (patterns)
+
+| id | 路径 | tags |
+|----|------|------|
+| `worker-pool` | [`patterns/worker-pool/`](patterns/worker-pool/) | `concurrency` `pool` |
+| `pipeline` | [`patterns/pipeline/`](patterns/pipeline/) | `fan-in` `fan-out` |
+| `singleflight-cache` | [`patterns/singleflight-cache/`](patterns/singleflight-cache/) | `cache` `singleflight` |
+| `retry-backoff` | [`patterns/retry-backoff/`](patterns/retry-backoff/) | `retry` `backoff` |
+| `circuit-breaker` | [`patterns/circuit-breaker/`](patterns/circuit-breaker/) | `circuit-breaker` |
+
+Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改写**进对应 app 的 workspace 目录，patterns 不单独部署。
+
+明细 → [`patterns/index.md`](patterns/index.md)
 
 ---
 
 ## 选型口令（Agent）
 
 ```
-需要 REST API（Go）？ → go-api（先 build images）
-需要其它形态？       → 本目录尚无对应模版，先扩展 templates/ 并登记本文件 + index.md
+需要 REST API？     → go-api
+需要 CLI？          → go-cli
+需要后台 worker？   → go-worker
+需要并发/韧性片段？ → 从 patterns/ 按 tags 追加
 ```
 
-字段级契约、决策树、新增规范 → **[`index.md`](index.md)**
+字段级契约 → [`index.md`](index.md)
 
 ---
 
 ## 登记规则
 
-新增模版时 **同时** 更新：
-
-1. 本文件（速览表）
-2. [`index.md`](index.md) 或 [`images/index.md`](images/index.md)
-3. [`skills/template-matching.md`](../skills/template-matching.md) 匹配表（若影响选型）
+新增时同步更新：本文件 + `index.md` / `images/index.md` / `patterns/index.md` + `skills/template-matching.md`

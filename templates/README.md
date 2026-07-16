@@ -1,34 +1,39 @@
 # templates/
 
-Searchable scaffold set for step 4. Agents MUST NOT invent a new project layout when a catalog entry matches.
+**检索入口（人 + AI）：** [`CATALOG.md`](CATALOG.md)
 
-**检索入口（人 + AI）：** [`CATALOG.md`](CATALOG.md) ← 先读这个
+```
+templates/
+├── CATALOG.md      # 总览
+├── index.md        # apps 字段明细
+├── apps/           # 可组装完整工程 → workspace/
+├── images/         # 继承式 Docker 基座
+├── patterns/       # 可编译片段 → 拷进 workspace
+└── shared/
+```
 
 ## Catalog files
 
 | 文件 | 用途 |
 |------|------|
-| [`CATALOG.md`](CATALOG.md) | 总览 / 速查（人类 + Agent） |
-| [`index.md`](index.md) | 应用模版字段级明细（Agent 选型） |
-| [`images/index.md`](images/index.md) | 镜像基座明细 |
+| [`CATALOG.md`](CATALOG.md) | 总览 / 速查 |
+| [`index.md`](index.md) | apps 字段级明细 |
+| [`images/index.md`](images/index.md) | 镜像基座 |
+| [`patterns/index.md`](patterns/index.md) | 模式库 |
+
+## Apps
 
 | id | path | port | images |
 |----|------|------|--------|
-| `go-api` | `go-api/` | 8080 | `go-builder`, `go-runtime` |
-
-## What each app template provides
-
-- Thin `Dockerfile` that **inherits** image bases (no OS reinvent)
-- `docker-compose.yml` + runnable demo source
-- `.env.example` + README
-
-Shared conventions: `shared/`.
+| `go-api` | `apps/go-api/` | 8080 | builder + runtime |
+| `go-cli` | `apps/go-cli/` | — | builder + runtime |
+| `go-worker` | `apps/go-worker/` | 8080 | builder + runtime |
 
 ## Agent write rule
 
-1. Open [`CATALOG.md`](CATALOG.md); match app via `index.md`; resolve images via `images/index.md`.
-2. Run `./scripts/build-images.sh` if base tags missing.
-3. Copy selected **app** template → `workspace/<name>/` (not `images/`).
-4. Implement PRO only (`skills/mvp-assembly.md`). Prefer container build.
+1. Open `CATALOG.md` → pick **1–N apps** → optional **patterns**.
+2. `./scripts/build-images.sh` if bases missing.
+3. Copy each app → `workspace/<name>/` or `workspace/<name>/<app-id>/`; merge pattern files into the app that needs them.
+4. Prefer container build (`docker compose up --build`).
 
-Do not leave assembled MVPs inside `templates/`.
+Do not leave assembled MVPs inside `templates/`. Do not deploy patterns alone.

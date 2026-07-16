@@ -42,7 +42,7 @@ Agent: store/copy into the step-2 prompt user-requirement section if using `prom
 
 - **MUST read (in order):**
   1. `skills/template-matching.md`
-  2. `templates/CATALOG.md` → `templates/index.md` → `templates/images/index.md`
+  2. `templates/CATALOG.md` → `templates/index.md` → `templates/patterns/index.md` → `templates/images/index.md`
   3. `skills/mvp-assembly.md`
 - **MAY use:** `prompts/04-assemble-mvp.md`
 - **MUST:** select one template ID, copy to `workspace/<name>/`, implement only PRO scope
