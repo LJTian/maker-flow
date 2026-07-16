@@ -47,6 +47,20 @@
 | **suggested_patterns** | `worker-pool`, `pipeline`, `retry-backoff` |
 | **docs** | [apps/go-worker/README.md](apps/go-worker/README.md) |
 
+### web-vite
+
+| 字段 | 值 |
+|------|-----|
+| **id** | `web-vite` |
+| **path** | `templates/apps/web-vite` |
+| **tags** | `web`, `frontend`, `vite`, `react`, `typescript`, `tailwind`, `spa`, `docker` |
+| **default_port** | `3000` |
+| **when_to_use** | 浏览器 UI、落地页、简易面板；常与 `go-api` 组合 |
+| **includes** | Vite + React + TS + Tailwind，Nginx 静态托管，`/health`，compose |
+| **images** | `node:22-alpine`（构建）、`nginx:1.27-alpine`（运行） |
+| **suggested_patterns** | —（可选：将 fetch/retry 片段拷到 `src/lib/`） |
+| **docs** | [apps/web-vite/README.md](apps/web-vite/README.md) |
+
 ## 镜像基座
 
 见 [images/index.md](images/index.md)。组装前：`./scripts/build-images.sh`
@@ -62,6 +76,7 @@
   ├─ REST API     → + go-api
   ├─ CLI          → + go-cli
   ├─ Worker/队列  → + go-worker
+  ├─ Web UI / SPA → + web-vite
   └─ 其它         → 扩展 apps/ 并登记
 
 需要并发/韧性片段？ → patterns/ 按 tags 追加到对应 app（不单独部署）

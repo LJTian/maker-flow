@@ -36,9 +36,10 @@
 | REST API, Gin | `go-api` | `retry-backoff`, `circuit-breaker`, `singleflight-cache` |
 | CLI / command-line tool | `go-cli` | `retry-backoff`, `worker-pool` |
 | Background jobs / multi-goroutine consumers | `go-worker` | `worker-pool`, `pipeline`, `retry-backoff` |
+| Browser UI / SPA / dashboard | `web-vite` | — (optional snippets in `src/lib/`) |
 | Static path smoke only | `release/nginx/static` | — |
 
-Multi-app examples: `go-api` + `go-worker` (sync API + async consume); `go-api` + `go-cli` (service + ops commands).
+Multi-app examples: `go-api` + `go-worker` (sync API + async consume); `go-api` + `go-cli` (service + ops commands); `go-api` + `web-vite` (API + browser UI).
 
 ## MUST NOT
 

@@ -30,6 +30,7 @@ templates/
 | `go-api` | `apps/go-api/` | 8080 | builder + runtime |
 | `go-cli` | `apps/go-cli/` | — | builder + runtime |
 | `go-worker` | `apps/go-worker/` | 8080 | builder + runtime |
+| `web-vite` | `apps/web-vite/` | 3000 | node + nginx |
 
 ## Agent write rule
 

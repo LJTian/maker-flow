@@ -47,6 +47,20 @@ Step 4: read [`CATALOG.md`](CATALOG.md) first, then this file and [`patterns/ind
 | **suggested_patterns** | `worker-pool`, `pipeline`, `retry-backoff` |
 | **docs** | [apps/go-worker/README.md](apps/go-worker/README.md) |
 
+### web-vite
+
+| Field | Value |
+|-------|-------|
+| **id** | `web-vite` |
+| **path** | `templates/apps/web-vite` |
+| **tags** | `web`, `frontend`, `vite`, `react`, `typescript`, `tailwind`, `spa`, `docker` |
+| **default_port** | `3000` |
+| **when_to_use** | Browser UI, landing page, simple dashboard; pairs with `go-api` |
+| **includes** | Vite + React + TS + Tailwind, Nginx static serve, `/health`, compose |
+| **images** | `node:22-alpine` (build), `nginx:1.27-alpine` (runtime) |
+| **suggested_patterns** | — (optional: copy fetch/retry helpers into `src/lib/`) |
+| **docs** | [apps/web-vite/README.md](apps/web-vite/README.md) |
+
 ## Image bases
 
 See [images/index.md](images/index.md). Before assembly: `./scripts/build-images.sh`
@@ -62,6 +76,7 @@ Shape? (multi-select OK)
   ├─ REST API     → + go-api
   ├─ CLI          → + go-cli
   ├─ Worker/queue → + go-worker
+  ├─ Web UI / SPA → + web-vite
   └─ Other        → extend apps/ and register
 
 Need concurrency/resilience snippets? → append from patterns/ by tags into the matching app (do not deploy alone)
