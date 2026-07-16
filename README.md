@@ -177,6 +177,7 @@ Maker Flow stands on these projects — thanks to maintainers and communities:
 | Use | Project | URL |
 |-----|---------|-----|
 | Go web (`go-api`) | **Gin** | https://github.com/gin-gonic/gin |
+| Web UI (`web-vite`) | **Vite** · **React** · **Tailwind CSS** | https://vite.dev/ · https://react.dev/ · https://tailwindcss.com/ |
 | CLI (`go-cli`) | **Cobra** | https://github.com/spf13/cobra |
 | singleflight (pattern) | **golang.org/x/sync** | https://pkg.go.dev/golang.org/x/sync/singleflight |
 | Build base image | **golang** (official) | https://hub.docker.com/_/golang |

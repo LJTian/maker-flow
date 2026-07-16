@@ -178,6 +178,7 @@ Maker Flow 站在这些优秀项目之上，感谢维护者与社区：
 | 用途 | 项目 | 地址 |
 |------|------|------|
 | Go Web 框架（`go-api`） | **Gin** | https://github.com/gin-gonic/gin |
+| Web UI（`web-vite`） | **Vite** · **React** · **Tailwind CSS** | https://vite.dev/ · https://react.dev/ · https://tailwindcss.com/ |
 | CLI 框架（`go-cli`） | **Cobra** | https://github.com/spf13/cobra |
 | singleflight（pattern） | **golang.org/x/sync** | https://pkg.go.dev/golang.org/x/sync/singleflight |
 | 编译基座镜像 | **golang** (official image) | https://hub.docker.com/_/golang |

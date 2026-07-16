@@ -11,7 +11,7 @@
 
 | Category | Count | Detail index |
 |----------|:-----:|--------------|
-| App templates (apps) | 3 | [index.md](index.md) · [`apps/`](apps/) |
+| App templates (apps) | 4 | [index.md](index.md) · [`apps/`](apps/) |
 | Image bases (images) | 2 | [images/index.md](images/index.md) |
 | Pattern library (patterns) | 5 | [patterns/index.md](patterns/index.md) |
 
@@ -24,6 +24,7 @@
 | `go-api` | [`apps/go-api/`](apps/go-api/) | `go` `gin` `rest` `api` `docker` | Go + Gin REST API MVP | `go-builder` + `go-runtime` |
 | `go-cli` | [`apps/go-cli/`](apps/go-cli/) | `go` `cli` `cobra` | CLI tools / subcommand scaffold | `go-builder` (+ runtime optional) |
 | `go-worker` | [`apps/go-worker/`](apps/go-worker/) | `go` `worker` `concurrency` `pool` | Multi-goroutine job consumption + graceful shutdown | `go-builder` + `go-runtime` |
+| `web-vite` | [`apps/web-vite/`](apps/web-vite/) | `web` `frontend` `vite` `react` `typescript` `tailwind` `spa` `docker` | Browser UI / landing / dashboard MVP | Node + Nginx (no maker-flow image bases) |
 
 Agent: copy **1–N apps** as whole directories into `workspace/` (use subdirs when multi-app).
 
@@ -64,6 +65,7 @@ Detail → [`patterns/index.md`](patterns/index.md)
 Need REST API?              → go-api
 Need CLI?                   → go-cli
 Need background worker?     → go-worker
+Need browser UI / SPA?      → web-vite
 Need concurrency/resilience → append from patterns/ by tags
 ```
 
