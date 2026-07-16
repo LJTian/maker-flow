@@ -1,5 +1,7 @@
 # go-cli
 
+**English** · [简体中文](README.zh-CN.md)
+
 Template id: `go-cli`. Cobra CLI scaffold for step-4 assembly (commands / tools).
 
 ## Capabilities

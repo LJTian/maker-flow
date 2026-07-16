@@ -1,5 +1,7 @@
 # Image templates (base images)
 
+**English** · [简体中文](index.zh-CN.md)
+
 Agent catalog for **inheritance-style** Docker bases. App templates (`go-api`, …) use `FROM maker-flow/<id>:<tag>` only — they MUST NOT redeclare OS packages already in the base.
 
 ## Build all Go bases

@@ -1,5 +1,7 @@
 # ai-engine/
 
+**English** · [简体中文](README.zh-CN.md)
+
 Optional **LLM transport** for agents that invoke models via HTTP (OpenAI-compatible).  
 If the host product (e.g. Cursor Agent) is already the model, this directory is unused — still follow `skills/` and `docs/workflow.md`.
 

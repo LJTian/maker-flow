@@ -1,5 +1,7 @@
 # scripts/
 
+**English** · [简体中文](README.zh-CN.md)
+
 | Script | Agent use |
 |--------|-----------|
 | `ai-run.sh` | POST prompt file to OpenAI-compatible API using `ai-engine/.env` |

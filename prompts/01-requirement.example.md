@@ -1,15 +1,17 @@
-# 步骤 ① — 用户需求
+# Step 1 — User requirement
 
-将下方内容作为步骤 ② 的输入。可单独维护，也可合并进 `prompts/02-pro-draft.md`。
+**English** · [简体中文](01-requirement.example.zh-CN.md)
+
+Use the content below as input to step 2. Maintain it separately, or merge into `prompts/02-pro-draft.md`.
 
 ---
 
-## 需求
+## Requirement
 
-做一个「待办事项」迷你 API：支持创建、完成、列表，不需要用户系统。
+Build a mini “todo” API: create, complete, and list — no user system.
 
-## 补充约束（可选）
+## Extra constraints (optional)
 
-- 预期用户量：个人使用
-- 时间盒：1–2 天 MVP
-- 其他：
+- Expected users: personal use
+- Time box: 1–2 day MVP
+- Other:

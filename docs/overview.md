@@ -1,34 +1,36 @@
-# 架构一览（给人看）
+# Architecture overview (humans)
 
-[← 快速开始](getting-started.md) · [Agent 版架构](architecture.md)
+[← Getting started](getting-started.md) · [Agent architecture](architecture.md) · [简体中文](overview.zh-CN.md)
 
-## 核心理念
+**English** · [简体中文](overview.zh-CN.md)
+
+## Core idea
 
 ```
-重基建，轻逻辑
+Heavy infrastructure, light logic
      │
-     ├── 技能库 skills/     → Agent 怎么做（SOP）
-     ├── 模版集 templates/  → 用什么建（预制件）
-     └── 发布 release/      → 怎么上线（基建）
+     ├── skills/      → how agents work (SOPs)
+     ├── templates/   → what to build from (scaffolds)
+     └── release/     → how to ship (plumbing)
 ```
 
-## 系统关系
+## System relationships
 
 ```mermaid
 flowchart TB
-    subgraph you ["你"]
-        R[需求]
-        G1[确认 PRO]
-        G2[确认 MVP]
+    subgraph you ["You"]
+        R[Requirement]
+        G1[Approve PRO]
+        G2[Approve MVP]
     end
 
-    subgraph agent ["AI 智能体"]
-        PRO[出 PRO]
-        ASM[检索模版 · 组装]
-        DEP[部署]
+    subgraph agent ["AI agent"]
+        PRO[Draft PRO]
+        ASM[Match templates · assemble]
+        DEP[Deploy]
     end
 
-    subgraph repo ["maker-flow 仓库"]
+    subgraph repo ["maker-flow repo"]
         SK[skills/]
         TP[templates/]
         WS[workspace/]
@@ -45,29 +47,29 @@ flowchart TB
     WS --> G2
     G2 --> DEP
     RL --> DEP
-    DEP --> URL[公网 MVP]
+    DEP --> URL[Public MVP]
 ```
 
-## 目录速查
+## Directory cheat sheet
 
-| 目录 | 角色 | 谁主要用 |
-|------|------|----------|
-| `skills/` | 流程 SOP | Agent |
-| `templates/` | 工程模版 | Agent 检索 + 你验收 |
-| `prompts/` | 分阶段输入 | 你填需求，Agent 读 |
-| `workspace/` | MVP 产出 | Agent 写，你跑 Docker |
-| `release/` | Nginx / CF / 脚本 | Agent 或你部署 |
-| `ai-engine/` | 可选 LLM 配置 | 命令行场景 |
-| `AGENTS.md` | Agent 契约 | Agent |
+| Path | Role | Primary user |
+|------|------|--------------|
+| `skills/` | Process SOPs | Agent |
+| `templates/` | Project scaffolds | Agent match + your acceptance |
+| `prompts/` | Stage inputs | You fill requirement; agent reads |
+| `workspace/` | MVP output | Agent writes; you run Docker |
+| `release/` | Nginx / CF / scripts | Agent or you deploy |
+| `ai-engine/` | Optional LLM config | CLI scenarios |
+| `AGENTS.md` | Agent contract | Agent |
 
-## 两次确认为什么重要
+## Why two gates matter
 
-| 卡点 | 避免的问题 |
-|------|------------|
-| ③ 确认 PRO | AI 一上来就写代码，方向错了白干 |
-| ⑤ 确认 MVP | 没验收就部署，公网翻车 |
+| Gate | Avoids |
+|------|--------|
+| ③ Approve PRO | Coding before scope is right |
+| ⑤ Approve MVP | Shipping without acceptance |
 
-## 下一步
+## Next
 
-- 动手：[getting-started.md](getting-started.md)
-- Agent 细节：[../AGENTS.md](../AGENTS.md)
+- Hands-on: [getting-started.md](getting-started.md)
+- Agent details: [../AGENTS.md](../AGENTS.md)

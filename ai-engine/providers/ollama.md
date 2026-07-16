@@ -1,8 +1,10 @@
-# Ollama（本地 / 局域网推理）
+# Ollama (local / LAN inference)
 
-Ollama 提供 OpenAI 兼容端点，适合 16G 显存 GPU 机作纯推理节点。
+**English** · [简体中文](ollama.zh-CN.md)
 
-## .env 示例
+Ollama exposes an OpenAI-compatible endpoint; suitable as a pure inference node on a ~16GB VRAM GPU host.
+
+## .env example
 
 ```bash
 AI_BASE_URL=http://192.168.1.100:11434/v1
@@ -12,28 +14,28 @@ AI_TEMPERATURE=0.6
 AI_MAX_TOKENS=8192
 ```
 
-## 推理机准备
+## Inference host prep
 
 ```bash
 ollama pull deepseek-r1:14b
 ollama pull qwen2.5-coder:14b
 ```
 
-局域网暴露（仅可信网络）：
+LAN bind (trusted networks only):
 
 ```bash
 export OLLAMA_HOST=0.0.0.0:11434
 ```
 
-## 验证连接
+## Verify connectivity
 
 ```bash
 curl http://192.168.1.100:11434/v1/models
 ```
 
-## 模型分工建议
+## Suggested model roles
 
-| 模型 | 用途 |
-|------|------|
-| `deepseek-r1:14b` | 需求拆解、流程与表结构 |
-| `qwen2.5-coder:14b` | Handler / 代码片段 |
+| Model | Use |
+|-------|-----|
+| `deepseek-r1:14b` | Requirements breakdown, flow and schema |
+| `qwen2.5-coder:14b` | Handlers / code snippets |

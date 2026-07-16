@@ -1,5 +1,7 @@
 # providers/
 
+**English** · [简体中文](README.zh-CN.md)
+
 Example env snippets for OpenAI-compatible backends. Copy values into `ai-engine/.env`.
 
 | File | When |

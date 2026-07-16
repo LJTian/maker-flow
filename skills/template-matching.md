@@ -1,46 +1,48 @@
-# 模版检索技能
+# Template matching skill
 
-**适用步骤：** ④ AI 根据 PRO 检索模版  
-**依赖：** `templates/CATALOG.md` → `templates/index.md` → `templates/patterns/index.md`
+**English** · [简体中文](template-matching.zh-CN.md)
 
-## 目标
+**Step:** 4 — AI matches templates from the PRO  
+**Depends on:** `templates/CATALOG.md` → `templates/index.md` → `templates/patterns/index.md`
 
-1. 选定 **1～N 个 app**（`templates/apps/`）— 按 PRO 需要的形态组合，例如 API + worker  
-2. 选定 **0～N 个 pattern**（`templates/patterns/`，按 tags）  
-3. 列出依赖的 **image** tags（对所选 apps 取并集）
+## Goal
 
-## 输入
+1. Select **1–N apps** (`templates/apps/`) — compose shapes the PRO needs, e.g. API + worker  
+2. Select **0–N patterns** (`templates/patterns/`, by tags)  
+3. List dependent **image** tags (union across selected apps)
 
-- 已确认 PRO
+## Input
+
+- Confirmed PRO
 - `templates/CATALOG.md`
 
-## 输出
+## Output
 
 ```markdown
-## 选定模版
-- **Apps**：
+## Selected templates
+- **Apps**:
   - go-api → templates/apps/go-api
   - go-worker → templates/apps/go-worker
-- **镜像依赖**：go-builder + go-runtime
-- **Patterns**：retry-backoff, worker-pool（可为空）
-- **工作区布局**：workspace/<project>/{api,worker}/（或分别说明）
-- **理由**：…
+- **Image deps**: go-builder + go-runtime
+- **Patterns**: retry-backoff, worker-pool (may be empty)
+- **Workspace layout**: workspace/<project>/{api,worker}/ (or describe otherwise)
+- **Rationale**: …
 ```
 
-## 匹配规则
+## Matching rules
 
-| PRO 特征 | App | 常用 Patterns |
-|----------|-----|---------------|
-| REST API、Gin | `go-api` | `retry-backoff`, `circuit-breaker`, `singleflight-cache` |
-| CLI / 命令行工具 | `go-cli` | `retry-backoff`, `worker-pool` |
-| 后台任务 / 多协程消费 | `go-worker` | `worker-pool`, `pipeline`, `retry-backoff` |
-| 仅静态通路测试 | `release/nginx/static` | — |
+| PRO signal | App | Common patterns |
+|------------|-----|-----------------|
+| REST API, Gin | `go-api` | `retry-backoff`, `circuit-breaker`, `singleflight-cache` |
+| CLI / command-line tool | `go-cli` | `retry-backoff`, `worker-pool` |
+| Background jobs / multi-goroutine consumers | `go-worker` | `worker-pool`, `pipeline`, `retry-backoff` |
+| Static path smoke only | `release/nginx/static` | — |
 
-多 app 示例：`go-api` + `go-worker`（同步 API + 异步消费）；`go-api` + `go-cli`（服务 + 运维命令）。
+Multi-app examples: `go-api` + `go-worker` (sync API + async consume); `go-api` + `go-cli` (service + ops commands).
 
-## 禁止
+## MUST NOT
 
-- 不得跳过目录自创脚手架
-- 不得在 PRO 未确认时执行
-- 不得把 pattern 当作独立公网服务部署
-- 不得为无关形态硬凑 app（每个 app 须能对应 PRO 中的职责）
+- MUST NOT skip the catalog and invent scaffolding
+- MUST NOT run before the PRO is confirmed
+- MUST NOT deploy a pattern as a standalone public service
+- MUST NOT force-fit unrelated app shapes (each app MUST map to a PRO responsibility)

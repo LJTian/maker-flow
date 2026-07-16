@@ -1,5 +1,7 @@
 # Cloudflare (step 6)
 
+**English** · [简体中文](README.zh-CN.md)
+
 Agent checklist for DNS/SSL. Full deploy SOP: `skills/deploy.md`.
 
 ## Required state

@@ -1,5 +1,7 @@
 # release/
 
+**English** · [简体中文](README.zh-CN.md)
+
 Deploy primitives for **step 6**. Agents MUST follow `skills/deploy.md` and MUST wait for step-5 human approval.
 
 ## Layout

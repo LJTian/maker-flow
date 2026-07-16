@@ -1,8 +1,10 @@
-# OpenAI 兼容网关
+# OpenAI-compatible gateways
 
-适用于 DeepSeek、Moonshot、硅基流动、OneAPI、LiteLLM 等转发服务。
+**English** · [简体中文](openai-compatible.zh-CN.md)
 
-## .env 模板
+For DeepSeek, Moonshot, SiliconFlow, OneAPI, LiteLLM, and similar forwarding services.
+
+## .env template
 
 ```bash
 AI_BASE_URL=https://your-gateway.example.com/v1
@@ -12,7 +14,7 @@ AI_TEMPERATURE=0.6
 AI_MAX_TOKENS=8192
 ```
 
-## DeepSeek 官方示例
+## DeepSeek official example
 
 ```bash
 AI_BASE_URL=https://api.deepseek.com/v1
@@ -20,7 +22,7 @@ AI_API_KEY=sk-...
 AI_MODEL=deepseek-chat
 ```
 
-## 选型要点
+## Selection notes
 
-- 确认网关支持 `POST /v1/chat/completions` 与 `stream: true`
-- 模型名以网关文档为准，与 Ollama 本地 tag 可能不同
+- Confirm the gateway supports `POST /v1/chat/completions` and `stream: true`
+- Model names follow gateway docs; they may differ from Ollama local tags

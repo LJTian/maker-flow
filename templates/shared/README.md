@@ -1,5 +1,7 @@
 # Template shared conventions
 
+**English** · [简体中文](README.zh-CN.md)
+
 For agents assembling under `workspace/` from any template.
 
 ## Images (inheritance)

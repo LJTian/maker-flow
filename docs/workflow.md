@@ -1,5 +1,7 @@
 # Workflow (agent contract)
 
+**English** · [简体中文](workflow.zh-CN.md)
+
 Authoritative state machine for Maker Flow agents.
 
 ```
@@ -46,7 +48,7 @@ Agent: store/copy into the step-2 prompt user-requirement section if using `prom
   2. `templates/CATALOG.md` → `templates/index.md` → `templates/patterns/index.md` → `templates/images/index.md`
   3. `skills/mvp-assembly.md`
 - **MAY use:** `prompts/04-assemble-mvp.md`
-- **MUST:** select one template ID, copy to `workspace/<name>/`, implement only PRO scope
+- **MUST:** select **one or more** app IDs, copy to `workspace/<name>/` (multi-app: `workspace/<name>/<app-id>/`), implement only PRO scope
 - **MUST NOT:** invent scaffolding outside templates; deploy
 
 ### 5 — Confirm MVP (human gate)
@@ -81,6 +83,7 @@ Verify PRO acceptance criteria. On fail: iterate step 4, or return to step 3 if 
 - `docs/architecture.md`
 - `docs/agent-bootstrap.md`
 - `docs/getting-started.md` (human)
+- `docs/i18n.md`
 - `AGENTS.md`
 - `skills/README.md`
 - `templates/index.md`

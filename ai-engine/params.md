@@ -1,33 +1,35 @@
-# 参数与输出约束
+# Parameters and output constraints
 
-`ai-run.sh` 读取 `ai-engine/.env` 中的参数。
+**English** · [简体中文](params.zh-CN.md)
 
-## 连接参数
+`ai-run.sh` reads parameters from `ai-engine/.env`.
 
-| 变量 | 必填 | 说明 |
-|------|------|------|
-| `AI_BASE_URL` | 是 | OpenAI 兼容 API 根路径 |
-| `AI_API_KEY` | 否 | Bearer Token |
-| `AI_MODEL` | 是 | 模型标识 |
+## Connection
 
-## 生成参数
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `AI_BASE_URL` | yes | OpenAI-compatible API root |
+| `AI_API_KEY` | no | Bearer token |
+| `AI_MODEL` | yes | Model id |
 
-| 变量 | 默认 | 步骤 ② PRO | 步骤 ④ 组装 |
-|------|------|------------|-------------|
+## Generation
+
+| Variable | Default | Step 2 PRO | Step 4 assemble |
+|----------|---------|------------|-----------------|
 | `AI_TEMPERATURE` | `0.6` | `0.5–0.6` | `0.3–0.5` |
 | `AI_MAX_TOKENS` | `8192` | `4096–8192` | `8192+` |
 
-## 分步骤验收
+## Per-step acceptance
 
-### 步骤 ②（PRO）
+### Step 2 (PRO)
 
-输出须含 `skills/pro-generation.md` 全部章节，**无代码**。
+Output MUST include every section from `skills/pro-generation.md`, with **no code**.
 
-### 步骤 ④（组装）
+### Step 4 (assemble)
 
-须含模版检索结论 + `workspace/<项目名>/` 可运行代码，符合 `skills/mvp-assembly.md`。
+MUST include template selection rationale + runnable code under `workspace/<project-name>/`, per `skills/mvp-assembly.md`.
 
-## 临时覆盖模型
+## Temporary model override
 
 ```bash
 ./scripts/ai-run.sh prompts/04-assemble-mvp.md qwen2.5-coder:14b

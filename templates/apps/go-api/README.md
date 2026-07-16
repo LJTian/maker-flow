@@ -1,5 +1,7 @@
 # go-api
 
+**English** · [简体中文](README.zh-CN.md)
+
 Template id: `go-api`. Gin REST API scaffold for step-4 assembly.
 
 ## Capabilities

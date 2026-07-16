@@ -1,22 +1,24 @@
-# 上线部署技能
+# Deploy skill
 
-**适用步骤：** ⑥ 上线部署  
-**前置：** 步骤 ⑤ MVP 已本地验收通过
+**English** · [简体中文](deploy.zh-CN.md)
 
-## 目标
+**Step:** 6 — production deploy  
+**Prerequisite:** step 5 local MVP acceptance passed
 
-在 10 分钟内将 `workspace/<项目名>/` 中的容器暴露到公网。
+## Goal
 
-## 检查清单
+Expose the container(s) in `workspace/<project-name>/` to the public internet within about 10 minutes.
 
-- [ ] `docker compose up` 本地 health 200
-- [ ] 在 `release/cloudflare/subdomain-registry.example.md` 登记子域名与端口
-- [ ] 服务器 Docker + Nginx 已就绪
-- [ ] Cloudflare DNS 橙云代理开启
+## Checklist
 
-## 部署动作
+- [ ] `docker compose up` local health returns 200
+- [ ] Subdomain and port registered in `release/cloudflare/subdomain-registry.example.md`
+- [ ] Server Docker + Nginx ready
+- [ ] Cloudflare DNS orange-cloud proxy enabled
 
-在 MVP 项目目录：
+## Deploy actions
+
+From the MVP project directory:
 
 ```bash
 export MVP_NAME=idea1
@@ -30,27 +32,27 @@ export DEPLOY_PATH=/opt/mvps/idea1
 
 ## Nginx
 
-复制 `release/nginx/snippets/mvp-server.conf.example`，修改 `server_name` 与 `proxy_pass` 端口。
+Copy `release/nginx/snippets/mvp-server.conf.example`, then set `server_name` and `proxy_pass` port.
 
 ## Cloudflare
 
-添加 A 记录指向服务器 IP（Proxied）。详见 `release/cloudflare/README.md`。
+Add an A record to the server IP (Proxied). Details: `release/cloudflare/README.md`.
 
-## 验证
+## Verify
 
 ```bash
 curl -I https://idea1.your-domain.com/health
 ```
 
-## 回滚
+## Rollback
 
 ```bash
 ssh $DEPLOY_HOST "cd $DEPLOY_PATH && docker compose down"
 ```
 
-并在 Nginx / DNS 登记表中释放端口与子域名。
+Also free the port and subdomain in the Nginx / DNS registry.
 
-## 详细文档
+## Further reading
 
 - [release/README.md](../release/README.md)
 - [release/deploy/](../release/deploy/)
