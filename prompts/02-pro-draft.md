@@ -1,6 +1,7 @@
 # 步骤 ② — 生成 PRO
 
 执行前请阅读 `skills/pro-generation.md`。  
+输出结构对照 [`pro.template.md`](pro.template.md)；粒度参考 [`pro.example.md`](pro.example.md)。  
 将 `prompts/01-requirement.example.md` 中的需求同步到下方。
 
 ```bash
@@ -21,14 +22,14 @@
 
 ## 你必须输出的章节
 
-严格遵循 `skills/pro-generation.md`：
+严格遵循 `skills/pro-generation.md` 与 `pro.template.md`：
 
 1. 摘要（含不做清单）
 2. 业务流程
 3. 数据模型
-4. API 契约
+4. 接口契约（多 app 时按 app 分节）
 5. 验收标准（checkbox 列表）
-6. 模版检索提示（技术栈倾向，不最终选模版）
+6. 模版检索提示（倾向 apps 1～N / patterns 0～N，不最终选模版）
 
 ## 开始生成
 

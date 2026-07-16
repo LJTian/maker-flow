@@ -91,7 +91,7 @@ chmod +x scripts/ai-run.sh
 
 </details>
 
-PRO 应包含：摘要、业务流程、数据模型、API 契约、验收标准。
+PRO 结构见空白骨架 [`prompts/pro.template.md`](../prompts/pro.template.md)，完整样板见 [`prompts/pro.example.md`](../prompts/pro.example.md)（摘要、业务流程、数据模型、接口契约、验收标准）。
 
 ---
 
@@ -103,7 +103,7 @@ PRO 应包含：摘要、业务流程、数据模型、API 契约、验收标准
 - 「不做」清单是否够狠？
 - API 和表结构能不能直接实现？
 
-确认后写入 [`prompts/03-pro-confirmed.example.md`](../prompts/03-pro-confirmed.example.md)，勾选 **已确认**。
+确认后写入 [`prompts/03-pro-confirmed.example.md`](../prompts/03-pro-confirmed.example.md)，勾选 **已确认**（章节对齐 `pro.template.md`）。
 
 > **卡点：** 未确认前，不要让 Agent 写代码。
 

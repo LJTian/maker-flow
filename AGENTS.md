@@ -21,8 +21,8 @@ Do **not** skip gates. Do **not** invent a new stack when `templates/index.md` h
 | Step | Actor | Action | Required reads | Output |
 |------|-------|--------|----------------|--------|
 | 1 | Human | Provide requirement | — | requirement text |
-| 2 | Agent | Draft PRO | `skills/pro-generation.md`, `prompts/02-pro-draft.md` | PRO markdown (no code) |
-| 3 | Human | Approve PRO | — | confirmed PRO → `prompts/03-pro-confirmed.example.md` or project `pro.md` |
+| 2 | Agent | Draft PRO | `skills/pro-generation.md`, `prompts/02-pro-draft.md`, `prompts/pro.template.md` | PRO markdown (no code) |
+| 3 | Human | Approve PRO | — | confirmed PRO → `prompts/03-pro-confirmed.example.md` or project `pro.md`（结构同 `pro.template.md`） |
 | 4 | Agent | Match template + assemble MVP | `skills/template-matching.md`, `skills/mvp-assembly.md`, `templates/index.md`, `prompts/04-assemble-mvp.md` | `workspace/<name>/` |
 | 5 | Human | Approve MVP | PRO acceptance criteria | pass/fail |
 | 6 | Agent (on approve) | Deploy | `skills/deploy.md`, `release/` | public URL |
