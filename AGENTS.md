@@ -9,9 +9,10 @@ Principle: **heavy infrastructure, light logic.** Prefer templates and skills ov
 ## Agent entry
 
 1. Read `docs/workflow.md` (state machine + hard gates).
-2. Load the skill for the current step from `skills/`.
+2. Load the skill for the current step from `skills/` (start at `skills/CATALOG.md`).
 3. Use inputs from `prompts/` (or user message equivalent).
-4. Write outputs to the paths defined by the skill.
+4. For step 4, open `templates/CATALOG.md` before matching.
+5. Write outputs to the paths defined by the skill.
 
 Do **not** skip gates. Do **not** invent a new stack when `templates/index.md` has a match.
 
@@ -48,7 +49,10 @@ docs/          # workflow + architecture contracts
 - MUST NOT assemble (step 4) without confirmed PRO (step 3).
 - MUST NOT deploy (step 6) without MVP approval (step 5).
 - MUST select a template via `templates/index.md` before coding.
+- MUST resolve image bases via `templates/images/index.md` and run `./scripts/build-images.sh` before app image builds when bases are missing.
 - MUST write assembled projects under `workspace/<kebab-name>/`.
+- MUST NOT copy `templates/images/` into `workspace/`; inherit via `FROM` only.
+- Prefer **container builds** (`./scripts/build-images.sh` then `docker compose up --build`); do not require host Go toolchain for verification.
 
 ## Contracts
 
@@ -57,5 +61,5 @@ docs/          # workflow + architecture contracts
 | Workflow | `docs/workflow.md` |
 | Architecture | `docs/architecture.md` |
 | Agent bootstrap | `docs/agent-bootstrap.md` |
-| Skills index | `skills/README.md` |
-| Template catalog | `templates/index.md` |
+| Skills index | `skills/CATALOG.md` |
+| Template catalog | `templates/CATALOG.md` |

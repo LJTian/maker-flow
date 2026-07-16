@@ -1,6 +1,6 @@
 # 模版目录（供 AI 检索）
 
-步骤 ④ 执行 `skills/template-matching.md` 时读取本文件。
+步骤 ④ 执行 `skills/template-matching.md` 时：先读 [`CATALOG.md`](CATALOG.md)，再读本文件。
 
 ## go-api
 
@@ -8,12 +8,23 @@
 |------|-----|
 | **id** | `go-api` |
 | **path** | `templates/go-api` |
-| **tags** | `go`, `rest`, `api`, `docker`, `chi`, `high-concurrency` |
+| **tags** | `go`, `rest`, `api`, `docker`, `gin`, `high-concurrency` |
 | **default_port** | `8080` |
-| **when_to_use** | REST API MVP；需要 CORS、结构化日志、健康检查；Go 技术栈 |
-| **includes** | Dockerfile, docker-compose.yml, CORS, 全局异常, GET /health |
+| **when_to_use** | REST API MVP；需要 CORS、结构化日志、健康检查；Go + Gin |
+| **includes** | Dockerfile (FROM 基座), docker-compose.yml, CORS, 全局异常, GET /health |
+| **images** | `go-builder`, `go-runtime` — 见 [images/index.md](images/index.md) |
 | **optional** | docker-compose 内注释掉的 PostgreSQL，PRO 需要 DB 时启用 |
 | **docs** | [go-api/README.md](go-api/README.md) |
+
+## 镜像基座（继承式）
+
+应用模版不内置 OS 层；组装前构建：
+
+```bash
+./scripts/build-images.sh
+```
+
+目录与标签：[images/index.md](images/index.md)
 
 ## 选型决策树
 

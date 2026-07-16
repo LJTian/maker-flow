@@ -127,6 +127,9 @@ Agent 应在 `workspace/<项目名>/` 产出可运行工程。
 ### 步骤 5 · 本地验收
 
 ```bash
+# 若本机尚未构建 Go 基座镜像
+./scripts/build-images.sh
+
 cd workspace/<项目名>
 cp .env.example .env
 docker compose up --build

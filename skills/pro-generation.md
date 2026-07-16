@@ -47,7 +47,7 @@ Markdown 表格：字段、类型、说明、约束。
 
 给步骤 ④ 的线索，不最终拍板：
 
-- 倾向技术栈（如 Go REST API）
+- 倾向技术栈（如 Go + Gin REST API）
 - 是否需要 PostgreSQL
 - 预期 QPS / 复杂度（帮助选模版）
 

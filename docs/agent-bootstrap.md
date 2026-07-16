@@ -19,7 +19,7 @@ Human quick start: [getting-started.md](getting-started.md) · Repo intro: [READ
 | Step | Read first | Then |
 |------|------------|------|
 | 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` |
-| 4 | `skills/template-matching.md` → `templates/index.md` → `skills/mvp-assembly.md` | write under `workspace/` |
+| ④ | `template-matching.md` → `templates/CATALOG.md` → `mvp-assembly.md` | write under `workspace/` |
 | 6 | `skills/deploy.md` | `release/` |
 
 Optional LLM transport: `ai-engine/.env` + `scripts/ai-run.sh` (not required if the host agent is the LLM).

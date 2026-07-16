@@ -2,11 +2,16 @@
 
 For agents assembling under `workspace/` from any template.
 
-## Images
+## Images (inheritance)
 
-| Lang | Build | Runtime |
-|------|-------|---------|
-| Go | `golang:1.22-alpine` | `alpine:3.20` |
+Do not hardcode upstream OS in app Dockerfiles. Use tags from `templates/images/index.md`:
+
+| Role | Local tag | Source dir |
+|------|-----------|------------|
+| Go build | `maker-flow/go-builder:1.22` | `templates/images/go-builder` |
+| Go runtime | `maker-flow/go-runtime:1.22` | `templates/images/go-runtime` |
+
+Build: `./scripts/build-images.sh`
 
 ## Env names
 
