@@ -18,7 +18,7 @@ Human quick start: [getting-started.md](getting-started.md) · Repo intro: [READ
 
 | Step | Read first | Then |
 |------|------------|------|
-| 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` |
+| 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` + `prompts/pro.template.md`（样板 `pro.example.md`） |
 | ④ | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | write under `workspace/` |
 | 6 | `skills/deploy.md` | `release/` |
 

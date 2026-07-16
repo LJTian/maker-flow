@@ -22,7 +22,7 @@
 
 | 当前步骤 | 必读 |
 |----------|------|
-| ② 出 PRO | `pro-generation.md` + `prompts/02-pro-draft.md` |
+| ② 出 PRO | `pro-generation.md` + `prompts/02-pro-draft.md`；结构 `prompts/pro.template.md`，样板 `prompts/pro.example.md` |
 | ④ 组装 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` |
 | ⑥ 部署 | `deploy.md` + `release/` |
 

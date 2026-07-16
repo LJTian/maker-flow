@@ -28,14 +28,15 @@ Agent: store/copy into the step-2 prompt user-requirement section if using `prom
 ### 2 — Draft PRO (agent)
 
 - **MUST read:** `skills/pro-generation.md`
+- **MUST follow structure:** `prompts/pro.template.md` (see `prompts/pro.example.md` for granularity)
 - **MAY use:** `prompts/02-pro-draft.md` as the prompt body
-- **MUST output:** PRO sections defined by the skill
+- **MUST output:** PRO sections defined by the skill / template
 - **MUST NOT:** write application code, pick a final template, or create `workspace/`
 
 ### 3 — Confirm PRO (human gate)
 
 - Agent presents PRO and waits.
-- On approval, persist confirmed PRO to `prompts/03-pro-confirmed.example.md` or `workspace/<name>/pro.md`.
+- On approval, persist confirmed PRO to `prompts/03-pro-confirmed.example.md` or `workspace/<name>/pro.md` (same section shape as `pro.template.md`).
 - **MUST NOT** proceed to step 4 without explicit human approval.
 
 ### 4 — Assemble MVP (agent)

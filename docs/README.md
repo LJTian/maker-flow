@@ -13,6 +13,8 @@
 | | 文档 | 说明 |
 |:--:|------|------|
 | 🚀 | [getting-started.md](getting-started.md) | **从这里开始** — 六步手把手教程 |
+| 📄 | [../prompts/pro.template.md](../prompts/pro.template.md) | PRO 空白骨架 |
+| 📄 | [../prompts/pro.example.md](../prompts/pro.example.md) | PRO 完整样板（待办 API） |
 | 📖 | [../README.md](../README.md) | 项目首页 · 价值主张 · 快速上手 |
 | 📇 | [../templates/CATALOG.md](../templates/CATALOG.md) | 模版集检索目录 |
 | 📇 | [../skills/CATALOG.md](../skills/CATALOG.md) | 技能库检索目录 |
