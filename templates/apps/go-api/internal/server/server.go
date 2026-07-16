@@ -8,9 +8,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/LJTian/maker-flow/templates/go-api/internal/config"
-	"github.com/LJTian/maker-flow/templates/go-api/internal/handler"
-	"github.com/LJTian/maker-flow/templates/go-api/internal/middleware"
+	"github.com/LJTian/maker-flow/templates/apps/go-api/internal/config"
+	"github.com/LJTian/maker-flow/templates/apps/go-api/internal/handler"
+	"github.com/LJTian/maker-flow/templates/apps/go-api/internal/middleware"
 )
 
 type Server struct {

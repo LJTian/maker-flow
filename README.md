@@ -12,7 +12,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Workflow](https://img.shields.io/badge/steps-6%20step-purple.svg)](#六步流水线)
-[![Stack](https://img.shields.io/badge/template-Go%20API-00ADD8.svg)](templates/go-api/)
+[![Stack](https://img.shields.io/badge/template-Go%20Gin-00ADD8.svg)](templates/apps/go-api/)
 [![Agent](https://img.shields.io/badge/for-AI%20Agents-22c55e.svg)](AGENTS.md)
 
 <br/>
@@ -82,7 +82,7 @@ flowchart LR
 | 模块 | 目录 | 一句话 |
 |------|------|--------|
 | 技能库 | [`skills/`](skills/) · [**检索目录**](skills/CATALOG.md) | 约束 Agent：PRO 怎么写、模版怎么选、怎么部署 |
-| 模版集 | [`templates/`](templates/) · [**检索目录**](templates/CATALOG.md) | Go API 等预制工程，含 Docker + 中间件 |
+| 模版集 | [`templates/`](templates/) · [**检索目录**](templates/CATALOG.md) | apps + images + patterns |
 | AI 连接 | [`ai-engine/`](ai-engine/) | 可选：Ollama / OpenAI 等兼容 API |
 | 发布基建 | [`release/`](release/) | Nginx + Cloudflare + 一键部署脚本 |
 | 工作区 | [`workspace/`](workspace/) | Agent 组装出的 MVP 落在这里 |
@@ -116,7 +116,7 @@ chmod +x scripts/ai-run.sh
 
 ```bash
 ./scripts/build-images.sh   # 构建 Go 基座镜像（首次必做）
-cp -r templates/go-api workspace/smoke-test
+cp -r templates/apps/go-api workspace/smoke-test
 cd workspace/smoke-test && cp .env.example .env
 docker compose up --build
 curl http://localhost:8080/health
@@ -173,7 +173,9 @@ Maker Flow 站在这些优秀项目之上，感谢维护者与社区：
 
 | 用途 | 项目 | 地址 |
 |------|------|------|
-| Go Web 框架（`go-api` 模版） | **Gin** | https://github.com/gin-gonic/gin |
+| Go Web 框架（`go-api`） | **Gin** | https://github.com/gin-gonic/gin |
+| CLI 框架（`go-cli`） | **Cobra** | https://github.com/spf13/cobra |
+| singleflight（pattern） | **golang.org/x/sync** | https://pkg.go.dev/golang.org/x/sync/singleflight |
 | 编译基座镜像 | **golang** (official image) | https://hub.docker.com/_/golang |
 | 运行基座镜像 | **Alpine Linux** | https://alpinelinux.org/ · https://hub.docker.com/_/alpine |
 | 容器运行时 | **Docker** | https://www.docker.com/ |

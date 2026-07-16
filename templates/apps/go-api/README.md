@@ -12,10 +12,10 @@ Template id: `go-api`. Gin REST API scaffold for step-4 assembly.
 
 ## Agent usage
 
-1. Ensure bases exist: `./scripts/build-images.sh` (see `../images/index.md`).
+1. Ensure bases exist: `./scripts/build-images.sh` (see `../../images/index.md`).
 2. Copy this directory to `workspace/<name>/` (do not edit the template in place).
 3. Add handlers under `internal/handler/` (`func(c *gin.Context)`); register routes in `internal/server/server.go`.
-4. Follow `skills/mvp-assembly.md`.
+4. Follow `skills/mvp-assembly.md`. Optional patterns: see `templates/patterns/index.md`.
 
 ## Layout
 

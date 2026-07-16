@@ -4,8 +4,8 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/LJTian/maker-flow/templates/go-api/internal/config"
-	"github.com/LJTian/maker-flow/templates/go-api/internal/server"
+	"github.com/LJTian/maker-flow/templates/apps/go-api/internal/config"
+	"github.com/LJTian/maker-flow/templates/apps/go-api/internal/server"
 )
 
 func main() {

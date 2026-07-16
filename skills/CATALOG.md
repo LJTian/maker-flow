@@ -10,11 +10,11 @@
 | 步骤 | 技能 id | 文件 | 一句话 |
 |:----:|---------|------|--------|
 | ② | `pro-generation` | [`pro-generation.md`](pro-generation.md) | 只出 PRO，不写代码 |
-| ④ | `template-matching` | [`template-matching.md`](template-matching.md) | 按 PRO 检索模版 / 镜像 |
-| ④ | `mvp-assembly` | [`mvp-assembly.md`](mvp-assembly.md) | 复制模版、填业务、容器可跑 |
+| ④ | `template-matching` | [`template-matching.md`](template-matching.md) | 选 1～N 个 apps + 0～N patterns + images |
+| ④ | `mvp-assembly` | [`mvp-assembly.md`](mvp-assembly.md) | 复制 app、合并 patterns、容器可跑 |
 | ⑥ | `deploy` | [`deploy.md`](deploy.md) | 验收通过后上线 |
 
-**配套 Prompt：** [`../prompts/`](../prompts/) · **模版检索：** [`../templates/CATALOG.md`](../templates/CATALOG.md)
+**配套 Prompt：** [`../prompts/`](../prompts/) · **模版检索：** [`../templates/CATALOG.md`](../templates/CATALOG.md) · **Patterns：** [`../templates/patterns/index.md`](../templates/patterns/index.md)
 
 ---
 
@@ -23,7 +23,7 @@
 | 当前步骤 | 必读 |
 |----------|------|
 | ② 出 PRO | `pro-generation.md` + `prompts/02-pro-draft.md` |
-| ④ 组装 | `template-matching.md` → `templates/CATALOG.md` → `mvp-assembly.md` |
+| ④ 组装 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` |
 | ⑥ 部署 | `deploy.md` + `release/` |
 
 硬门禁：③ 未确认 PRO → 禁止 ④；⑤ 未确认 MVP → 禁止 ⑥。见 [`docs/workflow.md`](../docs/workflow.md)。

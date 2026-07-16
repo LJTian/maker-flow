@@ -1,4 +1,4 @@
-module github.com/LJTian/maker-flow/templates/go-api
+module github.com/LJTian/maker-flow/templates/apps/go-api
 
 go 1.22
 
