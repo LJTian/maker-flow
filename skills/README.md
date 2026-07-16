@@ -1,8 +1,12 @@
 # skills/
 
+**English** · [简体中文](README.zh-CN.md)
+
 Authoritative **HOW** contracts for agents. Prompt files say what to ask; skills say what “done” means.
 
-**检索入口（人 + AI）：** [`CATALOG.md`](CATALOG.md) ← 先读这个
+**Catalog entry (humans + AI):** [`CATALOG.md`](CATALOG.md) ← start here
+
+**Agents:** read English primary files only (`*.md`). Do not use `.zh-CN.md` as skill contracts. See [`docs/i18n.md`](../docs/i18n.md).
 
 | Skill | File | Step |
 |-------|------|------|

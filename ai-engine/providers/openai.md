@@ -1,6 +1,8 @@
 # OpenAI
 
-## .env 示例
+**English** · [简体中文](openai.zh-CN.md)
+
+## .env example
 
 ```bash
 AI_BASE_URL=https://api.openai.com/v1
@@ -10,8 +12,8 @@ AI_TEMPERATURE=0.6
 AI_MAX_TOKENS=8192
 ```
 
-## 注意
+## Notes
 
-- API Key 仅写在 `ai-engine/.env`，勿提交仓库
-- 按账号配额调整 `AI_MAX_TOKENS`
-- 代码生成可选用 `gpt-4o` 等更强模型，成本更高
+- Keep the API key only in `ai-engine/.env`; do not commit it
+- Tune `AI_MAX_TOKENS` to account quotas
+- For code generation you may prefer stronger models such as `gpt-4o` (higher cost)

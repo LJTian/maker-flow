@@ -1,89 +1,91 @@
-# PRO 完整示例 — 待办事项 API
+# PRO full sample — Todo API
 
-> **用途：** 对照样板，展示「写到什么粒度算够」。  
-> **空白骨架：** [`pro.template.md`](pro.template.md)  
-> **生成技能：** [`skills/pro-generation.md`](../skills/pro-generation.md)
+**English** · [简体中文](pro.example.zh-CN.md)
 
-本示例对应需求：「做一个待办事项迷你 API：支持创建、完成、列表，不需要用户系统。」
+> **Purpose:** Reference sample showing “enough” granularity.  
+> **Blank skeleton:** [`pro.template.md`](pro.template.md)  
+> **Generation skill:** [`skills/pro-generation.md`](../skills/pro-generation.md)
+
+This sample matches the requirement: “Build a mini todo API: create, complete, and list — no user system.”
 
 ---
 
-## 1. 摘要
+## 1. Summary
 
-- **一句话目标：** 提供无鉴权的待办 REST API，支持创建、标记完成、列表查询。
-- **MVP 范围：** 单进程内存存储；Gin HTTP；健康检查 + 3 个业务端点；1 天内可验收。
-- **不做：**
-  - 用户系统 / 登录 / JWT
-  - 分页、排序、筛选、标签
-  - 持久化数据库、备份
-  - 删除待办、批量操作、附件
+- **One-sentence goal:** Provide an unauthenticated todo REST API supporting create, mark complete, and list.
+- **MVP scope:** Single-process in-memory store; Gin HTTP; health check + 3 business endpoints; acceptable within 1 day.
+- **Out of scope:**
+  - User system / login / JWT
+  - Pagination, sorting, filtering, tags
+  - Persistent database, backups
+  - Delete todo, bulk ops, attachments
 
-## 2. 业务流程
+## 2. Business flow
 
-1. 调用方 `POST /todos` 创建一条待办（标题必填），服务分配 `id`，默认 `done=false`。
-2. 调用方 `GET /todos` 获取当前全部待办（无分页）。
-3. 调用方 `POST /todos/{id}/complete` 将指定待办标为完成；已完成再调用仍返回成功（幂等）。
-4. 不存在的 `id` → `404`；标题为空 → `400`。
-5. 进程重启后内存数据丢失（MVP 可接受）。
+1. Client `POST /todos` creates a todo (title required); service assigns `id`, default `done=false`.
+2. Client `GET /todos` returns all current todos (no pagination).
+3. Client `POST /todos/{id}/complete` marks the todo complete; repeating on an already-complete todo still succeeds (idempotent).
+4. Unknown `id` → `404`; empty title → `400`.
+5. Process restart loses in-memory data (acceptable for MVP).
 
-## 3. 数据模型
+## 3. Data model
 
-内存结构（无表）：
+In-memory structure (no tables):
 
-| 字段 | 类型 | 说明 | 约束 |
-|------|------|------|------|
-| id | string | 唯一标识 | 非空，服务端生成 |
-| title | string | 标题 | 非空，建议 ≤ 200 字符 |
-| done | bool | 是否完成 | 默认 `false` |
-| created_at | string | 创建时间 RFC3339 | 服务端写入 |
+| Field | Type | Description | Constraints |
+|-------|------|-------------|-------------|
+| id | string | Unique id | Non-empty, server-generated |
+| title | string | Title | Non-empty, recommend ≤ 200 chars |
+| done | bool | Completed? | Default `false` |
+| created_at | string | Created time RFC3339 | Server-written |
 
-无 `CREATE TABLE`（本 MVP 不持久化）。
+No `CREATE TABLE` (this MVP does not persist).
 
-## 4. 接口契约
+## 4. API / interface contract
 
 ### `GET /health`
 
-- **请求：** 无 body
-- **响应：**
+- **Request:** no body
+- **Response:**
 
 ```json
 { "status": "ok" }
 ```
 
-- **错误码：** 无（进程存活即 200）
+- **Error codes:** none (process alive → 200)
 
 ### `POST /todos`
 
-- **请求：**
+- **Request:**
 
 ```json
-{ "title": "买牛奶" }
+{ "title": "Buy milk" }
 ```
 
-- **响应 `201`：**
+- **Response `201`:**
 
 ```json
 {
   "id": "todo_01HXYZ",
-  "title": "买牛奶",
+  "title": "Buy milk",
   "done": false,
   "created_at": "2026-07-16T05:00:00Z"
 }
 ```
 
-- **错误码：** `400` 标题为空
+- **Error codes:** `400` empty title
 
 ### `GET /todos`
 
-- **请求：** 无 body
-- **响应 `200`：**
+- **Request:** no body
+- **Response `200`:**
 
 ```json
 {
   "items": [
     {
       "id": "todo_01HXYZ",
-      "title": "买牛奶",
+      "title": "Buy milk",
       "done": false,
       "created_at": "2026-07-16T05:00:00Z"
     }
@@ -93,32 +95,32 @@
 
 ### `POST /todos/{id}/complete`
 
-- **请求：** 无 body
-- **响应 `200`：**
+- **Request:** no body
+- **Response `200`:**
 
 ```json
 {
   "id": "todo_01HXYZ",
-  "title": "买牛奶",
+  "title": "Buy milk",
   "done": true,
   "created_at": "2026-07-16T05:00:00Z"
 }
 ```
 
-- **错误码：** `404` 未知 id
+- **Error codes:** `404` unknown id
 
-## 5. 验收标准
+## 5. Acceptance criteria
 
-- [ ] `docker compose up --build` 后 `GET /health` 返回 200 且 `status=ok`
-- [ ] `POST /todos` 可创建，响应含 `id` / `title` / `done=false`
-- [ ] `GET /todos` 能看到刚创建的条目
-- [ ] `POST /todos/{id}/complete` 后该条目 `done=true`；重复调用仍 200
-- [ ] 空标题创建返回 400；不存在的 id complete 返回 404
-- [ ] 未引入用户/鉴权相关代码或依赖
+- [ ] After `docker compose up --build`, `GET /health` returns 200 with `status=ok`
+- [ ] `POST /todos` creates an item; response includes `id` / `title` / `done=false`
+- [ ] `GET /todos` shows the newly created item
+- [ ] After `POST /todos/{id}/complete`, that item has `done=true`; repeat call still returns 200
+- [ ] Empty title create returns 400; complete on unknown id returns 404
+- [ ] No user/auth-related code or dependencies introduced
 
-## 6. 模版检索提示（可选，不最终拍板）
+## 6. Template retrieval hints (optional — not final picks)
 
-- **倾向 apps（1～N）：** `go-api`
-- **倾向 patterns（0～N）：** 无
-- **镜像 / 运行：** `maker-flow/go-builder` + `go-runtime`，`docker compose`
-- **复杂度线索：** 低 QPS、无 DB、单服务
+- **Preferred apps (1–N):** `go-api`
+- **Preferred patterns (0–N):** none
+- **Images / runtime:** `maker-flow/go-builder` + `go-runtime`, `docker compose`
+- **Complexity clues:** low QPS, no DB, single service

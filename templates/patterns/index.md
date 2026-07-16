@@ -1,26 +1,28 @@
 # Pattern library catalog
 
-> **给 AI：** 步骤 ④ 在选定 **app** 后，按 PRO 标签选 0～N 个 pattern；**复制/改写**进 `workspace/`，不要整仓当服务部署。  
-> **给人类：** 高性能 / 并发片段速查。
+**English** · [简体中文](index.zh-CN.md)
 
-每个 pattern 独立 `go.mod`，可在目录内 `go test ./...`（或容器内用 `go-builder` 跑测试）。
+> **For AI:** After picking **app(s)** in step 4, select 0–N patterns by PRO tags; **copy/adapt** into `workspace/`. Do not deploy the pattern tree as a service.  
+> **For humans:** Quick lookup for high-performance / concurrency snippets.
 
-## 速览
+Each pattern has its own `go.mod` and can run `go test ./...` in-directory (or inside a container with `go-builder`).
 
-| id | 路径 | tags | 何时用 |
-|----|------|------|--------|
-| `worker-pool` | [`worker-pool/`](worker-pool/) | `concurrency` `pool` `channel` | 固定 worker 消化任务队列 |
-| `pipeline` | [`pipeline/`](pipeline/) | `concurrency` `fan-in` `fan-out` | 多阶段流水线处理 |
-| `singleflight-cache` | [`singleflight-cache/`](singleflight-cache/) | `cache` `singleflight` `ttl` | 防击穿 + 本地 TTL 缓存 |
-| `retry-backoff` | [`retry-backoff/`](retry-backoff/) | `retry` `backoff` `resilience` | 可取消的指数退避重试 |
-| `circuit-breaker` | [`circuit-breaker/`](circuit-breaker/) | `circuit-breaker` `resilience` | 简易熔断器 |
+## Overview
 
-## Agent 用法
+| id | Path | tags | When to use |
+|----|------|------|-------------|
+| `worker-pool` | [`worker-pool/`](worker-pool/) | `concurrency` `pool` `channel` | Fixed workers draining a job queue |
+| `pipeline` | [`pipeline/`](pipeline/) | `concurrency` `fan-in` `fan-out` | Multi-stage pipeline processing |
+| `singleflight-cache` | [`singleflight-cache/`](singleflight-cache/) | `cache` `singleflight` `ttl` | Collapse stampede + local TTL cache |
+| `retry-backoff` | [`retry-backoff/`](retry-backoff/) | `retry` `backoff` `resilience` | Cancellable exponential backoff retry |
+| `circuit-breaker` | [`circuit-breaker/`](circuit-breaker/) | `circuit-breaker` `resilience` | Simple circuit breaker |
 
-1. 从本表按 PRO 关键词 / tags 匹配。
-2. 将 pattern 包文件拷入**需要它的 app** 目录（`workspace/<project>/<app-id>/internal/...`）。
-3. **MUST NOT** 为 pattern 单独开公网部署。
+## Agent usage
 
-## 登记规则
+1. Match from this table by PRO keywords / tags.
+2. Copy pattern package files into the **app that needs them** (`workspace/<project>/<app-id>/internal/...`).
+3. **MUST NOT** expose a public deploy for a pattern alone.
 
-新增 pattern → 本文件追加一行 + 独立目录（含 `README.md`、可测代码）。
+## Registration rules
+
+New pattern → add a row here + standalone directory (with `README.md` and testable code).

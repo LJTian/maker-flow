@@ -1,5 +1,7 @@
 # worker-pool
 
+**English** · [简体中文](README.zh-CN.md)
+
 Fixed-size workers + buffered job channel + WaitGroup drain.
 
 ```go

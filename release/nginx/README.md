@@ -1,5 +1,7 @@
 # Nginx (step 6)
 
+**English** · [简体中文](README.zh-CN.md)
+
 Agent ops for reverse proxy. SOP: `skills/deploy.md`.
 
 ## Host prep (once)

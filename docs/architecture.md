@@ -1,10 +1,13 @@
 # Architecture (agent map)
 
+**English** · [简体中文](architecture.zh-CN.md)
+
 ## Principles
 
 - Templates + skills are the product; agent fills business logic only.
 - Two human gates: PRO before code; MVP before deploy.
 - Agent writes artifacts to defined paths; do not scatter files.
+- English primary docs are authoritative; see `docs/i18n.md`.
 
 ## Component map
 
@@ -56,4 +59,5 @@ flowchart TB
 - `docs/workflow.md`
 - `docs/agent-bootstrap.md`
 - `docs/getting-started.md` (human)
+- `docs/i18n.md`
 - `AGENTS.md`

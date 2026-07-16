@@ -1,5 +1,7 @@
 # workspace/
 
+**English** · [简体中文](README.zh-CN.md)
+
 Agent **write target** for step-4 assembled MVPs.
 
 ## Rules

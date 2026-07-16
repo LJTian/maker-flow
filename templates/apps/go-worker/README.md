@@ -1,5 +1,7 @@
 # go-worker
 
+**English** · [简体中文](README.zh-CN.md)
+
 Template id: `go-worker`. Concurrent worker-pool service with graceful shutdown.
 
 ## Capabilities

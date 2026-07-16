@@ -1,11 +1,13 @@
 # Agent bootstrap
 
+**English** · [简体中文](agent-bootstrap.zh-CN.md)
+
 Load order when an agent session starts on this repo.  
-Human quick start: [getting-started.md](getting-started.md) · Repo intro: [README.md](../README.md)
+Human quick start: [getting-started.md](getting-started.md) · Repo intro: [README.md](../README.md) · i18n: [i18n.md](i18n.md)
 
 ## 1. Orient
 
-1. `AGENTS.md` — audience, hard rules, layout
+1. `AGENTS.md` — audience, hard rules, layout, language rules
 2. `docs/workflow.md` — state machine + gates
 3. Determine **current step** from conversation or artifacts:
    - no PRO → step 2
@@ -18,18 +20,20 @@ Human quick start: [getting-started.md](getting-started.md) · Repo intro: [READ
 
 | Step | Read first | Then |
 |------|------------|------|
-| 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` + `prompts/pro.template.md`（样板 `pro.example.md`） |
-| ④ | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | write under `workspace/` |
+| 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` + `prompts/pro.template.md` (sample: `pro.example.md`) |
+| 4 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | write under `workspace/` |
 | 6 | `skills/deploy.md` | `release/` |
 
 Optional LLM transport: `ai-engine/.env` + `scripts/ai-run.sh` (not required if the host agent is the LLM).
 
+Read **English** primary files only for contracts.
+
 ## 3. Preflight checks (before coding)
 
 - [ ] Confirmed PRO exists for step 4+
-- [ ] Template chosen via `templates/index.md`
+- [ ] Template(s) chosen via `templates/index.md`
 - [ ] Target path is `workspace/<kebab-name>/`
-- [ ] Scope matches PRO “不做” list
+- [ ] Scope matches PRO out-of-scope list
 
 ## 4. Smoke template (optional)
 

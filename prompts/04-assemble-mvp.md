@@ -1,11 +1,13 @@
-# 步骤 ④ — 检索模版并组建 MVP
+# Step 4 — Match templates and assemble MVP
 
-执行前依次阅读：
+**English** · [简体中文](04-assemble-mvp.zh-CN.md)
+
+Read in order before running:
 
 1. `skills/template-matching.md`
 2. `skills/mvp-assembly.md`
 
-确认 `prompts/03-pro-confirmed.example.md` 中 PRO 已标记为「已确认」。模版总览见 `templates/CATALOG.md`。
+Confirm the PRO in `prompts/03-pro-confirmed.example.md` is marked **Confirmed**. Template overview: `templates/CATALOG.md`.
 
 ```bash
 ./scripts/ai-run.sh prompts/04-assemble-mvp.md
@@ -13,37 +15,37 @@
 
 ---
 
-## 角色
+## Role
 
-你是全栈工程师。根据**已确认 PRO** 检索模版并组装可运行 MVP。
+You are a full-stack engineer. From the **confirmed PRO**, match templates and assemble a runnable MVP.
 
-## 已确认 PRO
+## Confirmed PRO
 
-（从 03-pro-confirmed.example.md 粘贴定稿 PRO）
+(Paste the finalized PRO from 03-pro-confirmed.example.md)
 
-## 模版目录
+## Template catalog
 
-读取仓库内 `templates/index.md` 进行检索。
+Search using `templates/index.md` in this repo.
 
-## 你必须输出的内容
+## Required output
 
-### Part A — 模版检索（遵循 template-matching 技能）
+### Part A — Template matching (follow template-matching skill)
 
-- 选定模版 ID、路径、理由
+- Selected template IDs, paths, rationale
 
-### Part B — MVP 组装（遵循 mvp-assembly 技能）
+### Part B — MVP assembly (follow mvp-assembly skill)
 
-- 输出目录：`workspace/<项目名>/`
-- 目录树（变更文件）
-- 关键文件完整内容
-- 本地运行命令
+- Output directory: `workspace/<project-name>/`
+- Directory tree (changed files)
+- Full contents of key files
+- Local run commands
 
-## 约束
+## Constraints
 
-- 不修改 PRO 已确认的范围
-- 不部署到公网（步骤 ⑥ 再做）
-- 沿用模版中间件与项目结构
+- MUST NOT change the confirmed PRO scope
+- MUST NOT deploy to the public internet (that is step 6)
+- Reuse template middleware and project structure
 
-## 开始
+## Start
 
-先输出 Part A，再输出 Part B。
+Output Part A first, then Part B.

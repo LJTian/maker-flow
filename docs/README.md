@@ -1,40 +1,49 @@
-# 文档
+# Docs
 
 <div align="center">
 
-[← 返回首页](../README.md)
+[← Home](../README.md) · [简体中文](README.zh-CN.md)
 
 </div>
 
 ---
 
-## 给人看
+**English** · [简体中文](README.zh-CN.md)
 
-| | 文档 | 说明 |
-|:--:|------|------|
-| 🚀 | [getting-started.md](getting-started.md) | **从这里开始** — 六步手把手教程 |
-| 📄 | [../prompts/pro.template.md](../prompts/pro.template.md) | PRO 空白骨架 |
-| 📄 | [../prompts/pro.example.md](../prompts/pro.example.md) | PRO 完整样板（待办 API） |
-| 📖 | [../README.md](../README.md) | 项目首页 · 价值主张 · 快速上手 |
-| 📇 | [../templates/CATALOG.md](../templates/CATALOG.md) | 模版集检索目录 |
-| 📇 | [../skills/CATALOG.md](../skills/CATALOG.md) | 技能库检索目录 |
-| 🏗 | [overview.md](overview.md) | 架构图解（给人看） |
-| 🏗 | [architecture.md](architecture.md) | 架构与目录映射（Agent 版） |
+## Language
 
-## 给 AI 智能体看
+Primary docs are **English**. Chinese siblings use the `.zh-CN.md` suffix. See [i18n.md](i18n.md).
 
-| | 文档 | 说明 |
-|:--:|------|------|
-| 🤖 | [../AGENTS.md](../AGENTS.md) | **Agent 入口** — 硬规则与状态机 |
-| ⚙️ | [workflow.md](workflow.md) | 六步契约（权威） |
-| 🔌 | [agent-bootstrap.md](agent-bootstrap.md) | 会话启动加载顺序 |
+## For humans
 
-## 模块
+| | Doc | Notes |
+|:--:|-----|-------|
+| 🚀 | [getting-started.md](getting-started.md) | **Start here** — six-step tutorial |
+| 📄 | [../prompts/pro.template.md](../prompts/pro.template.md) | PRO blank skeleton |
+| 📄 | [../prompts/pro.example.md](../prompts/pro.example.md) | PRO full sample (todo API) |
+| 📖 | [../README.md](../README.md) | Home · value prop · quick start |
+| 📇 | [../templates/CATALOG.md](../templates/CATALOG.md) | Template catalog |
+| 📇 | [../skills/CATALOG.md](../skills/CATALOG.md) | Skills catalog |
+| 🏗 | [overview.md](overview.md) | Architecture for humans |
+| 🏗 | [architecture.md](architecture.md) | Architecture map for agents |
+| 🌐 | [i18n.md](i18n.md) | English primary + `.zh-CN.md` siblings |
 
-| 模块 | 链接 |
-|------|------|
-| 技能库 | [skills/](../skills/README.md) |
-| 模版集 | [templates/](../templates/README.md) · [index.md](../templates/index.md) |
-| Prompt | [prompts/](../prompts/README.md) |
-| 发布 | [release/](../release/README.md) |
-| AI 连接 | [ai-engine/](../ai-engine/README.md) |
+## For AI agents
+
+| | Doc | Notes |
+|:--:|-----|-------|
+| 🤖 | [../AGENTS.md](../AGENTS.md) | **Agent entry** — hard rules + state machine |
+| ⚙️ | [workflow.md](workflow.md) | Six-step contract (authoritative) |
+| 🔌 | [agent-bootstrap.md](agent-bootstrap.md) | Session load order |
+
+Agents MUST read **English** primary files, not `.zh-CN.md`.
+
+## Modules
+
+| Module | Link |
+|--------|------|
+| Skills | [skills/](../skills/README.md) |
+| Templates | [templates/](../templates/README.md) · [index.md](../templates/index.md) |
+| Prompts | [prompts/](../prompts/README.md) |
+| Release | [release/](../release/README.md) |
+| AI transport | [ai-engine/](../ai-engine/README.md) |

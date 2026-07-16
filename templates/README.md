@@ -1,25 +1,27 @@
 # templates/
 
-**检索入口（人 + AI）：** [`CATALOG.md`](CATALOG.md)
+**English** · [简体中文](README.zh-CN.md)
+
+**Catalog entry (humans + AI):** [`CATALOG.md`](CATALOG.md)
 
 ```
 templates/
-├── CATALOG.md      # 总览
-├── index.md        # apps 字段明细
-├── apps/           # 可组装完整工程 → workspace/
-├── images/         # 继承式 Docker 基座
-├── patterns/       # 可编译片段 → 拷进 workspace
+├── CATALOG.md      # overview
+├── index.md        # apps field-level detail
+├── apps/           # assemblable full projects → workspace/
+├── images/         # inheritance-style Docker bases
+├── patterns/       # compilable snippets → copy into workspace
 └── shared/
 ```
 
 ## Catalog files
 
-| 文件 | 用途 |
-|------|------|
-| [`CATALOG.md`](CATALOG.md) | 总览 / 速查 |
-| [`index.md`](index.md) | apps 字段级明细 |
-| [`images/index.md`](images/index.md) | 镜像基座 |
-| [`patterns/index.md`](patterns/index.md) | 模式库 |
+| File | Purpose |
+|------|---------|
+| [`CATALOG.md`](CATALOG.md) | Overview / quick lookup |
+| [`index.md`](index.md) | Apps field-level detail |
+| [`images/index.md`](images/index.md) | Image bases |
+| [`patterns/index.md`](patterns/index.md) | Pattern library |
 
 ## Apps
 

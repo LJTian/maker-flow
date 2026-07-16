@@ -1,76 +1,78 @@
-# PRO 空白骨架
+# PRO blank skeleton
 
-> **用途：** 步骤 ② 输出、步骤 ③ 定稿粘贴时，按此结构填写。  
-> **权威章节：** [`skills/pro-generation.md`](../skills/pro-generation.md)  
-> **完整样板：** [`pro.example.md`](pro.example.md)
+**English** · [简体中文](pro.template.zh-CN.md)
 
-填写后：草稿 → 步骤 ③ 确认 → 写入 `03-pro-confirmed.example.md` 或 `workspace/<name>/pro.md`。
+> **Purpose:** Fill this structure for step 2 output and step 3 confirmation paste.  
+> **Authoritative sections:** [`skills/pro-generation.md`](../skills/pro-generation.md)  
+> **Full sample:** [`pro.example.md`](pro.example.md)
+
+After filling: draft → confirm at step 3 → write into `03-pro-confirmed.example.md` or `workspace/<name>/pro.md`.
 
 ---
 
-## 1. 摘要
+## 1. Summary
 
-- **一句话目标：** （…）
-- **MVP 范围：** （1–2 天可完成的边界）
-- **不做：**
-  - （…）
-  - （…）
+- **One-sentence goal:** (…)
+- **MVP scope:** (boundary finishable in 1–2 days)
+- **Out of scope:**
+  - (…)
+  - (…)
 
-## 2. 业务流程
+## 2. Business flow
 
-1. （主流程步骤）
-2. （…）
-3. （边界：是否登录、数据归属、幂等等）
+1. (Main-path step)
+2. (…)
+3. (Boundaries: auth? data ownership? idempotency?)
 
-## 3. 数据模型
+## 3. Data model
 
-| 字段 | 类型 | 说明 | 约束 |
-|------|------|------|------|
+| Field | Type | Description | Constraints |
+|-------|------|-------------|-------------|
 | id | … | … | … |
 
-可选（有持久化时）：
+Optional (when persistence is required):
 
 ```sql
 -- CREATE TABLE …
 ```
 
-无持久化则写「内存 / 无表」，并说明生命周期。
+If no persistence, write “in-memory / no tables” and describe lifecycle.
 
-## 4. 接口契约
+## 4. API / interface contract
 
-> 单 app：下列端点即可。多 app：按 app 分小节（如 API / Worker / CLI）。
+> Single app: the endpoints below are enough. Multi-app: split subsections by app (e.g. API / Worker / CLI).
 
-### （app 名或统一 API）
+### (app name or unified API)
 
 #### `METHOD /path`
 
-- **请求：**
+- **Request:**
 
 ```json
 {}
 ```
 
-- **响应：**
+- **Response:**
 
 ```json
 {}
 ```
 
-- **主要错误码：** （如 400 / 404 / 500）
+- **Main error codes:** (e.g. 400 / 404 / 500)
 
-至少包含：健康检查（若适用）+ 核心业务 2–4 个接口/命令。
+At least: health check (if applicable) + 2–4 core business interfaces/commands.
 
-## 5. 验收标准
+## 5. Acceptance criteria
 
-供步骤 ⑤ 勾选：
+Checkboxes for step 5:
 
-- [ ] （可观察、可复现的一条）
-- [ ] （…）
-- [ ] （…）
+- [ ] (One observable, reproducible item)
+- [ ] (…)
+- [ ] (…)
 
-## 6. 模版检索提示（可选，不最终拍板）
+## 6. Template retrieval hints (optional — not final picks)
 
-- **倾向 apps（1～N）：** （如 `go-api`；或 `go-api` + `go-worker`）
-- **倾向 patterns（0～N）：** （如 `retry-backoff`；无则写「无」）
-- **镜像 / 运行：** （如 `go-builder` + `go-runtime`，`docker compose`）
-- **复杂度线索：** （预期 QPS、是否要 DB 等）
+- **Preferred apps (1–N):** (e.g. `go-api`; or `go-api` + `go-worker`)
+- **Preferred patterns (0–N):** (e.g. `retry-backoff`; or “none”)
+- **Images / runtime:** (e.g. `go-builder` + `go-runtime`, `docker compose`)
+- **Complexity clues:** (expected QPS, DB needed?, etc.)

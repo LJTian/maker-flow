@@ -1,10 +1,18 @@
 # AGENTS.md
 
-**Audience: AI agents.** Human-oriented intro: [README.md](README.md) · Quick start: [docs/getting-started.md](docs/getting-started.md)
+**English** · [简体中文](AGENTS.zh-CN.md)
+
+**Audience: AI agents.** Human intro: [README.md](README.md) · Quick start: [docs/getting-started.md](docs/getting-started.md) · i18n: [docs/i18n.md](docs/i18n.md)
 
 This repository is an agent playbook for shipping personal MVPs. Humans only provide requirements and approve gates.
 
 Principle: **heavy infrastructure, light logic.** Prefer templates and skills over inventing scaffolding.
+
+## Language
+
+- Canonical contracts are the **English** `.md` files.
+- `.zh-CN.md` siblings are for humans only.
+- **MUST NOT** treat Chinese siblings as authoritative for steps, skills, or gates unless the human explicitly asks for Chinese-facing output.
 
 ## Agent entry
 
@@ -22,7 +30,7 @@ Do **not** skip gates. Do **not** invent a new stack when `templates/index.md` h
 |------|-------|--------|----------------|--------|
 | 1 | Human | Provide requirement | — | requirement text |
 | 2 | Agent | Draft PRO | `skills/pro-generation.md`, `prompts/02-pro-draft.md`, `prompts/pro.template.md` | PRO markdown (no code) |
-| 3 | Human | Approve PRO | — | confirmed PRO → `prompts/03-pro-confirmed.example.md` or project `pro.md`（结构同 `pro.template.md`） |
+| 3 | Human | Approve PRO | — | confirmed PRO → `prompts/03-pro-confirmed.example.md` or project `pro.md` (same shape as `pro.template.md`) |
 | 4 | Agent | Match template + assemble MVP | `skills/template-matching.md`, `skills/mvp-assembly.md`, `templates/index.md`, `prompts/04-assemble-mvp.md` | `workspace/<name>/` |
 | 5 | Human | Approve MVP | PRO acceptance criteria | pass/fail |
 | 6 | Agent (on approve) | Deploy | `skills/deploy.md`, `release/` | public URL |
@@ -44,7 +52,7 @@ docs/          # workflow + architecture contracts
 
 ## Hard rules
 
-- MUST follow `skills/*` for the active step.
+- MUST follow `skills/*` for the active step (English primary files).
 - MUST NOT emit implementation code at step 2.
 - MUST NOT assemble (step 4) without confirmed PRO (step 3).
 - MUST NOT deploy (step 6) without MVP approval (step 5).
@@ -65,3 +73,4 @@ docs/          # workflow + architecture contracts
 | Skills index | `skills/CATALOG.md` |
 | Template catalog | `templates/CATALOG.md` |
 | Pattern catalog | `templates/patterns/index.md` |
+| i18n | `docs/i18n.md` |
