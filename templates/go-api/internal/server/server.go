@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/go-chi/chi/v5"
+	"github.com/gin-gonic/gin"
 
 	"github.com/LJTian/maker-flow/templates/go-api/internal/config"
 	"github.com/LJTian/maker-flow/templates/go-api/internal/handler"
@@ -20,15 +20,20 @@ type Server struct {
 }
 
 func New(cfg config.Config, logger *slog.Logger) *Server {
-	r := chi.NewRouter()
+	if cfg.AppEnv == "production" {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
+	r := gin.New()
 	r.Use(middleware.Recover(logger))
 	r.Use(middleware.RequestLogger(logger))
-	r.Use(middleware.CORS)
+	r.Use(middleware.CORS())
 
-	r.Get("/health", handler.Health)
-	r.Route("/api/v1", func(r chi.Router) {
-		r.Get("/ping", handler.Ping)
-	})
+	r.GET("/health", handler.Health)
+	v1 := r.Group("/api/v1")
+	{
+		v1.GET("/ping", handler.Ping)
+	}
 
 	return &Server{
 		cfg:    cfg,

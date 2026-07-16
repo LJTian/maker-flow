@@ -17,7 +17,7 @@
 
 <br/>
 
-[快速开始](docs/getting-started.md) · [架构图解](docs/overview.md) · [给 Agent 看](AGENTS.md) · [文档索引](docs/README.md)
+[快速开始](docs/getting-started.md) · [模版检索](templates/CATALOG.md) · [技能检索](skills/CATALOG.md) · [给 Agent 看](AGENTS.md) · [文档索引](docs/README.md)
 
 </div>
 
@@ -81,8 +81,8 @@ flowchart LR
 
 | 模块 | 目录 | 一句话 |
 |------|------|--------|
-| 技能库 | [`skills/`](skills/) | 约束 Agent：PRO 怎么写、模版怎么选、怎么部署 |
-| 模版集 | [`templates/`](templates/) | Go API 等预制工程，含 Docker + 中间件 |
+| 技能库 | [`skills/`](skills/) · [**检索目录**](skills/CATALOG.md) | 约束 Agent：PRO 怎么写、模版怎么选、怎么部署 |
+| 模版集 | [`templates/`](templates/) · [**检索目录**](templates/CATALOG.md) | Go API 等预制工程，含 Docker + 中间件 |
 | AI 连接 | [`ai-engine/`](ai-engine/) | 可选：Ollama / OpenAI 等兼容 API |
 | 发布基建 | [`release/`](release/) | Nginx + Cloudflare + 一键部署脚本 |
 | 工作区 | [`workspace/`](workspace/) | Agent 组装出的 MVP 落在这里 |
@@ -115,6 +115,7 @@ chmod +x scripts/ai-run.sh
 **方式 C — 先验模版（无需 AI）**
 
 ```bash
+./scripts/build-images.sh   # 构建 Go 基座镜像（首次必做）
 cp -r templates/go-api workspace/smoke-test
 cd workspace/smoke-test && cp .env.example .env
 docker compose up --build
@@ -161,7 +162,27 @@ curl http://localhost:8080/health
 |--------|----------------|
 | [快速开始](docs/getting-started.md) | [AGENTS.md](AGENTS.md) |
 | [架构图解](docs/overview.md) | [workflow.md](docs/workflow.md) |
-| [文档索引](docs/README.md) | [agent-bootstrap.md](docs/agent-bootstrap.md) |
+| [模版检索](templates/CATALOG.md) · [技能检索](skills/CATALOG.md) | [agent-bootstrap.md](docs/agent-bootstrap.md) |
+| [文档索引](docs/README.md) | |
+
+---
+
+## 致谢 · 开源依赖
+
+Maker Flow 站在这些优秀项目之上，感谢维护者与社区：
+
+| 用途 | 项目 | 地址 |
+|------|------|------|
+| Go Web 框架（`go-api` 模版） | **Gin** | https://github.com/gin-gonic/gin |
+| 编译基座镜像 | **golang** (official image) | https://hub.docker.com/_/golang |
+| 运行基座镜像 | **Alpine Linux** | https://alpinelinux.org/ · https://hub.docker.com/_/alpine |
+| 容器运行时 | **Docker** | https://www.docker.com/ |
+| 反向代理 | **Nginx** | https://nginx.org/ |
+| DNS / 边缘 SSL（发布层） | **Cloudflare** | https://www.cloudflare.com/ |
+| 可选本地推理 | **Ollama** | https://ollama.com/ · https://github.com/ollama/ollama |
+| Agent 协议参考 | **Model Context Protocol** | https://modelcontextprotocol.io/ |
+
+若遗漏了你的项目，欢迎提 Issue / PR，我们会补上致谢。
 
 ---
 

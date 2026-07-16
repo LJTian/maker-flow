@@ -14,6 +14,8 @@
 |:--:|------|------|
 | 🚀 | [getting-started.md](getting-started.md) | **从这里开始** — 六步手把手教程 |
 | 📖 | [../README.md](../README.md) | 项目首页 · 价值主张 · 快速上手 |
+| 📇 | [../templates/CATALOG.md](../templates/CATALOG.md) | 模版集检索目录 |
+| 📇 | [../skills/CATALOG.md](../skills/CATALOG.md) | 技能库检索目录 |
 | 🏗 | [overview.md](overview.md) | 架构图解（给人看） |
 | 🏗 | [architecture.md](architecture.md) | 架构与目录映射（Agent 版） |
 
