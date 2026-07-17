@@ -42,7 +42,7 @@
 ## 目录布局
 
 ```
-ai-engine/     # 可选 LLM 传输配置（OpenAI 兼容）
+ai-engine/     # 可选 LLM 说明（宿主 Agent 已是模型时可忽略）
 skills/        # HOW — 步骤 SOP（对 Agent 权威）
 templates/     # WHAT — 可检索脚手架；从 templates/index.md 开始
 prompts/       # 分阶段输入契约
