@@ -5,7 +5,7 @@
 | Script / CLI | Purpose |
 |--------------|---------|
 | **`install.sh`** | Install factory to `~/.maker-flow`, link `maker-flow` CLI, auto PATH hint |
-| **`maker-flow`** | CLI: `new`, `install`, `upgrade`, `init`, `root`, `version` |
+| **`maker-flow`** | CLI: `new`, `install`, `upgrade`, `init`, `deploy`, `root`, `version` |
 
 ## Quick start
 
@@ -24,6 +24,7 @@ cd ~/projects/my-todo
 maker-flow new <name>              # install if needed + init (recommended)
 maker-flow init <name>             # product repo only
 maker-flow init <name> --with-pro  # also create draft pro.md
+maker-flow deploy --domain … --host …   # from product repo root
 maker-flow upgrade                 # update ~/.maker-flow
 maker-flow root
 maker-flow version
@@ -33,5 +34,5 @@ From a git clone: `./scripts/install.sh` then `maker-flow new …`
 
 Guide: [`../docs/consumer-project.md`](../docs/consumer-project.md)
 
-Deploy: `../release/deploy/`.  
+Deploy wraps `../release/deploy/push-and-route.sh` (Docker gateway on `maker-flow` network).  
 Dockerfile fragments: `../templates/images/` (inline when assembling; no pre-build step).

@@ -27,7 +27,7 @@ Production traffic: Cloudflare → gateway `:80` → Docker network alias `MVP_N
 
 1. Confirm step-5 approval.
 2. Register subdomain in cloudflare registry example / live registry.
-3. From the product repo root, run `deploy/push-and-route.sh` with `MVP_NAME`, `DOMAIN`, `DEPLOY_HOST`, `DEPLOY_PATH`, optional `CONTAINER_PORT` / `MVP_SERVICE`.
+3. From the product repo root, run `maker-flow deploy` (or `deploy/push-and-route.sh`) with `DOMAIN`, `DEPLOY_HOST`, optional `CONTAINER_PORT` / `MVP_SERVICE`.
 4. Script syncs the gateway, attaches the MVP to `maker-flow`, writes `conf.d/<MVP_NAME>.conf`, runs `nginx -t`, then reloads.
 5. Ensure Cloudflare DNS Proxied; verify `GET /health` on public URL.
 

@@ -23,7 +23,7 @@ docker network create maker-flow 2>/dev/null || true
 
 ## Per-MVP
 
-Prefer `release/deploy/push-and-route.sh` from the product repo root. It will:
+Prefer `release/deploy/push-and-route.sh` from the product repo root (or `maker-flow deploy`). It will:
 
 1. Sync gateway + MVP
 2. `docker compose up` the MVP

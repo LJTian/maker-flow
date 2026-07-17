@@ -11,20 +11,26 @@
 
 ## 输出目录约定
 
+**推荐（消费侧 / 产品仓）：** 写到**当前产品仓根目录**（由 `maker-flow new` / `init` 创建）。见 `docs/consumer-project.md` 与 `AGENTS.consumer.example.md`。
+
+**仅工厂冒烟：**
+
 ```
 workspace/<项目名>/
 ```
 
 `<项目名>` 由 PRO 摘要推导（kebab-case，如 `todo-api`）。
 
+若工作树中的 `AGENTS.md` 配置了 `PRODUCT_NAME` / `MAKER_FLOW_ROOT`（消费侧模式），**MUST** 在该产品仓组装——**禁止**把私有 MVP 代码写进工厂 `workspace/`。
+
 ## 组装步骤
 
 1. **拼装 Dockerfile** — 若 app 需要 Go 镜像片段，读 `templates/images/index.md`，内联 `go-builder` / `go-runtime`（或直接沿用 app 模版里已拼装好的 Dockerfile）。  
    仅使用上游镜像（`golang:…`、`alpine:…`）。**禁止** `FROM maker-flow/*` 或预构建本地 tag。  
-   **禁止**把整个 `templates/images/` 树拷进 `workspace/`——只把片段行写进产品 Dockerfile。
-2. **复制模版** — 将每个选定的 `templates/apps/<id>/` 复制到工作区：
-   - 单 app：`workspace/<项目名>/`
-   - 多 app：`workspace/<项目名>/<id>/`（如 `api/`、`worker/`、`cli/`），或 PRO 约定的布局
+   **禁止**把整个 `templates/images/` 树拷进产品——只把片段行写进产品 Dockerfile。
+2. **复制模版** — 将每个选定的 `templates/apps/<id>/` 复制到输出根：
+   - 单 app：产品仓根（或冒烟用 `workspace/<项目名>/`）
+   - 多 app：`<输出>/<id>/`（如 `api/`、`worker/`、`cli/`），或 PRO 约定的布局
 3. **合并 patterns（可选）** — 按检索结果，将 pattern 包拷入**需要它的那个 app** 目录下的 `internal/...` 并接线
 4. **修改配置** — 各 app 的 `.env.example` → `.env`；多 app 时端口 / 名称勿冲突
 5. **实现业务** — 按 PRO 与各 app 技术栈（Gin / Cobra / worker）分别实现
@@ -47,7 +53,7 @@ workspace/<项目名>/
 3. 本地运行命令：
 
 ```bash
-cd workspace/<项目名>
+# 产品仓（推荐）或 workspace/<项目名>（冒烟）
 cp .env.example .env
 docker compose up --build
 ```

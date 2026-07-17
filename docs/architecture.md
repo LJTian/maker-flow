@@ -8,6 +8,7 @@
 - Two human gates: PRO before code; MVP before deploy.
 - Agent writes artifacts to defined paths; do not scatter files.
 - English primary docs are authoritative; see `docs/i18n.md`.
+- **Recommended layout:** factory (`~/.maker-flow` or this repo) is read-only skills/templates; each MVP lives in a **separate product repo**. `workspace/` is factory smoke only.
 
 ## Component map
 
@@ -17,7 +18,8 @@ flowchart TB
     Agent[Agent]
     Skills[skills/]
     Templates[templates/]
-    Workspace[workspace/]
+    Product[product repo]
+    Workspace[workspace/ smoke]
     Release[release/]
 
     Human -->|① requirement| Agent
@@ -25,8 +27,11 @@ flowchart TB
     Human -->|③ approve PRO| Agent
     Agent --> Skills
     Agent --> Templates
-    Agent -->|④ assemble| Workspace
+    Agent -->|④ assemble recommended| Product
+    Agent -->|④ assemble smoke| Workspace
+    Product -->|⑤ approve MVP| Human
     Workspace -->|⑤ approve MVP| Human
+    Product -->|⑥ deploy| Release
     Workspace -->|⑥ deploy| Release
     Release --> MVP[public MVP]
 ```
@@ -38,8 +43,10 @@ flowchart TB
 | `skills/` | Authoritative HOW for each step |
 | `templates/` | Searchable scaffolds; catalog = `index.md` |
 | `prompts/` | Stage input templates |
-| `workspace/` | ONLY place for assembled MVP code |
-| `release/` | Deploy primitives for step 6 |
+| **product repo** | **Recommended** write target for step 4–6 (see `docs/consumer-project.md`) |
+| `workspace/` | Factory **smoke only** — not the long-term home for private MVPs |
+| `release/` | Deploy primitives for step 6 (gateway + `push-and-route`; prefer `maker-flow deploy`) |
+| `scripts/` | `install.sh`, `maker-flow` CLI |
 | `ai-engine/` | Optional remote LLM connection notes (host agent usually unused) |
 | `docs/` | Workflow / architecture contracts |
 
@@ -49,15 +56,16 @@ flowchart TB
 |------|-------|-------|
 | 1 | Human | requirement text |
 | 2 | Agent | `skills/pro-generation.md`, `prompts/02-pro-draft.md` |
-| 3 | Human | confirmed PRO file |
-| 4 | Agent | `skills/template-matching.md`, `skills/mvp-assembly.md`, `templates/index.md`, `workspace/<name>/` |
-| 5 | Human | `workspace/<name>/` + PRO acceptance |
-| 6 | Agent | `skills/deploy.md`, `release/` |
+| 3 | Human | confirmed PRO (`pro.md` in product repo, or factory example) |
+| 4 | Agent | `template-matching` + `mvp-assembly` + `templates/` → **product repo root** (or `workspace/<name>/` for smoke) |
+| 5 | Human | assembled project + PRO acceptance |
+| 6 | Agent | `skills/deploy.md`, `maker-flow deploy` / `release/` |
 
 ## Related
 
 - `docs/workflow.md`
+- `docs/consumer-project.md`
 - `docs/agent-bootstrap.md`
 - `docs/getting-started.md` (human)
 - `docs/i18n.md`
-- `AGENTS.md`
+- `AGENTS.md` · `AGENTS.consumer.example.md`

@@ -21,14 +21,26 @@
 在 MVP / 产品项目目录：
 
 ```bash
+maker-flow deploy \
+  --domain idea1.your-domain.com \
+  --host deploy@your-server \
+  --service api \
+  --port 8080
+```
+
+（`--name` 默认取 `AGENTS.md` 中的 `PRODUCT_NAME`。等价环境变量：`DOMAIN`、`DEPLOY_HOST`、`MVP_SERVICE`、`CONTAINER_PORT`。）
+
+底层（效果相同）：
+
+```bash
 export MVP_NAME=idea1
 export DOMAIN=idea1.your-domain.com
 export DEPLOY_HOST=deploy@your-server
 export DEPLOY_PATH=/opt/mvps/idea1
-export CONTAINER_PORT=8080   # web-vite: 80
-export MVP_SERVICE=api       # 或 web / worker
+export CONTAINER_PORT=8080
+export MVP_SERVICE=api
 
-/path/to/maker-flow/release/deploy/push-and-route.sh
+"$(maker-flow root)/release/deploy/push-and-route.sh"
 ```
 
 ## Nginx 网关

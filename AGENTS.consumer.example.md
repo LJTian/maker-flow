@@ -52,7 +52,7 @@ PRODUCT_NAME=my-todo
 | 3 | Human: approve PRO | — | **`pro.md`** |
 | 4 | Agent: assemble | `template-matching`, `mvp-assembly`, `templates/` | **this repo** (`./`, `./api/`, …) |
 | 5 | Human: accept MVP | `pro.md` criteria | — |
-| 6 | Agent: deploy | `$MAKER_FLOW_ROOT/skills/deploy.md`, `release/` | run `push-and-route.sh` from this repo |
+| 6 | Agent: deploy | `$MAKER_FLOW_ROOT/skills/deploy.md`, `release/` | `maker-flow deploy` from this repo |
 
 Hard gates: **stop at 3 and 5 until human confirms.**
 
@@ -68,14 +68,11 @@ Hard gates: **stop at 3 and 5 until human confirms.**
 From this repo root:
 
 ```bash
-export MVP_NAME="${PRODUCT_NAME}"
-export DOMAIN=my-todo.your-domain.com
-export DEPLOY_HOST=deploy@your-server
-export DEPLOY_PATH=/opt/mvps/${PRODUCT_NAME}
-export CONTAINER_PORT=8080
-export MVP_SERVICE=api
-
-"$MAKER_FLOW_ROOT/release/deploy/push-and-route.sh"
+maker-flow deploy \
+  --domain my-todo.your-domain.com \
+  --host deploy@your-server \
+  --service api \
+  --port 8080
 ```
 
 ## First message template

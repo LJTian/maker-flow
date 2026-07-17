@@ -147,17 +147,14 @@ MVP 验收通过。按 skills/deploy.md 和 release/ 部署。
 或手动执行：
 
 ```bash
-export MVP_NAME=idea1
-export DOMAIN=idea1.your-domain.com
-export DEPLOY_HOST=deploy@your-server
-export DEPLOY_PATH=/opt/mvps/idea1
-export CONTAINER_PORT=8080   # web-vite: 80
-export MVP_SERVICE=api       # 或 web / worker
-
-./release/deploy/push-and-route.sh
+maker-flow deploy \
+  --domain idea1.your-domain.com \
+  --host deploy@your-server \
+  --service api \
+  --port 8080
 ```
 
-脚本会同步 Docker 网关、把 MVP 接入网络 `maker-flow` 并 reload Nginx。  
+（`maker-flow deploy` 封装 `release/deploy/push-and-route.sh`：同步 Docker 网关、把 MVP 接入 `maker-flow`、reload Nginx。）  
 然后配置 Cloudflare DNS（Proxied）→ 访问 `https://idea1.your-domain.com`
 
 ---

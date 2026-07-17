@@ -2,7 +2,7 @@
 # Maker Flow CLI — install factory to ~/.maker-flow, init product repos.
 set -euo pipefail
 
-VERSION="0.2.0"
+VERSION="0.3.0"
 
 usage() {
   cat <<'EOF'
@@ -13,6 +13,7 @@ Commands:
   install          Install or update factory under ~/.maker-flow
   upgrade          Same as install
   init <name>      Create a new MVP product directory
+  deploy           Deploy current product repo via release/deploy/push-and-route.sh
   root             Print factory path (MAKER_FLOW_ROOT)
   version          Print CLI and factory version info
   help             Show this help
@@ -29,6 +30,15 @@ Init / new options:
   --with-pro       Also create pro.md from template (draft)
   --requirement <text>  Seed requirement.md
 
+Deploy options (or use env vars of the same name):
+  --name <MVP_NAME>           Network alias + conf name (default: PRODUCT_NAME from AGENTS.md)
+  --domain <DOMAIN>           Public hostname (required)
+  --host <DEPLOY_HOST>        SSH target user@server (required)
+  --path <DEPLOY_PATH>        Remote project dir (default: /opt/mvps/<name>)
+  --port <CONTAINER_PORT>     Port inside the container (default: 8080)
+  --service <MVP_SERVICE>     Compose service: api|web|worker (auto-detect if omitted)
+  --gateway-path <path>       Remote gateway dir (default: /opt/maker-flow/gateway)
+
 Environment:
   MAKER_FLOW_INSTALL_DIR   Override install path
   MAKER_FLOW_BIN_DIR       Override CLI symlink directory
@@ -39,6 +49,7 @@ Examples:
   curl -fsSL https://raw.githubusercontent.com/LJTian/maker-flow/main/scripts/install.sh | bash
   maker-flow new my-todo
   maker-flow new my-api --requirement "Mini todo API, no auth"
+  maker-flow deploy --domain idea1.example.com --host deploy@server --service api
   maker-flow upgrade
 EOF
 }
@@ -310,6 +321,69 @@ cmd_new() {
   cmd_init "$@"
 }
 
+# Read PRODUCT_NAME=... from AGENTS.md in cwd (if present).
+read_product_name_from_agents() {
+  local agents="${1:-AGENTS.md}"
+  [[ -f "$agents" ]] || return 0
+  sed -nE 's/^[[:space:]]*PRODUCT_NAME=([^[:space:]#]+).*/\1/p' "$agents" | head -1
+}
+
+cmd_deploy() {
+  local mvp_name="${MVP_NAME:-}"
+  local domain="${DOMAIN:-}"
+  local deploy_host="${DEPLOY_HOST:-}"
+  local deploy_path="${DEPLOY_PATH:-}"
+  local container_port="${CONTAINER_PORT:-${MVP_PORT:-}}"
+  local mvp_service="${MVP_SERVICE:-}"
+  local gateway_path="${GATEWAY_PATH:-}"
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --name) mvp_name="$2"; shift 2 ;;
+      --domain) domain="$2"; shift 2 ;;
+      --host) deploy_host="$2"; shift 2 ;;
+      --path) deploy_path="$2"; shift 2 ;;
+      --port) container_port="$2"; shift 2 ;;
+      --service) mvp_service="$2"; shift 2 ;;
+      --gateway-path) gateway_path="$2"; shift 2 ;;
+      *) die "unknown deploy option: $1" ;;
+    esac
+  done
+
+  if [[ -z "$mvp_name" ]]; then
+    mvp_name="$(read_product_name_from_agents)"
+  fi
+  [[ -n "$mvp_name" ]] || die "deploy requires --name or PRODUCT_NAME in AGENTS.md / MVP_NAME"
+  [[ -n "$domain" ]] || die "deploy requires --domain or DOMAIN"
+  [[ -n "$deploy_host" ]] || die "deploy requires --host or DEPLOY_HOST"
+
+  if [[ ! -f docker-compose.yml && ! -f compose.yml ]]; then
+    die "run deploy from a product repo root (missing docker-compose.yml)"
+  fi
+
+  local root
+  root="$(resolve_factory_root)"
+  local script="${root}/release/deploy/push-and-route.sh"
+  [[ -x "$script" || -f "$script" ]] || die "missing deploy script: $script"
+
+  export MVP_NAME="$mvp_name"
+  export DOMAIN="$domain"
+  export DEPLOY_HOST="$deploy_host"
+  export DEPLOY_PATH="${deploy_path:-/opt/mvps/${mvp_name}}"
+  export CONTAINER_PORT="${container_port:-8080}"
+  [[ -n "$mvp_service" ]] && export MVP_SERVICE="$mvp_service"
+  [[ -n "$gateway_path" ]] && export GATEWAY_PATH="$gateway_path"
+
+  echo "==> maker-flow deploy"
+  echo "    MVP_NAME=${MVP_NAME}"
+  echo "    DOMAIN=${DOMAIN}"
+  echo "    DEPLOY_HOST=${DEPLOY_HOST}"
+  echo "    DEPLOY_PATH=${DEPLOY_PATH}"
+  echo "    CONTAINER_PORT=${CONTAINER_PORT}"
+  [[ -n "${MVP_SERVICE:-}" ]] && echo "    MVP_SERVICE=${MVP_SERVICE}"
+  exec bash "$script"
+}
+
 cmd_root() {
   resolve_factory_root
 }
@@ -334,6 +408,7 @@ main() {
     install|upgrade) cmd_install "$@" ;;
     init) cmd_init "$@" ;;
     new) cmd_new "$@" ;;
+    deploy) cmd_deploy "$@" ;;
     root) cmd_root ;;
     version|-v|--version) cmd_version ;;
     help|-h|--help) usage ;;

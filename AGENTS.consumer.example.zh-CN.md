@@ -52,7 +52,7 @@ PRODUCT_NAME=my-todo
 | 3 | 人：确认 PRO | — | **`pro.md`** |
 | 4 | Agent：组装 | `template-matching`、`mvp-assembly`、`templates/` | **本仓**（`./`、`./api/` …） |
 | 5 | 人：验收 MVP | `pro.md` 验收标准 | — |
-| 6 | Agent：部署 | `$MAKER_FLOW_ROOT/skills/deploy.md`、`release/` | 在本仓执行 `push-and-route.sh` |
+| 6 | Agent：部署 | `$MAKER_FLOW_ROOT/skills/deploy.md`、`release/` | 在本仓执行 `maker-flow deploy` |
 
 硬门禁：**步骤 ③、⑤ 人类确认前必须停下。**
 
@@ -68,14 +68,11 @@ PRODUCT_NAME=my-todo
 在本仓根目录：
 
 ```bash
-export MVP_NAME="${PRODUCT_NAME}"
-export DOMAIN=my-todo.your-domain.com
-export DEPLOY_HOST=deploy@your-server
-export DEPLOY_PATH=/opt/mvps/${PRODUCT_NAME}
-export CONTAINER_PORT=8080
-export MVP_SERVICE=api
-
-"$MAKER_FLOW_ROOT/release/deploy/push-and-route.sh"
+maker-flow deploy \
+  --domain my-todo.your-domain.com \
+  --host deploy@your-server \
+  --service api \
+  --port 8080
 ```
 
 ## 首条对话模版

@@ -104,7 +104,7 @@ cd ~/projects/my-todo
 | ③ 确认 PRO | 写入产品仓 **`pro.md`** |
 | ④ 组装 | 从 `$MAKER_FLOW_ROOT/templates/...` **拷贝**到产品仓；输出目录 = 产品根，不是 `workspace/` |
 | ⑤ 验收 | 在产品仓 `docker compose up --build` |
-| ⑥ 部署 | 产品仓根目录执行 `$MAKER_FLOW_ROOT/release/deploy/push-and-route.sh` |
+| ⑥ 部署 | 产品仓根目录执行 `maker-flow deploy --domain … --host …` |
 
 Go 模版：从 `$MAKER_FLOW_ROOT/templates/images/` 拼装 Dockerfile 片段（app 模版已内联）。无需预构建步骤。
 

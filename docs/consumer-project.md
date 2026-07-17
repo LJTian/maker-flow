@@ -111,7 +111,7 @@ cd ~/projects/my-todo
 | ③ Confirm PRO | Write `pro.md` in **product repo** |
 | ④ Assemble | Copy from `$MAKER_FLOW_ROOT/templates/...` into **product repo**; follow `mvp-assembly` (output = product root, not `workspace/`) |
 | ⑤ Accept | `docker compose up --build` in **product repo** |
-| ⑥ Deploy | From product repo root: `$MAKER_FLOW_ROOT/release/deploy/push-and-route.sh` |
+| ⑥ Deploy | From product repo root: `maker-flow deploy --domain … --host …` |
 
 Go apps: compose Dockerfile fragments from `$MAKER_FLOW_ROOT/templates/images/` (already done in app templates). No pre-build step.
 

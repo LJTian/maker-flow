@@ -27,7 +27,7 @@ release/
 
 1. 确认步骤 ⑤ 已批准。
 2. 在 cloudflare 登记示例 / 线上登记表中登记子域名。
-3. 在产品仓根目录运行 `deploy/push-and-route.sh`，传入 `MVP_NAME`、`DOMAIN`、`DEPLOY_HOST`、`DEPLOY_PATH`，可选 `CONTAINER_PORT` / `MVP_SERVICE`。
+3. 在产品仓根目录运行 `maker-flow deploy`（或 `deploy/push-and-route.sh`），传入 `DOMAIN`、`DEPLOY_HOST`，可选 `CONTAINER_PORT` / `MVP_SERVICE`。
 4. 脚本同步网关、将 MVP 接入 `maker-flow`、写入 `conf.d/<MVP_NAME>.conf`、执行 `nginx -t` 后 reload。
 5. 确保 Cloudflare DNS 已 Proxied；在公网 URL 验证 `GET /health`。
 

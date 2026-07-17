@@ -23,7 +23,7 @@ docker network create maker-flow 2>/dev/null || true
 
 ## 每个 MVP
 
-在产品仓根目录优先使用 `release/deploy/push-and-route.sh`。它会：
+在产品仓根目录优先使用 `release/deploy/push-and-route.sh`（或 `maker-flow deploy`）。它会：
 
 1. 同步网关 + MVP
 2. `docker compose up` MVP

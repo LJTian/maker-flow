@@ -11,20 +11,26 @@ Produce a **locally runnable** minimal project with no features outside the PRO.
 
 ## Output directory
 
+**Recommended (consumer / product repo):** write into the **current product repository root** (created by `maker-flow new` / `init`). See `docs/consumer-project.md` and `AGENTS.consumer.example.md`.
+
+**Factory smoke only:**
+
 ```
 workspace/<project-name>/
 ```
 
 `<project-name>` is derived from the PRO summary (kebab-case, e.g. `todo-api`).
 
+If `AGENTS.md` in the working tree sets `PRODUCT_NAME` / `MAKER_FLOW_ROOT` (consumer mode), **MUST** assemble in that product repo — **MUST NOT** write private MVP code into the factory `workspace/`.
+
 ## Assembly steps
 
 1. **Compose Dockerfiles** — if apps need Go image fragments, read `templates/images/index.md` and inline `go-builder` / `go-runtime` (or keep the already-composed Dockerfile from the app template).  
    Use upstream images only (`golang:…`, `alpine:…`). **MUST NOT** `FROM maker-flow/*` or pre-build local tags.  
-   **MUST NOT** copy the `templates/images/` tree into `workspace/` — only fragment lines in the product Dockerfile.
-2. **Copy templates** — copy each selected `templates/apps/<id>/` into the workspace:
-   - Single app: `workspace/<project-name>/`
-   - Multi-app: `workspace/<project-name>/<id>/` (e.g. `api/`, `worker/`, `cli/`), or the layout agreed in the PRO
+   **MUST NOT** copy the `templates/images/` tree into the product — only fragment lines in the product Dockerfile.
+2. **Copy templates** — copy each selected `templates/apps/<id>/` into the output root:
+   - Single app: product root (or `workspace/<project-name>/` for smoke)
+   - Multi-app: `<output>/<id>/` (e.g. `api/`, `worker/`, `cli/`), or the layout agreed in the PRO
 3. **Merge patterns (optional)** — copy pattern packages into `internal/...` of the **app that needs them** and wire them up
 4. **Config** — per app `.env.example` → `.env`; avoid port / name clashes across apps
 5. **Implement business logic** — per PRO and each app stack (Gin / Cobra / worker)
@@ -47,7 +53,7 @@ workspace/<project-name>/
 3. Local run commands:
 
 ```bash
-cd workspace/<project-name>
+# product repo (recommended) or workspace/<project-name> (smoke)
 cp .env.example .env
 docker compose up --build
 ```
