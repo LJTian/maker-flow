@@ -26,7 +26,7 @@
 | `go-worker` | [`apps/go-worker/`](apps/go-worker/) | `go` `worker` `concurrency` `pool` | 多协程任务消费 + graceful shutdown | `go-builder` + `go-runtime` |
 | `web-vite` | [`apps/web-vite/`](apps/web-vite/) | `web` `frontend` `vite` `react` `typescript` `tailwind` `spa` `docker` | 浏览器 UI / 落地页 / 简易面板 MVP | Node + Nginx（无 maker-flow 镜像基座） |
 
-Agent：**1～N 个 app** 整目录复制到 `workspace/`（多 app 时用子目录区分）。
+Agent：**1～N 个 app** 整目录复制到**产品仓**（多 app 时用子目录区分）。
 
 ---
 
@@ -50,7 +50,7 @@ Agent：**1～N 个 app** 整目录复制到 `workspace/`（多 app 时用子目
 | `retry-backoff` | [`patterns/retry-backoff/`](patterns/retry-backoff/) | `retry` `backoff` |
 | `circuit-breaker` | [`patterns/circuit-breaker/`](patterns/circuit-breaker/) | `circuit-breaker` |
 
-Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改写**进对应 app 的 workspace 目录，patterns 不单独部署。
+Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改写**进对应 app 的产品仓目录，patterns 不单独部署。
 
 明细 → [`patterns/index.md`](patterns/index.md)
 

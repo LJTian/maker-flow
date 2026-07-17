@@ -7,7 +7,7 @@
 
 ## Goal
 
-Expose the container(s) in the product repo (or `workspace/<project-name>/`) to the public internet within about 10 minutes.
+Expose the container(s) in the **product repo** to the public internet within about 10 minutes.
 
 ## Checklist
 

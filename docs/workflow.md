@@ -33,12 +33,12 @@ Agent: store/copy into the step-2 prompt user-requirement section if using `prom
 - **MUST follow structure:** `prompts/pro.template.md` (see `prompts/pro.example.md` for granularity)
 - **MAY use:** `prompts/02-pro-draft.md` as the prompt body
 - **MUST output:** PRO sections defined by the skill / template
-- **MUST NOT:** write application code, pick a final template, or create `workspace/`
+- **MUST NOT:** write application code, pick a final template, or assemble into the factory repo
 
 ### 3 — Confirm PRO (human gate)
 
 - Agent presents PRO and waits.
-- On approval, persist confirmed PRO to `prompts/03-pro-confirmed.example.md` or `workspace/<name>/pro.md` (same section shape as `pro.template.md`).
+- On approval, persist confirmed PRO to `pro.md` in the **product repo** (or `prompts/03-pro-confirmed.example.md` for factory-local examples; same section shape as `pro.template.md`).
 - **MUST NOT** proceed to step 4 without explicit human approval.
 
 ### 4 — Assemble MVP (agent)
@@ -48,7 +48,7 @@ Agent: store/copy into the step-2 prompt user-requirement section if using `prom
   2. `templates/CATALOG.md` → `templates/index.md` → `templates/patterns/index.md` → `templates/images/index.md`
   3. `skills/mvp-assembly.md`
 - **MAY use:** `prompts/04-assemble-mvp.md`
-- **MUST:** select **one or more** app IDs, copy to `workspace/<name>/` (multi-app: `workspace/<name>/<app-id>/`), implement only PRO scope
+- **MUST:** select **one or more** app IDs, copy to the **product repo root** (multi-app: `<product-root>/<app-id>/`), implement only PRO scope
 - **MUST NOT:** invent scaffolding outside templates; deploy
 
 ### 5 — Confirm MVP (human gate)
@@ -56,7 +56,7 @@ Agent: store/copy into the step-2 prompt user-requirement section if using `prom
 Agent (or human) runs:
 
 ```bash
-cd workspace/<name>
+cd ~/projects/<name>   # product repo (maker-flow new <name>)
 cp -n .env.example .env
 docker compose up --build
 curl -sf http://localhost:8080/health

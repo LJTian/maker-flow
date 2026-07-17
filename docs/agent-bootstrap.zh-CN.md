@@ -22,7 +22,7 @@
 | 步 | 先读 | 然后 |
 |----|------|------|
 | 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` + `prompts/pro.template.md`（样板：`pro.example.md`） |
-| 4 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | **产品仓根目录**（推荐）或 `workspace/<name>/`（工厂冒烟） |
+| 4 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | **产品仓根目录**（`maker-flow new <名字>`） |
 | 6 | `skills/deploy.md` | `maker-flow deploy`（封装 `release/deploy/push-and-route.sh`） |
 
 可选 LLM 配置说明：`ai-engine/`（若宿主 Agent 本身就是 LLM 则不必）。
@@ -33,7 +33,7 @@
 
 - [ ] 步骤 ④ 及之后已有确认 PRO
 - [ ] 已通过 `templates/index.md` 选定模版
-- [ ] 目标路径为**产品仓**（消费侧）或 `workspace/<kebab-name>/`（仅冒烟）
+- [ ] 目标路径为**产品仓**（`maker-flow new <名字>` 或已有产品仓 checkout）
 - [ ] 范围符合 PRO「不做」清单
 
 ## 4. 冒烟模版（可选）
@@ -41,6 +41,6 @@
 仅用于验证本机 Docker，不能替代步骤 ④：
 
 ```bash
-cp -r templates/apps/go-api workspace/_smoke
-cd workspace/_smoke && cp .env.example .env && docker compose up --build
+mkdir -p /tmp/maker-flow-smoke && cp -r templates/apps/go-api /tmp/maker-flow-smoke/_smoke
+cd /tmp/maker-flow-smoke/_smoke && cp .env.example .env && docker compose up --build
 ```

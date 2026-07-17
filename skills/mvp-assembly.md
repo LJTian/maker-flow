@@ -11,17 +11,11 @@ Produce a **locally runnable** minimal project with no features outside the PRO.
 
 ## Output directory
 
-**Recommended (consumer / product repo):** write into the **current product repository root** (created by `maker-flow new` / `init`). See `docs/consumer-project.md` and `AGENTS.consumer.example.md`.
-
-**Factory smoke only:**
-
-```
-workspace/<project-name>/
-```
+Write into the **current product repository root** (created by `maker-flow new` / `init`). See `docs/consumer-project.md` and `AGENTS.consumer.example.md`.
 
 `<project-name>` is derived from the PRO summary (kebab-case, e.g. `todo-api`).
 
-If `AGENTS.md` in the working tree sets `PRODUCT_NAME` / `MAKER_FLOW_ROOT` (consumer mode), **MUST** assemble in that product repo — **MUST NOT** write private MVP code into the factory `workspace/`.
+**MUST NOT** write assembled MVP code into the maker-flow factory repo. If the working tree is the factory (no product `AGENTS.md`), create a product repo first (`maker-flow new <name>`) or use `/tmp/maker-flow-smoke/<name>/` for a one-off smoke copy.
 
 ## Assembly steps
 
@@ -29,7 +23,7 @@ If `AGENTS.md` in the working tree sets `PRODUCT_NAME` / `MAKER_FLOW_ROOT` (cons
    Use upstream images only (`golang:…`, `alpine:…`). **MUST NOT** `FROM maker-flow/*` or pre-build local tags.  
    **MUST NOT** copy the `templates/images/` tree into the product — only fragment lines in the product Dockerfile.
 2. **Copy templates** — copy each selected `templates/apps/<id>/` into the output root:
-   - Single app: product root (or `workspace/<project-name>/` for smoke)
+   - Single app: product root
    - Multi-app: `<output>/<id>/` (e.g. `api/`, `worker/`, `cli/`), or the layout agreed in the PRO
 3. **Merge patterns (optional)** — copy pattern packages into `internal/...` of the **app that needs them** and wire them up
 4. **Config** — per app `.env.example` → `.env`; avoid port / name clashes across apps
@@ -53,7 +47,7 @@ If `AGENTS.md` in the working tree sets `PRODUCT_NAME` / `MAKER_FLOW_ROOT` (cons
 3. Local run commands:
 
 ```bash
-# product repo (recommended) or workspace/<project-name> (smoke)
+# product repo root (maker-flow new <name>)
 cp .env.example .env
 docker compose up --build
 ```

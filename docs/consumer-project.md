@@ -15,9 +15,7 @@ Recommended layout: **parallel directories** — not submodule, not copying the 
 | **maker-flow** | Public (tool) | `skills/`, `templates/`, `prompts/`, `release/`, docs |
 | **Your MVP** (e.g. `my-todo`) | Private (product) | `pro.md`, assembled apps, `docker-compose.yml`, short `AGENTS.md` |
 
-**Rule:** Never commit MVP business code into maker-flow. Others who clone maker-flow must not receive your ideas.
-
-`workspace/` inside maker-flow is for **local factory smoke tests only** (gitignored). Real MVPs go in product repos.
+**Rule:** Never commit MVP business code into maker-flow. Others who clone maker-flow must not receive your ideas. Real MVPs go in product repos (`maker-flow new <name>`).
 
 ---
 
@@ -109,7 +107,7 @@ cd ~/projects/my-todo
 | ① Requirement | Product repo (chat or local notes) |
 | ② Draft PRO | Agent reads `$MAKER_FLOW_ROOT/skills/pro-generation.md` |
 | ③ Confirm PRO | Write `pro.md` in **product repo** |
-| ④ Assemble | Copy from `$MAKER_FLOW_ROOT/templates/...` into **product repo**; follow `mvp-assembly` (output = product root, not `workspace/`) |
+| ④ Assemble | Copy from `$MAKER_FLOW_ROOT/templates/...` into **product repo**; follow `mvp-assembly` (output = product root) |
 | ⑤ Accept | `docker compose up --build` in **product repo** |
 | ⑥ Deploy | From product repo root: `maker-flow deploy --domain … --host …` |
 
@@ -137,7 +135,6 @@ Set `VITE_API_BASE_URL` before building `web/` when pairing with `go-api`.
 |----------|-------------------------|-------------|----------------|
 | **Parallel dirs (recommended)** | Best | Manual (note factory commit) | Low |
 | Submodule `vendor/maker-flow` | Good | Git submodule SHA | Medium |
-| Single repo `workspace/` | Poor for public factory | N/A | Low |
 | Copy whole factory into product | Poor | Frozen copy | Low |
 
 Use **submodule** only when you need collaborators or CI to pin an exact factory commit on one product.

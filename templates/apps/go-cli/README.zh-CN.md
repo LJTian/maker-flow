@@ -13,7 +13,7 @@
 
 ## Agent 用法
 
-1. 复制到 `workspace/<name>/`。
+1. 复制到**产品仓根**（或 `<产品根>/<app-id>/`）。
 2. 在 `cmd/` / `internal/` 下添加子命令。
 3. 可选 patterns：`retry-backoff`、`worker-pool`。
 4. 若自定义 Dockerfile，从 `../../images/` 片段拼装。

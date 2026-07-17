@@ -15,7 +15,7 @@ Template id: `web-vite`. Vite + React + TypeScript + Tailwind static web UI for 
 
 ## Agent usage
 
-1. Copy this directory to `workspace/<name>/` or `workspace/<name>/web/` (multi-app).
+1. Copy this directory to the **product repo root** or `<product-root>/web/` (multi-app).
 2. Replace `src/App.tsx` and add components under `src/` per the PRO.
 3. Set `VITE_API_BASE_URL` when pairing with `go-api` or another backend.
 4. Follow `skills/mvp-assembly.md`. Patterns are optional; copy into `src/lib/` if needed.
@@ -49,5 +49,5 @@ Local dev (optional): `npm install && npm run dev` → http://localhost:5173
 
 ## Pairing with go-api
 
-Multi-app example: `workspace/my-app/api/` (`go-api`) + `workspace/my-app/web/` (`web-vite`).  
+Multi-app example: `my-app/api/` (`go-api`) + `my-app/web/` (`web-vite`).  
 Set `VITE_API_BASE_URL=http://localhost:8080` (or your API host) before `docker compose build`.

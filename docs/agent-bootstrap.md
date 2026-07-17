@@ -22,7 +22,7 @@ Human quick start: [getting-started.md](getting-started.md) · Repo intro: [READ
 | Step | Read first | Then |
 |------|------------|------|
 | 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` + `prompts/pro.template.md` (sample: `pro.example.md`) |
-| 4 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | **product repo root** (recommended) or `workspace/<name>/` (factory smoke) |
+| 4 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | **product repo root** (`maker-flow new <name>`) |
 | 6 | `skills/deploy.md` | `maker-flow deploy` (wraps `release/deploy/push-and-route.sh`) |
 
 Optional LLM config notes: `ai-engine/` (not required if the host agent is the LLM).
@@ -33,7 +33,7 @@ Read **English** primary files only for contracts.
 
 - [ ] Confirmed PRO exists for step 4+
 - [ ] Template(s) chosen via `templates/index.md`
-- [ ] Target path is **product repo** (consumer) or `workspace/<kebab-name>/` (smoke only)
+- [ ] Target path is **product repo** (`maker-flow new <name>` or existing product checkout)
 - [ ] Scope matches PRO out-of-scope list
 
 ## 4. Smoke template (optional)
@@ -41,6 +41,6 @@ Read **English** primary files only for contracts.
 Only to verify host Docker works — not a substitute for step 4:
 
 ```bash
-cp -r templates/apps/go-api workspace/_smoke
-cd workspace/_smoke && cp .env.example .env && docker compose up --build
+mkdir -p /tmp/maker-flow-smoke && cp -r templates/apps/go-api /tmp/maker-flow-smoke/_smoke
+cd /tmp/maker-flow-smoke/_smoke && cp .env.example .env && docker compose up --build
 ```

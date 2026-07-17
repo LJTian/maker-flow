@@ -39,7 +39,7 @@
 |------|------|----------|
 | PRO 生成 | 含摘要/流程/模型/API/验收 | 输出实现代码、最终选定模版 |
 | 模版检索 | 读 CATALOG + index；写出 image 依赖 | 自创脚手架、未确认 PRO 就选 |
-| MVP 组装 | 输出到 `workspace/<name>/`；从镜像片段拼装 Dockerfile | 拷贝整个 `templates/images/` 树；本步部署 |
+| MVP 组装 | 输出到**产品仓根**；从镜像片段拼装 Dockerfile | 拷贝整个 `templates/images/` 树；本步部署；写入工厂仓 |
 | 部署 | 跟 `release/` 脚本与端口池 | 跳过本地/验收门禁 |
 
 ---

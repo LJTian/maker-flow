@@ -25,7 +25,7 @@
   - go-worker → templates/apps/go-worker
 - **镜像依赖**：go-builder + go-runtime
 - **Patterns**：retry-backoff, worker-pool（可为空）
-- **工作区布局**：workspace/<project>/{api,worker}/（或分别说明）
+- **产品布局**：`<产品根>/{api,worker}/`（或分别说明）
 - **理由**：…
 ```
 

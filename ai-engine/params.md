@@ -28,4 +28,4 @@ Output MUST include every section from `skills/pro-generation.md`, with **no cod
 
 ### Step 4 (assemble)
 
-MUST include template selection rationale + runnable code under `workspace/<project-name>/`, per `skills/mvp-assembly.md`.
+MUST include template selection rationale + runnable code under the **product repo root**, per `skills/mvp-assembly.md`.

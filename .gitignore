@@ -29,9 +29,6 @@ __pycache__/
 logs/
 tmp/
 data/
-workspace/*
-!workspace/.gitkeep
-!workspace/README.md
 
 # Docker local overrides
 docker-compose.override.yml

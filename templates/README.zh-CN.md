@@ -8,9 +8,9 @@
 templates/
 ├── CATALOG.md      # 总览
 ├── index.md        # apps 字段明细
-├── apps/           # 可组装完整工程 → workspace/
+├── apps/           # 可组装完整工程 → 产品仓
 ├── images/         # 继承式 Docker 基座
-├── patterns/       # 可编译片段 → 拷进 workspace
+├── patterns/       # 可编译片段 → 拷进产品 app
 └── shared/
 ```
 
@@ -36,7 +36,7 @@ templates/
 
 1. 打开 `CATALOG.md` → 选 **1～N 个 app** → 可选 **patterns**。
 2. Go app 从 `images/` 拼装 Dockerfile 片段（app 模版已内联拼装好的 Dockerfile）。
-3. 将每个 app 复制到 `workspace/<name>/` 或 `workspace/<name>/<app-id>/`；把 pattern 文件合并进需要它的 app。
+3. 将每个 app 复制到**产品仓根**或 `<产品根>/<app-id>/`；把 pattern 文件合并进需要它的 app。
 4. 优先容器构建（`docker compose up --build`）。
 
 不要把已组装的 MVP 留在 `templates/` 内。不要单独部署 patterns。

@@ -27,7 +27,7 @@ MAKER_FLOW_ROOT=/path/to/maker-flow
 PRODUCT_NAME=my-todo
 ```
 
-## Output paths (override factory `workspace/`)
+## Output paths
 
 | Artifact | Path in this repo |
 |----------|-------------------|
@@ -41,7 +41,7 @@ PRODUCT_NAME=my-todo
 1. Read `$MAKER_FLOW_ROOT/docs/workflow.md` (gates unchanged).
 2. Load step skill from `$MAKER_FLOW_ROOT/skills/CATALOG.md`.
 3. Match templates via `$MAKER_FLOW_ROOT/templates/CATALOG.md`.
-4. **Write only under this product repo** — never under `$MAKER_FLOW_ROOT/workspace/`.
+4. **Write only under this product repo** — never under `$MAKER_FLOW_ROOT`.
 
 ## Six-step state machine
 

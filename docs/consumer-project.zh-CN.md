@@ -15,9 +15,7 @@
 | **maker-flow** | 公开（工具） | `skills/`、`templates/`、`prompts/`、`release/`、文档 |
 | **你的 MVP**（如 `my-todo`） | 私有（产品） | `pro.md`、组装后的 app、`docker-compose.yml`、短 `AGENTS.md` |
 
-**规则：** 不要把 MVP 业务代码提交进 maker-flow。别人 clone 工厂时不应拿到你的想法。
-
-maker-flow 内的 `workspace/` 仅用于 **工厂本地冒烟**（已 gitignore）。真实 MVP 放在产品仓。
+**规则：** 不要把 MVP 业务代码提交进 maker-flow。别人 clone 工厂时不应拿到你的想法。真实 MVP 放在产品仓（`maker-flow new <名字>`）。
 
 ---
 
@@ -102,7 +100,7 @@ cd ~/projects/my-todo
 | ① 需求 | 产品仓（对话或本地笔记） |
 | ② 起草 PRO | Agent 读 `$MAKER_FLOW_ROOT/skills/pro-generation.md` |
 | ③ 确认 PRO | 写入产品仓 **`pro.md`** |
-| ④ 组装 | 从 `$MAKER_FLOW_ROOT/templates/...` **拷贝**到产品仓；输出目录 = 产品根，不是 `workspace/` |
+| ④ 组装 | 从 `$MAKER_FLOW_ROOT/templates/...` **拷贝**到产品仓；输出目录 = 产品根 |
 | ⑤ 验收 | 在产品仓 `docker compose up --build` |
 | ⑥ 部署 | 产品仓根目录执行 `maker-flow deploy --domain … --host …` |
 
@@ -130,7 +128,6 @@ my-todo/
 |------|--------------|----------|----------|
 | **并列目录（推荐）** | 最好 | 手动记工厂 commit | 低 |
 | Submodule `vendor/maker-flow` | 较好 | submodule SHA | 中 |
-| 单仓 `workspace/` | 不适合公开工厂 | — | 低 |
 | 整棵工厂拷进产品 | 差 | 冻结副本 | 低 |
 
 仅当某个产品需要协作或 CI 钉死工厂版本时，再对该产品仓使用 **submodule**。

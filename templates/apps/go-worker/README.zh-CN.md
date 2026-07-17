@@ -13,7 +13,7 @@
 
 ## Agent 用法
 
-1. 复制到 `workspace/<name>/`
+1. 复制到**产品仓根**（或 `<产品根>/<app-id>/`）
 2. 用 PRO 业务逻辑替换 `Job` / `Process`
 3. 相关 patterns：`worker-pool`、`pipeline`、`retry-backoff`
 4. 若自定义 Dockerfile，从 `../../images/` 片段拼装

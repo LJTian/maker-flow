@@ -15,7 +15,7 @@
 
 ## Agent 用法
 
-1. 拷贝本目录到 `workspace/<name>/` 或 `workspace/<name>/web/`（多 app）。
+1. 拷贝本目录到**产品仓根**或 `<产品根>/web/`（多 app）。
 2. 按 PRO 改写 `src/App.tsx`，在 `src/` 下新增组件。
 3. 与 `go-api` 等后端联调时设置 `VITE_API_BASE_URL`。
 4. 遵循 `skills/mvp-assembly.md`；patterns 可选，需要时拷到 `src/lib/`。
@@ -49,5 +49,5 @@ curl http://localhost:3000/health
 
 ## 与 go-api 组合
 
-多 app 示例：`workspace/my-app/api/`（`go-api`）+ `workspace/my-app/web/`（`web-vite`）。  
+多 app 示例：`my-app/api/`（`go-api`）+ `my-app/web/`（`web-vite`）。  
 `docker compose build` 前设置 `VITE_API_BASE_URL=http://localhost:8080`（或你的 API 地址）。

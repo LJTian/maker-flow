@@ -8,7 +8,7 @@
 - 两道人门禁：写代码前确认 PRO；部署前确认 MVP。
 - Agent 按约定路径写产物，不要散落文件。
 - 英文主版文档为权威；见 `docs/i18n.md`。
-- **推荐布局：** 工厂（`~/.maker-flow` 或本仓）只读 skills/templates；每个 MVP 在**独立产品仓**。`workspace/` 仅工厂冒烟。
+- **推荐布局：** 工厂（`~/.maker-flow` 或本仓）只读 skills/templates；每个 MVP 在**独立产品仓**（`maker-flow new <名字>`）。
 
 ## 组件关系
 
@@ -19,7 +19,6 @@ flowchart TB
     Skills[skills/]
     Templates[templates/]
     Product[产品仓]
-    Workspace[workspace/ 冒烟]
     Release[release/]
 
     Human -->|① 需求| Agent
@@ -27,12 +26,9 @@ flowchart TB
     Human -->|③ 确认 PRO| Agent
     Agent --> Skills
     Agent --> Templates
-    Agent -->|④ 组装 推荐| Product
-    Agent -->|④ 组装 冒烟| Workspace
+    Agent -->|④ 组装| Product
     Product -->|⑤ 确认 MVP| Human
-    Workspace -->|⑤ 确认 MVP| Human
     Product -->|⑥ 部署| Release
-    Workspace -->|⑥ 部署| Release
     Release --> MVP[公网 MVP]
 ```
 
@@ -43,8 +39,7 @@ flowchart TB
 | `skills/` | 各步骤权威 HOW |
 | `templates/` | 可检索脚手架；目录 = `index.md` |
 | `prompts/` | 分阶段输入模版 |
-| **产品仓** | 步骤 ④–⑥ **推荐**写出目标（见 `docs/consumer-project.md`） |
-| `workspace/` | 工厂**仅冒烟** — 不是私有 MVP 的长期归宿 |
+| **产品仓** | 步骤 ④–⑥ **唯一**写出目标（见 `docs/consumer-project.md`；`maker-flow new <名字>`） |
 | `release/` | 步骤 ⑥ 部署原语（网关 + `push-and-route`；优先 `maker-flow deploy`） |
 | `scripts/` | `install.sh`、`maker-flow` CLI |
 | `ai-engine/` | 可选远程 LLM 连接说明（宿主 Agent 场景通常不用） |
@@ -57,7 +52,7 @@ flowchart TB
 | 1 | 人 | 需求文本 |
 | 2 | Agent | `skills/pro-generation.md`、`prompts/02-pro-draft.md` |
 | 3 | 人 | 定稿 PRO（产品仓 `pro.md`，或工厂示例） |
-| 4 | Agent | `template-matching` + `mvp-assembly` + `templates/` → **产品仓根目录**（冒烟才用 `workspace/<name>/`） |
+| 4 | Agent | `template-matching` + `mvp-assembly` + `templates/` → **产品仓根目录** |
 | 5 | 人 | 组装工程 + PRO 验收 |
 | 6 | Agent | `skills/deploy.md`、`maker-flow deploy` / `release/` |
 

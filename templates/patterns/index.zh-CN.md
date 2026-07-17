@@ -2,7 +2,7 @@
 
 # 模式库目录
 
-> **给 AI：** 步骤 ④ 在选定 **app** 后，按 PRO 标签选 0～N 个 pattern；**复制/改写**进 `workspace/`，不要整仓当服务部署。  
+> **给 AI：** 步骤 ④ 在选定 **app** 后，按 PRO 标签选 0～N 个 pattern；**复制/改写**进产品 app，不要整仓当服务部署。  
 > **给人类：** 高性能 / 并发片段速查。
 
 每个 pattern 独立 `go.mod`，可在目录内 `go test ./...`（或容器内用 `go-builder` 跑测试）。
@@ -20,7 +20,7 @@
 ## Agent 用法
 
 1. 从本表按 PRO 关键词 / tags 匹配。
-2. 将 pattern 包文件拷入**需要它的 app** 目录（`workspace/<project>/<app-id>/internal/...`）。
+2. 将 pattern 包文件拷入**需要它的 app** 目录（`<产品根>/<app-id>/internal/...`）。
 3. **MUST NOT** 为 pattern 单独开公网部署。
 
 ## 登记规则

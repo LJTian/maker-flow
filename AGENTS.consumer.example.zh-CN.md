@@ -27,7 +27,7 @@ MAKER_FLOW_ROOT=/path/to/maker-flow
 PRODUCT_NAME=my-todo
 ```
 
-## 输出路径（覆盖工厂默认 `workspace/`）
+## 输出路径
 
 | 产物 | 本仓路径 |
 |------|----------|
@@ -41,7 +41,7 @@ PRODUCT_NAME=my-todo
 1. 读 `$MAKER_FLOW_ROOT/docs/workflow.md`（门禁不变）。
 2. 从 `$MAKER_FLOW_ROOT/skills/CATALOG.md` 加载当前步骤技能。
 3. 经 `$MAKER_FLOW_ROOT/templates/CATALOG.md` 匹配模版。
-4. **只在本产品仓写入** — 不要写 `$MAKER_FLOW_ROOT/workspace/`。
+4. **只在本产品仓写入** — 不要修改 `$MAKER_FLOW_ROOT` 下的文件。
 
 ## 六步状态机
 

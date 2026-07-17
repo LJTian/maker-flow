@@ -30,13 +30,13 @@
 sequenceDiagram
     participant U as You
     participant A as AI Agent
-    participant W as workspace/
+    participant P as product repo
 
     U->>A: ① One-line requirement
     A->>U: ② PRO draft
     U->>A: ③ Approve PRO ✓
-    A->>W: ④ Match templates · assemble MVP
-    U->>W: ⑤ docker compose acceptance ✓
+    A->>P: ④ Match templates · assemble MVP
+    U->>P: ⑤ docker compose acceptance ✓
     A->>U: ⑥ Deploy · public URL
 ```
 
@@ -107,17 +107,17 @@ Persist to [`prompts/03-pro-confirmed.example.md`](../prompts/03-pro-confirmed.e
 PRO is confirmed (see prompts/03-pro-confirmed.example.md).
 Step ④:
 1. skills/template-matching.md + templates/index.md — choose apps/patterns
-2. skills/mvp-assembly.md — assemble under workspace/
+2. skills/mvp-assembly.md — assemble in the **product repo** (`maker-flow new <name>` if needed)
 ```
 
-Expect a runnable project under `workspace/<project-name>/`.
+Expect a runnable project under `~/projects/<project-name>/` (or your product repo root).
 
 ---
 
 ### Step 5 · Local acceptance
 
 ```bash
-cd workspace/<project-name>
+cd ~/projects/<project-name>   # product repo
 cp .env.example .env
 docker compose up --build
 ```
@@ -179,9 +179,9 @@ Yes for MVP. Add more under `templates/` and register in `templates/index.md`.
 </details>
 
 <details>
-<summary><b>Commit workspace/?</b></summary>
+<summary><b>Commit product repo?</b></summary>
 
-Gitignored by default. Prefer a separate repo per MVP.
+Use a separate private git repo per MVP (`maker-flow new <name>`). Never commit assembled MVPs into the maker-flow factory repo.
 
 </details>
 

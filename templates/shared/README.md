@@ -2,7 +2,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-For agents assembling under `workspace/` (or a product repo) from any template.
+For agents assembling in a **product repo** from any template.
 
 ## Images (Dockerfile fragments)
 

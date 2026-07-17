@@ -13,7 +13,7 @@ Template id: `go-cli`. Cobra CLI scaffold for step-4 assembly (commands / tools)
 
 ## Agent usage
 
-1. Copy to `workspace/<name>/`.
+1. Copy to the **product repo root** (or `<product-root>/<app-id>/`).
 2. Add subcommands under `cmd/` / `internal/`.
 3. Optional patterns: `retry-backoff`, `worker-pool`.
 4. If customizing the Dockerfile, compose from `../../images/` fragments.

@@ -33,8 +33,11 @@ flowchart TB
     subgraph repo ["maker-flow 仓库"]
         SK[skills/]
         TP[templates/]
-        WS[workspace/]
         RL[release/]
+    end
+
+    subgraph product ["产品仓"]
+        PR[组装 MVP]
     end
 
     R --> PRO
@@ -43,8 +46,8 @@ flowchart TB
     SK --> PRO
     SK --> ASM
     TP --> ASM
-    ASM --> WS
-    WS --> G2
+    ASM --> PR
+    PR --> G2
     G2 --> DEP
     RL --> DEP
     DEP --> URL[公网 MVP]
@@ -57,7 +60,6 @@ flowchart TB
 | `skills/` | 流程 SOP | Agent |
 | `templates/` | 工程模版 | Agent 检索 + 你验收 |
 | `prompts/` | 分阶段输入 | 你填需求，Agent 读 |
-| `workspace/` | MVP 产出 | Agent 写，你跑 Docker |
 | `release/` | Nginx / CF / 脚本 | Agent 或你部署 |
 | `ai-engine/` | 可选 LLM 配置 | 命令行场景 |
 | `AGENTS.md` | Agent 契约 | Agent |

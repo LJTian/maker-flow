@@ -33,8 +33,11 @@ flowchart TB
     subgraph repo ["maker-flow repo"]
         SK[skills/]
         TP[templates/]
-        WS[workspace/]
         RL[release/]
+    end
+
+    subgraph product ["product repo"]
+        PR[assembled MVP]
     end
 
     R --> PRO
@@ -43,8 +46,8 @@ flowchart TB
     SK --> PRO
     SK --> ASM
     TP --> ASM
-    ASM --> WS
-    WS --> G2
+    ASM --> PR
+    PR --> G2
     G2 --> DEP
     RL --> DEP
     DEP --> URL[Public MVP]
@@ -57,7 +60,6 @@ flowchart TB
 | `skills/` | Process SOPs | Agent |
 | `templates/` | Project scaffolds | Agent match + your acceptance |
 | `prompts/` | Stage inputs | You fill requirement; agent reads |
-| `workspace/` | MVP output | Agent writes; you run Docker |
 | `release/` | Nginx / CF / scripts | Agent or you deploy |
 | `ai-engine/` | Optional LLM config | CLI scenarios |
 | `AGENTS.md` | Agent contract | Agent |

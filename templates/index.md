@@ -80,7 +80,7 @@ Shape? (multi-select OK)
   └─ Other        → extend apps/ and register
 
 Need concurrency/resilience snippets? → append from patterns/ by tags into the matching app (do not deploy alone)
-Multi-app layout → workspace/<project>/<app-id>/
+Multi-app layout → `<product-root>/<app-id>/`
 ```
 
 ## Adding templates

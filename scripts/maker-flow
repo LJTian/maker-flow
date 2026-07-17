@@ -98,7 +98,6 @@ sync_tree() {
     rsync -a \
       --exclude '.git' \
       --exclude '.cursor' \
-      --exclude 'workspace/*' \
       --exclude 'node_modules' \
       --exclude 'dist' \
       --exclude '.env' \
@@ -109,7 +108,6 @@ sync_tree() {
       (cd "$from" && tar cf - \
         --exclude='.git' \
         --exclude='.cursor' \
-        --exclude='workspace' \
         --exclude='node_modules' \
         --exclude='dist' \
         --exclude='.env' \

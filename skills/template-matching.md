@@ -25,7 +25,7 @@
   - go-worker → templates/apps/go-worker
 - **Image deps**: go-builder + go-runtime
 - **Patterns**: retry-backoff, worker-pool (may be empty)
-- **Workspace layout**: workspace/<project>/{api,worker}/ (or describe otherwise)
+- **Product layout**: `<product-root>/{api,worker}/` (or describe otherwise)
 - **Rationale**: …
 ```
 

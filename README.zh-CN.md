@@ -62,7 +62,7 @@ flowchart LR
 | 1 | 提供需求 | — |
 | 2 | — | 输出 PRO（方案，**不写代码**） |
 | 3 | **确认 PRO** | 等待 |
-| 4 | — | 检索模版 → 组装到 `workspace/` |
+| 4 | — | 检索模版 → 组装到**产品仓** |
 | 5 | **本地验收** | 按 PRO 修改 |
 | 6 | 触发部署 | 执行 `release/` 脚本 |
 
@@ -90,7 +90,6 @@ flowchart LR
 | 模版集 | [`templates/`](templates/) · [**检索目录**](templates/CATALOG.md) | apps + images + patterns |
 | AI 连接 | [`ai-engine/`](ai-engine/) | 可选：Ollama / OpenAI 等兼容 API |
 | 发布基建 | [`release/`](release/) | Nginx + Cloudflare + 一键部署脚本 |
-| 工作区 | [`workspace/`](workspace/) | Agent 组装出的 MVP 落在这里 |
 
 ---
 
@@ -127,11 +126,14 @@ maker-flow new my-first-mvp
 **方式 B — 先验模版（无需 AI）**
 
 ```bash
-cp -r templates/apps/go-api workspace/smoke-test
-cd workspace/smoke-test && cp .env.example .env
+mkdir -p /tmp/maker-flow-smoke
+cp -r templates/apps/go-api /tmp/maker-flow-smoke/smoke-test
+cd /tmp/maker-flow-smoke/smoke-test && cp .env.example .env
 docker compose up --build
 curl http://localhost:8080/health
 ```
+
+或脚手架产品仓：`maker-flow new smoke-test`，再把模版文件拷进去。
 
 完整教程 → **[docs/getting-started.zh-CN.md](docs/getting-started.zh-CN.md)**
 
@@ -152,7 +154,7 @@ curl http://localhost:8080/health
 |------|------|
 | Star | 跟踪技能库 / 模版更新 |
 | Fork / clone | 作为共享工厂（公开） |
-| 每个新点子 | **新建私有产品仓** + [消费侧指南](docs/consumer-project.zh-CN.md)；或仅在 `workspace/` 本地冒烟 |
+| 每个新点子 | **新建私有产品仓** + [消费侧指南](docs/consumer-project.zh-CN.md)（`maker-flow new <名字>`） |
 | 固定 Agent 行为 | 工厂：[AGENTS.zh-CN.md](AGENTS.zh-CN.md) · 产品仓：[AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md) |
 
 ---
@@ -162,7 +164,7 @@ curl http://localhost:8080/health
 | 设备 | 角色 |
 |------|------|
 | GPU 机（可选） | 纯推理节点，主力机通过 `AI_BASE_URL` 远程调用 |
-| M 系 Mac | 开发、验收、`workspace/` |
+| M 系 Mac | 开发、验收、产品仓 |
 | 云服务器 | Docker Nginx 网关占 80；MVP 走共享网络 `maker-flow` |
 
 ---

@@ -13,7 +13,7 @@ Stage input contracts for agents. Prefer reading the matching `skills/` file fir
 | [`pro.template.md`](pro.template.md) | 2–3 | **PRO blank skeleton** (output / confirm structure) |
 | [`pro.example.md`](pro.example.md) | 2–3 | **PRO full sample** (todo API) |
 | `03-pro-confirmed.example.md` | 3 | Persist human-approved PRO (gate artifact) |
-| `04-assemble-mvp.md` | 4 | Match template + assemble (factory: `workspace/`; product repo: see consumer guide) |
+| `04-assemble-mvp.md` | 4 | Match template + assemble (output = **product repo**; see consumer guide) |
 | [`../AGENTS.consumer.example.md`](../AGENTS.consumer.example.md) | — | **Product repo** `AGENTS.md` template (copy out) |
 
 ## Rules

@@ -6,7 +6,7 @@
 > **Authoritative sections:** [`skills/pro-generation.md`](../skills/pro-generation.md)  
 > **Full sample:** [`pro.example.md`](pro.example.md)
 
-After filling: draft → confirm at step 3 → write into `03-pro-confirmed.example.md` or `workspace/<name>/pro.md`.
+After filling: draft → confirm at step 3 → write into `pro.md` in the **product repo** (or `03-pro-confirmed.example.md` for factory examples).
 
 ---
 

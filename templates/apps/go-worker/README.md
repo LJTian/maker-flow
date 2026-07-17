@@ -13,7 +13,7 @@ Template id: `go-worker`. Concurrent worker-pool service with graceful shutdown.
 
 ## Agent usage
 
-1. Copy to `workspace/<name>/`
+1. Copy to the **product repo root** (or `<product-root>/<app-id>/`)
 2. Replace `Job` / `Process` with PRO business logic
 3. Related patterns: `worker-pool`, `pipeline`, `retry-backoff`
 4. If customizing the Dockerfile, compose from `../../images/` fragments

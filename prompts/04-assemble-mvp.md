@@ -31,7 +31,7 @@ Search using `templates/index.md` in this repo.
 
 ### Part B — MVP assembly (follow mvp-assembly skill)
 
-- Output directory: `workspace/<project-name>/`
+- Output directory: **product repo root** (`maker-flow new <name>` if starting fresh)
 - Directory tree (changed files)
 - Full contents of key files
 - Local run commands

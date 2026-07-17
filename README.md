@@ -62,7 +62,7 @@ flowchart LR
 | 1 | Provide requirement | — |
 | 2 | — | Draft PRO (**no code**) |
 | 3 | **Approve PRO** | Wait |
-| 4 | — | Match templates → assemble under `workspace/` |
+| 4 | — | Match templates → assemble in **product repo** |
 | 5 | **Local acceptance** | Fix against PRO |
 | 6 | Trigger deploy | Run `release/` scripts |
 
@@ -89,7 +89,6 @@ Two gates are the core design: **align on what first, then how**.
 | Templates | [`templates/`](templates/) · [**catalog**](templates/CATALOG.md) | apps + images + patterns |
 | AI transport | [`ai-engine/`](ai-engine/) | Optional: Ollama / OpenAI-compatible APIs |
 | Release | [`release/`](release/) | Nginx + Cloudflare + deploy scripts |
-| Workspace | [`workspace/`](workspace/) | Where assembled MVPs land |
 
 ---
 
@@ -126,11 +125,14 @@ maker-flow new my-first-mvp
 **B — Smoke a template (no AI)**
 
 ```bash
-cp -r templates/apps/go-api workspace/smoke-test
-cd workspace/smoke-test && cp .env.example .env
+mkdir -p /tmp/maker-flow-smoke
+cp -r templates/apps/go-api /tmp/maker-flow-smoke/smoke-test
+cd /tmp/maker-flow-smoke/smoke-test && cp .env.example .env
 docker compose up --build
 curl http://localhost:8080/health
 ```
+
+Or scaffold a product repo: `maker-flow new smoke-test` and copy template files there.
 
 Full guide → **[docs/getting-started.md](docs/getting-started.md)** · [中文](docs/getting-started.zh-CN.md)
 
@@ -151,7 +153,7 @@ Full guide → **[docs/getting-started.md](docs/getting-started.md)** · [中文
 |--------|------------|
 | Star | Track skill / template updates |
 | Fork / clone | Use as the shared factory (public) |
-| Each new idea | **New private product repo** + [consumer guide](docs/consumer-project.md); or local smoke under `workspace/` only |
+| Each new idea | **New private product repo** + [consumer guide](docs/consumer-project.md) (`maker-flow new <name>`) |
 | Pin agent behavior | Factory: [AGENTS.md](AGENTS.md) · Product repo: [AGENTS.consumer.example.md](AGENTS.consumer.example.md) |
 
 ---
@@ -161,7 +163,7 @@ Full guide → **[docs/getting-started.md](docs/getting-started.md)** · [中文
 | Machine | Role |
 |---------|------|
 | GPU box (optional) | Inference only; main machine calls via `AI_BASE_URL` |
-| Apple Silicon Mac | Dev, acceptance, `workspace/` |
+| Apple Silicon Mac | Dev, acceptance, product repos |
 | Cloud VPS | Docker Nginx gateway on port 80; MVPs on shared network `maker-flow` |
 
 ---

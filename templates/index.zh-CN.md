@@ -80,7 +80,7 @@
   └─ 其它         → 扩展 apps/ 并登记
 
 需要并发/韧性片段？ → patterns/ 按 tags 追加到对应 app（不单独部署）
-多 app 布局        → workspace/<project>/<app-id>/
+多 app 布局        → `<产品根>/<app-id>/`
 ```
 
 ## 新增模版

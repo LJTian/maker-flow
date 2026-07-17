@@ -26,7 +26,7 @@
 | `go-worker` | [`apps/go-worker/`](apps/go-worker/) | `go` `worker` `concurrency` `pool` | Multi-goroutine job consumption + graceful shutdown | `go-builder` + `go-runtime` |
 | `web-vite` | [`apps/web-vite/`](apps/web-vite/) | `web` `frontend` `vite` `react` `typescript` `tailwind` `spa` `docker` | Browser UI / landing / dashboard MVP | Node + Nginx (no maker-flow image bases) |
 
-Agent: copy **1–N apps** as whole directories into `workspace/` (use subdirs when multi-app).
+Agent: copy **1–N apps** as whole directories into the **product repo** (use subdirs when multi-app).
 
 ---
 
@@ -50,7 +50,7 @@ Inline into app Dockerfiles when assembling — see [`images/index.md`](images/i
 | `retry-backoff` | [`patterns/retry-backoff/`](patterns/retry-backoff/) | `retry` `backoff` |
 | `circuit-breaker` | [`patterns/circuit-breaker/`](patterns/circuit-breaker/) | `circuit-breaker` |
 
-Agent: pick **1–N apps** first, then **0–N patterns**; **copy/adapt** into the matching app under workspace. Patterns are never deployed alone.
+Agent: pick **1–N apps** first, then **0–N patterns**; **copy/adapt** into the matching app in the **product repo**. Patterns are never deployed alone.
 
 Detail → [`patterns/index.md`](patterns/index.md)
 

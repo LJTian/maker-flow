@@ -8,9 +8,9 @@
 templates/
 ├── CATALOG.md      # overview
 ├── index.md        # apps field-level detail
-├── apps/           # assemblable full projects → workspace/
+├── apps/           # assemblable full projects → product repo
 ├── images/         # inheritance-style Docker bases
-├── patterns/       # compilable snippets → copy into workspace
+├── patterns/       # compilable snippets → copy into product app
 └── shared/
 ```
 
@@ -36,7 +36,7 @@ templates/
 
 1. Open `CATALOG.md` → pick **1–N apps** → optional **patterns**.
 2. For Go apps, compose Dockerfile fragments from `images/` (app templates already include composed Dockerfiles).
-3. Copy each app → `workspace/<name>/` or `workspace/<name>/<app-id>/`; merge pattern files into the app that needs them.
+3. Copy each app → **product repo root** or `<product-root>/<app-id>/`; merge pattern files into the app that needs them.
 4. Prefer container build (`docker compose up --build`).
 
 Do not leave assembled MVPs inside `templates/`. Do not deploy patterns alone.

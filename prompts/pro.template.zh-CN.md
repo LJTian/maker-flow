@@ -6,7 +6,7 @@
 > **权威章节：** [`skills/pro-generation.md`](../skills/pro-generation.md)  
 > **完整样板：** [`pro.example.md`](pro.example.md)
 
-填写后：草稿 → 步骤 ③ 确认 → 写入 `03-pro-confirmed.example.md` 或 `workspace/<name>/pro.md`。
+填写后：草稿 → 步骤 ③ 确认 → 写入**产品仓** `pro.md`（或工厂示例 `03-pro-confirmed.example.md`）。
 
 ---
 

@@ -28,4 +28,4 @@ OpenAI 兼容调用的参考参数（见 `ai-engine/.env.example`）。
 
 ### 步骤 ④（组装）
 
-须含模版检索结论 + `workspace/<项目名>/` 可运行代码，符合 `skills/mvp-assembly.md`。
+须含模版检索结论 + **产品仓根**可运行代码，符合 `skills/mvp-assembly.md`。
