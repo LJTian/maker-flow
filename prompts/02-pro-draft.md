@@ -6,10 +6,6 @@ Read `skills/pro-generation.md` before running.
 Match output structure to [`pro.template.md`](pro.template.md); use [`pro.example.md`](pro.example.md) for granularity.  
 Sync the requirement from `prompts/01-requirement.example.md` into the section below.
 
-```bash
-./scripts/ai-run.sh prompts/02-pro-draft.md
-```
-
 ---
 
 ## Role

@@ -9,10 +9,6 @@ Read in order before running:
 
 Confirm the PRO in `prompts/03-pro-confirmed.example.md` is marked **Confirmed**. Template overview: `templates/CATALOG.md`.
 
-```bash
-./scripts/ai-run.sh prompts/04-assemble-mvp.md
-```
-
 ---
 
 ## Role

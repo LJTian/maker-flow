@@ -30,17 +30,14 @@ Agent: copy **1–N apps** as whole directories into `workspace/` (use subdirs w
 
 ---
 
-## Image bases (images)
+## Image fragments (images)
 
-| id | Local tag | Path |
-|----|-----------|------|
-| `go-builder` | `maker-flow/go-builder:1.22` | [`images/go-builder/`](images/go-builder/) |
-| `go-runtime` | `maker-flow/go-runtime:1.22` | [`images/go-runtime/`](images/go-runtime/) |
+| id | Upstream | Path |
+|----|----------|------|
+| `go-builder` | `golang:1.22-alpine` | [`images/go-builder/`](images/go-builder/) |
+| `go-runtime` | `alpine:3.20` | [`images/go-runtime/`](images/go-runtime/) |
 
-```bash
-./scripts/build-images.sh
-```
-
+Inline into app Dockerfiles when assembling — see [`images/index.md`](images/index.md). No pre-build step.
 ---
 
 ## Pattern library (patterns)

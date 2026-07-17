@@ -19,6 +19,7 @@ Primary docs are **English**. Chinese siblings use the `.zh-CN.md` suffix. See [
 | | Doc | Notes |
 |:--:|-----|-------|
 | 🚀 | [getting-started.md](getting-started.md) | **Start here** — six-step tutorial |
+| 📦 | [consumer-project.md](consumer-project.md) | **Product repos** — parallel dirs + `MAKER_FLOW_ROOT` |
 | 📄 | [../prompts/pro.template.md](../prompts/pro.template.md) | PRO blank skeleton |
 | 📄 | [../prompts/pro.example.md](../prompts/pro.example.md) | PRO full sample (todo API) |
 | 📖 | [../README.md](../README.md) | Home · value prop · quick start |
@@ -32,7 +33,8 @@ Primary docs are **English**. Chinese siblings use the `.zh-CN.md` suffix. See [
 
 | | Doc | Notes |
 |:--:|-----|-------|
-| 🤖 | [../AGENTS.md](../AGENTS.md) | **Agent entry** — hard rules + state machine |
+| 🤖 | [../AGENTS.md](../AGENTS.md) | **Factory agent entry** |
+| 📋 | [../AGENTS.consumer.example.md](../AGENTS.consumer.example.md) | **Product repo** `AGENTS.md` template |
 | ⚙️ | [workflow.md](workflow.md) | Six-step contract (authoritative) |
 | 🔌 | [agent-bootstrap.md](agent-bootstrap.md) | Session load order |
 

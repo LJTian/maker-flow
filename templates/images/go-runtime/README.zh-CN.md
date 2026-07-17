@@ -1,12 +1,7 @@
-[English](README.md) · **简体中文**
+# Go 运行片段 — go-runtime
 
-# Go 运行基座 — maker-flow/go-runtime:1.22
+**English** · [简体中文](README.zh-CN.md)
 
-仅基建。应用 Dockerfile **MUST** `FROM maker-flow/go-runtime:1.22`，只 COPY 二进制并设置 ENTRYPOINT/ENV/EXPOSE。
+runtime 阶段的 Dockerfile **片段**。拼装 app Dockerfile 时，内联本目录的 `FROM` / `RUN apk` / `WORKDIR` / `USER`，再 COPY 二进制并设置 ENTRYPOINT/ENV/EXPOSE。**不要**预构建本地镜像 tag。
 
-以 `nobody` 运行。含 `wget` 供 compose healthcheck。
-
-```bash
-docker build -t maker-flow/go-runtime:1.22 templates/images/go-runtime
-# or: ./scripts/build-images.sh
-```
+上游：`alpine:3.20`。含 `wget` 供 compose 健康检查。默认用户为 `nobody`。

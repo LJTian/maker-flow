@@ -1,0 +1,346 @@
+#!/usr/bin/env bash
+# Maker Flow CLI — install factory to ~/.maker-flow, init product repos.
+set -euo pipefail
+
+VERSION="0.2.0"
+
+usage() {
+  cat <<'EOF'
+Usage: maker-flow <command> [options]
+
+Commands:
+  new <name>       Install factory if needed, then create product repo (recommended)
+  install          Install or update factory under ~/.maker-flow
+  upgrade          Same as install
+  init <name>      Create a new MVP product directory
+  root             Print factory path (MAKER_FLOW_ROOT)
+  version          Print CLI and factory version info
+  help             Show this help
+
+Install / upgrade options:
+  --dir <path>     Install destination (default: ~/.maker-flow)
+  --from <path>    Source tree (default: auto-detect)
+  --bin-dir <path> Symlink CLI here (default: ~/.local/bin)
+  --no-path        Do not append ~/.local/bin to shell rc
+
+Init / new options:
+  --dir <path>     Product directory (default: ~/projects/<name>)
+  --no-git         Skip git init
+  --with-pro       Also create pro.md from template (draft)
+  --requirement <text>  Seed requirement.md
+
+Environment:
+  MAKER_FLOW_INSTALL_DIR   Override install path
+  MAKER_FLOW_BIN_DIR       Override CLI symlink directory
+  MAKER_FLOW_PROJECTS_DIR  Default parent for init (default: ~/projects)
+  MAKER_FLOW_REPO_URL      Git URL for remote install (install.sh)
+
+Examples:
+  curl -fsSL https://raw.githubusercontent.com/LJTian/maker-flow/main/scripts/install.sh | bash
+  maker-flow new my-todo
+  maker-flow new my-api --requirement "Mini todo API, no auth"
+  maker-flow upgrade
+EOF
+}
+
+die() {
+  echo "maker-flow: $*" >&2
+  exit 1
+}
+
+factory_installed() {
+  [[ -d "${HOME}/.maker-flow/templates" && -d "${HOME}/.maker-flow/skills" ]]
+}
+
+resolve_factory_root() {
+  local script_dir
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+  if [[ "$(basename "$script_dir")" == "bin" && -d "$script_dir/../templates" ]]; then
+    cd "$script_dir/.." && pwd
+    return
+  fi
+  if [[ -d "$script_dir/../templates" && -d "$script_dir/../skills" ]]; then
+    cd "$script_dir/.." && pwd
+    return
+  fi
+  if [[ -n "${MAKER_FLOW_ROOT:-}" && -d "$MAKER_FLOW_ROOT/templates" ]]; then
+    echo "$MAKER_FLOW_ROOT"
+    return
+  fi
+  if factory_installed; then
+    echo "${HOME}/.maker-flow"
+    return
+  fi
+  die "factory not found; run: maker-flow install   (or: maker-flow new <name>)"
+}
+
+to_kebab() {
+  echo "$1" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g'
+}
+
+sync_tree() {
+  local from="$1"
+  local dest="$2"
+  mkdir -p "$dest"
+  if command -v rsync >/dev/null 2>&1; then
+    rsync -a \
+      --exclude '.git' \
+      --exclude '.cursor' \
+      --exclude 'workspace/*' \
+      --exclude 'node_modules' \
+      --exclude 'dist' \
+      --exclude '.env' \
+      "${from}/" "${dest}/"
+  else
+    # Fallback when rsync is unavailable
+    if command -v tar >/dev/null 2>&1; then
+      (cd "$from" && tar cf - \
+        --exclude='.git' \
+        --exclude='.cursor' \
+        --exclude='workspace' \
+        --exclude='node_modules' \
+        --exclude='dist' \
+        --exclude='.env' \
+        .) | (cd "$dest" && tar xf -)
+    else
+      die "need rsync or tar for install"
+    fi
+  fi
+}
+
+ensure_path_in_shell() {
+  local bin_dir="$1"
+  local skip="${2:-0}"
+  [[ "$skip" -eq 0 ]] || return 0
+  if [[ ":$PATH:" == *":${bin_dir}:"* ]]; then
+    return 0
+  fi
+
+  local rc=""
+  case "${SHELL:-}" in
+    */zsh) rc="${HOME}/.zshrc" ;;
+    */bash) rc="${HOME}/.bashrc" ;;
+  esac
+
+  if [[ -z "$rc" || ! -f "$rc" ]]; then
+    echo "==> Add to PATH: export PATH=\"${bin_dir}:\$PATH\""
+    return 0
+  fi
+
+  if grep -q 'maker-flow PATH' "$rc" 2>/dev/null; then
+    return 0
+  fi
+
+  {
+    echo ""
+    echo "# maker-flow PATH"
+    echo "export PATH=\"${bin_dir}:\$PATH\""
+  } >>"$rc"
+  echo "==> Added ${bin_dir} to ${rc}"
+  echo "==> Run: source ${rc}   (or open a new terminal)"
+}
+
+cmd_install() {
+  local dest="${MAKER_FLOW_INSTALL_DIR:-${HOME}/.maker-flow}"
+  local from=""
+  local bin_dir="${MAKER_FLOW_BIN_DIR:-${HOME}/.local/bin}"
+  local no_path=0
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --dir) dest="$2"; shift 2 ;;
+      --from) from="$2"; shift 2 ;;
+      --bin-dir) bin_dir="$2"; shift 2 ;;
+      --no-path) no_path=1; shift ;;
+      *) die "unknown install option: $1" ;;
+    esac
+  done
+
+  if [[ -z "$from" ]]; then
+    local script_dir
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    if [[ "$(basename "$script_dir")" == "bin" && -d "$script_dir/../templates" ]]; then
+      from="$(cd "$script_dir/.." && pwd)"
+    elif [[ -d "$script_dir/../templates" ]]; then
+      from="$(cd "$script_dir/.." && pwd)"
+    else
+      die "cannot detect source; use: maker-flow install --from /path/to/maker-flow"
+    fi
+  fi
+
+  [[ -d "$from/templates" ]] || die "invalid source (no templates/): $from"
+
+  mkdir -p "$dest" "$bin_dir" "$dest/bin"
+  sync_tree "$from" "$dest"
+
+  cp "$dest/scripts/maker-flow" "$dest/bin/maker-flow"
+  chmod +x "$dest/bin/maker-flow" "$dest/scripts/"*.sh 2>/dev/null || true
+
+  local dest_bin resolved_bin_dir
+  dest_bin="$(cd "$dest/bin" && pwd)"
+  mkdir -p "$bin_dir"
+  resolved_bin_dir="$(cd "$bin_dir" && pwd)"
+  if [[ "$resolved_bin_dir" != "$dest_bin" ]]; then
+    ln -sf "$dest/bin/maker-flow" "$bin_dir/maker-flow"
+  fi
+
+  local git_rev="unknown"
+  if command -v git >/dev/null 2>&1 && [[ -d "$from/.git" ]]; then
+    git_rev="$(git -C "$from" rev-parse --short HEAD 2>/dev/null || echo unknown)"
+  fi
+
+  cat >"$dest/INSTALL.json" <<EOF
+{
+  "version": "${VERSION}",
+  "installed_at": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+  "source": "${from}",
+  "git_rev": "${git_rev}"
+}
+EOF
+
+  ensure_path_in_shell "$bin_dir" "$((1 - no_path))"
+
+  echo "==> Installed Maker Flow factory to: ${dest}"
+  if [[ "$resolved_bin_dir" != "$dest_bin" ]]; then
+    echo "==> CLI: ${bin_dir}/maker-flow"
+  else
+    echo "==> CLI: ${dest}/bin/maker-flow"
+  fi
+  echo "==> Next: maker-flow new <product-name>"
+}
+
+cmd_init() {
+  local name=""
+  local product_dir=""
+  local do_git=1
+  local requirement=""
+  local with_pro=0
+
+  if [[ $# -lt 1 ]]; then
+    die "init requires <name>; e.g. maker-flow init my-todo"
+  fi
+  name="$1"
+  shift
+
+  local kebab
+  kebab="$(to_kebab "$name")"
+  [[ -n "$kebab" ]] || die "invalid product name: $name"
+
+  local projects_parent="${MAKER_FLOW_PROJECTS_DIR:-${HOME}/projects}"
+  product_dir="${projects_parent}/${kebab}"
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --dir) product_dir="$2"; shift 2 ;;
+      --no-git) do_git=0; shift ;;
+      --with-pro) with_pro=1; shift ;;
+      --requirement) requirement="$2"; shift 2 ;;
+      *) die "unknown init option: $1" ;;
+    esac
+  done
+
+  local root
+  root="$(resolve_factory_root)"
+
+  if [[ -e "$product_dir" ]]; then
+    die "already exists: $product_dir"
+  fi
+
+  mkdir -p "$product_dir"
+
+  local agents_src="${root}/AGENTS.consumer.example.md"
+  [[ -f "$agents_src" ]] || die "missing $agents_src (broken factory install)"
+
+  {
+    echo "# AGENTS.md"
+    echo ""
+    awk 'BEGIN{skip=0} /^## Context/{skip=1} skip{print}' "$agents_src" | \
+      sed \
+        -e "s|MAKER_FLOW_ROOT=/path/to/maker-flow|MAKER_FLOW_ROOT=${root}|g" \
+        -e "s|PRODUCT_NAME=my-todo|PRODUCT_NAME=${kebab}|g"
+  } >"$product_dir/AGENTS.md"
+
+  if [[ $with_pro -eq 1 && -f "${root}/prompts/pro.template.md" ]]; then
+    {
+      echo "<!-- Draft PRO — confirm at step ③ before assembly. -->"
+      echo ""
+      cat "${root}/prompts/pro.template.md"
+    } >"$product_dir/pro.md"
+  fi
+
+  cat >"$product_dir/requirement.md" <<EOF
+# Requirement (step ①)
+
+${requirement:-Describe your MVP idea here.}
+EOF
+
+  cat >"$product_dir/.gitignore" <<'EOF'
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+bin/
+.DS_Store
+EOF
+
+  if [[ $do_git -eq 1 ]] && command -v git >/dev/null 2>&1; then
+    (cd "$product_dir" && git init -q)
+  fi
+
+  echo "==> Product repo: ${product_dir}"
+  echo "==> Factory:      ${root}"
+  echo "==> Created:      AGENTS.md, requirement.md$([[ $with_pro -eq 1 ]] && echo ', pro.md')"
+  echo ""
+  echo "Next:"
+  echo "  cd ${product_dir}"
+  echo "  # Open in Cursor and paste:"
+  echo ""
+  echo "  Read AGENTS.md and follow the six-step workflow."
+  echo "  Start at step ①. My requirement:"
+  echo "  $(if [[ -n "$requirement" ]]; then echo "$requirement"; else echo "<your idea>"; fi)"
+}
+
+cmd_new() {
+  if ! factory_installed; then
+    echo "==> Factory not found — installing to ~/.maker-flow ..."
+    cmd_install
+  fi
+  cmd_init "$@"
+}
+
+cmd_root() {
+  resolve_factory_root
+}
+
+cmd_version() {
+  echo "maker-flow ${VERSION}"
+  local root=""
+  root="$(resolve_factory_root 2>/dev/null)" || true
+  if [[ -n "$root" && -f "$root/INSTALL.json" ]]; then
+    echo "factory: $root"
+    cat "$root/INSTALL.json"
+  elif [[ -n "$root" ]]; then
+    echo "factory: $root (dev checkout)"
+  fi
+}
+
+main() {
+  local cmd="${1:-help}"
+  shift || true
+
+  case "$cmd" in
+    install|upgrade) cmd_install "$@" ;;
+    init) cmd_init "$@" ;;
+    new) cmd_new "$@" ;;
+    root) cmd_root ;;
+    version|-v|--version) cmd_version ;;
+    help|-h|--help) usage ;;
+    *)
+      die "unknown command: $cmd (try: maker-flow help)"
+      ;;
+  esac
+}
+
+main "$@"

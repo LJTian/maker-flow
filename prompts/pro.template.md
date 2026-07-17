@@ -74,5 +74,5 @@ Checkboxes for step 5:
 
 - **Preferred apps (1–N):** (e.g. `go-api`; or `go-api` + `go-worker`)
 - **Preferred patterns (0–N):** (e.g. `retry-backoff`; or “none”)
-- **Images / runtime:** (e.g. `go-builder` + `go-runtime`, `docker compose`)
+- **Images / runtime:** (e.g. `go-builder` + `go-runtime` fragments, `docker compose`)
 - **Complexity clues:** (expected QPS, DB needed?, etc.)

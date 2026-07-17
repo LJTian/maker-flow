@@ -12,6 +12,10 @@
 
 ---
 
+**正式 MVP：** 独立私有产品仓 — 安装后执行 `maker-flow new <名字>`，见 [消费侧指南](consumer-project.zh-CN.md)。工厂在 `~/.maker-flow`，产品在 `~/projects/<名字>/`。
+
+---
+
 ## 准备清单
 
 | 必备 | 可选 |
@@ -81,18 +85,6 @@ sequenceDiagram
 3. 不要写任何实现代码
 ```
 
-<details>
-<summary>或使用命令行（需配置 ai-engine/.env）</summary>
-
-```bash
-cp ai-engine/.env.example ai-engine/.env
-# 编辑 AI_BASE_URL、AI_MODEL（参考 ai-engine/providers/）
-chmod +x scripts/ai-run.sh
-./scripts/ai-run.sh prompts/02-pro-draft.md
-```
-
-</details>
-
 PRO 结构见空白骨架 [`prompts/pro.template.md`](../prompts/pro.template.md)，完整样板见 [`prompts/pro.example.md`](../prompts/pro.example.md)（摘要、业务流程、数据模型、接口契约、验收标准）。
 
 ---
@@ -129,9 +121,6 @@ Agent 应在 `workspace/<项目名>/` 产出可运行工程。
 ### 步骤 5 · 本地验收
 
 ```bash
-# 若本机尚未构建 Go 基座镜像
-./scripts/build-images.sh
-
 cd workspace/<项目名>
 cp .env.example .env
 docker compose up --build

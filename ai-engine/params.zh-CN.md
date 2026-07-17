@@ -2,7 +2,8 @@
 
 # 参数与输出约束
 
-`ai-run.sh` 读取 `ai-engine/.env` 中的参数。
+OpenAI 兼容调用的参考参数（见 `ai-engine/.env.example`）。  
+宿主 Agent（如 Cursor）通常忽略本文件，直接遵循 `skills/`。
 
 ## 连接参数
 
@@ -28,9 +29,3 @@
 ### 步骤 ④（组装）
 
 须含模版检索结论 + `workspace/<项目名>/` 可运行代码，符合 `skills/mvp-assembly.md`。
-
-## 临时覆盖模型
-
-```bash
-./scripts/ai-run.sh prompts/04-assemble-mvp.md qwen2.5-coder:14b
-```

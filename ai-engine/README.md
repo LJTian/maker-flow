@@ -2,7 +2,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-Optional **LLM transport** for agents that invoke models via HTTP (OpenAI-compatible).  
+Optional **LLM connection notes** for agents that call models via HTTP (OpenAI-compatible).  
 If the host product (e.g. Cursor Agent) is already the model, this directory is unused — still follow `skills/` and `docs/workflow.md`.
 
 ## Contents
@@ -18,8 +18,7 @@ If the host product (e.g. Cursor Agent) is already the model, this directory is 
 ```bash
 cp ai-engine/.env.example ai-engine/.env
 # set AI_BASE_URL / AI_MODEL per providers/
-./scripts/ai-run.sh prompts/02-pro-draft.md
-./scripts/ai-run.sh prompts/04-assemble-mvp.md
 ```
 
+Use your own HTTP client or IDE agent against that endpoint.  
 Workflow authority remains `docs/workflow.md` + `skills/`, not this folder.

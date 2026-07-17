@@ -30,17 +30,14 @@ Agent：**1～N 个 app** 整目录复制到 `workspace/`（多 app 时用子目
 
 ---
 
-## 镜像基座 (images)
+## 镜像片段 (images)
 
-| id | 本地标签 | 路径 |
-|----|----------|------|
-| `go-builder` | `maker-flow/go-builder:1.22` | [`images/go-builder/`](images/go-builder/) |
-| `go-runtime` | `maker-flow/go-runtime:1.22` | [`images/go-runtime/`](images/go-runtime/) |
+| id | 上游 | 路径 |
+|----|------|------|
+| `go-builder` | `golang:1.22-alpine` | [`images/go-builder/`](images/go-builder/) |
+| `go-runtime` | `alpine:3.20` | [`images/go-runtime/`](images/go-runtime/) |
 
-```bash
-./scripts/build-images.sh
-```
-
+拼装时内联进 app Dockerfile — 见 [`images/index.md`](images/index.md)。无需预构建。
 ---
 
 ## 模式库 (patterns)

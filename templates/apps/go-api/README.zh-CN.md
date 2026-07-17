@@ -10,14 +10,14 @@
 - CORS、结构化日志、panic recover
 - `GET /health`、`GET /api/v1/ping`
 - Docker + compose（宿主机端口由 `HOST_PORT` 控制，默认 8080）
-- Dockerfile 继承 `maker-flow/go-builder:1.22` + `maker-flow/go-runtime:1.22`
+- Dockerfile 由 `go-builder` + `go-runtime` 片段拼装（`golang:1.22-alpine` / `alpine:3.20`）
 
 ## Agent 用法
 
-1. 确保基座存在：`./scripts/build-images.sh`（见 `../../images/index.md`）。
-2. 将本目录复制到 `workspace/<name>/`（不要原地改模版）。
-3. 在 `internal/handler/` 添加 handlers（`func(c *gin.Context)`）；在 `internal/server/server.go` 注册路由。
-4. 遵循 `skills/mvp-assembly.md`。可选 patterns：见 `templates/patterns/index.md`。
+1. 将本目录复制到 `workspace/<name>/`（不要原地改模版）。
+2. 在 `internal/handler/` 添加 handlers（`func(c *gin.Context)`）；在 `internal/server/server.go` 注册路由。
+3. 遵循 `skills/mvp-assembly.md`。可选 patterns：见 `templates/patterns/index.md`。
+4. 若自定义 Dockerfile，从 `../../images/` 片段拼装（见 `images/index.md`）。
 
 ## 布局
 
@@ -35,7 +35,6 @@ go.mod
 通过 Docker 解析模块并编译：
 
 ```bash
-./scripts/build-images.sh
 docker compose up --build
 ```
 

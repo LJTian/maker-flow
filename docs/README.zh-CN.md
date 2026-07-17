@@ -15,6 +15,7 @@
 | | 文档 | 说明 |
 |:--:|------|------|
 | 🚀 | [getting-started.zh-CN.md](getting-started.zh-CN.md) | **从这里开始** — 六步手把手教程 |
+| 📦 | [consumer-project.zh-CN.md](consumer-project.zh-CN.md) | **产品仓** — 并列目录 + `MAKER_FLOW_ROOT` |
 | 📄 | [../prompts/pro.template.md](../prompts/pro.template.md) | PRO 空白骨架 |
 | 📄 | [../prompts/pro.example.md](../prompts/pro.example.md) | PRO 完整样板（待办 API） |
 | 📖 | [../README.zh-CN.md](../README.zh-CN.md) | 项目首页 · 价值主张 · 快速上手 |
@@ -28,7 +29,8 @@
 
 | | 文档 | 说明 |
 |:--:|------|------|
-| 🤖 | [../AGENTS.zh-CN.md](../AGENTS.zh-CN.md) | **Agent 入口** — 硬规则与状态机 |
+| 🤖 | [../AGENTS.zh-CN.md](../AGENTS.zh-CN.md) | **工厂 Agent 入口** |
+| 📋 | [../AGENTS.consumer.example.zh-CN.md](../AGENTS.consumer.example.zh-CN.md) | **产品仓** `AGENTS.md` 模版 |
 | ⚙️ | [workflow.md](workflow.md) · [中文](workflow.zh-CN.md) | 六步契约（权威为英文） |
 | 🔌 | [agent-bootstrap.md](agent-bootstrap.md) · [中文](agent-bootstrap.zh-CN.md) | 会话启动加载顺序 |
 

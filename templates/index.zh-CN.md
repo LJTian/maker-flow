@@ -61,9 +61,9 @@
 | **suggested_patterns** | —（可选：将 fetch/retry 片段拷到 `src/lib/`） |
 | **docs** | [apps/web-vite/README.md](apps/web-vite/README.md) |
 
-## 镜像基座
+## 镜像片段
 
-见 [images/index.md](images/index.md)。组装前：`./scripts/build-images.sh`
+见 [images/index.md](images/index.md)。拼装时内联进 app Dockerfile——无需预构建步骤。
 
 ## 模式库
 

@@ -2,9 +2,11 @@
 
 [English](AGENTS.md) · **简体中文**
 
-**读者：AI 智能体。** 给人看的介绍：[README.zh-CN.md](README.zh-CN.md) · 快速开始：[docs/getting-started.zh-CN.md](docs/getting-started.zh-CN.md) · 国际化：[docs/i18n.zh-CN.md](docs/i18n.zh-CN.md)
+**读者：AI 智能体（本仓 = 工厂）。** 给人看的介绍：[README.zh-CN.md](README.zh-CN.md) · 快速开始：[docs/getting-started.zh-CN.md](docs/getting-started.zh-CN.md) · **产品仓：** [docs/consumer-project.zh-CN.md](docs/consumer-project.zh-CN.md) · [AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md) · 国际化：[docs/i18n.zh-CN.md](docs/i18n.zh-CN.md)
 
 本仓库是个人 MVP 交付的 Agent 剧本。人类只提供需求并做门禁确认。
+
+**两种布局：** (1) 在本仓 `workspace/` 仅做本地冒烟。(2) **推荐：** 并列私有产品仓 — 见 [consumer-project.zh-CN.md](docs/consumer-project.zh-CN.md)；各 MVP 仓使用 [AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md)。
 
 原则：**重基建，轻逻辑。** 优先用模版与技能，不要自造脚手架。
 
@@ -46,7 +48,7 @@ templates/     # WHAT — 可检索脚手架；从 templates/index.md 开始
 prompts/       # 分阶段输入契约
 workspace/     # Agent 组装 MVP 的写出目录
 release/       # 部署原语（nginx、cloudflare、脚本）
-scripts/       # 助手脚本（如 ai-run.sh）
+scripts/       # 助手脚本（install.sh、maker-flow CLI）
 docs/          # 流程与架构契约
 ```
 
@@ -57,11 +59,11 @@ docs/          # 流程与架构契约
 - 未确认 PRO（步骤 ③）MUST NOT 组装（步骤 ④）。
 - 未确认 MVP（步骤 ⑤）MUST NOT 部署（步骤 ⑥）。
 - 编码前 MUST 经 `templates/CATALOG.md` / `templates/index.md` 选定 **1～N 个** app（每个 app 须对应 PRO 职责）。
-- MUST 经 `templates/images/index.md` 解析镜像基座；缺失时运行 `./scripts/build-images.sh`。
+- MUST 经 `templates/images/index.md` 解析 Dockerfile 片段，并**内联**进 app Dockerfile（仅用上游 `FROM`——禁止 `FROM maker-flow/*` 私有 tag）。
 - MAY 从 `templates/patterns/` 附加 0～N 个 pattern（拷进需要它的 app；不得单独部署）。
 - MUST 把组装项目写到 `workspace/<kebab-name>/`（多 app：`workspace/<name>/<app-id>/`）。
-- MUST NOT 把 `templates/images/` 拷进 `workspace/`；仅通过 `FROM` 继承。
-- 优先 **容器构建**（`./scripts/build-images.sh` 然后 `docker compose up --build`）；验收不要求本机 Go 工具链。
+- MUST NOT 把整个 `templates/images/` 树拷进 `workspace/`；只把片段行拼进产品 Dockerfile。
+- 优先 **容器构建**（`docker compose up --build`）；验收不要求本机 Go 工具链。
 
 ## 契约索引
 
@@ -74,3 +76,4 @@ docs/          # 流程与架构契约
 | 模版目录 | `templates/CATALOG.md` |
 | Pattern 目录 | `templates/patterns/index.md` |
 | 国际化 | `docs/i18n.md` |
+| 消费侧 / 产品仓 | `docs/consumer-project.md` · `AGENTS.consumer.example.md` |

@@ -122,5 +122,5 @@ No `CREATE TABLE` (this MVP does not persist).
 
 - **Preferred apps (1–N):** `go-api`
 - **Preferred patterns (0–N):** none
-- **Images / runtime:** `maker-flow/go-builder` + `go-runtime`, `docker compose`
+- **Images / runtime:** `go-builder` + `go-runtime` Dockerfile fragments (upstream `golang` / `alpine`), `docker compose`
 - **Complexity clues:** low QPS, no DB, single service

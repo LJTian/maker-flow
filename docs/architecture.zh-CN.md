@@ -40,7 +40,7 @@ flowchart TB
 | `prompts/` | 分阶段输入模版 |
 | `workspace/` | 组装 MVP 代码的唯一写出位置 |
 | `release/` | 步骤 ⑥ 部署原语 |
-| `ai-engine/` | `scripts/ai-run.sh` 可选远程 LLM 配置 |
+| `ai-engine/` | 可选远程 LLM 连接说明（宿主 Agent 场景通常不用） |
 | `docs/` | 流程 / 架构契约 |
 
 ## 步骤 → 路径

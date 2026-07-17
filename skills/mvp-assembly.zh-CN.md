@@ -19,12 +19,9 @@ workspace/<项目名>/
 
 ## 组装步骤
 
-1. **构建镜像基座** — 若 app 依赖 `templates/images/`，先执行：
-   ```bash
-   ./scripts/build-images.sh
-   ```
-   确认可见 `maker-flow/go-builder:1.22` 与 `maker-flow/go-runtime:1.22`。  
-   **MUST NOT** 把基座 Dockerfile 复制进 `workspace/`。
+1. **拼装 Dockerfile** — 若 app 需要 Go 镜像片段，读 `templates/images/index.md`，内联 `go-builder` / `go-runtime`（或直接沿用 app 模版里已拼装好的 Dockerfile）。  
+   仅使用上游镜像（`golang:…`、`alpine:…`）。**禁止** `FROM maker-flow/*` 或预构建本地 tag。  
+   **禁止**把整个 `templates/images/` 树拷进 `workspace/`——只把片段行写进产品 Dockerfile。
 2. **复制模版** — 将每个选定的 `templates/apps/<id>/` 复制到工作区：
    - 单 app：`workspace/<项目名>/`
    - 多 app：`workspace/<项目名>/<id>/`（如 `api/`、`worker/`、`cli/`），或 PRO 约定的布局
@@ -50,7 +47,6 @@ workspace/<项目名>/
 3. 本地运行命令：
 
 ```bash
-./scripts/build-images.sh   # once per machine / after image template change
 cd workspace/<项目名>
 cp .env.example .env
 docker compose up --build
@@ -59,7 +55,7 @@ docker compose up --build
 ## 禁止
 
 - 不把 `templates/patterns/` 单独部署为公网服务
-- 不重写模版基础设施代码；不修改 `templates/images/` 基座（除非任务明确要求）
-- 不在应用 Dockerfile 中重复安装基座已提供的包（ca-certificates 等）
+- 不重写模版基础设施代码；不修改 `templates/images/` 片段（除非任务明确要求）
+- 不在应用 Dockerfile 中重复安装片段已提供的包（ca-certificates 等）
 - 不输出 PRO 范围外的功能
 - 不在此步骤执行部署（留给步骤 ⑥）

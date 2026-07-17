@@ -9,14 +9,14 @@ Template id: `go-cli`. Cobra CLI scaffold for step-4 assembly (commands / tools)
 - Cobra root + `version` / `run` subcommands
 - Structured slog logging
 - Context + signal graceful cancel
-- Dockerfile inherits `maker-flow/go-builder:1.22` (static binary)
+- Dockerfile composed from `go-builder` + `go-runtime` fragments (static binary)
 
 ## Agent usage
 
-1. `./scripts/build-images.sh` if building with Docker.
-2. Copy to `workspace/<name>/`.
-3. Add subcommands under `cmd/` / `internal/`.
-4. Optional patterns: `retry-backoff`, `worker-pool`.
+1. Copy to `workspace/<name>/`.
+2. Add subcommands under `cmd/` / `internal/`.
+3. Optional patterns: `retry-backoff`, `worker-pool`.
+4. If customizing the Dockerfile, compose from `../../images/` fragments.
 
 ## Run
 
@@ -25,7 +25,6 @@ Template id: `go-cli`. Cobra CLI scaffold for step-4 assembly (commands / tools)
 go run ./cmd/cli --help
 
 # container
-./scripts/build-images.sh
 docker build -t maker-flow/go-cli:local .
 docker run --rm maker-flow/go-cli:local version
 ```

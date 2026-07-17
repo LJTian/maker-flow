@@ -2,15 +2,36 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-| Script | Agent use |
-|--------|-----------|
-| `ai-run.sh` | POST prompt file to OpenAI-compatible API using `ai-engine/.env` |
-| `build-images.sh` | Build `maker-flow/go-*` base images before app `docker compose up --build` |
+| Script / CLI | Purpose |
+|--------------|---------|
+| **`install.sh`** | Install factory to `~/.maker-flow`, link `maker-flow` CLI, auto PATH hint |
+| **`maker-flow`** | CLI: `new`, `install`, `upgrade`, `init`, `root`, `version` |
+
+## Quick start
 
 ```bash
-./scripts/build-images.sh
-./scripts/ai-run.sh prompts/02-pro-draft.md
-./scripts/ai-run.sh prompts/04-assemble-mvp.md
+# Remote (no git clone)
+curl -fsSL https://raw.githubusercontent.com/LJTian/maker-flow/main/scripts/install.sh | bash
+
+# New MVP → ~/projects/my-todo
+maker-flow new my-todo
+cd ~/projects/my-todo
 ```
 
-`ai-run.sh` not required when the host agent is the LLM. Deploy: `../release/deploy/`.
+## Commands
+
+```bash
+maker-flow new <name>              # install if needed + init (recommended)
+maker-flow init <name>             # product repo only
+maker-flow init <name> --with-pro  # also create draft pro.md
+maker-flow upgrade                 # update ~/.maker-flow
+maker-flow root
+maker-flow version
+```
+
+From a git clone: `./scripts/install.sh` then `maker-flow new …`
+
+Guide: [`../docs/consumer-project.md`](../docs/consumer-project.md)
+
+Deploy: `../release/deploy/`.  
+Dockerfile fragments: `../templates/images/` (inline when assembling; no pre-build step).

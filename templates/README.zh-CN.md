@@ -35,7 +35,7 @@ templates/
 ## Agent 写入规则
 
 1. 打开 `CATALOG.md` → 选 **1～N 个 app** → 可选 **patterns**。
-2. 基座缺失时运行 `./scripts/build-images.sh`。
+2. Go app 从 `images/` 拼装 Dockerfile 片段（app 模版已内联拼装好的 Dockerfile）。
 3. 将每个 app 复制到 `workspace/<name>/` 或 `workspace/<name>/<app-id>/`；把 pattern 文件合并进需要它的 app。
 4. 优先容器构建（`docker compose up --build`）。
 

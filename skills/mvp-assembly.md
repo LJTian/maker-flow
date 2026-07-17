@@ -19,12 +19,9 @@ workspace/<project-name>/
 
 ## Assembly steps
 
-1. **Build image bases** — if apps depend on `templates/images/`, run first:
-   ```bash
-   ./scripts/build-images.sh
-   ```
-   Confirm `maker-flow/go-builder:1.22` and `maker-flow/go-runtime:1.22` are visible.  
-   **MUST NOT** copy base Dockerfiles into `workspace/`.
+1. **Compose Dockerfiles** — if apps need Go image fragments, read `templates/images/index.md` and inline `go-builder` / `go-runtime` (or keep the already-composed Dockerfile from the app template).  
+   Use upstream images only (`golang:…`, `alpine:…`). **MUST NOT** `FROM maker-flow/*` or pre-build local tags.  
+   **MUST NOT** copy the `templates/images/` tree into `workspace/` — only fragment lines in the product Dockerfile.
 2. **Copy templates** — copy each selected `templates/apps/<id>/` into the workspace:
    - Single app: `workspace/<project-name>/`
    - Multi-app: `workspace/<project-name>/<id>/` (e.g. `api/`, `worker/`, `cli/`), or the layout agreed in the PRO
@@ -50,7 +47,6 @@ workspace/<project-name>/
 3. Local run commands:
 
 ```bash
-./scripts/build-images.sh   # once per machine / after image template change
 cd workspace/<project-name>
 cp .env.example .env
 docker compose up --build
@@ -59,7 +55,7 @@ docker compose up --build
 ## MUST NOT
 
 - MUST NOT deploy `templates/patterns/` alone as a public service
-- MUST NOT rewrite template infrastructure; MUST NOT edit `templates/images/` bases unless the task explicitly requires it
-- MUST NOT reinstall packages already provided by the base image in app Dockerfiles (e.g. ca-certificates)
+- MUST NOT rewrite template infrastructure; MUST NOT edit `templates/images/` fragments unless the task explicitly requires it
+- MUST NOT duplicate `apk` packages already provided by the inlined image fragment (e.g. ca-certificates)
 - MUST NOT ship features outside the PRO
 - MUST NOT deploy in this step (that is step 6)

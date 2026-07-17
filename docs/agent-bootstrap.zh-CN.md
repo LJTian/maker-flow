@@ -24,7 +24,7 @@
 | 4 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | 写到 `workspace/` |
 | 6 | `skills/deploy.md` | `release/` |
 
-可选 LLM 传输：`ai-engine/.env` + `scripts/ai-run.sh`（若宿主 Agent 本身就是 LLM 则不必）。
+可选 LLM 配置说明：`ai-engine/`（若宿主 Agent 本身就是 LLM 则不必）。
 
 契约请只读 **英文** 主版。
 

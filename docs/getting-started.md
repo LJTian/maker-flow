@@ -12,6 +12,8 @@
 
 **English** · [简体中文](getting-started.zh-CN.md)
 
+**Production MVPs:** separate private product repo — run `maker-flow new <name>` after [install](consumer-project.md). Factory lives at `~/.maker-flow`; products at `~/projects/<name>/`.
+
 ## Checklist
 
 | Required | Optional |
@@ -81,18 +83,6 @@ Maker Flow step ②:
 3. Do not write any implementation code
 ```
 
-<details>
-<summary>Or use the CLI (requires ai-engine/.env)</summary>
-
-```bash
-cp ai-engine/.env.example ai-engine/.env
-# Set AI_BASE_URL and AI_MODEL (see ai-engine/providers/)
-chmod +x scripts/ai-run.sh
-./scripts/ai-run.sh prompts/02-pro-draft.md
-```
-
-</details>
-
 PRO shape: [`prompts/pro.template.md`](../prompts/pro.template.md). Granularity: [`prompts/pro.example.md`](../prompts/pro.example.md).
 
 ---
@@ -127,9 +117,6 @@ Expect a runnable project under `workspace/<project-name>/`.
 ### Step 5 · Local acceptance
 
 ```bash
-# If Go base images are missing
-./scripts/build-images.sh
-
 cd workspace/<project-name>
 cp .env.example .env
 docker compose up --build

@@ -24,7 +24,7 @@ Human quick start: [getting-started.md](getting-started.md) · Repo intro: [READ
 | 4 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | write under `workspace/` |
 | 6 | `skills/deploy.md` | `release/` |
 
-Optional LLM transport: `ai-engine/.env` + `scripts/ai-run.sh` (not required if the host agent is the LLM).
+Optional LLM config notes: `ai-engine/` (not required if the host agent is the LLM).
 
 Read **English** primary files only for contracts.
 

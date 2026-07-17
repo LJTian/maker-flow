@@ -2,9 +2,11 @@
 
 **English** · [简体中文](AGENTS.zh-CN.md)
 
-**Audience: AI agents.** Human intro: [README.md](README.md) · Quick start: [docs/getting-started.md](docs/getting-started.md) · i18n: [docs/i18n.md](docs/i18n.md)
+**Audience: AI agents (this repo = factory).** Human intro: [README.md](README.md) · Quick start: [docs/getting-started.md](docs/getting-started.md) · **Product repos:** [docs/consumer-project.md](docs/consumer-project.md) · [AGENTS.consumer.example.md](AGENTS.consumer.example.md) · i18n: [docs/i18n.md](docs/i18n.md)
 
 This repository is an agent playbook for shipping personal MVPs. Humans only provide requirements and approve gates.
+
+**Two layouts:** (1) Assemble under `workspace/` here for local smoke only. (2) **Recommended:** parallel product repos — read [consumer-project.md](docs/consumer-project.md); use [AGENTS.consumer.example.md](AGENTS.consumer.example.md) in each MVP repo.
 
 Principle: **heavy infrastructure, light logic.** Prefer templates and skills over inventing scaffolding.
 
@@ -46,7 +48,7 @@ templates/     # WHAT — searchable scaffolds; start at templates/index.md
 prompts/       # inputs / stage contracts
 workspace/     # agent write target for assembled MVPs
 release/       # deploy primitives (nginx, cloudflare, scripts)
-scripts/       # helpers (e.g. ai-run.sh)
+scripts/       # helpers (install.sh, maker-flow CLI)
 docs/          # workflow + architecture contracts
 ```
 
@@ -57,11 +59,11 @@ docs/          # workflow + architecture contracts
 - MUST NOT assemble (step 4) without confirmed PRO (step 3).
 - MUST NOT deploy (step 6) without MVP approval (step 5).
 - MUST select **one or more** apps via `templates/CATALOG.md` / `templates/index.md` before coding (each app must map to a PRO responsibility).
-- MUST resolve image bases via `templates/images/index.md` and run `./scripts/build-images.sh` when bases are missing.
+- MUST resolve Dockerfile fragments via `templates/images/index.md` and **inline** them into app Dockerfiles (upstream `FROM` only — never `FROM maker-flow/*` private tags).
 - MAY attach 0–N patterns from `templates/patterns/` (copy into the app that needs them; never deploy alone).
 - MUST write assembled projects under `workspace/<kebab-name>/` (multi-app: `workspace/<name>/<app-id>/`).
-- MUST NOT copy `templates/images/` into `workspace/`; inherit via `FROM` only.
-- Prefer **container builds** (`./scripts/build-images.sh` then `docker compose up --build`); do not require host Go toolchain for verification.
+- MUST NOT copy the `templates/images/` tree into `workspace/`; compose fragment lines into the product Dockerfile only.
+- Prefer **container builds** (`docker compose up --build`); do not require host Go toolchain for verification.
 
 ## Contracts
 
@@ -74,3 +76,4 @@ docs/          # workflow + architecture contracts
 | Template catalog | `templates/CATALOG.md` |
 | Pattern catalog | `templates/patterns/index.md` |
 | i18n | `docs/i18n.md` |
+| Consumer / product repos | `docs/consumer-project.md` · `AGENTS.consumer.example.md` |

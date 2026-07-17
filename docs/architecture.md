@@ -40,7 +40,7 @@ flowchart TB
 | `prompts/` | Stage input templates |
 | `workspace/` | ONLY place for assembled MVP code |
 | `release/` | Deploy primitives for step 6 |
-| `ai-engine/` | Optional remote LLM config for `scripts/ai-run.sh` |
+| `ai-engine/` | Optional remote LLM connection notes (host agent usually unused) |
 | `docs/` | Workflow / architecture contracts |
 
 ## Step → path map

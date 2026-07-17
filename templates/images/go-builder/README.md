@@ -1,10 +1,7 @@
-# Go compile base — maker-flow/go-builder:1.22
+# Go compile fragment — go-builder
 
 **English** · [简体中文](README.zh-CN.md)
 
-Infrastructure only. App Dockerfiles MUST `FROM maker-flow/go-builder:1.22 AS builder` and only add project COPY/build steps.
+Dockerfile **fragment** for the builder stage. When assembling an app Dockerfile, inline `FROM` / `RUN apk` / `WORKDIR` from this directory, then append project COPY/build steps. Do **not** pre-build a local image tag.
 
-```bash
-docker build -t maker-flow/go-builder:1.22 templates/images/go-builder
-# or: ./scripts/build-images.sh
-```
+Upstream: `golang:1.22-alpine`

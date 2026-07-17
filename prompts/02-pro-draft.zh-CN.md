@@ -6,10 +6,6 @@
 输出结构对照 [`pro.template.md`](pro.template.md)；粒度参考 [`pro.example.md`](pro.example.md)。  
 将 `prompts/01-requirement.example.md` 中的需求同步到下方。
 
-```bash
-./scripts/ai-run.sh prompts/02-pro-draft.md
-```
-
 ---
 
 ## 角色

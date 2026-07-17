@@ -9,14 +9,14 @@
 - Cobra root + `version` / `run` 子命令
 - 结构化 slog 日志
 - Context + signal 优雅取消
-- Dockerfile 继承 `maker-flow/go-builder:1.22`（静态二进制）
+- Dockerfile 由 `go-builder` + `go-runtime` 片段拼装（静态二进制）
 
 ## Agent 用法
 
-1. 若用 Docker 构建，先运行 `./scripts/build-images.sh`。
-2. 复制到 `workspace/<name>/`。
-3. 在 `cmd/` / `internal/` 下添加子命令。
-4. 可选 patterns：`retry-backoff`、`worker-pool`。
+1. 复制到 `workspace/<name>/`。
+2. 在 `cmd/` / `internal/` 下添加子命令。
+3. 可选 patterns：`retry-backoff`、`worker-pool`。
+4. 若自定义 Dockerfile，从 `../../images/` 片段拼装。
 
 ## 运行
 
@@ -25,7 +25,6 @@
 go run ./cmd/cli --help
 
 # container
-./scripts/build-images.sh
 docker build -t maker-flow/go-cli:local .
 docker run --rm maker-flow/go-cli:local version
 ```

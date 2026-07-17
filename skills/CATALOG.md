@@ -39,7 +39,7 @@ Hard gates: no confirmed PRO at step 3 → MUST NOT run step 4; no MVP approval 
 |-------|------|----------|
 | PRO generation | Include summary / flow / model / API / acceptance | Emit implementation code or final template picks |
 | Template matching | Read CATALOG + index; list image deps | Invent scaffolding; select before PRO confirmed |
-| MVP assembly | Write under `workspace/<name>/`; build images first | Edit image base directory; deploy in this step |
+| MVP assembly | Write under `workspace/<name>/`; compose Dockerfiles from image fragments | Copy `templates/images/` tree; deploy in this step |
 | Deploy | Follow `release/` scripts and port pool | Skip local / acceptance gates |
 
 ---

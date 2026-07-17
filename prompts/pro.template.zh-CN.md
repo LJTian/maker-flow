@@ -74,5 +74,5 @@
 
 - **倾向 apps（1～N）：** （如 `go-api`；或 `go-api` + `go-worker`）
 - **倾向 patterns（0～N）：** （如 `retry-backoff`；无则写「无」）
-- **镜像 / 运行：** （如 `go-builder` + `go-runtime`，`docker compose`）
+- **镜像 / 运行：** （如 `go-builder` + `go-runtime` 片段，`docker compose`）
 - **复杂度线索：** （预期 QPS、是否要 DB 等）

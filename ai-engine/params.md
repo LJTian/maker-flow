@@ -2,7 +2,8 @@
 
 **English** · [简体中文](params.zh-CN.md)
 
-`ai-run.sh` reads parameters from `ai-engine/.env`.
+Reference parameters for OpenAI-compatible calls (see `ai-engine/.env.example`).  
+Host agents (e.g. Cursor) usually ignore this file and follow `skills/` instead.
 
 ## Connection
 
@@ -28,9 +29,3 @@ Output MUST include every section from `skills/pro-generation.md`, with **no cod
 ### Step 4 (assemble)
 
 MUST include template selection rationale + runnable code under `workspace/<project-name>/`, per `skills/mvp-assembly.md`.
-
-## Temporary model override
-
-```bash
-./scripts/ai-run.sh prompts/04-assemble-mvp.md qwen2.5-coder:14b
-```

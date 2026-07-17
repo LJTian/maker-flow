@@ -1,16 +1,37 @@
-[English](README.md) · **简体中文**
-
 # scripts/
 
-| 脚本 | Agent 用途 |
-|------|------------|
-| `ai-run.sh` | 使用 `ai-engine/.env`，将 prompt 文件 POST 到 OpenAI 兼容 API |
-| `build-images.sh` | 在应用 `docker compose up --build` 前构建 `maker-flow/go-*` 基座镜像 |
+[English](README.md) · **简体中文**
+
+| 脚本 / CLI | 用途 |
+|------------|------|
+| **`install.sh`** | 安装工厂到 `~/.maker-flow`，链接 CLI，提示/写入 PATH |
+| **`maker-flow`** | CLI：`new`、`install`、`upgrade`、`init`、`root`、`version` |
+
+## 快速开始
 
 ```bash
-./scripts/build-images.sh
-./scripts/ai-run.sh prompts/02-pro-draft.md
-./scripts/ai-run.sh prompts/04-assemble-mvp.md
+# 远程安装（无需 git clone）
+curl -fsSL https://raw.githubusercontent.com/LJTian/maker-flow/main/scripts/install.sh | bash
+
+# 新建 MVP → ~/projects/my-todo
+maker-flow new my-todo
+cd ~/projects/my-todo
 ```
 
-宿主 Agent 本身即 LLM 时不需要 `ai-run.sh`。部署见 `../release/deploy/`。
+## 命令
+
+```bash
+maker-flow new <名字>              # 缺工厂则先安装 + init（推荐）
+maker-flow init <名字>             # 仅建产品仓
+maker-flow init <名字> --with-pro  # 同时生成 pro.md 草稿
+maker-flow upgrade                 # 更新 ~/.maker-flow
+maker-flow root
+maker-flow version
+```
+
+已 git clone 时：`./scripts/install.sh` 然后 `maker-flow new …`
+
+指南：[`../docs/consumer-project.zh-CN.md`](../docs/consumer-project.zh-CN.md)
+
+部署见 `../release/deploy/`。  
+Dockerfile 片段：`../templates/images/`（拼装时内联；无需预构建）。

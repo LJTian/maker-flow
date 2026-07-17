@@ -2,7 +2,7 @@
 
 # ai-engine/
 
-可选的 **LLM 传输层**，供通过 HTTP（OpenAI 兼容）调用模型的 Agent 使用。  
+可选的 **LLM 连接说明**，供通过 HTTP（OpenAI 兼容）调用模型的 Agent 使用。  
 若宿主产品（如 Cursor Agent）本身就是模型，则本目录不使用 — 仍须遵循 `skills/` 与 `docs/workflow.md`。
 
 ## 内容
@@ -18,8 +18,7 @@
 ```bash
 cp ai-engine/.env.example ai-engine/.env
 # set AI_BASE_URL / AI_MODEL per providers/
-./scripts/ai-run.sh prompts/02-pro-draft.md
-./scripts/ai-run.sh prompts/04-assemble-mvp.md
 ```
 
+用你自己的 HTTP 客户端或 IDE Agent 对接该端点。  
 流程权威仍是 `docs/workflow.md` + `skills/`，不是本目录。

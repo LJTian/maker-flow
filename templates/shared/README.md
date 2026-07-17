@@ -4,16 +4,16 @@
 
 For agents assembling under `workspace/` from any template.
 
-## Images (inheritance)
+## Images (Dockerfile fragments)
 
-Do not hardcode upstream OS in app Dockerfiles. Use tags from `templates/images/index.md`:
+Do not invent upstream OS lines ad hoc. Compose from fragments in `templates/images/index.md`:
 
-| Role | Local tag | Source dir |
-|------|-----------|------------|
-| Go build | `maker-flow/go-builder:1.22` | `templates/images/go-builder` |
-| Go runtime | `maker-flow/go-runtime:1.22` | `templates/images/go-runtime` |
+| Role | Upstream | Source dir |
+|------|----------|------------|
+| Go build | `golang:1.22-alpine` | `templates/images/go-builder` |
+| Go runtime | `alpine:3.20` | `templates/images/go-runtime` |
 
-Build: `./scripts/build-images.sh`
+Inline fragment lines into the app Dockerfile. Do **not** pre-build private `maker-flow/*` tags.
 
 ## Env names
 

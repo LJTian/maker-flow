@@ -122,5 +122,5 @@
 
 - **倾向 apps（1～N）：** `go-api`
 - **倾向 patterns（0～N）：** 无
-- **镜像 / 运行：** `maker-flow/go-builder` + `go-runtime`，`docker compose`
+- **镜像 / 运行：** `go-builder` + `go-runtime` Dockerfile 片段（上游 `golang` / `alpine`），`docker compose`
 - **复杂度线索：** 低 QPS、无 DB、单服务

@@ -61,9 +61,9 @@ Step 4: read [`CATALOG.md`](CATALOG.md) first, then this file and [`patterns/ind
 | **suggested_patterns** | — (optional: copy fetch/retry helpers into `src/lib/`) |
 | **docs** | [apps/web-vite/README.md](apps/web-vite/README.md) |
 
-## Image bases
+## Image fragments
 
-See [images/index.md](images/index.md). Before assembly: `./scripts/build-images.sh`
+See [images/index.md](images/index.md). Inline into app Dockerfiles when assembling — no pre-build step.
 
 ## Pattern library
 

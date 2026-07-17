@@ -9,10 +9,6 @@
 
 确认 `prompts/03-pro-confirmed.example.md` 中 PRO 已标记为「已确认」。模版总览见 `templates/CATALOG.md`。
 
-```bash
-./scripts/ai-run.sh prompts/04-assemble-mvp.md
-```
-
 ---
 
 ## 角色

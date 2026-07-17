@@ -4,16 +4,16 @@
 
 供 Agent 从任意模版组装到 `workspace/` 时遵循。
 
-## 镜像（继承）
+## 镜像（Dockerfile 片段）
 
-不要在应用 Dockerfile 中写死上游 OS。使用 `templates/images/index.md` 中的标签：
+不要临时发明上游 OS 行。从 `templates/images/index.md` 的片段拼装：
 
-| 角色 | 本地标签 | 源目录 |
-|------|----------|--------|
-| Go 构建 | `maker-flow/go-builder:1.22` | `templates/images/go-builder` |
-| Go 运行 | `maker-flow/go-runtime:1.22` | `templates/images/go-runtime` |
+| 角色 | 上游 | 源目录 |
+|------|------|--------|
+| Go 构建 | `golang:1.22-alpine` | `templates/images/go-builder` |
+| Go 运行 | `alpine:3.20` | `templates/images/go-runtime` |
 
-构建：`./scripts/build-images.sh`
+把片段行内联进 app Dockerfile。**不要**预构建私有 `maker-flow/*` tag。
 
 ## 环境变量名
 
