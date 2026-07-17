@@ -8,30 +8,31 @@
 
 ```
 release/
-├── nginx/          # 反向代理片段
+├── nginx/          # Docker Nginx 网关（共享网络 maker-flow）
 ├── cloudflare/     # DNS / SSL / 子域名登记
 └── deploy/         # 推送 + 路由脚本
 ```
 
-## 端口池
+## 端口
 
-| 宿主机端口 | 示例 |
-|------------|------|
-| 8080 | 首个 MVP / 测试 |
-| 8081–8090 | 后续 MVP |
+| 端口 | 角色 |
+|------|------|
+| **80**（宿主机） | 仅网关 — Cloudflare 公网入口 |
+| `8080` / `80`（容器内） | MVP 容器监听端口（`CONTAINER_PORT`） |
+| `8080–8090`（宿主机） | **可选**本地调试映射；生产不需要 |
 
-容器监听 8080；仅宿主机映射递增。
+生产流量：Cloudflare → 网关 `:80` → Docker 网络别名 `MVP_NAME:CONTAINER_PORT`。
 
 ## Agent 部署顺序
 
 1. 确认步骤 ⑤ 已批准。
-2. 在 cloudflare 登记示例 / 线上登记表中登记子域名 + 端口。
-3. 运行 `deploy/push-and-route.sh`，传入 `MVP_NAME`、`MVP_PORT`、`DOMAIN`、`DEPLOY_HOST`、`DEPLOY_PATH`。
-4. 从 `nginx/snippets/mvp-server.conf.example` 安装 nginx server block。
+2. 在 cloudflare 登记示例 / 线上登记表中登记子域名。
+3. 在产品仓根目录运行 `deploy/push-and-route.sh`，传入 `MVP_NAME`、`DOMAIN`、`DEPLOY_HOST`、`DEPLOY_PATH`，可选 `CONTAINER_PORT` / `MVP_SERVICE`。
+4. 脚本同步网关、将 MVP 接入 `maker-flow`、写入 `conf.d/<MVP_NAME>.conf`、执行 `nginx -t` 后 reload。
 5. 确保 Cloudflare DNS 已 Proxied；在公网 URL 验证 `GET /health`。
 
 ## 前置条件
 
-- 服务器：Docker、Compose、Nginx
+- 服务器：Docker + Compose（部署用户可运行 docker；**不需要宿主机 Nginx**）
 - 域名 NS → Cloudflare
 - 对 `DEPLOY_HOST` 有 SSH 访问

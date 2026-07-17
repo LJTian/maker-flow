@@ -8,30 +8,31 @@ Deploy primitives for **step 6**. Agents MUST follow `skills/deploy.md` and MUST
 
 ```
 release/
-├── nginx/          # reverse-proxy snippets
+├── nginx/          # Docker Nginx gateway (shared network maker-flow)
 ├── cloudflare/     # DNS / SSL / subdomain registry
 └── deploy/         # push + route scripts
 ```
 
-## Port pool
+## Ports
 
-| Host port | Example |
-|-----------|---------|
-| 8080 | first MVP / test |
-| 8081–8090 | subsequent MVPs |
+| Port | Role |
+|------|------|
+| **80** (host) | Gateway only — public entry via Cloudflare |
+| `8080` / `80` (container) | MVP listen port inside its container (`CONTAINER_PORT`) |
+| `8080–8090` (host) | **Optional** local debug mapping only; not required for production |
 
-Container listens on 8080; only host mapping increments.
+Production traffic: Cloudflare → gateway `:80` → Docker network alias `MVP_NAME:CONTAINER_PORT`.
 
 ## Agent deploy sequence
 
 1. Confirm step-5 approval.
-2. Register subdomain + port in cloudflare registry example / live registry.
-3. Run `deploy/push-and-route.sh` with `MVP_NAME`, `MVP_PORT`, `DOMAIN`, `DEPLOY_HOST`, `DEPLOY_PATH`.
-4. Install nginx server block from `nginx/snippets/mvp-server.conf.example`.
+2. Register subdomain in cloudflare registry example / live registry.
+3. From the product repo root, run `deploy/push-and-route.sh` with `MVP_NAME`, `DOMAIN`, `DEPLOY_HOST`, `DEPLOY_PATH`, optional `CONTAINER_PORT` / `MVP_SERVICE`.
+4. Script syncs the gateway, attaches the MVP to `maker-flow`, writes `conf.d/<MVP_NAME>.conf`, runs `nginx -t`, then reloads.
 5. Ensure Cloudflare DNS Proxied; verify `GET /health` on public URL.
 
 ## Prerequisites
 
-- Server: Docker, Compose, Nginx
+- Server: Docker + Compose (deploy user can run docker; **no host Nginx required**)
 - Domain NS → Cloudflare
 - SSH access for `DEPLOY_HOST`

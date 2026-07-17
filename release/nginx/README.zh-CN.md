@@ -1,38 +1,47 @@
+# Nginx 网关（步骤 ⑥）
+
 [English](README.md) · **简体中文**
 
-# Nginx（步骤 ⑥）
+共享网络 `maker-flow` 上的 Docker 反向代理。SOP：`skills/deploy.md`。
 
-反向代理运维说明。SOP：`skills/deploy.md`。
+## 布局
 
-## 宿主机准备（一次性）
+- `docker-compose.yml` — `nginx:1.27-alpine`，宿主机 `80:80`
+- `nginx.conf` — include `/etc/nginx/conf.d/*.conf`
+- `conf.d/` — 各 MVP 的 server block（由部署脚本写入）
+- `snippets/mvp-server.conf.example` — 模板（`__DOMAIN__`、`__MVP_NAME__`、`__CONTAINER_PORT__`）
+
+## 服务器一次性准备
+
+只需 Docker（本流程不需要 apt / 系统 Nginx / sudo）：
 
 ```bash
-sudo apt update && sudo apt install -y nginx
-sudo mkdir -p /etc/nginx/snippets/maker-flow
-```
-
-在 `http` 块中引入：
-
-```nginx
-include /etc/nginx/snippets/maker-flow/*.conf;
+docker network create maker-flow 2>/dev/null || true
+# 网关文件由 push-and-route.sh 同步到 GATEWAY_PATH（默认 /opt/maker-flow/gateway）
 ```
 
 ## 每个 MVP
 
-1. 复制 `snippets/mvp-server.conf.example` → `snippets/maker-flow/<name>.conf`
-2. 设置 `server_name` 与 `proxy_pass http://127.0.0.1:<HOST_PORT>`
-3. 生效：
+在产品仓根目录优先使用 `release/deploy/push-and-route.sh`。它会：
+
+1. 同步网关 + MVP
+2. `docker compose up` MVP
+3. `docker network connect --alias <MVP_NAME> maker-flow <container>`
+4. 安装 `conf.d/<MVP_NAME>.conf`
+5. `nginx -t` 通过后 reload
+
+## 本地冒烟
 
 ```bash
-sudo nginx -t && sudo systemctl reload nginx
+docker network create maker-flow 2>/dev/null || true
+cd release/nginx
+docker compose up -d
+docker compose logs -f nginx
 ```
-
-## 静态通路测试
-
-`snippets/static-test.conf.example` + `static/index.html` — 仅用于 Cloudflare→Nginx 冒烟。
 
 ## 调试
 
 ```bash
-sudo tail -f /var/log/nginx/error.log
+docker compose -f /opt/maker-flow/gateway/docker-compose.yml exec nginx nginx -t
+docker compose -f /opt/maker-flow/gateway/docker-compose.yml logs -f nginx
 ```

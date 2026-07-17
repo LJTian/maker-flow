@@ -38,7 +38,8 @@
 | Prompt 和部署流程靠脑子记 | 技能库写死 SOP，Agent 照章办事 |
 | 想法多，基建重复劳动 | 专注验证，10 分钟级公网上线 |
 
-> **这不是某个具体产品**，而是一套可 Fork、可 Star、可反复复用的 **MVP 工厂**。
+> **这不是某个具体产品**，而是一套可 Fork、可 Star、可反复复用的 **MVP 工厂**。  
+> **推荐：** 本仓作公开工具仓；每个 MVP 用 **独立私有产品仓** → [消费侧指南](docs/consumer-project.zh-CN.md)。
 
 ---
 
@@ -96,30 +97,36 @@ flowchart LR
 ## 60 秒上手
 
 ```bash
-git clone https://github.com/LJTian/maker-flow.git && cd maker-flow
+curl -fsSL https://raw.githubusercontent.com/LJTian/maker-flow/main/scripts/install.sh | bash
+maker-flow new my-first-mvp
+cd ~/projects/my-first-mvp
 ```
+
+用 Cursor 打开**产品仓**，`@AGENTS.md`，从步骤 ① 开始。
+
+<details>
+<summary>贡献者：从 git 克隆安装</summary>
+
+```bash
+git clone https://github.com/LJTian/maker-flow.git && cd maker-flow
+./scripts/install.sh
+maker-flow new my-first-mvp
+```
+
+</details>
 
 **方式 A — Cursor Agent（推荐）**
 
-1. 用 Cursor 打开本仓库
+1. 用 Cursor 打开**产品仓**（`~/projects/<名字>/`）
 2. 新建对话，输入：
 
-   > 按 @AGENTS.md 和 docs/workflow.md，我要做一个 [你的想法]，从步骤 ① 开始。
+   > 按 @AGENTS.md，我要做一个 [你的想法]，从步骤 ① 开始。
 
 3. 在步骤 ③、⑤ 确认 PRO 和 MVP
 
-**方式 B — 命令行**
+**方式 B — 先验模版（无需 AI）**
 
 ```bash
-cp ai-engine/.env.example ai-engine/.env   # 配置 AI_BASE_URL
-chmod +x scripts/ai-run.sh
-./scripts/ai-run.sh prompts/02-pro-draft.md
-```
-
-**方式 C — 先验模版（无需 AI）**
-
-```bash
-./scripts/build-images.sh   # 构建 Go 基座镜像（首次必做）
 cp -r templates/apps/go-api workspace/smoke-test
 cd workspace/smoke-test && cp .env.example .env
 docker compose up --build
@@ -143,10 +150,10 @@ curl http://localhost:8080/health
 
 | 动作 | 建议 |
 |------|------|
-| Star | 跟踪更新，有新的技能库 / 模版会推到这里 |
-| Fork | 改成自己的流水线；替换 `release/` 里的域名与服务器 |
-| 每个新点子 | Agent 组装到 `workspace/<名字>/`，互不干扰 |
-| 固定 Agent 行为 | 把 [AGENTS.md](AGENTS.zh-CN.md) 加入 IDE 规则，或对话 `@AGENTS.md` |
+| Star | 跟踪技能库 / 模版更新 |
+| Fork / clone | 作为共享工厂（公开） |
+| 每个新点子 | **新建私有产品仓** + [消费侧指南](docs/consumer-project.zh-CN.md)；或仅在 `workspace/` 本地冒烟 |
+| 固定 Agent 行为 | 工厂：[AGENTS.zh-CN.md](AGENTS.zh-CN.md) · 产品仓：[AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md) |
 
 ---
 
@@ -156,7 +163,7 @@ curl http://localhost:8080/health
 |------|------|
 | GPU 机（可选） | 纯推理节点，主力机通过 `AI_BASE_URL` 远程调用 |
 | M 系 Mac | 开发、验收、`workspace/` |
-| 云服务器 | Nginx 网关，端口池 `8080–8090` 挂多个 MVP |
+| 云服务器 | Docker Nginx 网关占 80；MVP 走共享网络 `maker-flow` |
 
 ---
 
@@ -165,9 +172,9 @@ curl http://localhost:8080/health
 | 给人看 | 给 AI 智能体看 |
 |--------|----------------|
 | [快速开始](docs/getting-started.zh-CN.md) | [AGENTS.md](AGENTS.zh-CN.md) |
-| [架构图解](docs/overview.zh-CN.md) | [workflow.md](docs/workflow.md) |
+| [消费侧项目](docs/consumer-project.zh-CN.md) · [架构图解](docs/overview.zh-CN.md) | [workflow.zh-CN.md](docs/workflow.zh-CN.md) |
 | [模版检索](templates/CATALOG.md) · [技能检索](skills/CATALOG.md) | [agent-bootstrap.md](docs/agent-bootstrap.md) |
-| [文档索引](docs/README.zh-CN.md) · [国际化](docs/i18n.zh-CN.md) | |
+| [文档索引](docs/README.zh-CN.md) · [国际化](docs/i18n.zh-CN.md) | [AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md)（产品仓） |
 
 ---
 
@@ -181,8 +188,8 @@ Maker Flow 站在这些优秀项目之上，感谢维护者与社区：
 | Web UI（`web-vite`） | **Vite** · **React** · **Tailwind CSS** | https://vite.dev/ · https://react.dev/ · https://tailwindcss.com/ |
 | CLI 框架（`go-cli`） | **Cobra** | https://github.com/spf13/cobra |
 | singleflight（pattern） | **golang.org/x/sync** | https://pkg.go.dev/golang.org/x/sync/singleflight |
-| 编译基座镜像 | **golang** (official image) | https://hub.docker.com/_/golang |
-| 运行基座镜像 | **Alpine Linux** | https://alpinelinux.org/ · https://hub.docker.com/_/alpine |
+| 编译片段 (Go) | **golang** (official image) | https://hub.docker.com/_/golang |
+| 运行片段 (Alpine) | **Alpine Linux** | https://alpinelinux.org/ · https://hub.docker.com/_/alpine |
 | 容器运行时 | **Docker** | https://www.docker.com/ |
 | 反向代理 | **Nginx** | https://nginx.org/ |
 | DNS / 边缘 SSL（发布层） | **Cloudflare** | https://www.cloudflare.com/ |

@@ -68,7 +68,7 @@ curl -sf http://localhost:8080/health
 ### 6 — 部署（Agent）
 
 - **MUST 阅读：** `skills/deploy.md`
-- **MUST 使用：** `release/deploy/push-and-route.sh` 以及 `release/` 下 nginx/cloudflare 资产
+- **MUST 使用：** `release/deploy/push-and-route.sh` 以及 `release/` 下 Docker Nginx 网关 / Cloudflare 资产
 - 前置：人类已批准 MVP；部署主机凭证可用
 
 ## 角色

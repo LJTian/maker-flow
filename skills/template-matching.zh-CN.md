@@ -37,7 +37,6 @@
 | CLI / 命令行工具 | `go-cli` | `retry-backoff`, `worker-pool` |
 | 后台任务 / 多协程消费 | `go-worker` | `worker-pool`, `pipeline`, `retry-backoff` |
 | 浏览器 UI / SPA / 面板 | `web-vite` | —（可选片段放 `src/lib/`） |
-| 仅静态通路测试 | `release/nginx/static` | — |
 
 多 app 示例：`go-api` + `go-worker`（同步 API + 异步消费）；`go-api` + `go-cli`（服务 + 运维命令）；`go-api` + `web-vite`（API + 浏览器 UI）。
 

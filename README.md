@@ -38,7 +38,8 @@ For indie builders, friction is often not business code — it is **rebuilding t
 | Prompts and deploy steps live in your head | Skills encode SOPs; agents follow them |
 | Many ideas, repeated plumbing | Focus on validation; public URL in ~10 minutes |
 
-> This is **not one product**. It is a forkable, reusable **MVP factory**.
+> This is **not one product**. It is a forkable, reusable **MVP factory**.  
+> **Recommended:** keep this repo as the public tool; build each MVP in a **separate private product repo** → [consumer guide](docs/consumer-project.md).
 
 ---
 
@@ -95,30 +96,36 @@ Two gates are the core design: **align on what first, then how**.
 ## 60-second start
 
 ```bash
-git clone https://github.com/LJTian/maker-flow.git && cd maker-flow
+curl -fsSL https://raw.githubusercontent.com/LJTian/maker-flow/main/scripts/install.sh | bash
+maker-flow new my-first-mvp
+cd ~/projects/my-first-mvp
 ```
+
+Open the **product repo** in Cursor, `@AGENTS.md`, start at step ①.
+
+<details>
+<summary>Contributors: install from a git clone</summary>
+
+```bash
+git clone https://github.com/LJTian/maker-flow.git && cd maker-flow
+./scripts/install.sh
+maker-flow new my-first-mvp
+```
+
+</details>
 
 **A — Cursor Agent (recommended)**
 
-1. Open this repo in Cursor
+1. Open the **product repo** (`~/projects/<name>/`) in Cursor
 2. Start a chat:
 
-   > Follow @AGENTS.md and docs/workflow.md. I want to build [your idea], starting at step ①.
+   > Follow @AGENTS.md. I want to build [your idea], starting at step ①.
 
 3. Approve PRO and MVP at steps ③ and ⑤
 
-**B — CLI**
+**B — Smoke a template (no AI)**
 
 ```bash
-cp ai-engine/.env.example ai-engine/.env   # set AI_BASE_URL
-chmod +x scripts/ai-run.sh
-./scripts/ai-run.sh prompts/02-pro-draft.md
-```
-
-**C — Smoke a template (no AI)**
-
-```bash
-./scripts/build-images.sh   # build Go base images (first time)
 cp -r templates/apps/go-api workspace/smoke-test
 cd workspace/smoke-test && cp .env.example .env
 docker compose up --build
@@ -143,9 +150,9 @@ Full guide → **[docs/getting-started.md](docs/getting-started.md)** · [中文
 | Action | Suggestion |
 |--------|------------|
 | Star | Track skill / template updates |
-| Fork | Make it yours; replace domain and host under `release/` |
-| Each new idea | Agent assembles into `workspace/<name>/` |
-| Pin agent behavior | Add [AGENTS.md](AGENTS.md) to IDE rules, or `@AGENTS.md` in chat |
+| Fork / clone | Use as the shared factory (public) |
+| Each new idea | **New private product repo** + [consumer guide](docs/consumer-project.md); or local smoke under `workspace/` only |
+| Pin agent behavior | Factory: [AGENTS.md](AGENTS.md) · Product repo: [AGENTS.consumer.example.md](AGENTS.consumer.example.md) |
 
 ---
 
@@ -155,7 +162,7 @@ Full guide → **[docs/getting-started.md](docs/getting-started.md)** · [中文
 |---------|------|
 | GPU box (optional) | Inference only; main machine calls via `AI_BASE_URL` |
 | Apple Silicon Mac | Dev, acceptance, `workspace/` |
-| Cloud VPS | Nginx gateway; port pool `8080–8090` for multiple MVPs |
+| Cloud VPS | Docker Nginx gateway on port 80; MVPs on shared network `maker-flow` |
 
 ---
 
@@ -164,9 +171,9 @@ Full guide → **[docs/getting-started.md](docs/getting-started.md)** · [中文
 | Humans | AI agents |
 |--------|-----------|
 | [Getting started](docs/getting-started.md) | [AGENTS.md](AGENTS.md) |
-| [Overview](docs/overview.md) | [workflow.md](docs/workflow.md) |
+| [Consumer project](docs/consumer-project.md) · [Overview](docs/overview.md) | [workflow.md](docs/workflow.md) |
 | [Template catalog](templates/CATALOG.md) · [Skills catalog](skills/CATALOG.md) | [agent-bootstrap.md](docs/agent-bootstrap.md) |
-| [Docs index](docs/README.md) · [i18n](docs/i18n.md) | |
+| [Docs index](docs/README.md) · [i18n](docs/i18n.md) | [AGENTS.consumer.example.md](AGENTS.consumer.example.md) (product repos) |
 
 ---
 
@@ -180,8 +187,8 @@ Maker Flow stands on these projects — thanks to maintainers and communities:
 | Web UI (`web-vite`) | **Vite** · **React** · **Tailwind CSS** | https://vite.dev/ · https://react.dev/ · https://tailwindcss.com/ |
 | CLI (`go-cli`) | **Cobra** | https://github.com/spf13/cobra |
 | singleflight (pattern) | **golang.org/x/sync** | https://pkg.go.dev/golang.org/x/sync/singleflight |
-| Build base image | **golang** (official) | https://hub.docker.com/_/golang |
-| Runtime base image | **Alpine Linux** | https://alpinelinux.org/ · https://hub.docker.com/_/alpine |
+| Build fragment (Go) | **golang** (official) | https://hub.docker.com/_/golang |
+| Runtime fragment (Alpine) | **Alpine Linux** | https://alpinelinux.org/ · https://hub.docker.com/_/alpine |
 | Containers | **Docker** | https://www.docker.com/ |
 | Reverse proxy | **Nginx** | https://nginx.org/ |
 | DNS / edge SSL | **Cloudflare** | https://www.cloudflare.com/ |
