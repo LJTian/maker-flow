@@ -8,6 +8,7 @@ Docker reverse proxy on shared network `maker-flow`. SOP: `skills/deploy.md`.
 
 - `docker-compose.yml` — `nginx:1.27-alpine`, host `80:80`
 - `nginx.conf` — includes `/etc/nginx/conf.d/*.conf`
+- `conf.d/00-default.conf` — default vhost so the gateway starts with no MVPs yet
 - `conf.d/` — per-MVP server blocks (written by deploy script)
 - `snippets/mvp-server.conf.example` — template (`__DOMAIN__`, `__MVP_NAME__`, `__CONTAINER_PORT__`)
 

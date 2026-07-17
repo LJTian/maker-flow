@@ -6,7 +6,7 @@
 
 本仓库是个人 MVP 交付的 Agent 剧本。人类只提供需求并做门禁确认。
 
-**两种布局：** (1) 在本仓 `workspace/` 仅做本地冒烟。(2) **推荐：** 并列私有产品仓 — 见 [consumer-project.zh-CN.md](docs/consumer-project.zh-CN.md)；各 MVP 仓使用 [AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md)。
+**两种布局：** (1) **推荐：** 并列私有产品仓 — 见 [consumer-project.zh-CN.md](docs/consumer-project.zh-CN.md)；各 MVP 仓使用 [AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md)（`maker-flow new <名字>`）。(2) 在本仓 `workspace/` **仅做本地冒烟**。
 
 原则：**重基建，轻逻辑。** 优先用模版与技能，不要自造脚手架。
 
@@ -33,7 +33,7 @@
 | 1 | 人 | 提供需求 | — | 需求文本 |
 | 2 | Agent | 起草 PRO | `skills/pro-generation.md`、`prompts/02-pro-draft.md`、`prompts/pro.template.md` | PRO Markdown（无代码） |
 | 3 | 人 | 确认 PRO | — | 定稿 PRO → `prompts/03-pro-confirmed.example.md` 或项目 `pro.md`（结构同 `pro.template.md`） |
-| 4 | Agent | 匹配模版并组装 MVP | `skills/template-matching.md`、`skills/mvp-assembly.md`、`templates/index.md`、`prompts/04-assemble-mvp.md` | `workspace/<name>/` |
+| 4 | Agent | 匹配模版并组装 MVP | `skills/template-matching.md`、`skills/mvp-assembly.md`、`templates/index.md`、`prompts/04-assemble-mvp.md` | **产品仓根目录**（推荐）或 `workspace/<name>/`（仅工厂冒烟） |
 | 5 | 人 | 确认 MVP | PRO 验收标准 | 通过 / 不通过 |
 | 6 | Agent（通过后） | 部署 | `skills/deploy.md`、`release/` | 公网 URL |
 
@@ -61,7 +61,7 @@ docs/          # 流程与架构契约
 - 编码前 MUST 经 `templates/CATALOG.md` / `templates/index.md` 选定 **1～N 个** app（每个 app 须对应 PRO 职责）。
 - MUST 经 `templates/images/index.md` 解析 Dockerfile 片段，并**内联**进 app Dockerfile（仅用上游 `FROM`——禁止 `FROM maker-flow/*` 私有 tag）。
 - MAY 从 `templates/patterns/` 附加 0～N 个 pattern（拷进需要它的 app；不得单独部署）。
-- MUST 把组装项目写到 `workspace/<kebab-name>/`（多 app：`workspace/<name>/<app-id>/`）。
+- MUST 在消费侧模式（`AGENTS.consumer.example.md`）下把组装项目写到**产品仓根目录**；工厂冒烟才写 `workspace/<kebab-name>/`（多 app：`workspace/<name>/<app-id>/`）。
 - MUST NOT 把整个 `templates/images/` 树拷进 `workspace/`；只把片段行拼进产品 Dockerfile。
 - 优先 **容器构建**（`docker compose up --build`）；验收不要求本机 Go 工具链。
 

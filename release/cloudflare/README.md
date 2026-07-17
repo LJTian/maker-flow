@@ -16,7 +16,7 @@ Agent checklist for DNS/SSL. Full deploy SOP: `skills/deploy.md`.
 |------|------|---------|-------|
 | A | `ideaN` | server public IP | Proxied |
 
-Register name + `HOST_PORT` in subdomain registry before assigning ports.
+Register name + `MVP_NAME` (and optional `CONTAINER_PORT` / service) in the subdomain registry before deploy.
 
 ## Optional automation
 

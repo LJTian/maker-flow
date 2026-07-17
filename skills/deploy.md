@@ -12,7 +12,7 @@ Expose the container(s) in the product repo (or `workspace/<project-name>/`) to 
 ## Checklist
 
 - [ ] `docker compose up` local health returns 200
-- [ ] Subdomain registered in `release/cloudflare/subdomain-registry.example.md`
+- [ ] Subdomain + `MVP_NAME` registered in `release/cloudflare/subdomain-registry.example.md`
 - [ ] Server Docker ready; gateway will use shared network `maker-flow`
 - [ ] Cloudflare DNS orange-cloud proxy enabled
 

@@ -144,15 +144,17 @@ Or manually:
 
 ```bash
 export MVP_NAME=idea1
-export MVP_PORT=8080
 export DOMAIN=idea1.your-domain.com
 export DEPLOY_HOST=deploy@your-server
 export DEPLOY_PATH=/opt/mvps/idea1
+export CONTAINER_PORT=8080   # web-vite: 80
+export MVP_SERVICE=api       # or web / worker
 
 ./release/deploy/push-and-route.sh
 ```
 
-Then wire Nginx + Cloudflare DNS → `https://idea1.your-domain.com`
+Script syncs the Docker gateway, attaches the MVP to network `maker-flow`, and reloads Nginx.  
+Then set Cloudflare DNS (Proxied) → `https://idea1.your-domain.com`
 
 ---
 

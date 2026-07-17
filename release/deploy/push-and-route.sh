@@ -34,6 +34,9 @@ ssh "$DEPLOY_HOST" "mkdir -p '${GATEWAY_PATH}/conf.d'"
 rsync -avz \
   --exclude 'conf.d' \
   "${GATEWAY_SRC}/" "${DEPLOY_HOST}:${GATEWAY_PATH}/"
+# Always refresh the default vhost (MVP confs are written separately below)
+scp "${GATEWAY_SRC}/conf.d/00-default.conf" \
+  "${DEPLOY_HOST}:${GATEWAY_PATH}/conf.d/00-default.conf"
 
 echo "==> sync MVP → ${DEPLOY_HOST}:${DEPLOY_PATH}"
 ssh "$DEPLOY_HOST" "mkdir -p '${DEPLOY_PATH}'"

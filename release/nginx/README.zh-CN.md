@@ -8,6 +8,7 @@
 
 - `docker-compose.yml` — `nginx:1.27-alpine`，宿主机 `80:80`
 - `nginx.conf` — include `/etc/nginx/conf.d/*.conf`
+- `conf.d/00-default.conf` — 默认 vhost，尚无 MVP 时也能启动网关
 - `conf.d/` — 各 MVP 的 server block（由部署脚本写入）
 - `snippets/mvp-server.conf.example` — 模板（`__DOMAIN__`、`__MVP_NAME__`、`__CONTAINER_PORT__`）
 

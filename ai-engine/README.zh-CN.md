@@ -2,8 +2,9 @@
 
 # ai-engine/
 
-可选的 **LLM 连接说明**，供通过 HTTP（OpenAI 兼容）调用模型的 Agent 使用。  
-若宿主产品（如 Cursor Agent）本身就是模型，则本目录不使用 — 仍须遵循 `skills/` 与 `docs/workflow.md`。
+**多数用户可忽略本目录。** Cursor / Claude（或任何本身就是 LLM 的宿主 Agent）只需遵循 `skills/` 与 `docs/workflow.md`，无需配置 `.env`。
+
+若你自行调用 OpenAI 兼容 HTTP API（本机 Ollama、网关等），这里提供可选连接说明。
 
 ## 内容
 
@@ -13,12 +14,12 @@
 | `params.md` | 参数边界 + 分步骤验收 |
 | `providers/` | 示例后端（Ollama、OpenAI、兼容网关） |
 
-## 配置（使用时）
+## 配置（仅在你自己调 API 时）
 
 ```bash
 cp ai-engine/.env.example ai-engine/.env
 # set AI_BASE_URL / AI_MODEL per providers/
 ```
 
-用你自己的 HTTP 客户端或 IDE Agent 对接该端点。  
+用你自己的 HTTP 客户端对接该端点。  
 流程权威仍是 `docs/workflow.md` + `skills/`，不是本目录。

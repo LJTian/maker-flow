@@ -2,7 +2,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-For agents assembling under `workspace/` from any template.
+For agents assembling under `workspace/` (or a product repo) from any template.
 
 ## Images (Dockerfile fragments)
 
@@ -17,7 +17,7 @@ Inline fragment lines into the app Dockerfile. Do **not** pre-build private `mak
 
 ## Env names
 
-`APP_NAME`, `APP_ENV`, `HTTP_ADDR`, `LOG_LEVEL`, `HOST_PORT` (compose host map → release port pool)
+`APP_NAME`, `APP_ENV`, `HTTP_ADDR`, `LOG_LEVEL`, `HOST_PORT` (optional **local** compose host map for `docker compose up` acceptance)
 
 ## Health
 
@@ -25,4 +25,5 @@ Inline fragment lines into the app Dockerfile. Do **not** pre-build private `mak
 
 ## Ports
 
-Server pool `8080–8090`; see `release/`.
+- **Local acceptance:** map with `HOST_PORT` (e.g. `8080:8080` or web `3000:80`) as convenient.
+- **Production:** public entry is the Docker Nginx gateway on host **80**; MVP reachability is via network alias `MVP_NAME:CONTAINER_PORT` on `maker-flow` (see `release/`).

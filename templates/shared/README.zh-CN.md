@@ -2,7 +2,7 @@
 
 # 模版共享约定
 
-供 Agent 从任意模版组装到 `workspace/` 时遵循。
+供 Agent 从任意模版组装到 `workspace/`（或产品仓）时遵循。
 
 ## 镜像（Dockerfile 片段）
 
@@ -17,7 +17,7 @@
 
 ## 环境变量名
 
-`APP_NAME`、`APP_ENV`、`HTTP_ADDR`、`LOG_LEVEL`、`HOST_PORT`（compose 宿主机映射 → release 端口池）
+`APP_NAME`、`APP_ENV`、`HTTP_ADDR`、`LOG_LEVEL`、`HOST_PORT`（可选，**本地** compose 宿主机映射，用于 `docker compose up` 验收）
 
 ## 健康检查
 
@@ -25,4 +25,5 @@
 
 ## 端口
 
-服务端口池 `8080–8090`；见 `release/`。
+- **本地验收：** 按需用 `HOST_PORT` 映射（如 `8080:8080`，或 web `3000:80`）。
+- **生产：** 公网入口是 Docker Nginx 网关宿主机 **80**；MVP 经共享网络 `maker-flow` 上的别名 `MVP_NAME:CONTAINER_PORT` 可达（见 `release/`）。

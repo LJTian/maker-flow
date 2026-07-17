@@ -16,7 +16,7 @@ DNS/SSL 检查清单。完整部署 SOP：`skills/deploy.md`。
 |------|------|---------|-------|
 | A | `ideaN` | server public IP | Proxied |
 
-分配端口前，先在子域名登记表中登记名称 + `HOST_PORT`。
+部署前在子域名登记表中登记名称 + `MVP_NAME`（以及可选的 `CONTAINER_PORT` / 服务名）。
 
 ## 可选自动化
 

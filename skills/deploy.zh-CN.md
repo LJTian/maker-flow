@@ -12,7 +12,7 @@
 ## 检查清单
 
 - [ ] `docker compose up` 本地 health 200
-- [ ] 在 `release/cloudflare/subdomain-registry.example.md` 登记子域名
+- [ ] 在 `release/cloudflare/subdomain-registry.example.md` 登记子域名 + `MVP_NAME`
 - [ ] 服务器 Docker 已就绪；网关使用共享网络 `maker-flow`
 - [ ] Cloudflare DNS 橙云代理开启
 
