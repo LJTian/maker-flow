@@ -6,6 +6,7 @@
 |------------|------|
 | **`install.sh`** | 安装工厂到 `~/.maker-flow`，链接 CLI，提示/写入 PATH |
 | **`maker-flow`** | CLI：`new`、`install`、`upgrade`、`init`、`deploy`、`root`、`version` |
+| `check.sh` | 工厂 CI / 本地自检 |
 
 ## 快速开始
 
@@ -24,10 +25,11 @@ cd ~/projects/my-todo
 maker-flow new <名字>              # 缺工厂则先安装 + init（推荐）
 maker-flow init <名字>             # 仅建产品仓
 maker-flow init <名字> --with-pro  # 同时生成 pro.md 草稿
-maker-flow deploy --domain … --host …   # 在产品仓根目录执行
+maker-flow deploy --domain … --host … --service api
 maker-flow upgrade                 # 更新 ~/.maker-flow
 maker-flow root
 maker-flow version
+./scripts/check.sh                 # 本地 / CI 检查
 ```
 
 已 git clone 时：`./scripts/install.sh` 然后 `maker-flow new …`

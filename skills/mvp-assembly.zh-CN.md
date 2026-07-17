@@ -25,11 +25,12 @@
 2. **复制模版** — 将每个选定的 `templates/apps/<id>/` 复制到输出根：
    - 单 app：产品仓根
    - 多 app：`<输出>/<id>/`（如 `api/`、`worker/`、`cli/`），或 PRO 约定的布局
-3. **合并 patterns（可选）** — 按检索结果，将 pattern 包拷入**需要它的那个 app** 目录下的 `internal/...` 并接线
-4. **修改配置** — 各 app 的 `.env.example` → `.env`；多 app 时端口 / 名称勿冲突
-5. **实现业务** — 按 PRO 与各 app 技术栈（Gin / Cobra / worker）分别实现
-6. **更新 compose** — 多服务可在项目根用 compose 编排多个 build context，或各 app 独立 compose
-7. **自检清单** — 对照 PRO 验收标准（覆盖所有选定 app）
+3. **改写 Go module 路径** — 对每个拷贝的 Go app，把 `go.mod` 的 `module` 从工厂路径（`.../maker-flow/templates/apps/...`）改为产品 module（如 `github.com/<org>/<产品名>` 或 `github.com/<org>/<产品名>/<app-id>`），并同步该 app 内对应 import。
+4. **合并 patterns（可选）** — 按检索结果，将 pattern 包拷入**需要它的那个 app** 目录下的 `internal/...` 并接线
+5. **修改配置** — 各 app 的 `.env.example` → `.env`；多 app 时端口 / 名称勿冲突
+6. **实现业务** — 按 PRO 与各 app 技术栈（Gin / Cobra / worker）分别实现
+7. **更新 compose** — 多服务可在项目根用 compose 编排多个 build context，或各 app 独立 compose
+8. **自检清单** — 对照 PRO 验收标准（覆盖所有选定 app）
 
 ## 代码原则
 

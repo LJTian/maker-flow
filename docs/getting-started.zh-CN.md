@@ -2,31 +2,29 @@
 
 # 快速开始
 
-### 配合 AI 智能体，六步把 MVP 跑到公网
+### 六步：从一个想法到公网 MVP（配合 AI Agent）
 
-[← 返回首页](../README.zh-CN.md) · [Agent 契约](../AGENTS.zh-CN.md)
+[← 首页](../README.zh-CN.md) · [消费侧指南](consumer-project.zh-CN.md) · [English](getting-started.md)
 
 </div>
 
+---
+
 [English](getting-started.md) · **简体中文**
 
----
+**默认路径：** 安装工厂 → `maker-flow new <名字>` → 用 Cursor 打开**产品仓**。不要在工厂仓里组装 MVP。
 
-**正式 MVP：** 独立私有产品仓 — 安装后执行 `maker-flow new <名字>`，见 [消费侧指南](consumer-project.zh-CN.md)。工厂在 `~/.maker-flow`，产品在 `~/projects/<名字>/`。
+## 清单
 
----
-
-## 准备清单
-
-| 必备 | 可选 |
+| 必需 | 可选 |
 |------|------|
-| 本仓库（clone / fork） | 云服务器 + 域名 |
+| Docker | 云 VPS + 域名 |
 | Cursor 或其他 Agent IDE | Cloudflare |
-| Docker | 本地 GPU + Ollama |
+| `maker-flow` CLI（`curl … \| bash`） | — |
 
 ---
 
-## 全流程一览
+## 流程一览
 
 ```mermaid
 sequenceDiagram
@@ -35,168 +33,142 @@ sequenceDiagram
     participant P as 产品仓
 
     U->>A: ① 一句话需求
-    A->>U: ② PRO 方案
-    U->>A: ③ 确认 PRO ✓
-    A->>P: ④ 检索模版 · 组装 MVP
+    A->>U: ② PRO 草稿
+    U->>A: ③ 确认 PRO → pro.md ✓
+    A->>P: ④ 匹配模版 · 组装 MVP
     U->>P: ⑤ docker compose 验收 ✓
-    A->>U: ⑥ 部署 · 公网 URL
+    A->>U: ⑥ maker-flow deploy · 公网 URL
 ```
-
-预计耗时（首次熟悉流程）：
 
 | 阶段 | 时间 |
 |------|------|
-| 配置 + 出 PRO | ~30 分钟 |
+| 安装 + PRO | ~30 分钟 |
 | 组装 + 本地验收 | ~1 小时 |
-| 部署上线 | ~10 分钟 |
+| 部署 | ~10 分钟 |
 
 ---
 
 ## 逐步操作
 
-### 步骤 0 · 打开仓库
+### 步骤 0 · 安装并创建产品仓
 
-用 **Cursor** 打开 `maker-flow`（推荐）。
+```bash
+curl -fsSL https://raw.githubusercontent.com/LJTian/maker-flow/main/scripts/install.sh | bash
+maker-flow new my-todo --requirement "迷你待办 API：创建、完成、列表。不要用户系统。"
+cd ~/projects/my-todo
+```
 
-首次对话建议：
+用 Cursor 打开 **`~/projects/my-todo`（产品仓）**——不要打开工厂 clone。
+
+建议首条消息：
 
 ```
-请先阅读 AGENTS.md 和 docs/workflow.md，然后告诉我你已准备好。
+请阅读 AGENTS.md 与 $MAKER_FLOW_ROOT/docs/workflow.md。
+当前为产品仓 my-todo。从步骤 ① 开始。
 ```
+
+（`MAKER_FLOW_ROOT` 默认 `~/.maker-flow`；可用 `maker-flow root` 查看。）
 
 ---
 
 ### 步骤 1 · 提供需求
 
-编辑 [`prompts/01-requirement.example.md`](../prompts/01-requirement.example.md)，或直接对 Agent 说：
-
-> 做一个待办事项迷你 API：支持创建、完成、列表，不需要用户系统。
+编辑产品仓中的 `requirement.md`，或在对话里直接说需求。
 
 ---
 
-### 步骤 2 · AI 出 PRO
-
-对 Agent 说：
+### 步骤 2 · AI 起草 PRO
 
 ```
-按 Maker Flow 步骤 ②：
-1. 阅读 skills/pro-generation.md
+Maker Flow 步骤 ②：
+1. 阅读 $MAKER_FLOW_ROOT/skills/pro-generation.md
 2. 根据我的需求输出 PRO
 3. 不要写任何实现代码
 ```
 
-PRO 结构见空白骨架 [`prompts/pro.template.md`](../prompts/pro.template.md)，完整样板见 [`prompts/pro.example.md`](../prompts/pro.example.md)（摘要、业务流程、数据模型、接口契约、验收标准）。
+结构见 `$MAKER_FLOW_ROOT/prompts/pro.template.md`，样板见 `pro.example.md`。
 
 ---
 
 ### 步骤 3 · 确认 PRO
 
-仔细阅读 Agent 输出的 PRO，问自己：
+检查：
 
-- 范围是不是 **1–2 天能做完**？
-- 「不做」清单是否够狠？
-- API 和表结构能不能直接实现？
+- 是否 **1–2 天**能做完？
+- 「不做」是否够狠？
+- API / 数据模型是否可直接实现？
 
-确认后写入 [`prompts/03-pro-confirmed.example.md`](../prompts/03-pro-confirmed.example.md)，勾选 **已确认**（章节对齐 `pro.template.md`）。
+写入本产品仓 **`pro.md`** 并标记已确认。
 
-> **卡点：** 未确认前，不要让 Agent 写代码。
+> **门禁：** 未确认前不要让 Agent 写代码。
 
 ---
 
 ### 步骤 4 · AI 组装 MVP
 
-对 Agent 说：
-
 ```
-PRO 已确认（见 prompts/03-pro-confirmed.example.md）。
-按步骤 ④：
-1. skills/template-matching.md + templates/index.md 选模版
-2. skills/mvp-assembly.md — 组装到**产品仓**（需要时 `maker-flow new <名字>`）
+pro.md 已确认。
+步骤 ④：
+1. $MAKER_FLOW_ROOT/skills/template-matching.md + templates/index.md
+2. $MAKER_FLOW_ROOT/skills/mvp-assembly.md — 只在本产品仓组装
+3. 把 Go go.mod 的 module 从 maker-flow/templates/... 改成产品路径
 ```
 
-Agent 应在 `~/projects/<项目名>/`（或你的产品仓根）产出可运行工程。
+可运行代码应在 `~/projects/my-todo/`（本仓根）。
 
 ---
 
 ### 步骤 5 · 本地验收
 
 ```bash
-cd ~/projects/<项目名>   # 产品仓
+cd ~/projects/my-todo
 cp .env.example .env
 docker compose up --build
-```
-
-```bash
 curl http://localhost:8080/health
 # 期望: {"status":"ok"}
 ```
 
-对照 PRO 里的 **验收标准** 逐项勾选。  
-不满意 → 让 Agent 改代码（步骤 4）或改 PRO（步骤 3）。
+对照 `pro.md` 验收标准逐项勾选。
 
 ---
 
-### 步骤 6 · 部署上线
-
-确认 MVP 后，对 Agent 说：
-
-```
-MVP 验收通过。按 skills/deploy.md 和 release/ 部署。
-```
-
-或手动执行：
+### 步骤 6 · 部署
 
 ```bash
 maker-flow deploy \
-  --domain idea1.your-domain.com \
+  --domain my-todo.your-domain.com \
   --host deploy@your-server \
   --service api \
   --port 8080
 ```
 
-（`maker-flow deploy` 封装 `release/deploy/push-and-route.sh`：同步 Docker 网关、把 MVP 接入 `maker-flow`、reload Nginx。）  
-然后配置 Cloudflare DNS（Proxied）→ 访问 `https://idea1.your-domain.com`
+**必须**传 `--service`（compose 服务名）。然后 Cloudflare DNS（Proxied）→ 公网 URL。
 
 ---
 
 ## 常见问题
 
 <details>
-<summary><b>Agent 不按流程走怎么办？</b></summary>
+<summary><b>Agent 跳步？</b></summary>
 
-对话里显式 `@AGENTS.md`，并说明：**「当前在第 N 步，不要跳步。」**
-
-</details>
-
-<details>
-<summary><b>不想配本地模型？</b></summary>
-
-用 Cursor 内置模型即可，不必配置 `ai-engine/.env`。
+显式 `@AGENTS.md`，并说：**「当前在第 N 步，不要跳步。」**
 
 </details>
 
 <details>
-<summary><b>只有一个 Go 模版够用吗？</b></summary>
+<summary><b>工厂 vs 产品仓？</b></summary>
 
-MVP 阶段足够。新模版加到 `templates/` 并更新 `templates/index.md` 即可。
+工厂（`~/.maker-flow`）只读 skills/templates。MVP 在 `~/projects/<名字>/`。见 [consumer-project.zh-CN.md](consumer-project.zh-CN.md)。
 
 </details>
 
 <details>
-<summary><b>产品仓要提交到 Git 吗？</b></summary>
+<summary><b>如何升级工厂？</b></summary>
 
-每个 MVP 用独立私有 git 仓（`maker-flow new <名字>`）。不要把组装 MVP 提交进 maker-flow 工厂仓。
+```bash
+maker-flow upgrade
+```
 
 </details>
 
----
-
-<div align="center">
-
-**跑通一次闭环后，下一个点子只需重复 ①→⑥。**
-
-<br/>
-
-[返回首页](../README.zh-CN.md) · [架构说明](overview.zh-CN.md) · [English](getting-started.md)
-
-</div>
+更多：[consumer-project.zh-CN.md](consumer-project.zh-CN.md) · [AGENTS.consumer.example.zh-CN.md](../AGENTS.consumer.example.zh-CN.md) · [workflow.zh-CN.md](workflow.zh-CN.md)

@@ -4,7 +4,7 @@
 
 ### Six steps from idea to a public MVP with an AI agent
 
-[← Home](../README.md) · [Agent contract](../AGENTS.md) · [简体中文](getting-started.zh-CN.md)
+[← Home](../README.md) · [Consumer guide](consumer-project.md) · [简体中文](getting-started.zh-CN.md)
 
 </div>
 
@@ -12,15 +12,15 @@
 
 **English** · [简体中文](getting-started.zh-CN.md)
 
-**Production MVPs:** separate private product repo — run `maker-flow new <name>` after [install](consumer-project.md). Factory lives at `~/.maker-flow`; products at `~/projects/<name>/`.
+**Default path:** install factory → `maker-flow new <name>` → open the **product repo** in Cursor. Do not assemble MVPs inside the factory clone.
 
 ## Checklist
 
 | Required | Optional |
 |----------|----------|
-| This repo (clone / fork) | Cloud VPS + domain |
+| Docker | Cloud VPS + domain |
 | Cursor or another agent IDE | Cloudflare |
-| Docker | Local GPU + Ollama |
+| `maker-flow` CLI (`curl … \| bash`) | — |
 
 ---
 
@@ -34,13 +34,11 @@ sequenceDiagram
 
     U->>A: ① One-line requirement
     A->>U: ② PRO draft
-    U->>A: ③ Approve PRO ✓
+    U->>A: ③ Approve PRO → pro.md ✓
     A->>P: ④ Match templates · assemble MVP
     U->>P: ⑤ docker compose acceptance ✓
-    A->>U: ⑥ Deploy · public URL
+    A->>U: ⑥ maker-flow deploy · public URL
 ```
-
-First-time rough timing:
 
 | Phase | Time |
 |-------|------|
@@ -52,50 +50,55 @@ First-time rough timing:
 
 ## Step by step
 
-### Step 0 · Open the repo
+### Step 0 · Install + create product repo
 
-Open `maker-flow` in **Cursor** (recommended).
+```bash
+curl -fsSL https://raw.githubusercontent.com/LJTian/maker-flow/main/scripts/install.sh | bash
+maker-flow new my-todo --requirement "Mini todo API: create, complete, list. No auth."
+cd ~/projects/my-todo
+```
+
+Open **`~/projects/my-todo`** (the product repo) in Cursor — not the factory clone.
 
 Suggested first message:
 
 ```
-Read AGENTS.md and docs/workflow.md first, then tell me you are ready.
+Read AGENTS.md and $MAKER_FLOW_ROOT/docs/workflow.md.
+We are in product repo my-todo. Start at step ①.
 ```
+
+(`MAKER_FLOW_ROOT` defaults to `~/.maker-flow`; check with `maker-flow root`.)
 
 ---
 
 ### Step 1 · Provide a requirement
 
-Edit [`prompts/01-requirement.example.md`](../prompts/01-requirement.example.md), or tell the agent:
-
-> Build a mini todo API: create, complete, list. No user system.
+Edit `requirement.md` in the product repo, or tell the agent your idea in chat.
 
 ---
 
 ### Step 2 · AI drafts PRO
 
-Tell the agent:
-
 ```
 Maker Flow step ②:
-1. Read skills/pro-generation.md
+1. Read $MAKER_FLOW_ROOT/skills/pro-generation.md
 2. Output a PRO from my requirement
 3. Do not write any implementation code
 ```
 
-PRO shape: [`prompts/pro.template.md`](../prompts/pro.template.md). Granularity: [`prompts/pro.example.md`](../prompts/pro.example.md).
+PRO shape: `$MAKER_FLOW_ROOT/prompts/pro.template.md`. Sample: `$MAKER_FLOW_ROOT/prompts/pro.example.md`.
 
 ---
 
 ### Step 3 · Approve PRO
 
-Review the PRO:
+Review:
 
 - Can it ship in **1–2 days**?
-- Is the **out of scope** list aggressive enough?
+- Is **out of scope** aggressive enough?
 - Are APIs and data model implementable as written?
 
-Persist to [`prompts/03-pro-confirmed.example.md`](../prompts/03-pro-confirmed.example.md) and mark **confirmed** (same sections as `pro.template.md`).
+Persist to **`pro.md` in this product repo** and mark confirmed.
 
 > **Gate:** Do not let the agent write code before approval.
 
@@ -104,54 +107,42 @@ Persist to [`prompts/03-pro-confirmed.example.md`](../prompts/03-pro-confirmed.e
 ### Step 4 · AI assembles MVP
 
 ```
-PRO is confirmed (see prompts/03-pro-confirmed.example.md).
+pro.md is confirmed.
 Step ④:
-1. skills/template-matching.md + templates/index.md — choose apps/patterns
-2. skills/mvp-assembly.md — assemble in the **product repo** (`maker-flow new <name>` if needed)
+1. $MAKER_FLOW_ROOT/skills/template-matching.md + templates/index.md
+2. $MAKER_FLOW_ROOT/skills/mvp-assembly.md — assemble in THIS product repo only
+3. Rewrite Go go.mod module paths away from maker-flow/templates/...
 ```
 
-Expect a runnable project under `~/projects/<project-name>/` (or your product repo root).
+Expect runnable code under `~/projects/my-todo/` (this repo root).
 
 ---
 
 ### Step 5 · Local acceptance
 
 ```bash
-cd ~/projects/<project-name>   # product repo
+cd ~/projects/my-todo
 cp .env.example .env
 docker compose up --build
-```
-
-```bash
 curl http://localhost:8080/health
 # expect: {"status":"ok"}
 ```
 
-Check every **acceptance criterion** in the PRO.  
-Unhappy → iterate step 4 (code) or step 3 (scope).
+Check every **acceptance criterion** in `pro.md`.
 
 ---
 
 ### Step 6 · Deploy
 
-After MVP approval:
-
-```
-MVP accepted. Deploy per skills/deploy.md and release/.
-```
-
-Or manually:
-
 ```bash
 maker-flow deploy \
-  --domain idea1.your-domain.com \
+  --domain my-todo.your-domain.com \
   --host deploy@your-server \
   --service api \
   --port 8080
 ```
 
-(`maker-flow deploy` wraps `release/deploy/push-and-route.sh`: syncs the Docker gateway, attaches the MVP to network `maker-flow`, reloads Nginx.)  
-Then set Cloudflare DNS (Proxied) → `https://idea1.your-domain.com`
+`--service` is required (compose service name). Then Cloudflare DNS (Proxied) → public URL.
 
 ---
 
@@ -165,34 +156,19 @@ Explicitly `@AGENTS.md` and say: **“We are on step N — do not skip.”**
 </details>
 
 <details>
-<summary><b>No local model?</b></summary>
+<summary><b>Factory vs product repo?</b></summary>
 
-Use the IDE’s built-in model. `ai-engine/.env` is optional.
-
-</details>
-
-<details>
-<summary><b>Is one Go app template enough?</b></summary>
-
-Yes for MVP. Add more under `templates/` and register in `templates/index.md`.
+Factory (`~/.maker-flow`) is read-only skills/templates. Your MVP lives in `~/projects/<name>/`. See [consumer-project.md](consumer-project.md).
 
 </details>
 
 <details>
-<summary><b>Commit product repo?</b></summary>
+<summary><b>Upgrade factory?</b></summary>
 
-Use a separate private git repo per MVP (`maker-flow new <name>`). Never commit assembled MVPs into the maker-flow factory repo.
+```bash
+maker-flow upgrade
+```
 
 </details>
 
----
-
-<div align="center">
-
-**Once you close the loop once, the next idea is just ①→⑥ again.**
-
-<br/>
-
-[Home](../README.md) · [Architecture](architecture.md) · [简体中文](getting-started.zh-CN.md)
-
-</div>
+More: [consumer-project.md](consumer-project.md) · [AGENTS.consumer.example.md](../AGENTS.consumer.example.md) · [workflow.md](workflow.md)

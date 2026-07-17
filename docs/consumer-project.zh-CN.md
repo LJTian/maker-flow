@@ -49,12 +49,12 @@ my-todo/
 
 ## 环境变量
 
-通常 **不必配置** — `maker-flow init` / `new` 会把路径写入产品仓 `AGENTS.md`。
+通常 **不必配置** — 产品仓 `AGENTS.md` 默认 `MAKER_FLOW_ROOT=~/.maker-flow`（可移植）。用 `maker-flow root` 解析。
 
-仅 shell 脚本需要时可设：
+仅自定义安装目录时覆盖：
 
 ```bash
-export MAKER_FLOW_ROOT=~/.maker-flow
+export MAKER_FLOW_ROOT=/custom/path/to/maker-flow
 ```
 
 Agent 约定：

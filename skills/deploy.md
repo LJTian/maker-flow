@@ -28,6 +28,7 @@ maker-flow deploy \
   --port 8080
 ```
 
+`--service` is **required** (compose service name).  
 (`--name` defaults to `PRODUCT_NAME` in `AGENTS.md`. Equivalent env: `DOMAIN`, `DEPLOY_HOST`, `MVP_SERVICE`, `CONTAINER_PORT`.)
 
 Low-level (same effect):

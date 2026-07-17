@@ -1,25 +1,7 @@
-# ai-engine/
+# ai-engine/ (optional — usually unused)
 
 **English** · [简体中文](README.zh-CN.md)
 
-**Most users can ignore this directory.** Cursor / Claude (or any host agent that is already the LLM) should follow `skills/` and `docs/workflow.md` only — no `.env` setup required.
+**Most users should ignore this directory.** Host agents (Cursor / Claude) do not need it.
 
-Optional notes for calling an OpenAI-compatible HTTP API yourself (local Ollama, gateways, etc.).
-
-## Contents
-
-| Path | Purpose |
-|------|---------|
-| `.env.example` | `AI_BASE_URL`, `AI_MODEL`, generation params |
-| `params.md` | Parameter bounds + per-step acceptance |
-| `providers/` | Example backends (Ollama, OpenAI, compatible gateways) |
-
-## Setup (only if you call the API yourself)
-
-```bash
-cp ai-engine/.env.example ai-engine/.env
-# set AI_BASE_URL / AI_MODEL per providers/
-```
-
-Use your own HTTP client against that endpoint.  
-Workflow authority remains `docs/workflow.md` + `skills/`, not this folder.
+See [`docs/optional-llm.md`](../docs/optional-llm.md). Not copied into `~/.maker-flow` by `maker-flow install`.

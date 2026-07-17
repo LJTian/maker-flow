@@ -49,12 +49,12 @@ my-todo/
 
 ## Environment variable
 
-Usually **not required** — paths are baked into product `AGENTS.md` after `maker-flow init` / `new`.
+Usually **not required** — product `AGENTS.md` defaults to `MAKER_FLOW_ROOT=~/.maker-flow` (portable). Resolve with `maker-flow root`.
 
-Optional for shell scripts only:
+Optional override for a custom install directory only:
 
 ```bash
-export MAKER_FLOW_ROOT=~/.maker-flow
+export MAKER_FLOW_ROOT=/custom/path/to/maker-flow
 ```
 
 Agent contract:

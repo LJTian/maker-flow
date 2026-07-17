@@ -1,8 +1,11 @@
-# AGENTS.md
+# AGENTS.md — factory (maker-flow tool repo)
 
 **English** · [简体中文](AGENTS.zh-CN.md)
 
-**Audience: AI agents (this repo = factory).** Human intro: [README.md](README.md) · Quick start: [docs/getting-started.md](docs/getting-started.md) · **Product repos:** [docs/consumer-project.md](docs/consumer-project.md) · [AGENTS.consumer.example.md](AGENTS.consumer.example.md) · i18n: [docs/i18n.md](docs/i18n.md)
+**Audience: AI agents working on this factory repo only.**  
+For MVP product work, open a product repo (`maker-flow new <name>`) and use its `AGENTS.md` (from [AGENTS.consumer.example.md](AGENTS.consumer.example.md)).
+
+Human intro: [README.md](README.md) · Quick start: [docs/getting-started.md](docs/getting-started.md) · **Product repos:** [docs/consumer-project.md](docs/consumer-project.md) · i18n: [docs/i18n.md](docs/i18n.md)
 
 This repository is an agent playbook for shipping personal MVPs. Humans only provide requirements and approve gates.
 
@@ -42,12 +45,11 @@ Hard gates: **stop at 3 and 5 until human confirms.**
 ## Layout
 
 ```
-ai-engine/     # optional LLM notes (ignore if host agent is the model)
 skills/        # HOW — step SOPs (authoritative for agents)
 templates/     # WHAT — searchable scaffolds; start at templates/index.md
 prompts/       # inputs / stage contracts
 release/       # deploy primitives (nginx, cloudflare, scripts)
-scripts/       # helpers (install.sh, maker-flow CLI)
+scripts/       # helpers (install.sh, maker-flow CLI, check.sh)
 docs/          # workflow + architecture contracts
 ```
 

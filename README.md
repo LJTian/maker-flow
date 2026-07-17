@@ -87,8 +87,8 @@ Two gates are the core design: **align on what first, then how**.
 |--------|------|----------|
 | Skills | [`skills/`](skills/) · [**catalog**](skills/CATALOG.md) | How agents draft PRO, match templates, deploy |
 | Templates | [`templates/`](templates/) · [**catalog**](templates/CATALOG.md) | apps + images + patterns |
-| AI transport | [`ai-engine/`](ai-engine/) | Optional: Ollama / OpenAI-compatible APIs |
 | Release | [`release/`](release/) | Nginx + Cloudflare + deploy scripts |
+| Optional LLM | [`docs/optional-llm.md`](docs/optional-llm.md) | Rare: self-hosted OpenAI-compatible APIs |
 
 ---
 

@@ -40,9 +40,8 @@ flowchart TB
 | `templates/` | Searchable scaffolds; catalog = `index.md` |
 | `prompts/` | Stage input templates |
 | **product repo** | **Only** write target for step 4–6 (see `docs/consumer-project.md`; create with `maker-flow new <name>`) |
-| `release/` | Deploy primitives for step 6 (gateway + `push-and-route`; prefer `maker-flow deploy`) |
-| `scripts/` | `install.sh`, `maker-flow` CLI |
-| `ai-engine/` | Optional remote LLM connection notes (host agent usually unused) |
+| `release/` | Deploy primitives for step 6 (prefer `maker-flow deploy --service …`) |
+| `scripts/` | `install.sh`, `maker-flow` CLI, `check.sh` |
 | `docs/` | Workflow / architecture contracts |
 
 ## Step → path map

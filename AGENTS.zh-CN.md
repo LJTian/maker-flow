@@ -1,8 +1,11 @@
-# AGENTS.md
+# AGENTS.md — 工厂（maker-flow 工具仓）
 
 [English](AGENTS.md) · **简体中文**
 
-**读者：AI 智能体（本仓 = 工厂）。** 给人看的介绍：[README.zh-CN.md](README.zh-CN.md) · 快速开始：[docs/getting-started.zh-CN.md](docs/getting-started.zh-CN.md) · **产品仓：** [docs/consumer-project.zh-CN.md](docs/consumer-project.zh-CN.md) · [AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md) · 国际化：[docs/i18n.zh-CN.md](docs/i18n.zh-CN.md)
+**读者：仅在本工厂仓工作的 AI 智能体。**  
+做 MVP 产品时，请打开产品仓（`maker-flow new <名字>`），使用其中的 `AGENTS.md`（来自 [AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md)）。
+
+给人看的介绍：[README.zh-CN.md](README.zh-CN.md) · 快速开始：[docs/getting-started.zh-CN.md](docs/getting-started.zh-CN.md) · **产品仓：** [docs/consumer-project.zh-CN.md](docs/consumer-project.zh-CN.md) · 国际化：[docs/i18n.zh-CN.md](docs/i18n.zh-CN.md)
 
 本仓库是个人 MVP 交付的 Agent 剧本。人类只提供需求并做门禁确认。
 
@@ -42,12 +45,11 @@
 ## 目录布局
 
 ```
-ai-engine/     # 可选 LLM 说明（宿主 Agent 已是模型时可忽略）
 skills/        # HOW — 步骤 SOP（对 Agent 权威）
 templates/     # WHAT — 可检索脚手架；从 templates/index.md 开始
 prompts/       # 分阶段输入契约
 release/       # 部署原语（nginx、cloudflare、脚本）
-scripts/       # 助手脚本（install.sh、maker-flow CLI）
+scripts/       # 助手脚本（install.sh、maker-flow CLI、check.sh）
 docs/          # 流程与架构契约
 ```
 

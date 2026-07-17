@@ -28,6 +28,7 @@ maker-flow deploy \
   --port 8080
 ```
 
+**必须**传 `--service`（compose 服务名）。  
 （`--name` 默认取 `AGENTS.md` 中的 `PRODUCT_NAME`。等价环境变量：`DOMAIN`、`DEPLOY_HOST`、`MVP_SERVICE`、`CONTAINER_PORT`。）
 
 底层（效果相同）：

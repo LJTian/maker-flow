@@ -2,7 +2,7 @@
 # Maker Flow CLI — install factory to ~/.maker-flow, init product repos.
 set -euo pipefail
 
-VERSION="0.3.0"
+VERSION="0.4.0"
 
 usage() {
   cat <<'EOF'
@@ -36,7 +36,7 @@ Deploy options (or use env vars of the same name):
   --host <DEPLOY_HOST>        SSH target user@server (required)
   --path <DEPLOY_PATH>        Remote project dir (default: /opt/mvps/<name>)
   --port <CONTAINER_PORT>     Port inside the container (default: 8080)
-  --service <MVP_SERVICE>     Compose service: api|web|worker (auto-detect if omitted)
+  --service <MVP_SERVICE>     Compose service name (required), e.g. api|web|worker
   --gateway-path <path>       Remote gateway dir (default: /opt/maker-flow/gateway)
 
 Environment:
@@ -75,9 +75,12 @@ resolve_factory_root() {
     cd "$script_dir/.." && pwd
     return
   fi
-  if [[ -n "${MAKER_FLOW_ROOT:-}" && -d "$MAKER_FLOW_ROOT/templates" ]]; then
-    echo "$MAKER_FLOW_ROOT"
-    return
+  if [[ -n "${MAKER_FLOW_ROOT:-}" ]]; then
+    local expanded="${MAKER_FLOW_ROOT/#\~/${HOME}}"
+    if [[ -d "${expanded}/templates" ]]; then
+      echo "$expanded"
+      return
+    fi
   fi
   if factory_installed; then
     echo "${HOME}/.maker-flow"
@@ -90,30 +93,58 @@ to_kebab() {
   echo "$1" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g'
 }
 
+# Sync only runtime factory assets (not contrib specs / local IDE junk).
 sync_tree() {
   local from="$1"
   local dest="$2"
   mkdir -p "$dest"
+
+  local -a top_files=(
+    AGENTS.md
+    AGENTS.zh-CN.md
+    AGENTS.consumer.example.md
+    AGENTS.consumer.example.zh-CN.md
+    README.md
+    README.zh-CN.md
+    LICENSE
+  )
+  local -a top_dirs=(skills templates prompts release scripts)
+
   if command -v rsync >/dev/null 2>&1; then
-    rsync -a \
-      --exclude '.git' \
-      --exclude '.cursor' \
-      --exclude 'node_modules' \
-      --exclude 'dist' \
-      --exclude '.env' \
-      "${from}/" "${dest}/"
+    local f
+    for f in "${top_files[@]}"; do
+      [[ -f "${from}/${f}" ]] || continue
+      rsync -a "${from}/${f}" "${dest}/${f}"
+    done
+    local d
+    for d in "${top_dirs[@]}"; do
+      [[ -d "${from}/${d}" ]] || continue
+      rsync -a --delete "${from}/${d}/" "${dest}/${d}/"
+    done
+    if [[ -d "${from}/docs" ]]; then
+      mkdir -p "${dest}/docs"
+      rsync -a --delete \
+        --exclude 'superpowers' \
+        "${from}/docs/" "${dest}/docs/"
+    fi
   else
-    # Fallback when rsync is unavailable
-    if command -v tar >/dev/null 2>&1; then
-      (cd "$from" && tar cf - \
-        --exclude='.git' \
-        --exclude='.cursor' \
-        --exclude='node_modules' \
-        --exclude='dist' \
-        --exclude='.env' \
-        .) | (cd "$dest" && tar xf -)
-    else
+    if ! command -v tar >/dev/null 2>&1; then
       die "need rsync or tar for install"
+    fi
+    local f
+    for f in "${top_files[@]}"; do
+      [[ -f "${from}/${f}" ]] || continue
+      cp "${from}/${f}" "${dest}/${f}"
+    done
+    local d
+    for d in "${top_dirs[@]}"; do
+      [[ -d "${from}/${d}" ]] || continue
+      mkdir -p "${dest}/${d}"
+      (cd "${from}/${d}" && tar cf - .) | (cd "${dest}/${d}" && tar xf -)
+    done
+    if [[ -d "${from}/docs" ]]; then
+      mkdir -p "${dest}/docs"
+      (cd "${from}/docs" && tar cf - --exclude=superpowers .) | (cd "${dest}/docs" && tar xf -)
     fi
   fi
 }
@@ -261,12 +292,19 @@ cmd_init() {
   local agents_src="${root}/AGENTS.consumer.example.md"
   [[ -f "$agents_src" ]] || die "missing $agents_src (broken factory install)"
 
+  # Portable default when factory is at ~/.maker-flow; otherwise bake resolved path.
+  local baked_root="$root"
+  if [[ "$root" == "${HOME}/.maker-flow" ]]; then
+    baked_root='~/.maker-flow'
+  fi
+
   {
     echo "# AGENTS.md"
     echo ""
     awk 'BEGIN{skip=0} /^## Context/{skip=1} skip{print}' "$agents_src" | \
       sed \
-        -e "s|MAKER_FLOW_ROOT=/path/to/maker-flow|MAKER_FLOW_ROOT=${root}|g" \
+        -e "s|MAKER_FLOW_ROOT=~/.maker-flow|MAKER_FLOW_ROOT=${baked_root}|g" \
+        -e "s|MAKER_FLOW_ROOT=/path/to/maker-flow|MAKER_FLOW_ROOT=${baked_root}|g" \
         -e "s|PRODUCT_NAME=my-todo|PRODUCT_NAME=${kebab}|g"
   } >"$product_dir/AGENTS.md"
 
@@ -354,6 +392,7 @@ cmd_deploy() {
   [[ -n "$mvp_name" ]] || die "deploy requires --name or PRODUCT_NAME in AGENTS.md / MVP_NAME"
   [[ -n "$domain" ]] || die "deploy requires --domain or DOMAIN"
   [[ -n "$deploy_host" ]] || die "deploy requires --host or DEPLOY_HOST"
+  [[ -n "$mvp_service" ]] || die "deploy requires --service (compose service name, e.g. api|web|worker)"
 
   if [[ ! -f docker-compose.yml && ! -f compose.yml ]]; then
     die "run deploy from a product repo root (missing docker-compose.yml)"
@@ -369,7 +408,7 @@ cmd_deploy() {
   export DEPLOY_HOST="$deploy_host"
   export DEPLOY_PATH="${deploy_path:-/opt/mvps/${mvp_name}}"
   export CONTAINER_PORT="${container_port:-8080}"
-  [[ -n "$mvp_service" ]] && export MVP_SERVICE="$mvp_service"
+  export MVP_SERVICE="$mvp_service"
   [[ -n "$gateway_path" ]] && export GATEWAY_PATH="$gateway_path"
 
   echo "==> maker-flow deploy"
@@ -378,7 +417,7 @@ cmd_deploy() {
   echo "    DEPLOY_HOST=${DEPLOY_HOST}"
   echo "    DEPLOY_PATH=${DEPLOY_PATH}"
   echo "    CONTAINER_PORT=${CONTAINER_PORT}"
-  [[ -n "${MVP_SERVICE:-}" ]] && echo "    MVP_SERVICE=${MVP_SERVICE}"
+  echo "    MVP_SERVICE=${MVP_SERVICE}"
   exec bash "$script"
 }
 

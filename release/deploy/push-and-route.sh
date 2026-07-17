@@ -12,7 +12,7 @@ DEPLOY_HOST="${DEPLOY_HOST:?set DEPLOY_HOST, e.g. deploy@1.2.3.4}"
 DEPLOY_PATH="${DEPLOY_PATH:-/opt/mvps/${MVP_NAME}}"
 GATEWAY_PATH="${GATEWAY_PATH:-/opt/maker-flow/gateway}"
 CONTAINER_PORT="${CONTAINER_PORT:-${MVP_PORT:-8080}}"
-MVP_SERVICE="${MVP_SERVICE:-}"
+MVP_SERVICE="${MVP_SERVICE:?set MVP_SERVICE (compose service name, e.g. api|web|worker)}"
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 GATEWAY_SRC="${GATEWAY_SRC:-${SCRIPT_DIR}/../nginx}"
@@ -60,20 +60,9 @@ resolve_container() {
 }
 
 CONTAINER_ID=""
-if [[ -n "${MVP_SERVICE}" ]]; then
-  CONTAINER_ID="$(resolve_container "${MVP_SERVICE}")"
-  [[ -n "${CONTAINER_ID}" ]] || { echo "error: no container for MVP_SERVICE=${MVP_SERVICE}" >&2; exit 1; }
-else
-  for svc in api web worker; do
-    CONTAINER_ID="$(resolve_container "${svc}")"
-    if [[ -n "${CONTAINER_ID}" ]]; then
-      MVP_SERVICE="${svc}"
-      break
-    fi
-  done
-fi
+CONTAINER_ID="$(resolve_container "${MVP_SERVICE}")"
 [[ -n "${CONTAINER_ID}" ]] || {
-  echo "error: could not find service api|web|worker; set MVP_SERVICE" >&2
+  echo "error: no running container for MVP_SERVICE=${MVP_SERVICE}" >&2
   exit 1
 }
 

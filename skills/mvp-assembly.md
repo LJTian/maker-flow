@@ -25,11 +25,12 @@ Write into the **current product repository root** (created by `maker-flow new` 
 2. **Copy templates** — copy each selected `templates/apps/<id>/` into the output root:
    - Single app: product root
    - Multi-app: `<output>/<id>/` (e.g. `api/`, `worker/`, `cli/`), or the layout agreed in the PRO
-3. **Merge patterns (optional)** — copy pattern packages into `internal/...` of the **app that needs them** and wire them up
-4. **Config** — per app `.env.example` → `.env`; avoid port / name clashes across apps
-5. **Implement business logic** — per PRO and each app stack (Gin / Cobra / worker)
-6. **Update compose** — multi-service: root compose with multiple build contexts, or per-app compose
-7. **Self-check** — walk PRO acceptance criteria (cover every selected app)
+3. **Rewrite Go module paths** — for each copied Go app, change `go.mod` `module` from the factory path (`.../maker-flow/templates/apps/...`) to a product module (e.g. `github.com/<org>/<product-name>` or `github.com/<org>/<product-name>/<app-id>`). Update any matching `import` paths in that app.
+4. **Merge patterns (optional)** — copy pattern packages into `internal/...` of the **app that needs them** and wire them up
+5. **Config** — per app `.env.example` → `.env`; avoid port / name clashes across apps
+6. **Implement business logic** — per PRO and each app stack (Gin / Cobra / worker)
+7. **Update compose** — multi-service: root compose with multiple build contexts, or per-app compose
+8. **Self-check** — walk PRO acceptance criteria (cover every selected app)
 
 ## Code principles
 

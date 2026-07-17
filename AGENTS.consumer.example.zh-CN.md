@@ -2,28 +2,29 @@
 
 [English](AGENTS.consumer.example.md) · **简体中文**
 
-**将本文件复制到你的 MVP 产品仓库，重命名为 `AGENTS.md`。**  
-不要把它当作 maker-flow 工厂仓内的产品契约提交。
+**把本文件复制到你的 MVP 产品仓，命名为 `AGENTS.md`。**  
+不要把它当作 maker-flow 工厂仓里的产品契约提交。
 
-工厂（只读）：把 `MAKER_FLOW_ROOT` 设为本机 maker-flow 克隆路径。  
+工厂（只读）：用 `maker-flow root` 解析（默认 `~/.maker-flow`）。  
 指南：[`docs/consumer-project.zh-CN.md`](docs/consumer-project.zh-CN.md)
 
 ---
 
 ## 上下文
 
-- **本仓库** = 单个 MVP 产品（仅业务代码）。
-- **maker-flow** = 共享工厂，路径 `$MAKER_FLOW_ROOT`（skills、templates、release）。
-- **禁止** 将整棵 `skills/` / `templates/` / `release/` 拷入本仓。
-- **禁止** 修改 `$MAKER_FLOW_ROOT` 下任何文件。
+- **本仓** = 一个 MVP 产品（仅业务代码）。
+- **maker-flow** = `$MAKER_FLOW_ROOT` 处的共享工厂（skills、templates、release）。
+- **禁止**把整棵 `skills/` / `templates/` / `release/` 拷进本仓。
+- **禁止**修改 `$MAKER_FLOW_ROOT` 下的文件。
 
 ## 配置（按项目修改）
 
 ```bash
-# 必填 — maker-flow 克隆的绝对路径
-MAKER_FLOW_ROOT=/path/to/maker-flow
+# 可移植默认值（展开 ~）。仅自定义安装目录时再改。
+# 运行时解析：maker-flow root
+MAKER_FLOW_ROOT=~/.maker-flow
 
-# 本产品名（kebab-case）
+# 本产品（kebab-case）
 PRODUCT_NAME=my-todo
 ```
 
@@ -38,10 +39,10 @@ PRODUCT_NAME=my-todo
 
 ## Agent 入口
 
-1. 读 `$MAKER_FLOW_ROOT/docs/workflow.md`（门禁不变）。
-2. 从 `$MAKER_FLOW_ROOT/skills/CATALOG.md` 加载当前步骤技能。
+1. 读 `$MAKER_FLOW_ROOT/docs/workflow.md`（门禁不变）。必要时展开 `MAKER_FLOW_ROOT` 中的 `~`。
+2. 从 `$MAKER_FLOW_ROOT/skills/CATALOG.md` 加载步骤技能。
 3. 经 `$MAKER_FLOW_ROOT/templates/CATALOG.md` 匹配模版。
-4. **只在本产品仓写入** — 不要修改 `$MAKER_FLOW_ROOT` 下的文件。
+4. **只在本产品仓写入** — 不要写 `$MAKER_FLOW_ROOT`。
 
 ## 六步状态机
 
@@ -52,7 +53,7 @@ PRODUCT_NAME=my-todo
 | 3 | 人：确认 PRO | — | **`pro.md`** |
 | 4 | Agent：组装 | `template-matching`、`mvp-assembly`、`templates/` | **本仓**（`./`、`./api/` …） |
 | 5 | 人：验收 MVP | `pro.md` 验收标准 | — |
-| 6 | Agent：部署 | `$MAKER_FLOW_ROOT/skills/deploy.md`、`release/` | 在本仓执行 `maker-flow deploy` |
+| 6 | Agent：部署 | `$MAKER_FLOW_ROOT/skills/deploy.md`、`release/` | 本仓执行 `maker-flow deploy --service …` |
 
 硬门禁：**步骤 ③、⑤ 人类确认前必须停下。**
 
@@ -61,11 +62,12 @@ PRODUCT_NAME=my-todo
 - 从 `$MAKER_FLOW_ROOT/templates/apps/<id>/` **拷贝**到本仓。
 - Patterns：拷进需要它的 app；禁止单独部署 pattern。
 - Go Dockerfile：从 `$MAKER_FLOW_ROOT/templates/images/` 拼装片段（内联进 app Dockerfile；无需预构建）。
+- 拷贝后，把各 Go app 的 `go.mod` `module` 改成产品路径（如 `github.com/<you>/${PRODUCT_NAME}` 或 `.../${PRODUCT_NAME}/api`）——不要保留 `.../maker-flow/templates/...`。
 - 验收优先在本仓 `docker compose up --build`。
 
 ## 部署
 
-在本仓根目录：
+在本仓根目录（**必须**传 `--service`）：
 
 ```bash
 maker-flow deploy \
@@ -79,6 +81,6 @@ maker-flow deploy \
 
 ```
 请阅读本 AGENTS.md 与 $MAKER_FLOW_ROOT/docs/workflow.md。
-MAKER_FLOW_ROOT 已配置。当前为产品仓「${PRODUCT_NAME}」。
+MAKER_FLOW_ROOT=~/.maker-flow（或：maker-flow root）。当前为产品仓「${PRODUCT_NAME}」。
 从步骤 ① 开始，我的需求是：…
 ```

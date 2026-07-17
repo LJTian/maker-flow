@@ -40,9 +40,8 @@ flowchart TB
 | `templates/` | 可检索脚手架；目录 = `index.md` |
 | `prompts/` | 分阶段输入模版 |
 | **产品仓** | 步骤 ④–⑥ **唯一**写出目标（见 `docs/consumer-project.md`；`maker-flow new <名字>`） |
-| `release/` | 步骤 ⑥ 部署原语（网关 + `push-and-route`；优先 `maker-flow deploy`） |
-| `scripts/` | `install.sh`、`maker-flow` CLI |
-| `ai-engine/` | 可选远程 LLM 连接说明（宿主 Agent 场景通常不用） |
+| `release/` | 步骤 ⑥ 部署原语（优先 `maker-flow deploy --service …`） |
+| `scripts/` | `install.sh`、`maker-flow` CLI、`check.sh` |
 | `docs/` | 流程 / 架构契约 |
 
 ## 步骤 → 路径

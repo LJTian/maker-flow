@@ -88,8 +88,8 @@ flowchart LR
 |------|------|--------|
 | 技能库 | [`skills/`](skills/) · [**检索目录**](skills/CATALOG.md) | 约束 Agent：PRO 怎么写、模版怎么选、怎么部署 |
 | 模版集 | [`templates/`](templates/) · [**检索目录**](templates/CATALOG.md) | apps + images + patterns |
-| AI 连接 | [`ai-engine/`](ai-engine/) | 可选：Ollama / OpenAI 等兼容 API |
 | 发布基建 | [`release/`](release/) | Nginx + Cloudflare + 一键部署脚本 |
+| 可选 LLM | [`docs/optional-llm.zh-CN.md`](docs/optional-llm.zh-CN.md) | 少见：自建 OpenAI 兼容 API |
 
 ---
 
