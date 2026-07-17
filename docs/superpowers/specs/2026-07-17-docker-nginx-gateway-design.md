@@ -1,7 +1,7 @@
 # 设计规格：Docker 共享网络 Nginx 网关（方案 B）
 
 **日期：** 2026-07-17  
-**状态：** 待用户审阅  
+**状态：** 已批准（实现计划：`docs/superpowers/plans/2026-07-17-docker-nginx-gateway.md`）  
 **范围：** 步骤 ⑥ 部署基础设施；去掉宿主机 Nginx / sudo
 
 ## 背景与目标
