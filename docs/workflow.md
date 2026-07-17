@@ -68,7 +68,7 @@ Verify PRO acceptance criteria. On fail: iterate step 4, or return to step 3 if 
 ### 6 — Deploy (agent)
 
 - **MUST read:** `skills/deploy.md`
-- **MUST use:** `release/deploy/push-and-route.sh` + Docker Nginx gateway / Cloudflare assets under `release/`
+- **MUST use:** `maker-flow deploy` (or `release/deploy/push-and-route.sh`) + Docker Nginx gateway / Cloudflare assets under `release/`
 - Prerequisites: human-approved MVP; deploy host credentials available in env
 
 ## Roles
