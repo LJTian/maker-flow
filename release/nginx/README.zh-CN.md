@@ -2,7 +2,7 @@
 
 [English](README.md) · **简体中文**
 
-共享网络 `maker-flow` 上的 Docker 反向代理。SOP：`skills/deploy.md`。
+共享网络 `maker-flow` 上的 Docker 反向代理。SOP：`skills/deploy.md` → `release/publish/vps-gateway.md`。
 
 ## 布局
 
@@ -23,7 +23,7 @@ docker network create maker-flow 2>/dev/null || true
 
 ## 每个 MVP
 
-在产品仓根目录优先使用 `release/deploy/push-and-route.sh`（或 `maker-flow deploy`）。它会：
+在产品仓根目录优先使用 `release/deploy/push-and-route.sh`（Agent 内部可用 `maker-flow deploy`）。它会：
 
 1. 同步网关 + MVP
 2. `docker compose up` MVP

@@ -23,7 +23,7 @@ Human quick start: [getting-started.md](getting-started.md) · Repo intro: [READ
 |------|------------|------|
 | 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` + `prompts/pro.template.md` (sample: `pro.example.md`) |
 | 4 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | **product repo root** (`maker-flow new <name>`) |
-| 6 | `skills/deploy.md` | `maker-flow deploy` (wraps `release/deploy/push-and-route.sh`) |
+| 6 | `skills/deploy.md` + `prompts/06-publish.md` | Ask human for target(s); follow `release/publish/` (VPS helper is agent-internal) |
 
 Optional LLM config notes: `ai-engine/` (not required if the host agent is the LLM).
 

@@ -2,7 +2,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-Docker reverse proxy on shared network `maker-flow`. SOP: `skills/deploy.md`.
+Docker reverse proxy on shared network `maker-flow`. SOP: `skills/deploy.md` → `release/publish/vps-gateway.md`.
 
 ## Layout
 
@@ -23,7 +23,7 @@ docker network create maker-flow 2>/dev/null || true
 
 ## Per-MVP
 
-Prefer `release/deploy/push-and-route.sh` from the product repo root (or `maker-flow deploy`). It will:
+Prefer `release/deploy/push-and-route.sh` from the product repo root (agent-internal `maker-flow deploy`). It will:
 
 1. Sync gateway + MVP
 2. `docker compose up` the MVP

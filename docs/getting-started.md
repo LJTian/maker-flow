@@ -37,7 +37,7 @@ sequenceDiagram
     U->>A: ③ Approve PRO → pro.md ✓
     A->>P: ④ Match templates · assemble MVP
     U->>P: ⑤ docker compose acceptance ✓
-    A->>U: ⑥ maker-flow deploy · public URL
+    A->>U: ⑥ Ask where to publish · public URL
 ```
 
 | Phase | Time |
@@ -124,25 +124,28 @@ Expect runnable code under `~/projects/my-todo/` (this repo root).
 cd ~/projects/my-todo
 cp .env.example .env
 docker compose up --build
+# API example:
 curl http://localhost:8080/health
+# Web (web-vite) example — host port is often 3000:
+# curl http://localhost:3000/health
 # expect: {"status":"ok"}
 ```
 
 Check every **acceptance criterion** in `pro.md`.
 
+Local success only proves the laptop mapping works. Public URLs need step 6.
+
 ---
 
-### Step 6 · Deploy
+### Step 6 · Publish (conversation)
 
-```bash
-maker-flow deploy \
-  --domain my-todo.your-domain.com \
-  --host deploy@your-server \
-  --service api \
-  --port 8080
-```
+Tell the agent MVP acceptance passed. It will ask you:
 
-`--service` is required (compose service name). Then Cloudflare DNS (Proxied) → public URL.
+1. What ships (whole app / frontend / API)?
+2. Where: **Cloudflare Pages / GitHub Pages / Vercel** (static/SPA) and/or **your VPS** (APIs, Docker compose)
+3. Domain preference and whether platform logins are ready
+
+You answer in chat — **you do not run a deploy CLI**. The agent follows `$MAKER_FLOW_ROOT/skills/deploy.md` and `$MAKER_FLOW_ROOT/release/publish/`, then returns the public URL.
 
 ---
 

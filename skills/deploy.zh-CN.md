@@ -1,75 +1,79 @@
-# 上线部署技能
+# 发布技能（步骤 ⑥）
 
 [English](deploy.md) · **简体中文**
 
-**适用步骤：** ⑥ 上线部署  
-**前置：** 步骤 ⑤ MVP 已本地验收通过
+**适用步骤：** ⑥ 上线  
+**前置：** 步骤 ⑤ MVP 已本地验收通过  
+**技能 id：** `deploy`（文件名保持不变，便于目录兼容）
 
 ## 目标
 
-在约 10 分钟内将**产品仓**中的容器暴露到公网。
+把已验收的 MVP 暴露到公网。**形态**（静态 / 常驻运行时）由 PRO 决定；**发到哪里**由**人类在对话中选定**——不是给人用的 CLI。
 
-## 检查清单
+## 硬规则
 
-- [ ] `docker compose up` 本地 health 200
-- [ ] 在 `release/cloudflare/subdomain-registry.example.md` 登记子域名 + `MVP_NAME`
-- [ ] 服务器 Docker 已就绪；网关使用共享网络 `maker-flow`
-- [ ] Cloudflare DNS 橙云代理开启
+- 执行任何发布动作前，**必须先询问人类**选用哪个（哪些）发布目标。
+- **禁止**让人类去跑 `maker-flow deploy`（该 CLI 仅供 **Agent 内部**调用）。
+- 未通过步骤 ⑤ **禁止**发布。
+- **禁止**不可能的组合（例如带 Postgres 的 API 单独上 Cloudflare Pages）。应提议拆分（静态前端 + VPS API）。
+- 静态 vs 非静态：跟 PRO / 已组装 app 走；不要默认 VPS 或 Pages。
 
-## 部署动作
+## 对话门禁（必做）
 
-在 MVP / 产品项目目录：
+执行前在对话中确认：
 
-```bash
-maker-flow deploy \
-  --domain idea1.your-domain.com \
-  --host deploy@your-server \
-  --service api \
-  --port 8080
-```
+1. **发什么：** 整站 / 仅前端 / 仅 API / worker（可不对公网）？
+2. **发到哪**（可多选）：
+   - `vps-gateway` — VPS 上 Docker + 共享 Nginx 网关
+   - `cloudflare-pages` — Cloudflare Pages
+   - `github-pages` — GitHub Pages
+   - `vercel` — Vercel
+3. **域名：** 平台默认 URL，还是自定义域名
+4. **凭证：** 人类确认已登录平台 / Token 可用（禁止编造密钥）
 
-**必须**传 `--service`（compose 服务名）。  
-（`--name` 默认取 `AGENTS.md` 中的 `PRODUCT_NAME`。等价环境变量：`DOMAIN`、`DEPLOY_HOST`、`MVP_SERVICE`、`CONTAINER_PORT`。）
+人类答完后，再按 `release/publish/` 下对应指南执行。
 
-底层（效果相同）：
+## 端口（仅 VPS 路径）
 
-```bash
-export MVP_NAME=idea1
-export DOMAIN=idea1.your-domain.com
-export DEPLOY_HOST=deploy@your-server
-export DEPLOY_PATH=/opt/mvps/idea1
-export CONTAINER_PORT=8080
-export MVP_SERVICE=api
+三层不要混：
 
-"$(maker-flow root)/release/deploy/push-and-route.sh"
-```
+| 层 | 含义 | web-vite | go-api |
+|----|------|----------|--------|
+| 本地 `HOST_PORT` | 本机浏览器 | `3000` → 容器 | `8080` → 容器 |
+| `CONTAINER_PORT` | **容器内**监听端口 | **80** | **8080** |
+| 公网入口 | Cloudflare → 网关宿主机 `:80` | 始终是网关 80 | 同左 |
 
-## Nginx 网关
+Agent 内部 VPS 发布用的是 **`CONTAINER_PORT`**，不是 `HOST_PORT`。
 
-`push-and-route.sh` 会在 Docker 网关写入 `conf.d/<MVP_NAME>.conf`，`nginx -t` 通过后 reload。  
-手动路径：把 `release/nginx/snippets/mvp-server.conf.example` 渲染进网关 `conf.d/`，在网关容器内执行 `nginx -t` 与 `nginx -s reload`（无需 sudo / 宿主机 Nginx）。
+| App 模版 | Compose 服务名 | `CONTAINER_PORT` |
+|----------|----------------|------------------|
+| `go-api` | `api` | `8080` |
+| `web-vite` | `web` | `80` |
+| `go-worker` | `worker` | 通常**不**对公网 |
 
-## Cloudflare
+## 目标矩阵
 
-添加 A 记录指向服务器 IP（Proxied）。详见 `release/cloudflare/README.md`。
+| 目标 | 适合 | 不适合 | Agent 指南 |
+|------|------|--------|------------|
+| `vps-gateway` | API、worker、整包 Compose、自托管静态 | 没有 VPS 的用户 | [`release/publish/vps-gateway.md`](../release/publish/vps-gateway.md) |
+| `cloudflare-pages` | 静态 / SPA（`web-vite` 构建） | DB、长驻 Go API | [`release/publish/cloudflare-pages.md`](../release/publish/cloudflare-pages.md) |
+| `github-pages` | 静态 / SPA | 同上 | [`release/publish/github-pages.md`](../release/publish/github-pages.md) |
+| `vercel` | 静态 / SPA | 未改造就塞自建 Postgres | [`release/publish/vercel.md`](../release/publish/vercel.md) |
 
-## 验证
+混合产品：人类若要求，前端上 Pages/Vercel，API 走 `vps-gateway`。
 
-```bash
-curl -I https://idea1.your-domain.com/health
-```
+## 发布后
+
+- 把公网 URL 交给人类。
+- 按情况验证（`curl` / 打开 `/` 或 `/health`）。
+- 若人类维护登记表，记下子域 / 项目名。
 
 ## 回滚
 
-```bash
-ssh $DEPLOY_HOST "cd $DEPLOY_PATH && docker compose down"
-ssh $DEPLOY_HOST "rm -f /opt/maker-flow/gateway/conf.d/${MVP_NAME}.conf && cd /opt/maker-flow/gateway && docker compose exec -T nginx nginx -t && docker compose exec -T nginx nginx -s reload"
-```
-
-并在 DNS 登记表中释放子域名。
+见所选 `release/publish/<target>.md` 的回滚小节。
 
 ## 详细文档
 
-- [release/README.md](../release/README.md)
-- [release/nginx/README.md](../release/nginx/README.md)
-- [release/deploy/](../release/deploy/)
+- [`release/publish/README.md`](../release/publish/README.md)
+- [`release/README.md`](../release/README.md)
+- 对话提示：[`prompts/06-publish.md`](../prompts/06-publish.md)

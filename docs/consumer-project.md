@@ -109,7 +109,7 @@ cd ~/projects/my-todo
 | ③ Confirm PRO | Write `pro.md` in **product repo** |
 | ④ Assemble | Copy from `$MAKER_FLOW_ROOT/templates/...` into **product repo**; follow `mvp-assembly` (output = product root) |
 | ⑤ Accept | `docker compose up --build` in **product repo** |
-| ⑥ Deploy | From product repo root: `maker-flow deploy --domain … --host …` |
+| ⑥ Deploy | Agent asks where to publish (Pages / Vercel / VPS); see `skills/deploy.md` — humans do not run a deploy CLI |
 
 Go apps: compose Dockerfile fragments from `$MAKER_FLOW_ROOT/templates/images/` (already done in app templates). No pre-build step.
 

@@ -64,7 +64,7 @@ flowchart LR
 | 3 | **确认 PRO** | 等待 |
 | 4 | — | 检索模版 → 组装到**产品仓** |
 | 5 | **本地验收** | 按 PRO 修改 |
-| 6 | 触发部署 | 执行 `release/` 脚本 |
+| 6 | 确认发到哪里 | 对话询问 → 跟 `release/publish/` |
 
 两次确认是核心设计：**先对齐「做什么」，再动手「怎么做」。**
 
@@ -86,9 +86,9 @@ flowchart LR
 
 | 模块 | 目录 | 一句话 |
 |------|------|--------|
-| 技能库 | [`skills/`](skills/) · [**检索目录**](skills/CATALOG.md) | 约束 Agent：PRO 怎么写、模版怎么选、怎么部署 |
+| 技能库 | [`skills/`](skills/) · [**检索目录**](skills/CATALOG.md) | 约束 Agent：PRO 怎么写、模版怎么选、怎么发布 |
 | 模版集 | [`templates/`](templates/) · [**检索目录**](templates/CATALOG.md) | apps + images + patterns |
-| 发布基建 | [`release/`](release/) | Nginx + Cloudflare + 一键部署脚本 |
+| 发布基建 | [`release/`](release/) · [`publish/`](release/publish/) | 多目标发布指南 + VPS 网关 |
 | 可选 LLM | [`docs/optional-llm.zh-CN.md`](docs/optional-llm.zh-CN.md) | 少见：自建 OpenAI 兼容 API |
 
 ---

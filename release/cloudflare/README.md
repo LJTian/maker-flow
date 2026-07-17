@@ -2,7 +2,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-Agent checklist for DNS/SSL. Full deploy SOP: `skills/deploy.md`.
+Agent checklist for DNS/SSL (mainly VPS custom domains). Publish SOP: `skills/deploy.md` → `release/publish/`.
 
 ## Required state
 

@@ -13,7 +13,7 @@ Authoritative **HOW** contracts for agents. Prompt files say what to ask; skills
 | PRO generation | `pro-generation.md` | 2 |
 | Template matching | `template-matching.md` | 4 |
 | MVP assembly | `mvp-assembly.md` | 4 |
-| Deploy | `deploy.md` | 6 |
+| Deploy / publish | `deploy.md` | 6 |
 
 ## Agent rules
 

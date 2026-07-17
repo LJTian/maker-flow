@@ -15,7 +15,8 @@
 | ② | `pro-generation` | [`pro-generation.md`](pro-generation.md) | 只出 PRO，不写代码 |
 | ④ | `template-matching` | [`template-matching.md`](template-matching.md) | 选 1～N 个 apps + 0～N patterns + images |
 | ④ | `mvp-assembly` | [`mvp-assembly.md`](mvp-assembly.md) | 复制 app、合并 patterns、容器可跑 |
-| ⑥ | `deploy` | [`deploy.md`](deploy.md) | 验收通过后上线 |
+| ⑥ | `deploy` | [`deploy.md`](deploy.md) | 对话选定发布目标后上线 |
+
 
 **配套 Prompt：** [`../prompts/`](../prompts/) · **模版检索：** [`../templates/CATALOG.md`](../templates/CATALOG.md) · **Patterns：** [`../templates/patterns/index.md`](../templates/patterns/index.md)
 
@@ -27,7 +28,7 @@
 |----------|------|
 | ② 出 PRO | `pro-generation.md` + `prompts/02-pro-draft.md`；结构 `prompts/pro.template.md`，样板 `prompts/pro.example.md` |
 | ④ 组装 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` |
-| ⑥ 部署 | `deploy.md` + `release/` |
+| ⑥ 发布 | `deploy.md` + `prompts/06-publish.md` + `release/publish/` |
 
 硬门禁：③ 未确认 PRO → 禁止 ④；⑤ 未确认 MVP → 禁止 ⑥。见 [`docs/workflow.md`](../docs/workflow.md)。
 
@@ -40,7 +41,7 @@
 | PRO 生成 | 含摘要/流程/模型/API/验收 | 输出实现代码、最终选定模版 |
 | 模版检索 | 读 CATALOG + index；写出 image 依赖 | 自创脚手架、未确认 PRO 就选 |
 | MVP 组装 | 输出到**产品仓根**；从镜像片段拼装 Dockerfile | 拷贝整个 `templates/images/` 树；本步部署；写入工厂仓 |
-| 部署 | 跟 `release/` 脚本与端口池 | 跳过本地/验收门禁 |
+| 发布 | 询问人类目标；跟 `release/publish/`；VPS CLI 仅 Agent 内部 | 跳过门禁；让人类跑 `maker-flow deploy`；把需 DB 的 API 硬塞进纯 Pages |
 
 ---
 

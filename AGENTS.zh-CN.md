@@ -38,7 +38,7 @@
 | 3 | 人 | 确认 PRO | — | 定稿 PRO → `prompts/03-pro-confirmed.example.md` 或项目 `pro.md`（结构同 `pro.template.md`） |
 | 4 | Agent | 匹配模版并组装 MVP | `skills/template-matching.md`、`skills/mvp-assembly.md`、`templates/index.md`、`prompts/04-assemble-mvp.md` | **产品仓根目录**（`maker-flow new <名字>`） |
 | 5 | 人 | 确认 MVP | PRO 验收标准 | 通过 / 不通过 |
-| 6 | Agent（通过后） | 部署 | `skills/deploy.md`、`release/` | 公网 URL |
+| 6 | Agent（通过后） | 发布 | `skills/deploy.md`、`prompts/06-publish.md`、`release/publish/` | 公网 URL |
 
 硬门禁：**在步骤 ③、⑤ 人类确认前必须停下。**
 

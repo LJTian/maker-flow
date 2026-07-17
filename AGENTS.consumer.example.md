@@ -35,7 +35,7 @@ PRODUCT_NAME=my-todo
 | Confirmed PRO | `pro.md` |
 | Single app | `./` or `./<app-id>/` |
 | Multi-app | `./api/`, `./web/`, … per PRO |
-| Deploy cwd | this repo root |
+| Publish cwd | this repo root |
 
 ## Agent entry
 
@@ -53,9 +53,10 @@ PRODUCT_NAME=my-todo
 | 3 | Human: approve PRO | — | **`pro.md`** |
 | 4 | Agent: assemble | `template-matching`, `mvp-assembly`, `templates/` | **this repo** (`./`, `./api/`, …) |
 | 5 | Human: accept MVP | `pro.md` criteria | — |
-| 6 | Agent: deploy | `$MAKER_FLOW_ROOT/skills/deploy.md`, `release/` | `maker-flow deploy --service …` from this repo |
+| 6 | Agent: publish | `$MAKER_FLOW_ROOT/skills/deploy.md`, `prompts/06-publish.md`, `release/publish/` | public URL(s) after **human chooses target(s) in chat** |
 
-Hard gates: **stop at 3 and 5 until human confirms.**
+Hard gates: **stop at 3 and 5 until human confirms.**  
+Step 6: **ask where to publish** (Pages / Vercel / VPS / split). Do **not** tell the human to run `maker-flow deploy` (agent-internal only).
 
 ## Assembly rules
 
@@ -65,17 +66,9 @@ Hard gates: **stop at 3 and 5 until human confirms.**
 - After copy, rewrite each Go app `go.mod` `module` line to a product path (e.g. `github.com/<you>/${PRODUCT_NAME}` or `github.com/<you>/${PRODUCT_NAME}/api`) — do not keep `.../maker-flow/templates/...`.
 - Prefer `docker compose up --build` in **this repo** for acceptance.
 
-## Deploy
+## Publish
 
-From this repo root (`--service` is required):
-
-```bash
-maker-flow deploy \
-  --domain my-todo.your-domain.com \
-  --host deploy@your-server \
-  --service api \
-  --port 8080
-```
+After step 5, load `$MAKER_FLOW_ROOT/prompts/06-publish.md` and confirm targets with the human, then execute `$MAKER_FLOW_ROOT/release/publish/<target>.md`.
 
 ## First message template
 

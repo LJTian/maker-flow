@@ -15,7 +15,7 @@
 | 2 | `pro-generation` | [`pro-generation.md`](pro-generation.md) | PRO only — no code |
 | 4 | `template-matching` | [`template-matching.md`](template-matching.md) | Pick 1–N apps + 0–N patterns + images |
 | 4 | `mvp-assembly` | [`mvp-assembly.md`](mvp-assembly.md) | Copy apps, merge patterns, run in containers |
-| 6 | `deploy` | [`deploy.md`](deploy.md) | Ship after acceptance |
+| 6 | `deploy` | [`deploy.md`](deploy.md) | Dialogue: choose publish target(s), then ship |
 
 **Prompts:** [`../prompts/`](../prompts/) · **Template catalog:** [`../templates/CATALOG.md`](../templates/CATALOG.md) · **Patterns:** [`../templates/patterns/index.md`](../templates/patterns/index.md)
 
@@ -27,7 +27,7 @@
 |--------------|----------------|
 | 2 — draft PRO | `pro-generation.md` + `prompts/02-pro-draft.md`; structure `prompts/pro.template.md`, sample `prompts/pro.example.md` |
 | 4 — assemble | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` |
-| 6 — deploy | `deploy.md` + `release/` |
+| 6 — publish | `deploy.md` + `prompts/06-publish.md` + `release/publish/` |
 
 Hard gates: no confirmed PRO at step 3 → MUST NOT run step 4; no MVP approval at step 5 → MUST NOT run step 6. See [`docs/workflow.md`](../docs/workflow.md).
 
@@ -40,7 +40,7 @@ Hard gates: no confirmed PRO at step 3 → MUST NOT run step 4; no MVP approval 
 | PRO generation | Include summary / flow / model / API / acceptance | Emit implementation code or final template picks |
 | Template matching | Read CATALOG + index; list image deps | Invent scaffolding; select before PRO confirmed |
 | MVP assembly | Write under **product repo root**; compose Dockerfiles from image fragments | Copy `templates/images/` tree; deploy in this step; write into factory repo |
-| Deploy | Follow `release/` scripts and port pool | Skip local / acceptance gates |
+| Deploy (publish) | Ask human for target(s); follow `release/publish/`; VPS CLI is agent-internal | Skip gates; tell humans to run `maker-flow deploy`; ship static apps to Pages with a required DB API |
 
 ---
 

@@ -65,11 +65,13 @@ curl -sf http://localhost:8080/health
 Verify PRO acceptance criteria. On fail: iterate step 4, or return to step 3 if scope is wrong.  
 **MUST NOT** deploy until approved.
 
-### 6 — Deploy (agent)
+### 6 — Publish (agent)
 
-- **MUST read:** `skills/deploy.md`
-- **MUST use:** `maker-flow deploy` (or `release/deploy/push-and-route.sh`) + Docker Nginx gateway / Cloudflare assets under `release/`
-- Prerequisites: human-approved MVP; deploy host credentials available in env
+- **MUST read:** `skills/deploy.md`, `prompts/06-publish.md`, `release/publish/`
+- **MUST** ask the human which publish target(s) to use (Cloudflare Pages / GitHub Pages / Vercel / VPS gateway / split)
+- **MUST NOT** instruct the human to run `maker-flow deploy` (agent-internal helper for VPS only)
+- Execute the matching `release/publish/<target>.md`
+- Prerequisites: human-approved MVP; credentials / host access as required by the chosen target(s)
 
 ## Roles
 

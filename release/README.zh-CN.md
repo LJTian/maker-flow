@@ -1,38 +1,37 @@
-[English](README.md) · **简体中文**
-
 # release/
 
-**步骤 ⑥** 部署基建。Agent **MUST** 遵循 `skills/deploy.md`，且 **MUST** 等待步骤 ⑤ 人工批准。
+[English](README.md) · **简体中文**
+
+**步骤 ⑥** 发布基建。Agent **MUST** 遵循 `skills/deploy.md`，在**对话中与人类确认目标**，且 **MUST** 等待步骤 ⑤ 批准。
+
+**不要**指望人类执行 `maker-flow deploy`。该 CLI 仅供 VPS 路径的 Agent 内部使用。
 
 ## 布局
 
 ```
 release/
+├── publish/        # 分目标指南（Pages / Vercel / VPS）— 从这里开始
 ├── nginx/          # Docker Nginx 网关（共享网络 maker-flow）
-├── cloudflare/     # DNS / SSL / 子域名登记
-└── deploy/         # 推送 + 路由脚本
+├── cloudflare/     # DNS / SSL 助手（主要服务 VPS 自定义域）
+└── deploy/         # VPS 推送与路由脚本（Agent 内部）
 ```
 
-## 端口
+## 选择目标
+
+见 [`publish/README.zh-CN.md`](publish/README.zh-CN.md)。形态跟 PRO；落点跟人类对话。
+
+## 端口（仅 VPS）
 
 | 端口 | 角色 |
 |------|------|
-| **80**（宿主机） | 仅网关 — Cloudflare 公网入口 |
-| `8080` / `80`（容器内） | MVP 容器监听端口（`CONTAINER_PORT`） |
-| `8080–8090`（宿主机） | **可选**本地调试映射；生产不需要 |
+| **80**（宿主机） | 仅网关 — 经 Cloudflare 的公网入口 |
+| `8080` / `80`（容器内） | MVP 容器内监听（`CONTAINER_PORT`） |
+| `3000` / `8080`（宿主机） | **本地** `HOST_PORT` 映射，仅本机验收 |
 
-生产流量：Cloudflare → 网关 `:80` → Docker 网络别名 `MVP_NAME:CONTAINER_PORT`。
+生产（VPS）：Cloudflare → 网关 `:80` → Docker 别名 `MVP_NAME:CONTAINER_PORT`。  
+静态托管（Pages / Vercel）：无 `CONTAINER_PORT` — 构建 `dist/` 并上传。
 
-## Agent 部署顺序
+## 前置（视目标而定）
 
-1. 确认步骤 ⑤ 已批准。
-2. 在 cloudflare 登记示例 / 线上登记表中登记子域名。
-3. 在产品仓根目录运行 `maker-flow deploy`（或 `deploy/push-and-route.sh`），传入 `DOMAIN`、`DEPLOY_HOST`，可选 `CONTAINER_PORT` / `MVP_SERVICE`。
-4. 脚本同步网关、将 MVP 接入 `maker-flow`、写入 `conf.d/<MVP_NAME>.conf`、执行 `nginx -t` 后 reload。
-5. 确保 Cloudflare DNS 已 Proxied；在公网 URL 验证 `GET /health`。
-
-## 前置条件
-
-- 服务器：Docker + Compose（部署用户可运行 docker；**不需要宿主机 Nginx**）
-- 域名 NS → Cloudflare
-- 对 `DEPLOY_HOST` 有 SSH 访问
+- **VPS：** 服务器 Docker、SSH、可选 Cloudflare DNS
+- **Cloudflare Pages / Vercel / GitHub Pages：** Agent 机器上的平台登录；静态或 SPA 构建

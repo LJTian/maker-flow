@@ -14,6 +14,7 @@
 | [`pro.example.md`](pro.example.md) | 2–3 | **PRO 完整样板**（待办 API） |
 | `03-pro-confirmed.example.md` | 3 | 固化人工确认的 PRO（门禁产物） |
 | `04-assemble-mvp.md` | 4 | 检索模版并组装（输出 = **产品仓**；见消费侧指南） |
+| `06-publish.md` | 6 | 询问人类发到哪里；再跟 `release/publish/` |
 | [`../AGENTS.consumer.example.md`](../AGENTS.consumer.example.zh-CN.md) | — | **产品仓** `AGENTS.md` 模版（复制到产品仓） |
 
 ## 规则

@@ -37,7 +37,7 @@ sequenceDiagram
     U->>A: ③ 确认 PRO → pro.md ✓
     A->>P: ④ 匹配模版 · 组装 MVP
     U->>P: ⑤ docker compose 验收 ✓
-    A->>U: ⑥ maker-flow deploy · 公网 URL
+    A->>U: ⑥ 询问发到哪里 · 公网 URL
 ```
 
 | 阶段 | 时间 |
@@ -124,25 +124,28 @@ pro.md 已确认。
 cd ~/projects/my-todo
 cp .env.example .env
 docker compose up --build
+# API 示例：
 curl http://localhost:8080/health
+# Web（web-vite）示例 — 本机端口常为 3000：
+# curl http://localhost:3000/health
 # 期望: {"status":"ok"}
 ```
 
 对照 `pro.md` 验收标准逐项勾选。
 
+本地成功只说明本机映射可用；公网需要步骤 ⑥。
+
 ---
 
-### 步骤 6 · 部署
+### 步骤 6 · 发布（对话）
 
-```bash
-maker-flow deploy \
-  --domain my-todo.your-domain.com \
-  --host deploy@your-server \
-  --service api \
-  --port 8080
-```
+告诉 Agent MVP 已验收通过。它会问你：
 
-**必须**传 `--service`（compose 服务名）。然后 Cloudflare DNS（Proxied）→ 公网 URL。
+1. 发什么（整站 / 仅前端 / 仅 API）？
+2. 发到哪：**Cloudflare Pages / GitHub Pages / Vercel**（静态/SPA）和/或 **自有 VPS**（API、Docker compose）
+3. 域名偏好，以及平台登录是否就绪
+
+在对话里回答即可——**你不必运行 deploy 命令**。Agent 按 `$MAKER_FLOW_ROOT/skills/deploy.md` 与 `$MAKER_FLOW_ROOT/release/publish/` 执行，并回报公网 URL。
 
 ---
 

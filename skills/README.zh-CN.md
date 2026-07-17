@@ -13,7 +13,7 @@
 | PRO 生成 | `pro-generation.md` | 2 |
 | 模版检索 | `template-matching.md` | 4 |
 | MVP 组装 | `mvp-assembly.md` | 4 |
-| 部署 | `deploy.md` | 6 |
+| 发布 | `deploy.md` | 6 |
 
 ## Agent 规则
 

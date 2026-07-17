@@ -40,7 +40,7 @@ flowchart TB
 | `templates/` | Searchable scaffolds; catalog = `index.md` |
 | `prompts/` | Stage input templates |
 | **product repo** | **Only** write target for step 4–6 (see `docs/consumer-project.md`; create with `maker-flow new <name>`) |
-| `release/` | Deploy primitives for step 6 (prefer `maker-flow deploy --service …`) |
+| `release/` | Step-6 publish primitives (`publish/` targets + VPS gateway); agent follows dialogue in `skills/deploy.md` |
 | `scripts/` | `install.sh`, `maker-flow` CLI, `check.sh` |
 | `docs/` | Workflow / architecture contracts |
 
@@ -53,7 +53,7 @@ flowchart TB
 | 3 | Human | confirmed PRO (`pro.md` in product repo, or factory example) |
 | 4 | Agent | `template-matching` + `mvp-assembly` + `templates/` → **product repo root** |
 | 5 | Human | assembled project + PRO acceptance |
-| 6 | Agent | `skills/deploy.md`, `maker-flow deploy` / `release/` |
+| 6 | Agent | `skills/deploy.md`, `prompts/06-publish.md`, `release/publish/` |
 
 ## Related
 

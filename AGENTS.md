@@ -38,7 +38,7 @@ Do **not** skip gates. Do **not** invent a new stack when `templates/index.md` h
 | 3 | Human | Approve PRO | — | confirmed PRO → `prompts/03-pro-confirmed.example.md` or project `pro.md` (same shape as `pro.template.md`) |
 | 4 | Agent | Match template + assemble MVP | `skills/template-matching.md`, `skills/mvp-assembly.md`, `templates/index.md`, `prompts/04-assemble-mvp.md` | **Product repo root** (`maker-flow new <name>`) |
 | 5 | Human | Approve MVP | PRO acceptance criteria | pass/fail |
-| 6 | Agent (on approve) | Deploy | `skills/deploy.md`, `release/` | public URL |
+| 6 | Agent (on approve) | Publish | `skills/deploy.md`, `prompts/06-publish.md`, `release/publish/` | public URL(s) |
 
 Hard gates: **stop at 3 and 5 until human confirms.**
 

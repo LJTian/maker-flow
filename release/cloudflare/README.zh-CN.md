@@ -2,7 +2,7 @@
 
 # Cloudflare（步骤 ⑥）
 
-DNS/SSL 检查清单。完整部署 SOP：`skills/deploy.md`。
+DNS/SSL 检查清单（主要服务 VPS 自定义域）。发布 SOP：`skills/deploy.md` → `release/publish/`。
 
 ## 必需状态
 

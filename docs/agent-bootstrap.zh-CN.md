@@ -23,7 +23,7 @@
 |----|------|------|
 | 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` + `prompts/pro.template.md`（样板：`pro.example.md`） |
 | 4 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | **产品仓根目录**（`maker-flow new <名字>`） |
-| 6 | `skills/deploy.md` | `maker-flow deploy`（封装 `release/deploy/push-and-route.sh`） |
+| 6 | `skills/deploy.md` + `prompts/06-publish.md` | 询问人类目标；跟 `release/publish/`（VPS 助手仅 Agent 内部） |
 
 可选 LLM 配置说明：`ai-engine/`（若宿主 Agent 本身就是 LLM 则不必）。
 

@@ -64,7 +64,7 @@ flowchart LR
 | 3 | **Approve PRO** | Wait |
 | 4 | — | Match templates → assemble in **product repo** |
 | 5 | **Local acceptance** | Fix against PRO |
-| 6 | Trigger deploy | Run `release/` scripts |
+| 6 | Confirm where to publish | Ask in chat → follow `release/publish/` |
 
 Two gates are the core design: **align on what first, then how**.
 
@@ -85,9 +85,9 @@ Two gates are the core design: **align on what first, then how**.
 
 | Module | Path | One line |
 |--------|------|----------|
-| Skills | [`skills/`](skills/) · [**catalog**](skills/CATALOG.md) | How agents draft PRO, match templates, deploy |
+| Skills | [`skills/`](skills/) · [**catalog**](skills/CATALOG.md) | How agents draft PRO, match templates, publish |
 | Templates | [`templates/`](templates/) · [**catalog**](templates/CATALOG.md) | apps + images + patterns |
-| Release | [`release/`](release/) | Nginx + Cloudflare + deploy scripts |
+| Release | [`release/`](release/) · [`publish/`](release/publish/) | Multi-target publish guides + VPS gateway |
 | Optional LLM | [`docs/optional-llm.md`](docs/optional-llm.md) | Rare: self-hosted OpenAI-compatible APIs |
 
 ---

@@ -2,7 +2,7 @@
 # Maker Flow CLI — install factory to ~/.maker-flow, init product repos.
 set -euo pipefail
 
-VERSION="0.4.0"
+VERSION="0.5.0"
 
 usage() {
   cat <<'EOF'
@@ -13,7 +13,7 @@ Commands:
   install          Install or update factory under ~/.maker-flow
   upgrade          Same as install
   init <name>      Create a new MVP product directory
-  deploy           Deploy current product repo via release/deploy/push-and-route.sh
+  deploy           Agent-internal: VPS publish via release/deploy/push-and-route.sh
   root             Print factory path (MAKER_FLOW_ROOT)
   version          Print CLI and factory version info
   help             Show this help
@@ -30,12 +30,12 @@ Init / new options:
   --with-pro       Also create pro.md from template (draft)
   --requirement <text>  Seed requirement.md
 
-Deploy options (or use env vars of the same name):
+Deploy options (agent-internal; or env vars of the same name):
   --name <MVP_NAME>           Network alias + conf name (default: PRODUCT_NAME from AGENTS.md)
   --domain <DOMAIN>           Public hostname (required)
   --host <DEPLOY_HOST>        SSH target user@server (required)
   --path <DEPLOY_PATH>        Remote project dir (default: /opt/mvps/<name>)
-  --port <CONTAINER_PORT>     Port inside the container (default: 8080)
+  --port <CONTAINER_PORT>     Port inside the container (default: 8080; web-vite use 80)
   --service <MVP_SERVICE>     Compose service name (required), e.g. api|web|worker
   --gateway-path <path>       Remote gateway dir (default: /opt/maker-flow/gateway)
 
@@ -49,8 +49,10 @@ Examples:
   curl -fsSL https://raw.githubusercontent.com/LJTian/maker-flow/main/scripts/install.sh | bash
   maker-flow new my-todo
   maker-flow new my-api --requirement "Mini todo API, no auth"
-  maker-flow deploy --domain idea1.example.com --host deploy@server --service api
   maker-flow upgrade
+
+Humans: choose publish targets in chat with the agent (see skills/deploy.md).
+Do not treat "deploy" as a human workflow command.
 EOF
 }
 
