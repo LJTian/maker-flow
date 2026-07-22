@@ -21,7 +21,7 @@ You provide **requirements** and **two approvals**. AI agents execute against a 
 
 <br/>
 
-[Getting started](docs/getting-started.md) · [Template catalog](templates/CATALOG.md) · [Skills catalog](skills/CATALOG.md) · [For agents](AGENTS.md) · [Docs index](docs/README.md)
+[Getting started](docs/getting-started.md) · [Live example](docs/examples/static-intro-github-pages.md) · [Template catalog](templates/CATALOG.md) · [Skills catalog](skills/CATALOG.md) · [For agents](AGENTS.md) · [Docs index](docs/README.md)
 
 </div>
 
@@ -135,6 +135,8 @@ curl http://localhost:8080/health
 Or scaffold a product repo: `maker-flow new smoke-test` and copy template files there.
 
 Full guide → **[docs/getting-started.md](docs/getting-started.md)** · [中文](docs/getting-started.zh-CN.md)
+
+**Live example:** static intro with `web-vite` → GitHub Pages — [walkthrough](docs/examples/static-intro-github-pages.md) · [demo](https://LJTian.github.io/maker-flow-vite/)
 
 ---
 

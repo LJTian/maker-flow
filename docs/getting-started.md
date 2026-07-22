@@ -14,6 +14,8 @@
 
 **Default path:** install factory → `maker-flow new <name>` → open the **product repo** in Cursor. Do not assemble MVPs inside the factory clone.
 
+**Live example (static web → GitHub Pages):** [examples/static-intro-github-pages.md](examples/static-intro-github-pages.md) · demo https://LJTian.github.io/maker-flow-vite/
+
 ## Checklist
 
 | Required | Optional |
@@ -174,4 +176,4 @@ maker-flow upgrade
 
 </details>
 
-More: [consumer-project.md](consumer-project.md) · [AGENTS.consumer.example.md](../AGENTS.consumer.example.md) · [workflow.md](workflow.md)
+More: [examples/](examples/) · [consumer-project.md](consumer-project.md) · [AGENTS.consumer.example.md](../AGENTS.consumer.example.md) · [workflow.md](workflow.md)
