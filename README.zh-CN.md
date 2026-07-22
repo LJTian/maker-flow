@@ -21,7 +21,7 @@
 
 <br/>
 
-[快速开始](docs/getting-started.zh-CN.md) · [模版检索](templates/CATALOG.md) · [技能检索](skills/CATALOG.md) · [给 Agent 看](AGENTS.zh-CN.md) · [文档索引](docs/README.zh-CN.md)
+[快速开始](docs/getting-started.zh-CN.md) · [线上示例](docs/examples/static-intro-github-pages.zh-CN.md) · [模版检索](templates/CATALOG.md) · [技能检索](skills/CATALOG.md) · [给 Agent 看](AGENTS.zh-CN.md) · [文档索引](docs/README.zh-CN.md)
 
 </div>
 
@@ -136,6 +136,8 @@ curl http://localhost:8080/health
 或脚手架产品仓：`maker-flow new smoke-test`，再把模版文件拷进去。
 
 完整教程 → **[docs/getting-started.zh-CN.md](docs/getting-started.zh-CN.md)**
+
+**线上示例：** `web-vite` 静态介绍站 → GitHub Pages — [通读](docs/examples/static-intro-github-pages.zh-CN.md) · [演示](https://LJTian.github.io/maker-flow-vite/)
 
 ---
 

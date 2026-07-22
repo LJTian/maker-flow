@@ -15,6 +15,7 @@
 | | 文档 | 说明 |
 |:--:|------|------|
 | 🚀 | [getting-started.zh-CN.md](getting-started.zh-CN.md) | **从这里开始** — 六步手把手教程 |
+| ✨ | [examples/](examples/) · [静态介绍站 → Pages](examples/static-intro-github-pages.zh-CN.md) | **线上示例** — `web-vite` + GitHub Pages |
 | 📦 | [consumer-project.zh-CN.md](consumer-project.zh-CN.md) | **产品仓** — 并列目录 + `MAKER_FLOW_ROOT` |
 | 📄 | [../prompts/pro.template.md](../prompts/pro.template.md) | PRO 空白骨架 |
 | 📄 | [../prompts/pro.example.md](../prompts/pro.example.md) | PRO 完整样板（待办 API） |

@@ -14,6 +14,8 @@
 
 **默认路径：** 安装工厂 → `maker-flow new <名字>` → 用 Cursor 打开**产品仓**。不要在工厂仓里组装 MVP。
 
+**线上示例（静态站 → GitHub Pages）：** [examples/static-intro-github-pages.zh-CN.md](examples/static-intro-github-pages.zh-CN.md) · 演示 https://LJTian.github.io/maker-flow-vite/
+
 ## 清单
 
 | 必需 | 可选 |
@@ -174,4 +176,4 @@ maker-flow upgrade
 
 </details>
 
-更多：[consumer-project.zh-CN.md](consumer-project.zh-CN.md) · [AGENTS.consumer.example.zh-CN.md](../AGENTS.consumer.example.zh-CN.md) · [workflow.zh-CN.md](workflow.zh-CN.md)
+更多：[examples/](examples/README.zh-CN.md) · [consumer-project.zh-CN.md](consumer-project.zh-CN.md) · [AGENTS.consumer.example.zh-CN.md](../AGENTS.consumer.example.zh-CN.md) · [workflow.zh-CN.md](workflow.zh-CN.md)
