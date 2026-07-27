@@ -1,29 +1,46 @@
-[English](README.md) · **简体中文**
-
 # Cloudflare（步骤 ⑥）
 
-DNS/SSL 检查清单（主要服务 VPS 自定义域）。发布 SOP：`skills/deploy.md` → `release/publish/`。
+[English](README.md) · **简体中文**
 
-## 必需状态
+发布用的 DNS / SSL / Token 自动化。总 SOP：`skills/deploy.md` → `release/publish/`。
 
-- Zone 已在 Cloudflare 激活（NS 已指向）
-- SSL/TLS 模式：`Full` 或 `Full (strict)`
-- 子域名 A/CNAME → 服务器 IP，且为 **Proxied**
+## 指南
+
+| 文档 / 脚本 | 用途 |
+|-------------|------|
+| [`dns-api.zh-CN.md`](dns-api.zh-CN.md) | **DNS API upsert**（A / AAAA / CNAME）— 与 DDNS 同类 |
+| [`dns-upsert.sh`](dns-upsert.sh) | Agent 创建或更新助手 |
+| [`../publish/cloudflare-pages.md`](../publish/cloudflare-pages.md) | Pages Direct Upload + 可选自定义域 DNS |
+| [`subdomain-registry.example.zh-CN.md`](subdomain-registry.example.zh-CN.md) | MVP 子域登记表示例 |
+
+## 人类 Token 清单
+
+| 变量 | 用于 |
+|------|------|
+| `CLOUDFLARE_API_TOKEN` | Pages + DNS |
+| `CLOUDFLARE_ACCOUNT_ID` | Pages（非交互） |
+| `CLOUDFLARE_ZONE_ID` | DNS upsert |
+
+权限：**Pages Edit** 和/或 **DNS Edit**。已配置时优先 API。
+
+## 自定义域必需状态
+
+- Zone 已在 Cloudflare（**NS** 已指向 CF — 注册商侧一次性；API 做不了）
+- 反代到 HTTPS 源站（VPS）时 SSL/TLS：`Full` 或 `Full (strict)`
+- 记录与发布目标匹配：
+
+| 目标 | 记录 | 内容 | Proxy |
+|------|------|------|-------|
+| VPS 网关 | A / AAAA | 服务器公网 IP | Proxied |
+| Cloudflare Pages | CNAME | `<project>.pages.dev` | Proxied |
 
 ## 每个 MVP 的 DNS
 
-| Type | Name | Content | Proxy |
-|------|------|---------|-------|
-| A | `ideaN` | server public IP | Proxied |
-
-部署前在子域名登记表中登记名称 + `MVP_NAME`（以及可选的 `CONTAINER_PORT` / 服务名）。
-
-## 可选自动化
-
-环境变量：`CLOUDFLARE_API_TOKEN`、`CLOUDFLARE_ZONE_ID`（Zone DNS Edit）。可用时优先 API 而非控制台。
+若人类维护清单，发布前在登记表写入名称 + `MVP_NAME`。
 
 ## 验证
 
 ```bash
+curl -sfI "https://ideaN.your-domain.com/"
 curl -sfI "https://ideaN.your-domain.com/health"
 ```

@@ -6,13 +6,27 @@
 
 Static or SPA output (typically assembled `web-vite`). No long-running API in this target alone.
 
+## Human inputs (minimize clicks)
+
+Prefer **token-only** after the Cloudflare account exists:
+
+| Human provides (once) | Agent uses for |
+|-----------------------|----------------|
+| `CLOUDFLARE_API_TOKEN` | Pages deploy + optional DNS |
+| `CLOUDFLARE_ACCOUNT_ID` | Pages project / deploy |
+| `CLOUDFLARE_ZONE_ID` | Custom domain DNS upsert (optional) |
+| Project name + whether to use `*.pages.dev` or a custom host | Naming |
+
+Token permissions: **Account → Cloudflare Pages → Edit**; if custom DNS: also **Zone → DNS → Edit**. See [`../cloudflare/dns-api.md`](../cloudflare/dns-api.md).
+
+Alternative: `npx wrangler login` on this machine (interactive; avoid when token is available).
+
 ## Prerequisites
 
 - Human approved step 5 and chose Cloudflare Pages
-- Human has a Cloudflare account; confirm auth method:
-  - `npx wrangler login` already done on this machine, **or**
-  - `CLOUDFLARE_API_TOKEN` (+ account id if required) in the environment
-- Project name / production branch agreed in chat
+- Auth confirmed in chat (token env **or** wrangler login)
+- Project name / production branch agreed
+- Custom hostname (optional) agreed; zone must already sit on Cloudflare NS
 
 ## Build
 
@@ -28,18 +42,57 @@ docker compose run --rm --no-deps \
 
 Expect `dist/` (Vite default). Adjust if the PRO changed `outDir`.
 
-## Publish
+## Publish (Direct Upload API via Wrangler)
 
 ```bash
+export CLOUDFLARE_API_TOKEN=…          # from human env
+export CLOUDFLARE_ACCOUNT_ID=…         # required for non-interactive
+
 npx wrangler pages project create <PROJECT> --production-branch main 2>/dev/null || true
 npx wrangler pages deploy dist --project-name <PROJECT>
 ```
 
-Custom domain: follow Cloudflare dashboard / `wrangler pages` domain docs after human confirms the hostname. DNS helpers for **VPS** A records are under `release/cloudflare/` — Pages custom domains are configured on the Pages project, not the Docker gateway.
+Wrangler calls Cloudflare’s Pages Direct Upload API under the hood — humans do not need the dashboard for upload.
+
+Note the returned `https://<project>.pages.dev` URL and give it to the human.
+
+## Custom domain (API)
+
+When the human wants `https://www.example.com` (not only `pages.dev`):
+
+1. **Attach hostname to the Pages project** (Pages Domains API — prefer this over the dashboard):
+   ```bash
+   export CLOUDFLARE_API_TOKEN=…
+   export CLOUDFLARE_ACCOUNT_ID=…
+   curl -sS -X POST \
+     -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+     -H "Content-Type: application/json" \
+     "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/<PROJECT>/domains" \
+     --data '{"name":"<HOST>"}'
+   ```
+2. **Upsert DNS** so the name resolves to the Pages project — typically **CNAME → `<project>.pages.dev`**, proxied:
+   ```bash
+   export CLOUDFLARE_ZONE_ID=…
+   "$(maker-flow root)/release/cloudflare/dns-upsert.sh" \
+     --type CNAME \
+     --name <HOST> \
+     --content <PROJECT>.pages.dev \
+     --proxied true
+   ```
+   Order: attach domain on the project **then** (or around the same time) write DNS; if Cloudflare returns a different target than `<PROJECT>.pages.dev`, use the target from the API/dashboard response.
+3. Full DNS SOP: [`../cloudflare/dns-api.md`](../cloudflare/dns-api.md).
+
+Do **not** use the VPS gateway `conf.d` path for Pages — that is only for `vps-gateway`.
 
 ## Verify
 
-Open the `*.pages.dev` URL (or custom domain) returned by wrangler. Check `/` loads; `/health` exists only if the static build includes it (Vite template health is Nginx-only — on Pages, rely on `/`).
+```bash
+curl -sI "https://<project>.pages.dev/"
+# if custom domain:
+curl -sI "https://<HOST>/"
+```
+
+Open `/` in a browser. `/health` exists only if the static build includes it (Vite template health is Nginx-only — on Pages, rely on `/`).
 
 ## Rollback
 

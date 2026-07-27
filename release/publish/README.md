@@ -17,7 +17,7 @@ Do **not** instruct humans to run `maker-flow deploy`. That CLI is agent-interna
 | id | File |
 |----|------|
 | `vps-gateway` | [vps-gateway.md](vps-gateway.md) |
-| `cloudflare-pages` | [cloudflare-pages.md](cloudflare-pages.md) |
+| `cloudflare-pages` | [cloudflare-pages.md](cloudflare-pages.md) (+ [dns-api](../cloudflare/dns-api.md)) |
 | `github-pages` | [github-pages.md](github-pages.md) |
 | `vercel` | [vercel.md](vercel.md) |
 

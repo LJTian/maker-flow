@@ -25,11 +25,11 @@
 1. **发什么：** 整站 / 仅前端 / 仅 API / worker（可不对公网）？
 2. **发到哪**（可多选）：
    - `vps-gateway` — VPS 上 Docker + 共享 Nginx 网关
-   - `cloudflare-pages` — Cloudflare Pages
+   - `cloudflare-pages` — Cloudflare Pages（Token + 可选 DNS API 绑自定义域）
    - `github-pages` — GitHub Pages
    - `vercel` — Vercel
 3. **域名：** 平台默认 URL，还是自定义域名
-4. **凭证：** 人类确认已登录平台 / Token 可用（禁止编造密钥）
+4. **凭证：** 人类确认已登录平台 / Token 可用（禁止编造密钥）。Cloudflare 优先 `CLOUDFLARE_API_TOKEN`（+ `CLOUDFLARE_ACCOUNT_ID`；要改 DNS 再加 `CLOUDFLARE_ZONE_ID`）。
 
 人类答完后，再按 `release/publish/` 下对应指南执行。
 
@@ -56,7 +56,7 @@ Agent 内部 VPS 发布用的是 **`CONTAINER_PORT`**，不是 `HOST_PORT`。
 | 目标 | 适合 | 不适合 | Agent 指南 |
 |------|------|--------|------------|
 | `vps-gateway` | API、worker、整包 Compose、自托管静态 | 没有 VPS 的用户 | [`release/publish/vps-gateway.md`](../release/publish/vps-gateway.md) |
-| `cloudflare-pages` | 静态 / SPA（`web-vite` 构建） | DB、长驻 Go API | [`release/publish/cloudflare-pages.md`](../release/publish/cloudflare-pages.md) |
+| `cloudflare-pages` | 静态 / SPA（`web-vite` 构建） | DB、长驻 Go API | [`release/publish/cloudflare-pages.md`](../release/publish/cloudflare-pages.md)（自定义域另见 [`release/cloudflare/dns-api.md`](../release/cloudflare/dns-api.md)） |
 | `github-pages` | 静态 / SPA | 同上 | [`release/publish/github-pages.md`](../release/publish/github-pages.md) |
 | `vercel` | 静态 / SPA | 未改造就塞自建 Postgres | [`release/publish/vercel.md`](../release/publish/vercel.md) |
 
@@ -76,4 +76,5 @@ Agent 内部 VPS 发布用的是 **`CONTAINER_PORT`**，不是 `HOST_PORT`。
 
 - [`release/publish/README.md`](../release/publish/README.md)
 - [`release/README.md`](../release/README.md)
+- Cloudflare DNS API：[`release/cloudflare/dns-api.md`](../release/cloudflare/dns-api.md)
 - 对话提示：[`prompts/06-publish.md`](../prompts/06-publish.md)

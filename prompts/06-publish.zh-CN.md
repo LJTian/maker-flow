@@ -15,6 +15,7 @@ MVP 已验收。上线前请确认：
    - 可以拆分（例如前端 Pages + API VPS）
 3. **域名？**（平台默认 URL，还是你已有的域名）
 4. 本机平台登录 / Token 是否就绪？
+   - Cloudflare：`CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`（若要用 API 写 DNS，再加 `CLOUDFLARE_ZONE_ID`）
 
 你选定后由我执行发布步骤——**不需要**你运行 deploy 命令。
 

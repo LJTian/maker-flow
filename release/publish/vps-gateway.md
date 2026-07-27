@@ -46,7 +46,19 @@ export MVP_SERVICE=<MVP_SERVICE>
 
 `--service` is required. Script syncs gateway + MVP, attaches container to network `maker-flow`, writes `conf.d/<MVP_NAME>.conf`, reloads Nginx.
 
-Then ensure Cloudflare A/CNAME → server IP (Proxied) if using a custom domain. See `release/cloudflare/README.md`.
+Then ensure Cloudflare A/CNAME → server IP (Proxied) if using a custom domain. Prefer API upsert:
+
+```bash
+export CLOUDFLARE_API_TOKEN=…
+export CLOUDFLARE_ZONE_ID=…
+"$(maker-flow root)/release/cloudflare/dns-upsert.sh" \
+  --type A --name <DOMAIN> --content <SERVER_IPV4> --proxied true
+# IPv6 (optional, same as DDNS):
+# "$(maker-flow root)/release/cloudflare/dns-upsert.sh" \
+#   --type AAAA --name <DOMAIN> --content <SERVER_IPV6> --proxied true
+```
+
+See `release/cloudflare/dns-api.md`. Dashboard: `release/cloudflare/README.md`.
 
 ## Verify
 

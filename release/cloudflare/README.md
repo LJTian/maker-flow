@@ -2,28 +2,46 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-Agent checklist for DNS/SSL (mainly VPS custom domains). Publish SOP: `skills/deploy.md` → `release/publish/`.
+DNS / SSL / token automation for publish. Overall SOP: `skills/deploy.md` → `release/publish/`.
 
-## Required state
+## Guides
 
-- Zone active on Cloudflare (NS pointed)
-- SSL/TLS mode: `Full` or `Full (strict)`
-- Subdomain A/CNAME → server IP, **Proxied**
+| Doc / script | Purpose |
+|--------------|---------|
+| [`dns-api.md`](dns-api.md) | **DNS upsert via API** (A / AAAA / CNAME) — same idea as DDNS |
+| [`dns-upsert.sh`](dns-upsert.sh) | Agent helper for create-or-update |
+| [`../publish/cloudflare-pages.md`](../publish/cloudflare-pages.md) | Pages Direct Upload + optional custom domain DNS |
+| [`subdomain-registry.example.md`](subdomain-registry.example.md) | Human registry of MVP subdomains |
+
+## Human token checklist
+
+| Variable | Needed for |
+|----------|------------|
+| `CLOUDFLARE_API_TOKEN` | Pages + DNS |
+| `CLOUDFLARE_ACCOUNT_ID` | Pages (non-interactive) |
+| `CLOUDFLARE_ZONE_ID` | DNS upsert |
+
+Permissions: **Pages Edit** and/or **DNS Edit** on the zone. Prefer API over dashboard when set.
+
+## Required state (custom domains)
+
+- Zone active on Cloudflare (**NS** pointed at CF — one-time at registrar; not via API)
+- SSL/TLS mode: `Full` or `Full (strict)` when proxying to an HTTPS origin (VPS)
+- Record matches the publish target:
+
+| Target | Record | Content | Proxy |
+|--------|--------|---------|-------|
+| VPS gateway | A / AAAA | server public IP(s) | Proxied |
+| Cloudflare Pages | CNAME | `<project>.pages.dev` | Proxied |
 
 ## Per-MVP DNS
 
-| Type | Name | Content | Proxy |
-|------|------|---------|-------|
-| A | `ideaN` | server public IP | Proxied |
-
-Register name + `MVP_NAME` (and optional `CONTAINER_PORT` / service) in the subdomain registry before deploy.
-
-## Optional automation
-
-Env: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ZONE_ID` (Zone DNS Edit). Prefer API over dashboard when available.
+Register name + `MVP_NAME` in the subdomain registry before publish when the human keeps a list.
 
 ## Verify
 
 ```bash
+curl -sfI "https://ideaN.your-domain.com/"
+# VPS health example:
 curl -sfI "https://ideaN.your-domain.com/health"
 ```

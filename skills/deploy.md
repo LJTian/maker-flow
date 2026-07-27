@@ -25,11 +25,11 @@ Before executing, confirm in chat:
 1. **What** ships: whole product / frontend only / API only / worker (no public URL)?
 2. **Where** (one or more targets):
    - `vps-gateway` — Docker on a VPS + shared Nginx gateway
-   - `cloudflare-pages` — Cloudflare Pages
+   - `cloudflare-pages` — Cloudflare Pages (token + optional DNS API for custom hosts)
    - `github-pages` — GitHub Pages
    - `vercel` — Vercel
 3. **Domain:** platform default URL vs custom hostname
-4. **Credentials:** human confirms platform login / tokens are available (do not invent secrets)
+4. **Credentials:** human confirms platform login / tokens are available (do not invent secrets). For Cloudflare prefer `CLOUDFLARE_API_TOKEN` (+ `CLOUDFLARE_ACCOUNT_ID`; + `CLOUDFLARE_ZONE_ID` if setting DNS).
 
 Only after the human answers, follow the matching guide under `release/publish/`.
 
@@ -56,7 +56,7 @@ Agent-internal VPS publish uses **`CONTAINER_PORT`**, not `HOST_PORT`.
 | Target | Good for | Not for | Agent guide |
 |--------|----------|---------|-------------|
 | `vps-gateway` | APIs, workers, full Docker compose, self-hosted static | Users without a VPS | [`release/publish/vps-gateway.md`](../release/publish/vps-gateway.md) |
-| `cloudflare-pages` | Static / SPA (`web-vite` build) | DB, long-running Go API | [`release/publish/cloudflare-pages.md`](../release/publish/cloudflare-pages.md) |
+| `cloudflare-pages` | Static / SPA (`web-vite` build) | DB, long-running Go API | [`release/publish/cloudflare-pages.md`](../release/publish/cloudflare-pages.md) (+ [`release/cloudflare/dns-api.md`](../release/cloudflare/dns-api.md) for custom host) |
 | `github-pages` | Static / SPA | Same as above | [`release/publish/github-pages.md`](../release/publish/github-pages.md) |
 | `vercel` | Static / SPA (and Vercel-native SSR later) | Self-hosted Postgres on Vercel free tier without redesign | [`release/publish/vercel.md`](../release/publish/vercel.md) |
 
@@ -76,4 +76,5 @@ Follow the rollback section in the chosen `release/publish/<target>.md`.
 
 - [`release/publish/README.md`](../release/publish/README.md)
 - [`release/README.md`](../release/README.md)
+- Cloudflare DNS API: [`release/cloudflare/dns-api.md`](../release/cloudflare/dns-api.md)
 - Prompt shape: [`prompts/06-publish.md`](../prompts/06-publish.md)
