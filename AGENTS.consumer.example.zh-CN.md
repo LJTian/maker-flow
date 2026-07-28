@@ -53,7 +53,7 @@ PRODUCT_NAME=my-todo
 | 3 | 人：确认 PRO | — | **`pro.md`** |
 | 4 | Agent：组装 | `template-matching`、`mvp-assembly`、`templates/` | **本仓**（`./`、`./api/` …） |
 | 5 | 人：验收 MVP | `pro.md` 标准 | — |
-| 6 | Agent：发布 | `$MAKER_FLOW_ROOT/skills/deploy.md`、`prompts/06-publish.md`、`release/publish/` | **人类在对话中选定目标后** 得到公网 URL |
+| 6 | Agent：发布 | `$MAKER_FLOW_ROOT/skills/deploy.md`、`prompts/06-publish.md`、`skills/publish-<target>.md` | **人类在对话中选定目标后** 得到公网 URL |
 
 硬门禁：**在步骤 ③、⑤ 人类确认前必须停下。**  
 步骤 ⑥：**先问发到哪里**（Pages / Vercel / VPS / 拆分）。**不要**让人类跑 `maker-flow deploy`（仅 Agent 内部可用）。
@@ -68,7 +68,7 @@ PRODUCT_NAME=my-todo
 
 ## 发布
 
-步骤 ⑤ 后，加载 `$MAKER_FLOW_ROOT/prompts/06-publish.md`，与人类确认目标，再执行 `$MAKER_FLOW_ROOT/release/publish/<target>.md`。
+步骤 ⑤ 后，加载 `$MAKER_FLOW_ROOT/prompts/06-publish.md`，与人类确认目标，再执行 `$MAKER_FLOW_ROOT/skills/publish-<target>.md`。
 
 ## 首条消息模版
 

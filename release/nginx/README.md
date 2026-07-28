@@ -2,7 +2,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-Docker reverse proxy on shared network `maker-flow`. SOP: `skills/deploy.md` → `release/publish/vps-gateway.md`.
+Docker reverse proxy on shared network `maker-flow`. SOP: `skills/deploy.md` → `skills/publish-vps-gateway.md`.
 
 ## Layout
 

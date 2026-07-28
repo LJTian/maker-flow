@@ -22,4 +22,4 @@ MVP 已验收。上线前请确认：
 
 ## 得到答复后
 
-按 `release/publish/<target>.md` 执行，并回报公网 URL 与验证结果。
+按 `skills/publish-<target>.md` 执行，并回报公网 URL 与验证结果。

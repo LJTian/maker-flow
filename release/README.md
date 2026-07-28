@@ -10,15 +10,15 @@ Humans are **not** expected to run `maker-flow deploy`. That CLI is agent-intern
 
 ```
 release/
-├── publish/        # Per-target guides (Pages / Vercel / VPS) — start here
+├── publish/        # Target index → skills/publish-*.md
 ├── nginx/          # Docker Nginx gateway (shared network maker-flow)
-├── cloudflare/     # DNS / SSL helpers (mainly VPS custom domains)
+├── cloudflare/     # DNS CLI + reference (skill: skills/cloudflare-dns.md)
 └── deploy/         # VPS push + route scripts (agent-internal)
 ```
 
 ## Choose a target
 
-See [`publish/README.md`](publish/README.md). Shape from PRO; location from human dialogue.
+See [`publish/README.md`](publish/README.md) for skill file names. Shape from PRO; location from human dialogue.
 
 ## Ports (VPS only)
 

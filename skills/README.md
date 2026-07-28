@@ -14,6 +14,10 @@ Authoritative **HOW** contracts for agents. Prompt files say what to ask; skills
 | Template matching | `template-matching.md` | 4 |
 | MVP assembly | `mvp-assembly.md` | 4 |
 | Deploy / publish | `deploy.md` | 6 |
+| Publish: VPS gateway | `publish-vps-gateway.md` | 6 |
+| Publish: Cloudflare Pages | `publish-cloudflare-pages.md` | 6 |
+| Publish: GitHub Pages | `publish-github-pages.md` | 6 |
+| Publish: Vercel | `publish-vercel.md` | 6 |
 | Cloudflare DNS | `cloudflare-dns.md` | 6 (when DNS on Cloudflare) |
 
 ## Agent rules

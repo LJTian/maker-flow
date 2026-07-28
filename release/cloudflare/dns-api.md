@@ -1,23 +1,8 @@
-# Cloudflare DNS API (agent)
+# Cloudflare DNS API (script reference)
 
 **English** · [简体中文](dns-api.zh-CN.md)
 
-CRUD DNS records via the Cloudflare API. Same idea as DDNS (A/AAAA); also used for Pages custom domains (CNAME).
-
-**Agent skill:** [`skills/cloudflare-dns.md`](../../skills/cloudflare-dns.md) — load when listing or changing DNS on Cloudflare.
-
-## Human one-time setup
-
-1. Sign up: [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up)
-2. Domain NS already pointed at Cloudflare (API cannot change the registrar).
-3. Create an API token: [API Tokens](https://dash.cloudflare.com/profile/api-tokens) → Create Token.
-4. Permissions: **Zone → DNS → Edit** (include target zone). For Pages publish add **Account → Cloudflare Pages → Edit**.
-5. Export for the agent:
-   - `CLOUDFLARE_API_TOKEN` (**required**)
-   - `CLOUDFLARE_ZONE_ID` (**optional**; script can discover/select zones from token)
-   - `CLOUDFLARE_ACCOUNT_ID` (**optional**; helps scope discovery, needed by some Pages API calls)
-
-**MUST NOT** invent or log tokens.
+CLI and raw API reference for `release/cloudflare/dns.sh`. **Agent SOP:** [`skills/cloudflare-dns.md`](../../skills/cloudflare-dns.md).
 
 ## CLI: `dns.sh`
 
@@ -84,8 +69,8 @@ When token can access multiple accounts/zones, `dns.sh` supports:
 
 ## Publish flows
 
-- **Pages custom domain:** [`../publish/cloudflare-pages.md`](../publish/cloudflare-pages.md) — attach hostname on project, then `dns.sh upsert` CNAME.
-- **VPS gateway:** [`../publish/vps-gateway.md`](../publish/vps-gateway.md) — `dns.sh upsert` A / AAAA.
+- **Pages custom domain:** [`skills/publish-cloudflare-pages.md`](../../skills/publish-cloudflare-pages.md) — attach hostname on project, then `dns.sh upsert` CNAME.
+- **VPS gateway:** [`skills/publish-vps-gateway.md`](../../skills/publish-vps-gateway.md) — `dns.sh upsert` A / AAAA.
 
 ## Verify
 

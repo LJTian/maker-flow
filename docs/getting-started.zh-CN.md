@@ -147,7 +147,7 @@ curl http://localhost:8080/health
 2. 发到哪：**Cloudflare Pages / GitHub Pages / Vercel**（静态/SPA）和/或 **自有 VPS**（API、Docker compose）
 3. 域名偏好，以及平台登录是否就绪
 
-在对话里回答即可——**你不必运行 deploy 命令**。Agent 按 `$MAKER_FLOW_ROOT/skills/deploy.md` 与 `$MAKER_FLOW_ROOT/release/publish/` 执行，并回报公网 URL。
+在对话里回答即可——**你不必运行 deploy 命令**。Agent 按 `$MAKER_FLOW_ROOT/skills/deploy.md` 与所选 `$MAKER_FLOW_ROOT/skills/publish-<target>.md` 执行，并回报公网 URL。
 
 ---
 

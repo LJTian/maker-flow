@@ -2,7 +2,7 @@
 
 [English](README.md) · **简体中文**
 
-共享网络 `maker-flow` 上的 Docker 反向代理。SOP：`skills/deploy.md` → `release/publish/vps-gateway.md`。
+共享网络 `maker-flow` 上的 Docker 反向代理。SOP：`skills/deploy.md` → `skills/publish-vps-gateway.md`。
 
 ## 布局
 

@@ -83,14 +83,6 @@ maker-flow init my-todo              # 或 maker-flow init my-todo --with-pro
 cd ~/projects/my-todo
 ```
 
-### 手动（无 CLI）
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/LJTian/maker-flow/main/scripts/install.sh | bash
-maker-flow init my-todo
-cd ~/projects/my-todo
-```
-
 ---
 
 ## 六步映射（消费侧）

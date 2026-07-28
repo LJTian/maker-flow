@@ -147,7 +147,7 @@ Tell the agent MVP acceptance passed. It will ask you:
 2. Where: **Cloudflare Pages / GitHub Pages / Vercel** (static/SPA) and/or **your VPS** (APIs, Docker compose)
 3. Domain preference and whether platform logins are ready
 
-You answer in chat — **you do not run a deploy CLI**. The agent follows `$MAKER_FLOW_ROOT/skills/deploy.md` and `$MAKER_FLOW_ROOT/release/publish/`, then returns the public URL.
+You answer in chat — **you do not run a deploy CLI**. The agent follows `$MAKER_FLOW_ROOT/skills/deploy.md` and the chosen `$MAKER_FLOW_ROOT/skills/publish-<target>.md`, then returns the public URL.
 
 ---
 

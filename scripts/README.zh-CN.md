@@ -40,5 +40,5 @@ maker-flow version
 从 git clone：`./scripts/install.sh` 然后 `maker-flow new …`
 
 指南：[`../docs/consumer-project.zh-CN.md`](../docs/consumer-project.zh-CN.md)  
-发布目标：[`../release/publish/`](../release/publish/)  
+发布目标技能：[`../skills/CATALOG.md`](../skills/CATALOG.md) · 索引 [`../release/publish/`](../release/publish/)  
 Dockerfile 片段：`../templates/images/`（组装时内联；无需预构建）。

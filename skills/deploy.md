@@ -33,7 +33,7 @@ Before executing, confirm in chat:
    - No account → send [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up)
    - Prefer `CLOUDFLARE_API_TOKEN` (+ `CLOUDFLARE_ACCOUNT_ID`; + `CLOUDFLARE_ZONE_ID` if setting DNS).
 
-Only after the human answers, follow the matching guide under `release/publish/`.
+Only after the human answers, follow the matching `skills/publish-<target>.md` (index: [`release/publish/README.md`](../release/publish/README.md)).
 
 When the target needs **Cloudflare DNS** (custom domain on Pages, VPS A/AAAA, DDNS, or human asks to manage records), **also load** [`skills/cloudflare-dns.md`](cloudflare-dns.md) and use `release/cloudflare/dns.sh`.
 
@@ -59,10 +59,10 @@ Agent-internal VPS publish uses **`CONTAINER_PORT`**, not `HOST_PORT`.
 
 | Target | Good for | Not for | Agent guide |
 |--------|----------|---------|-------------|
-| `cloudflare-pages` | Static / SPA (`web-vite` build) | DB, long-running Go API | [`release/publish/cloudflare-pages.md`](../release/publish/cloudflare-pages.md) + [`skills/cloudflare-dns.md`](cloudflare-dns.md) for custom host |
-| `github-pages` | Static / SPA | Same as above | [`release/publish/github-pages.md`](../release/publish/github-pages.md) |
-| `vercel` | Static / SPA (and Vercel-native SSR later) | Self-hosted Postgres on Vercel free tier without redesign | [`release/publish/vercel.md`](../release/publish/vercel.md) |
-| `vps-gateway` | APIs, workers, full Docker compose, self-hosted static | Users without a VPS | [`release/publish/vps-gateway.md`](../release/publish/vps-gateway.md) + [`skills/cloudflare-dns.md`](cloudflare-dns.md) for custom host |
+| `cloudflare-pages` | Static / SPA (`web-vite` build) | DB, long-running Go API | [`publish-cloudflare-pages.md`](publish-cloudflare-pages.md) + [`cloudflare-dns.md`](cloudflare-dns.md) for custom host |
+| `github-pages` | Static / SPA | Same as above | [`publish-github-pages.md`](publish-github-pages.md) |
+| `vercel` | Static / SPA (and Vercel-native SSR later) | Self-hosted Postgres on Vercel free tier without redesign | [`publish-vercel.md`](publish-vercel.md) |
+| `vps-gateway` | APIs, workers, full Docker compose, self-hosted static | Users without a VPS | [`publish-vps-gateway.md`](publish-vps-gateway.md) + [`cloudflare-dns.md`](cloudflare-dns.md) for custom host |
 
 Mixed products: publish frontend to Pages/Vercel **and** API to `vps-gateway` when the human wants that split.
 
@@ -74,7 +74,7 @@ Mixed products: publish frontend to Pages/Vercel **and** API to `vps-gateway` wh
 
 ## Rollback
 
-Follow the rollback section in the chosen `release/publish/<target>.md`.
+Follow the rollback section in the chosen `publish-<target>.md`.
 
 ## Further reading
 

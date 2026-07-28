@@ -40,5 +40,5 @@ maker-flow version
 From a git clone: `./scripts/install.sh` then `maker-flow new …`
 
 Guide: [`../docs/consumer-project.md`](../docs/consumer-project.md)  
-Publish targets: [`../release/publish/`](../release/publish/)  
+Publish target skills: [`../skills/CATALOG.md`](../skills/CATALOG.md) · index [`../release/publish/`](../release/publish/)  
 Dockerfile fragments: `../templates/images/` (inline when assembling; no pre-build step).

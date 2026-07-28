@@ -74,7 +74,7 @@ Full reference: [`release/cloudflare/dns-api.md`](../release/cloudflare/dns-api.
 
 | Publish target | DNS skill action |
 |----------------|------------------|
-| `cloudflare-pages` + custom domain | Pages Domains API (see [`release/publish/cloudflare-pages.md`](../release/publish/cloudflare-pages.md)) **then** `dns.sh upsert` CNAME |
+| `cloudflare-pages` + custom domain | Pages Domains API (see [`publish-cloudflare-pages.md`](publish-cloudflare-pages.md)) **then** `dns.sh upsert` CNAME |
 | `vps-gateway` | `dns.sh upsert` A and/or AAAA to server IP(s) |
 | `*.pages.dev` only | **Skip** DNS skill (no zone record needed) |
 

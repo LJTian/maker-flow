@@ -64,7 +64,7 @@ flowchart LR
 | 3 | **确认 PRO** | 等待 |
 | 4 | — | 检索模版 → 组装到**产品仓** |
 | 5 | **本地验收** | 按 PRO 修改 |
-| 6 | 确认发到哪里 | 对话询问 → 跟 `release/publish/` |
+| 6 | 确认发到哪里 | 对话询问 → 跟 `skills/publish-<target>.md` |
 
 两次确认是核心设计：**先对齐「做什么」，再动手「怎么做」。**
 
@@ -88,7 +88,7 @@ flowchart LR
 |------|------|--------|
 | 技能库 | [`skills/`](skills/) · [**检索目录**](skills/CATALOG.md) | 约束 Agent：PRO 怎么写、模版怎么选、怎么发布 |
 | 模版集 | [`templates/`](templates/) · [**检索目录**](templates/CATALOG.md) | apps + images + patterns |
-| 发布基建 | [`release/`](release/) · [`publish/`](release/publish/) | 多目标发布指南 + VPS 网关 |
+| 发布基建 | [`release/`](release/) | 步骤 ⑥ 脚本（VPS 部署、Nginx 网关、Cloudflare DNS CLI） |
 | 可选 LLM | [`docs/optional-llm.zh-CN.md`](docs/optional-llm.zh-CN.md) | 少见：自建 OpenAI 兼容 API |
 
 ---
@@ -114,26 +114,15 @@ maker-flow new my-first-mvp
 
 </details>
 
-**方式 A — Cursor Agent（推荐）**
+**方式 A — AI Agent（推荐）**
 
-1. 用 Cursor 打开**产品仓**（`~/projects/<名字>/`）
+1. 用 AI Agent 打开**产品仓**（`~/projects/<名字>/`）
 2. 新建对话，输入：
 
    > 按 @AGENTS.md，我要做一个 [你的想法]，从步骤 ① 开始。
 
 3. 在步骤 ③、⑤ 确认 PRO 和 MVP
 
-**方式 B — 先验模版（无需 AI）**
-
-```bash
-mkdir -p /tmp/maker-flow-smoke
-cp -r templates/apps/go-api /tmp/maker-flow-smoke/smoke-test
-cd /tmp/maker-flow-smoke/smoke-test && cp .env.example .env
-docker compose up --build
-curl http://localhost:8080/health
-```
-
-或脚手架产品仓：`maker-flow new smoke-test`，再把模版文件拷进去。
 
 完整教程 → **[docs/getting-started.zh-CN.md](docs/getting-started.zh-CN.md)**
 
@@ -158,16 +147,6 @@ curl http://localhost:8080/health
 | Fork / clone | 作为共享工厂（公开） |
 | 每个新点子 | **新建私有产品仓** + [消费侧指南](docs/consumer-project.zh-CN.md)（`maker-flow new <名字>`） |
 | 固定 Agent 行为 | 工厂：[AGENTS.zh-CN.md](AGENTS.zh-CN.md) · 产品仓：[AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md) |
-
----
-
-## 推荐设备分工
-
-| 设备 | 角色 |
-|------|------|
-| GPU 机（可选） | 纯推理节点，主力机通过 `AI_BASE_URL` 远程调用 |
-| M 系 Mac | 开发、验收、产品仓 |
-| 云服务器 | Docker Nginx 网关占 80；MVP 走共享网络 `maker-flow` |
 
 ---
 

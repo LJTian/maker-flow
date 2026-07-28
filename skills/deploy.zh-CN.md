@@ -33,7 +33,7 @@
    - 无账号 → 发送 [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up)
    - 优先 `CLOUDFLARE_API_TOKEN`（+ `CLOUDFLARE_ACCOUNT_ID`；要改 DNS 再加 `CLOUDFLARE_ZONE_ID`）。
 
-人类答完后，再按 `release/publish/` 下对应指南执行。
+人类答完后，再按 `skills/publish-<target>.md` 执行（索引：[`release/publish/README.md`](../release/publish/README.md)）。
 
 若需要 **Cloudflare DNS**（Pages 自定义域、VPS 的 A/AAAA、DDNS，或人类要管理记录），**同时加载** [`skills/cloudflare-dns.md`](cloudflare-dns.md)，使用 `release/cloudflare/dns.sh`。
 
@@ -59,10 +59,10 @@ Agent 内部 VPS 发布用的是 **`CONTAINER_PORT`**，不是 `HOST_PORT`。
 
 | 目标 | 适合 | 不适合 | Agent 指南 |
 |------|------|--------|------------|
-| `vps-gateway` | API、worker、整包 Compose、自托管静态 | 没有 VPS 的用户 | [`release/publish/vps-gateway.md`](../release/publish/vps-gateway.md) + [`skills/cloudflare-dns.md`](cloudflare-dns.md)（自定义域） |
-| `cloudflare-pages` | 静态 / SPA（`web-vite` 构建） | DB、长驻 Go API | [`release/publish/cloudflare-pages.md`](../release/publish/cloudflare-pages.md) + [`skills/cloudflare-dns.md`](cloudflare-dns.md)（自定义域） |
-| `github-pages` | 静态 / SPA | 同上 | [`release/publish/github-pages.md`](../release/publish/github-pages.md) |
-| `vercel` | 静态 / SPA | 未改造就塞自建 Postgres | [`release/publish/vercel.md`](../release/publish/vercel.md) |
+| `vps-gateway` | API、worker、整包 Compose、自托管静态 | 没有 VPS 的用户 | [`publish-vps-gateway.md`](publish-vps-gateway.md) + [`cloudflare-dns.md`](cloudflare-dns.md)（自定义域） |
+| `cloudflare-pages` | 静态 / SPA（`web-vite` 构建） | DB、长驻 Go API | [`publish-cloudflare-pages.md`](publish-cloudflare-pages.md) + [`cloudflare-dns.md`](cloudflare-dns.md)（自定义域） |
+| `github-pages` | 静态 / SPA | 同上 | [`publish-github-pages.md`](publish-github-pages.md) |
+| `vercel` | 静态 / SPA | 未改造就塞自建 Postgres | [`publish-vercel.md`](publish-vercel.md) |
 
 混合产品：人类若要求，前端上 Pages/Vercel，API 走 `vps-gateway`。
 
@@ -74,7 +74,7 @@ Agent 内部 VPS 发布用的是 **`CONTAINER_PORT`**，不是 `HOST_PORT`。
 
 ## 回滚
 
-见所选 `release/publish/<target>.md` 的回滚小节。
+见所选 `publish-<target>.md` 的回滚小节。
 
 ## 详细文档
 

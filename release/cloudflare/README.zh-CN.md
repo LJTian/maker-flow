@@ -2,7 +2,7 @@
 
 [English](README.md) · **简体中文**
 
-发布用的 DNS / SSL / Token 自动化。总 SOP：`skills/deploy.md` → `release/publish/`。
+发布用的 DNS / SSL / Token 自动化。技能：`skills/cloudflare-dns.md` · 脚本在本目录。
 
 ## 指南
 

@@ -1,6 +1,9 @@
 # Publish target: github-pages
 
-**English** · Agent-only. Human confirmation required first.
+**Skill id:** `publish-github-pages`  
+**Step:** 6 — after human confirms target via `skills/deploy.md`
+
+Human confirmation required first ([`deploy.md`](deploy.md)).
 
 ## When
 

@@ -1,6 +1,9 @@
 # Publish target: vps-gateway
 
-**English** · Agent-only. Human confirmation required first (`skills/deploy.md`).
+**Skill id:** `publish-vps-gateway`  
+**Step:** 6 — after human confirms target via `skills/deploy.md`
+
+Human confirmation required first ([`deploy.md`](deploy.md)).
 
 ## When
 
@@ -58,7 +61,7 @@ export CLOUDFLARE_ZONE_ID=…
 #   --type AAAA --name <DOMAIN> --content <SERVER_IPV6> --proxied true
 ```
 
-See `skills/cloudflare-dns.md` and `release/cloudflare/dns-api.md`. Dashboard: `release/cloudflare/README.md`.
+See [`cloudflare-dns.md`](cloudflare-dns.md) and [`release/cloudflare/dns-api.md`](../release/cloudflare/dns-api.md). Dashboard: [`release/cloudflare/README.md`](../release/cloudflare/README.md).
 
 ## Verify
 

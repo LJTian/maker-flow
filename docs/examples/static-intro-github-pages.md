@@ -98,7 +98,7 @@ Agent then:
 
 Result: **https://LJTian.github.io/maker-flow-vite/**
 
-You do **not** run a human-facing `maker-flow deploy` CLI — the agent follows `skills/deploy.md` and `release/publish/github-pages.md`.
+You do **not** run a human-facing `maker-flow deploy` CLI — the agent follows `skills/deploy.md` and `skills/publish-github-pages.md`.
 
 ---
 
@@ -127,7 +127,7 @@ After local acceptance, tell the agent step ⑤ passed and choose **GitHub Pages
 | Project Pages `base` | Vite `base` must be `/<repo>/` or assets 404 |
 | Factory vs product | Never assemble into `~/.maker-flow`; product stays separate |
 | Tokens | Paste in chat only if you must; revoke after publish |
-| Other static targets | Same `dist/` can ship via Cloudflare Pages or Vercel — see `release/publish/` |
+| Other static targets | Same `dist/` can ship via Cloudflare Pages or Vercel — see `skills/CATALOG.md` |
 
 ---
 
@@ -135,5 +135,5 @@ After local acceptance, tell the agent step ⑤ passed and choose **GitHub Pages
 
 - [Getting started](../getting-started.md)
 - [Consumer / product repos](../consumer-project.md)
-- Publish guide: [`release/publish/github-pages.md`](../../release/publish/github-pages.md)
+- Publish skill: [`skills/publish-github-pages.md`](../../skills/publish-github-pages.md)
 - Template: [`templates/apps/web-vite/`](../../templates/apps/web-vite/)

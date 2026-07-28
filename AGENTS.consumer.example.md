@@ -53,7 +53,7 @@ PRODUCT_NAME=my-todo
 | 3 | Human: approve PRO | — | **`pro.md`** |
 | 4 | Agent: assemble | `template-matching`, `mvp-assembly`, `templates/` | **this repo** (`./`, `./api/`, …) |
 | 5 | Human: accept MVP | `pro.md` criteria | — |
-| 6 | Agent: publish | `$MAKER_FLOW_ROOT/skills/deploy.md`, `prompts/06-publish.md`, `release/publish/` | public URL(s) after **human chooses target(s) in chat** |
+| 6 | Agent: publish | `$MAKER_FLOW_ROOT/skills/deploy.md`, `prompts/06-publish.md`, `skills/publish-<target>.md` | public URL(s) after **human chooses target(s) in chat** |
 
 Hard gates: **stop at 3 and 5 until human confirms.**  
 Step 6: **ask where to publish** (Pages / Vercel / VPS / split). Do **not** tell the human to run `maker-flow deploy` (agent-internal only).
@@ -68,7 +68,7 @@ Step 6: **ask where to publish** (Pages / Vercel / VPS / split). Do **not** tell
 
 ## Publish
 
-After step 5, load `$MAKER_FLOW_ROOT/prompts/06-publish.md` and confirm targets with the human, then execute `$MAKER_FLOW_ROOT/release/publish/<target>.md`.
+After step 5, load `$MAKER_FLOW_ROOT/prompts/06-publish.md` and confirm targets with the human, then execute `$MAKER_FLOW_ROOT/skills/publish-<target>.md`.
 
 ## First message template
 

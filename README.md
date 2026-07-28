@@ -64,7 +64,7 @@ flowchart LR
 | 3 | **Approve PRO** | Wait |
 | 4 | — | Match templates → assemble in **product repo** |
 | 5 | **Local acceptance** | Fix against PRO |
-| 6 | Confirm where to publish | Ask in chat → follow `release/publish/` |
+| 6 | Confirm where to publish | Ask in chat → follow `skills/publish-<target>.md` |
 
 Two gates are the core design: **align on what first, then how**.
 
@@ -87,7 +87,7 @@ Two gates are the core design: **align on what first, then how**.
 |--------|------|----------|
 | Skills | [`skills/`](skills/) · [**catalog**](skills/CATALOG.md) | How agents draft PRO, match templates, publish |
 | Templates | [`templates/`](templates/) · [**catalog**](templates/CATALOG.md) | apps + images + patterns |
-| Release | [`release/`](release/) · [`publish/`](release/publish/) | Multi-target publish guides + VPS gateway |
+| Release | [`release/`](release/) | Step-6 scripts (VPS deploy, Nginx gateway, Cloudflare DNS CLI) |
 | Optional LLM | [`docs/optional-llm.md`](docs/optional-llm.md) | Rare: self-hosted OpenAI-compatible APIs |
 
 ---
@@ -121,18 +121,6 @@ maker-flow new my-first-mvp
    > Follow @AGENTS.md. I want to build [your idea], starting at step ①.
 
 3. Approve PRO and MVP at steps ③ and ⑤
-
-**B — Smoke a template (no AI)**
-
-```bash
-mkdir -p /tmp/maker-flow-smoke
-cp -r templates/apps/go-api /tmp/maker-flow-smoke/smoke-test
-cd /tmp/maker-flow-smoke/smoke-test && cp .env.example .env
-docker compose up --build
-curl http://localhost:8080/health
-```
-
-Or scaffold a product repo: `maker-flow new smoke-test` and copy template files there.
 
 Full guide → **[docs/getting-started.md](docs/getting-started.md)** · [中文](docs/getting-started.zh-CN.md)
 

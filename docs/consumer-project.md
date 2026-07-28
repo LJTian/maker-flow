@@ -86,18 +86,6 @@ maker-flow init my-todo           # or: maker-flow init my-todo --with-pro
 cd ~/projects/my-todo
 ```
 
-### Manual (no CLI)
-
-```bash
-# 1. Factory
-curl -fsSL https://raw.githubusercontent.com/LJTian/maker-flow/main/scripts/install.sh | bash
-# factory lives at ~/.maker-flow
-
-# 2. Product repo
-maker-flow init my-todo
-cd ~/projects/my-todo
-```
-
 ---
 
 ## Six-step mapping (consumer mode)

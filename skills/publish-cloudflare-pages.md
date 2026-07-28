@@ -1,6 +1,9 @@
 # Publish target: cloudflare-pages
 
-**English** · Agent-only. Human confirmation required first.
+**Skill id:** `publish-cloudflare-pages`  
+**Step:** 6 — after human confirms target via `skills/deploy.md`
+
+Human confirmation required first ([`deploy.md`](deploy.md)).
 
 ## When
 
@@ -82,7 +85,7 @@ When the human wants `https://www.example.com` (not only `pages.dev`):
      --proxied true
    ```
    Order: attach domain on the project **then** (or around the same time) write DNS; if Cloudflare returns a different target than `<PROJECT>.pages.dev`, use the target from the API/dashboard response.
-3. Full DNS SOP: [`skills/cloudflare-dns.md`](../../skills/cloudflare-dns.md) and [`../cloudflare/dns-api.md`](../cloudflare/dns-api.md).
+3. Full DNS SOP: [`cloudflare-dns.md`](cloudflare-dns.md) and [`release/cloudflare/dns-api.md`](../release/cloudflare/dns-api.md).
 
 Do **not** use the VPS gateway `conf.d` path for Pages — that is only for `vps-gateway`.
 

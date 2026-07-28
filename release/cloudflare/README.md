@@ -2,7 +2,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-DNS / SSL / token automation for publish. Overall SOP: `skills/deploy.md` → `release/publish/`.
+DNS / SSL / token automation for publish. Skill: `skills/cloudflare-dns.md` · scripts in this directory.
 
 ## Guides
 

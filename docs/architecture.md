@@ -36,11 +36,11 @@ flowchart TB
 
 | Path | Agent use |
 |------|-----------|
-| `skills/` | Authoritative HOW for each step |
+| `skills/` | Authoritative HOW for each step (incl. `publish-*` for step 6 targets) |
 | `templates/` | Searchable scaffolds; catalog = `index.md` |
 | `prompts/` | Stage input templates |
 | **product repo** | **Only** write target for step 4–6 (see `docs/consumer-project.md`; create with `maker-flow new <name>`) |
-| `release/` | Step-6 publish primitives (`publish/` targets + VPS gateway); agent follows dialogue in `skills/deploy.md` |
+| `release/` | Step-6 publish **scripts** (`deploy/`, `nginx/`, `cloudflare/`); target index at `publish/README.md` |
 | `scripts/` | `install.sh`, `maker-flow` CLI, `check.sh` |
 | `docs/` | Workflow / architecture contracts |
 
@@ -53,7 +53,7 @@ flowchart TB
 | 3 | Human | confirmed PRO (`pro.md` in product repo, or factory example) |
 | 4 | Agent | `template-matching` + `mvp-assembly` + `templates/` → **product repo root** |
 | 5 | Human | assembled project + PRO acceptance |
-| 6 | Agent | `skills/deploy.md`, `prompts/06-publish.md`, `release/publish/` |
+| 6 | Agent | `skills/deploy.md`, `prompts/06-publish.md`, `skills/publish-<target>.md` |
 
 ## Related
 

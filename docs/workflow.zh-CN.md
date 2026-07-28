@@ -53,7 +53,7 @@ Agent：若使用 `prompts/`，写入步骤 ② prompt 的用户需求区。
 
 ### 5 — 确认 MVP（人门禁）
 
-Agent（或人）执行：
+Agent 执行验证命令：
 
 ```bash
 cd ~/projects/<name>   # 产品仓（maker-flow new <名字>）
@@ -62,16 +62,16 @@ docker compose up --build
 curl -sf http://localhost:8080/health
 ```
 
-核验 PRO 验收标准。失败：迭代步骤 ④，或范围不对则回到步骤 ③。  
+由 Agent 核验 PRO 验收标准；人类在本门禁只做通过/不通过确认。失败：迭代步骤 ④，或范围不对则回到步骤 ③。  
 **未批准 MUST NOT 发布。**
 
 ### 6 — 发布（Agent）
 
-- **MUST 阅读：** `skills/deploy.md`、`prompts/06-publish.md`、`release/publish/`
+- **MUST 阅读：** `skills/deploy.md`、`prompts/06-publish.md`、所选 `skills/publish-<target>.md`（见 [`skills/CATALOG.md`](../skills/CATALOG.md)）
 - **还须阅读** `skills/cloudflare-dns.md`（要改 Cloudflare DNS 时：自定义域、VPS A/AAAA、DDNS、或人类要求管理记录）
 - **MUST** 询问人类选用哪些发布目标（Cloudflare Pages / GitHub Pages / Vercel / VPS 网关 / 拆分）
 - **MUST NOT** 让人类执行 `maker-flow deploy`（仅 VPS 路径的 Agent 内部助手）
-- 按对应的 `release/publish/<target>.md` 执行
+- 按对应的 `skills/publish-<target>.md` 执行
 - 前置：人类已批准 MVP；按所选目标具备凭证 / 主机访问
 
 ## 角色

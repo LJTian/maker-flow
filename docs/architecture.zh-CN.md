@@ -36,11 +36,11 @@ flowchart TB
 
 | 路径 | Agent 用途 |
 |------|------------|
-| `skills/` | 各步骤权威 HOW |
+| `skills/` | 各步骤权威 HOW（含步骤 ⑥ 的 `publish-*`） |
 | `templates/` | 可检索脚手架；目录 = `index.md` |
 | `prompts/` | 分阶段输入模版 |
 | **产品仓** | 步骤 ④–⑥ **唯一**写出目标（见 `docs/consumer-project.md`；`maker-flow new <名字>`） |
-| `release/` | 步骤 ⑥ 发布原语（`publish/` 多目标 + VPS 网关）；Agent 按 `skills/deploy.md` 对话执行 |
+| `release/` | 步骤 ⑥ **脚本**（`deploy/`、`nginx/`、`cloudflare/`）；目标索引见 `publish/README.md` |
 | `scripts/` | `install.sh`、`maker-flow` CLI、`check.sh` |
 | `docs/` | 流程 / 架构契约 |
 
@@ -53,7 +53,7 @@ flowchart TB
 | 3 | 人 | 定稿 PRO（产品仓 `pro.md`，或工厂示例） |
 | 4 | Agent | `template-matching` + `mvp-assembly` + `templates/` → **产品仓根目录** |
 | 5 | 人 | 组装工程 + PRO 验收 |
-| 6 | Agent | `skills/deploy.md`、`prompts/06-publish.md`、`release/publish/` |
+| 6 | Agent | `skills/deploy.md`、`prompts/06-publish.md`、`skills/publish-<target>.md` |
 
 ## 相关
 

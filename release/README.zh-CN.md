@@ -10,15 +10,15 @@
 
 ```
 release/
-├── publish/        # 分目标指南（Pages / Vercel / VPS）— 从这里开始
+├── publish/        # 目标索引 → skills/publish-*.md
 ├── nginx/          # Docker Nginx 网关（共享网络 maker-flow）
-├── cloudflare/     # DNS / SSL 助手（主要服务 VPS 自定义域）
+├── cloudflare/     # DNS CLI + 参考（技能：skills/cloudflare-dns.md）
 └── deploy/         # VPS 推送与路由脚本（Agent 内部）
 ```
 
 ## 选择目标
 
-见 [`publish/README.zh-CN.md`](publish/README.zh-CN.md)。形态跟 PRO；落点跟人类对话。
+见 [`publish/README.zh-CN.md`](publish/README.zh-CN.md) 中的技能文件名。形态跟 PRO；落点跟人类对话。
 
 ## 端口（仅 VPS）
 

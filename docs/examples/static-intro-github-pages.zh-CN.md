@@ -98,7 +98,7 @@ Agent 随后：
 
 结果：**https://LJTian.github.io/maker-flow-vite/**
 
-人**不必**运行面向用户的 `maker-flow deploy` CLI——Agent 遵循 `skills/deploy.md` 与 `release/publish/github-pages.md`。
+人**不必**运行面向用户的 `maker-flow deploy` CLI——Agent 遵循 `skills/deploy.md` 与 `skills/publish-github-pages.md`。
 
 ---
 
@@ -127,7 +127,7 @@ Start at step ① with my requirement in requirement.md.
 | 项目站 `base` | Vite `base` 须为 `/<repo>/`，否则资源 404 |
 | 工厂 vs 产品 | 勿往 `~/.maker-flow` 组装；产品仓独立 |
 | Token | 尽量少在对话里粘贴；发布后立刻撤销 |
-| 其他静态目标 | 同一 `dist/` 也可走 Cloudflare Pages / Vercel — 见 `release/publish/` |
+| 其他静态目标 | 同一 `dist/` 也可走 Cloudflare Pages / Vercel — 见 `skills/CATALOG.md` |
 
 ---
 
@@ -135,5 +135,5 @@ Start at step ① with my requirement in requirement.md.
 
 - [快速开始](../getting-started.zh-CN.md)
 - [消费侧 / 产品仓](../consumer-project.zh-CN.md)
-- 发布指南：[`release/publish/github-pages.md`](../../release/publish/github-pages.md)
+- 发布技能：[`skills/publish-github-pages.md`](../../skills/publish-github-pages.md)
 - 模版：[`templates/apps/web-vite/`](../../templates/apps/web-vite/)

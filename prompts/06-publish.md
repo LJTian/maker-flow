@@ -20,4 +20,4 @@ I will run the publish steps myself after you choose — you do not need a deplo
 
 ## After answers
 
-Follow `release/publish/<target>.md`. Return public URL(s) and verification notes.
+Follow `skills/publish-<target>.md`. Return public URL(s) and verification notes.

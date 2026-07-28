@@ -2,28 +2,24 @@
 
 [English](README.md) · **简体中文**
 
-**读者：Agent**（步骤 ⑥）。人类在对话里选目标；见 `skills/deploy.md`。
+步骤 ⑥ 发布目标索引。**Agent 执行 SOP 在 `skills/`**，本目录只作跳转。
 
-## 原则
+| 目标 id | 技能 |
+|---------|------|
+| `vps-gateway` | [`skills/publish-vps-gateway.md`](../../skills/publish-vps-gateway.md) |
+| `cloudflare-pages` | [`skills/publish-cloudflare-pages.md`](../../skills/publish-cloudflare-pages.md) |
+| `github-pages` | [`skills/publish-github-pages.md`](../../skills/publish-github-pages.md) |
+| `vercel` | [`skills/publish-vercel.md`](../../skills/publish-vercel.md) |
 
-- **跑什么** → PRO / 模版  
-- **发到哪** → 人类对话确认  
-- **怎么发** → 本目录（VPS 另见 `release/deploy/`）
+## 流程
 
-**不要**让人类执行 `maker-flow deploy`。该 CLI 仅供 Agent 在 VPS 路径内部调用。
+1. 人类在对话里选目标 — [`skills/deploy.md`](../../skills/deploy.md) + [`prompts/06-publish.md`](../../prompts/06-publish.md)
+2. Agent 加载对应的 `skills/publish-<target>.md`
+3. 脚本与基建：[`../deploy/`](../deploy/)（VPS）、[`../cloudflare/`](../cloudflare/)（DNS CLI）、[`../nginx/`](../nginx/)（网关）
 
-## 目标
-
-| id | 文件 |
-|----|------|
-| `vps-gateway` | [vps-gateway.md](vps-gateway.md) |
-| `cloudflare-pages` | [cloudflare-pages.md](cloudflare-pages.md)（+ [dns-api](../cloudflare/dns-api.md)） |
-| `github-pages` | [github-pages.md](github-pages.md) |
-| `vercel` | [vercel.md](vercel.md) |
+**不要**让人类运行 `maker-flow deploy`（VPS 路径仅 Agent 内部使用）。
 
 ## 相关
 
-- 技能：[`skills/deploy.md`](../../skills/deploy.md)
-- 提示：[`prompts/06-publish.md`](../../prompts/06-publish.md)
-- VPS 脚本：[`../deploy/`](../deploy/)
-- DNS：[`../cloudflare/`](../cloudflare/)
+- 技能目录：[`skills/CATALOG.md`](../../skills/CATALOG.md)
+- 发布总览：[`../README.md`](../README.md)

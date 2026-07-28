@@ -53,7 +53,7 @@ Agent: store/copy into the step-2 prompt user-requirement section if using `prom
 
 ### 5 — Confirm MVP (human gate)
 
-Agent (or human) runs:
+Agent runs verification commands:
 
 ```bash
 cd ~/projects/<name>   # product repo (maker-flow new <name>)
@@ -62,16 +62,16 @@ docker compose up --build
 curl -sf http://localhost:8080/health
 ```
 
-Verify PRO acceptance criteria. On fail: iterate step 4, or return to step 3 if scope is wrong.  
+Agent verifies PRO acceptance criteria; the human only approves/rejects at this gate. On fail: iterate step 4, or return to step 3 if scope is wrong.  
 **MUST NOT** deploy until approved.
 
 ### 6 — Publish (agent)
 
-- **MUST read:** `skills/deploy.md`, `prompts/06-publish.md`, `release/publish/`
+- **MUST read:** `skills/deploy.md`, `prompts/06-publish.md`, and the chosen `skills/publish-<target>.md` (see [`skills/CATALOG.md`](skills/CATALOG.md))
 - **MUST also read** `skills/cloudflare-dns.md` when changing Cloudflare DNS (custom domain, VPS A/AAAA, DDNS, or human asks to manage records)
 - **MUST** ask the human which publish target(s) to use (Cloudflare Pages / GitHub Pages / Vercel / VPS gateway / split)
 - **MUST NOT** instruct the human to run `maker-flow deploy` (agent-internal helper for VPS only)
-- Execute the matching `release/publish/<target>.md`
+- Execute the matching `skills/publish-<target>.md`
 - Prerequisites: human-approved MVP; credentials / host access as required by the chosen target(s)
 
 ## Roles

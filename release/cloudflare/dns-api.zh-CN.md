@@ -1,25 +1,8 @@
-# Cloudflare DNS API（Agent）
+# Cloudflare DNS API（脚本参考）
 
 [English](dns-api.md) · **简体中文**
 
-通过 Cloudflare API 对 DNS 做 **增删改查**。
-
-**Agent 技能：** [`skills/cloudflare-dns.md`](../../skills/cloudflare-dns.md) — 在 Cloudflare 上查改 DNS 时加载。
-
-## 人类一次性准备
-
-1. 注册：[https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up)
-2. 域名 NS 已指向 Cloudflare。
-3. 创建 Token：[API Tokens](https://dash.cloudflare.com/profile/api-tokens)。
-   - 最小权限建议：
-     - `Account → Cloudflare Pages → Edit`（发布静态页面）
-     - `Zone → DNS → Edit`（增删改查 DNS，含目标 Zone）
-4. 交给 Agent：
-   - `CLOUDFLARE_API_TOKEN`（**必需**）
-   - `CLOUDFLARE_ZONE_ID`（**可选**，脚本可基于 token 自动发现/选择）
-   - `CLOUDFLARE_ACCOUNT_ID`（**可选**，用于限定发现范围；部分 Pages API 会用到）
-
-**禁止**编造或打印 Token。
+`release/cloudflare/dns.sh` 的 CLI 与原始 API 参考。**Agent SOP：** [`skills/cloudflare-dns.md`](../../skills/cloudflare-dns.md)。
 
 ## CLI：`dns.sh`
 
@@ -68,8 +51,8 @@ DNS="$(maker-flow root)/release/cloudflare/dns.sh"
 
 ## 发布流程
 
-- Pages：[`../publish/cloudflare-pages.md`](../publish/cloudflare-pages.md)
-- VPS：[`../publish/vps-gateway.md`](../publish/vps-gateway.md)
+- Pages：[`skills/publish-cloudflare-pages.md`](../../skills/publish-cloudflare-pages.md)
+- VPS：[`skills/publish-vps-gateway.md`](../../skills/publish-vps-gateway.md)
 
 ## 相关
 
