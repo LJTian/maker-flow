@@ -8,6 +8,8 @@ Static or SPA output (typically assembled `web-vite`). No long-running API in th
 
 ## Human inputs (minimize clicks)
 
+**Sign up:** [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up)
+
 Prefer **token-only** after the Cloudflare account exists:
 
 | Human provides (once) | Agent uses for |
@@ -73,14 +75,14 @@ When the human wants `https://www.example.com` (not only `pages.dev`):
 2. **Upsert DNS** so the name resolves to the Pages project — typically **CNAME → `<project>.pages.dev`**, proxied:
    ```bash
    export CLOUDFLARE_ZONE_ID=…
-   "$(maker-flow root)/release/cloudflare/dns-upsert.sh" \
+   "$(maker-flow root)/release/cloudflare/dns.sh" upsert \
      --type CNAME \
      --name <HOST> \
      --content <PROJECT>.pages.dev \
      --proxied true
    ```
    Order: attach domain on the project **then** (or around the same time) write DNS; if Cloudflare returns a different target than `<PROJECT>.pages.dev`, use the target from the API/dashboard response.
-3. Full DNS SOP: [`../cloudflare/dns-api.md`](../cloudflare/dns-api.md).
+3. Full DNS SOP: [`skills/cloudflare-dns.md`](../../skills/cloudflare-dns.md) and [`../cloudflare/dns-api.md`](../cloudflare/dns-api.md).
 
 Do **not** use the VPS gateway `conf.d` path for Pages — that is only for `vps-gateway`.
 

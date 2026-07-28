@@ -8,12 +8,15 @@ DNS / SSL / token automation for publish. Overall SOP: `skills/deploy.md` → `r
 
 | Doc / script | Purpose |
 |--------------|---------|
-| [`dns-api.md`](dns-api.md) | **DNS upsert via API** (A / AAAA / CNAME) — same idea as DDNS |
-| [`dns-upsert.sh`](dns-upsert.sh) | Agent helper for create-or-update |
+| [`dns-api.md`](dns-api.md) | DNS CRUD reference (script flags) |
+| [`dns.sh`](dns.sh) | Agent CLI — skill: [`skills/cloudflare-dns.md`](../../skills/cloudflare-dns.md) |
+| [`dns-upsert.sh`](dns-upsert.sh) | Back-compat wrapper → `dns.sh upsert` |
 | [`../publish/cloudflare-pages.md`](../publish/cloudflare-pages.md) | Pages Direct Upload + optional custom domain DNS |
 | [`subdomain-registry.example.md`](subdomain-registry.example.md) | Human registry of MVP subdomains |
 
 ## Human token checklist
+
+**No account yet?** Open [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up)
 
 | Variable | Needed for |
 |----------|------------|

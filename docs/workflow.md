@@ -68,6 +68,7 @@ Verify PRO acceptance criteria. On fail: iterate step 4, or return to step 3 if 
 ### 6 — Publish (agent)
 
 - **MUST read:** `skills/deploy.md`, `prompts/06-publish.md`, `release/publish/`
+- **MUST also read** `skills/cloudflare-dns.md` when changing Cloudflare DNS (custom domain, VPS A/AAAA, DDNS, or human asks to manage records)
 - **MUST** ask the human which publish target(s) to use (Cloudflare Pages / GitHub Pages / Vercel / VPS gateway / split)
 - **MUST NOT** instruct the human to run `maker-flow deploy` (agent-internal helper for VPS only)
 - Execute the matching `release/publish/<target>.md`

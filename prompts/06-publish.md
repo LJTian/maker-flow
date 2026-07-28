@@ -13,7 +13,8 @@ MVP acceptance passed. Before going public, please confirm:
    - Split is OK (e.g. frontend on Pages + API on VPS)
 3. **Domain** preference? (platform default URL vs a hostname you already own)
 4. Are platform logins / tokens ready on this machine?
-   - Cloudflare: `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` (and `CLOUDFLARE_ZONE_ID` if we should set DNS via API)
+   - Cloudflare: if no account yet → [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up)
+   - Then: `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` (and `CLOUDFLARE_ZONE_ID` if we should set DNS via API — agent follows `skills/cloudflare-dns.md` + `dns.sh`)
 
 I will run the publish steps myself after you choose — you do not need a deploy CLI command.
 

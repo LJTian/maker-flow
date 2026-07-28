@@ -29,9 +29,13 @@ Before executing, confirm in chat:
    - `github-pages` — GitHub Pages
    - `vercel` — Vercel
 3. **Domain:** platform default URL vs custom hostname
-4. **Credentials:** human confirms platform login / tokens are available (do not invent secrets). For Cloudflare prefer `CLOUDFLARE_API_TOKEN` (+ `CLOUDFLARE_ACCOUNT_ID`; + `CLOUDFLARE_ZONE_ID` if setting DNS).
+4. **Credentials:** human confirms platform login / tokens are available (do not invent secrets). For Cloudflare:
+   - No account → send [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up)
+   - Prefer `CLOUDFLARE_API_TOKEN` (+ `CLOUDFLARE_ACCOUNT_ID`; + `CLOUDFLARE_ZONE_ID` if setting DNS).
 
 Only after the human answers, follow the matching guide under `release/publish/`.
+
+When the target needs **Cloudflare DNS** (custom domain on Pages, VPS A/AAAA, DDNS, or human asks to manage records), **also load** [`skills/cloudflare-dns.md`](cloudflare-dns.md) and use `release/cloudflare/dns.sh`.
 
 ## Ports (VPS path only)
 
@@ -55,10 +59,10 @@ Agent-internal VPS publish uses **`CONTAINER_PORT`**, not `HOST_PORT`.
 
 | Target | Good for | Not for | Agent guide |
 |--------|----------|---------|-------------|
-| `vps-gateway` | APIs, workers, full Docker compose, self-hosted static | Users without a VPS | [`release/publish/vps-gateway.md`](../release/publish/vps-gateway.md) |
-| `cloudflare-pages` | Static / SPA (`web-vite` build) | DB, long-running Go API | [`release/publish/cloudflare-pages.md`](../release/publish/cloudflare-pages.md) (+ [`release/cloudflare/dns-api.md`](../release/cloudflare/dns-api.md) for custom host) |
+| `cloudflare-pages` | Static / SPA (`web-vite` build) | DB, long-running Go API | [`release/publish/cloudflare-pages.md`](../release/publish/cloudflare-pages.md) + [`skills/cloudflare-dns.md`](cloudflare-dns.md) for custom host |
 | `github-pages` | Static / SPA | Same as above | [`release/publish/github-pages.md`](../release/publish/github-pages.md) |
 | `vercel` | Static / SPA (and Vercel-native SSR later) | Self-hosted Postgres on Vercel free tier without redesign | [`release/publish/vercel.md`](../release/publish/vercel.md) |
+| `vps-gateway` | APIs, workers, full Docker compose, self-hosted static | Users without a VPS | [`release/publish/vps-gateway.md`](../release/publish/vps-gateway.md) + [`skills/cloudflare-dns.md`](cloudflare-dns.md) for custom host |
 
 Mixed products: publish frontend to Pages/Vercel **and** API to `vps-gateway` when the human wants that split.
 
@@ -76,5 +80,5 @@ Follow the rollback section in the chosen `release/publish/<target>.md`.
 
 - [`release/publish/README.md`](../release/publish/README.md)
 - [`release/README.md`](../release/README.md)
-- Cloudflare DNS API: [`release/cloudflare/dns-api.md`](../release/cloudflare/dns-api.md)
+- Cloudflare DNS skill: [`cloudflare-dns.md`](cloudflare-dns.md) · script reference [`release/cloudflare/dns-api.md`](../release/cloudflare/dns-api.md)
 - Prompt shape: [`prompts/06-publish.md`](../prompts/06-publish.md)

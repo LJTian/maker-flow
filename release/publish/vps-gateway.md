@@ -51,14 +51,14 @@ Then ensure Cloudflare A/CNAME → server IP (Proxied) if using a custom domain.
 ```bash
 export CLOUDFLARE_API_TOKEN=…
 export CLOUDFLARE_ZONE_ID=…
-"$(maker-flow root)/release/cloudflare/dns-upsert.sh" \
+"$(maker-flow root)/release/cloudflare/dns.sh" upsert \
   --type A --name <DOMAIN> --content <SERVER_IPV4> --proxied true
 # IPv6 (optional, same as DDNS):
-# "$(maker-flow root)/release/cloudflare/dns-upsert.sh" \
+# "$(maker-flow root)/release/cloudflare/dns.sh" upsert \
 #   --type AAAA --name <DOMAIN> --content <SERVER_IPV6> --proxied true
 ```
 
-See `release/cloudflare/dns-api.md`. Dashboard: `release/cloudflare/README.md`.
+See `skills/cloudflare-dns.md` and `release/cloudflare/dns-api.md`. Dashboard: `release/cloudflare/README.md`.
 
 ## Verify
 

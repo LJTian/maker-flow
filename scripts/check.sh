@@ -11,6 +11,7 @@ echo "==> bash -n scripts"
 bash -n scripts/maker-flow
 bash -n scripts/install.sh
 bash -n release/deploy/push-and-route.sh
+bash -n release/cloudflare/dns.sh
 bash -n release/cloudflare/dns-upsert.sh
 
 echo "==> forbid private maker-flow image FROM in Dockerfiles"

@@ -14,6 +14,7 @@
 | 模版检索 | `template-matching.md` | 4 |
 | MVP 组装 | `mvp-assembly.md` | 4 |
 | 发布 | `deploy.md` | 6 |
+| Cloudflare DNS | `cloudflare-dns.md` | 6（Cloudflare DNS 时） |
 
 ## Agent 规则
 

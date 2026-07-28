@@ -8,12 +8,15 @@
 
 | 文档 / 脚本 | 用途 |
 |-------------|------|
-| [`dns-api.zh-CN.md`](dns-api.zh-CN.md) | **DNS API upsert**（A / AAAA / CNAME）— 与 DDNS 同类 |
-| [`dns-upsert.sh`](dns-upsert.sh) | Agent 创建或更新助手 |
+| [`dns-api.zh-CN.md`](dns-api.zh-CN.md) | DNS CRUD 参考（脚本参数） |
+| [`dns.sh`](dns.sh) | Agent CLI — 技能：[`skills/cloudflare-dns.md`](../../skills/cloudflare-dns.md) |
+| [`dns-upsert.sh`](dns-upsert.sh) | 兼容包装 → `dns.sh upsert` |
 | [`../publish/cloudflare-pages.md`](../publish/cloudflare-pages.md) | Pages Direct Upload + 可选自定义域 DNS |
 | [`subdomain-registry.example.zh-CN.md`](subdomain-registry.example.zh-CN.md) | MVP 子域登记表示例 |
 
 ## 人类 Token 清单
+
+**还没有账号？** 打开 [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up)
 
 | 变量 | 用于 |
 |------|------|

@@ -68,6 +68,7 @@ curl -sf http://localhost:8080/health
 ### 6 — 发布（Agent）
 
 - **MUST 阅读：** `skills/deploy.md`、`prompts/06-publish.md`、`release/publish/`
+- **还须阅读** `skills/cloudflare-dns.md`（要改 Cloudflare DNS 时：自定义域、VPS A/AAAA、DDNS、或人类要求管理记录）
 - **MUST** 询问人类选用哪些发布目标（Cloudflare Pages / GitHub Pages / Vercel / VPS 网关 / 拆分）
 - **MUST NOT** 让人类执行 `maker-flow deploy`（仅 VPS 路径的 Agent 内部助手）
 - 按对应的 `release/publish/<target>.md` 执行
