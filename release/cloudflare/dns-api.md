@@ -13,9 +13,9 @@ CRUD DNS records via the Cloudflare API. Same idea as DDNS (A/AAAA); also used f
 3. Create an API token: [API Tokens](https://dash.cloudflare.com/profile/api-tokens) → Create Token.
 4. Permissions: **Zone → DNS → Edit** (include target zone). For Pages publish add **Account → Cloudflare Pages → Edit**.
 5. Export for the agent:
-   - `CLOUDFLARE_API_TOKEN`
-   - `CLOUDFLARE_ZONE_ID` (zone Overview → Zone ID)
-   - Pages: `CLOUDFLARE_ACCOUNT_ID`
+   - `CLOUDFLARE_API_TOKEN` (**required**)
+   - `CLOUDFLARE_ZONE_ID` (**optional**; script can discover/select zones from token)
+   - `CLOUDFLARE_ACCOUNT_ID` (**optional**; helps scope discovery, needed by some Pages API calls)
 
 **MUST NOT** invent or log tokens.
 
@@ -25,13 +25,21 @@ Path: `$(maker-flow root)/release/cloudflare/dns.sh`
 
 ```bash
 export CLOUDFLARE_API_TOKEN=…
-export CLOUDFLARE_ZONE_ID=…
 DNS="$(maker-flow root)/release/cloudflare/dns.sh"
+
+# Optional: preselect account/zone
+# export CLOUDFLARE_ACCOUNT_ID=…
+# export CLOUDFLARE_ZONE_ID=…
 
 # List (read)
 "$DNS" list
 "$DNS" list --type A --name api.example.com
 "$DNS" list --json
+
+# Discover from token
+"$DNS" accounts
+"$DNS" zones
+"$DNS" --zone-name example.com list
 
 # Get one record by id
 "$DNS" get --id RECORD_ID
@@ -68,6 +76,11 @@ Base: `https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records`
 | Delete | `DELETE …/dns_records/{id}` |
 
 Docs: [DNS records API](https://developers.cloudflare.com/api/resources/dns/subresources/records/).
+
+When token can access multiple accounts/zones, `dns.sh` supports:
+- interactive selection (TTY)
+- or explicit `--account-id` / `--zone-id` / `--zone-name`
+- or `--non-interactive` to fail fast in automation
 
 ## Publish flows
 

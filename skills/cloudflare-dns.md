@@ -29,7 +29,7 @@ Before running `dns.sh`, confirm:
 |------|----------|-------|
 | Account | First time | [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up) |
 | `CLOUDFLARE_API_TOKEN` | Yes | **Zone → DNS → Edit** on target zone(s) |
-| `CLOUDFLARE_ZONE_ID` | Yes | Zone Overview → Zone ID |
+| `CLOUDFLARE_ZONE_ID` | Optional | If omitted, `dns.sh` can discover zones from token and let human choose |
 | `CLOUDFLARE_ACCOUNT_ID` | Pages only | Not needed for pure DNS CRUD |
 | Zone on Cloudflare | Yes | NS already at Cloudflare (registrar change is human one-time) |
 
@@ -42,12 +42,14 @@ Token creation: [API Tokens](https://dash.cloudflare.com/profile/api-tokens) →
 ```bash
 DNS="$(maker-flow root)/release/cloudflare/dns.sh"
 export CLOUDFLARE_API_TOKEN=…   # from human env
-export CLOUDFLARE_ZONE_ID=…
+# Optional: export CLOUDFLARE_ZONE_ID / CLOUDFLARE_ACCOUNT_ID
+# If omitted, dns.sh can list/discover and prompt selection.
 ```
 
 | Action | Command |
 |--------|---------|
 | **List** | `"$DNS" list` · `"$DNS" list --type A --name host.example.com` · `"$DNS" list --json` |
+| **List accounts/zones** | `"$DNS" accounts` · `"$DNS" zones` |
 | **Get** | `"$DNS" get --id RECORD_ID` |
 | **Create** | `"$DNS" create --type TYPE --name NAME --content CONTENT [--proxied true\|false]` |
 | **Update** | `"$DNS" update --type TYPE --name NAME --content CONTENT` or `--id RECORD_ID --content …` |
@@ -81,14 +83,14 @@ Order for custom Pages host: attach domain on project → upsert DNS → verify 
 ## Workflow
 
 1. Ask human what DNS change is needed (or infer from publish target + domain).
-2. Confirm token + zone id are available.
+2. Confirm token is available. Zone/account IDs are optional.
 3. **List** first when unsure (`dns.sh list --name …`) to avoid duplicates.
 4. Run **create** / **update** / **upsert** / **delete** as appropriate.
 5. **Verify:** `dns.sh list --name …`, `dig +short`, `curl -sI https://…`.
 
 ## Hard rules
 
-- **MUST** use `dns.sh` for Cloudflare CRUD when token + zone id exist.
+- **MUST** use `dns.sh` for Cloudflare CRUD when token exists; let script discover zone/account if IDs are missing.
 - **MUST** list before delete when multiple records might match (delete by `--id` if ambiguous).
 - **MUST NOT** tell humans to run `dns.sh` unless they explicitly want CLI themselves — agent runs it.
 - **MUST NOT** change DNS before step-5 MVP approval when DNS is part of publish step 6.
@@ -96,7 +98,7 @@ Order for custom Pages host: attach domain on project → upsert DNS → verify 
 
 ## Errors
 
-- `list dns_records failed` → check token permissions and `CLOUDFLARE_ZONE_ID`.
+- `list dns_records failed` → check token permissions and selected/derived zone.
 - `no record for type=… name=…` on update/delete → list zone or use create/upsert.
 - Wrong zone → human must supply the zone id for the correct domain.
 

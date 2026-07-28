@@ -29,7 +29,7 @@
 |----|------|------|
 | 账号 | 首次 | [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up) |
 | `CLOUDFLARE_API_TOKEN` | 是 | 目标 Zone：**Zone → DNS → Edit** |
-| `CLOUDFLARE_ZONE_ID` | 是 | Zone 概览 → Zone ID |
+| `CLOUDFLARE_ZONE_ID` | 可选 | 不填时 `dns.sh` 可用 token 自动发现 Zone 并让人类选择 |
 | `CLOUDFLARE_ACCOUNT_ID` | 仅 Pages | 纯 DNS CRUD 不需要 |
 | Zone 在 CF 上 | 是 | NS 已指向 CF（注册商侧一次性） |
 
@@ -42,12 +42,14 @@
 ```bash
 DNS="$(maker-flow root)/release/cloudflare/dns.sh"
 export CLOUDFLARE_API_TOKEN=…
-export CLOUDFLARE_ZONE_ID=…
+# 可选：export CLOUDFLARE_ZONE_ID / CLOUDFLARE_ACCOUNT_ID
+# 不填时 dns.sh 可自动发现并提示选择
 ```
 
 | 操作 | 命令 |
 |------|------|
 | **查列表** | `"$DNS" list` · `"$DNS" list --type A --name host.example.com` · `"$DNS" list --json` |
+| **列账号/Zone** | `"$DNS" accounts` · `"$DNS" zones` |
 | **查单条** | `"$DNS" get --id RECORD_ID` |
 | **增** | `"$DNS" create --type TYPE --name NAME --content CONTENT [--proxied true\|false]` |
 | **改** | `"$DNS" update --type TYPE --name NAME --content CONTENT` 或 `--id RECORD_ID --content …` |
@@ -77,14 +79,14 @@ export CLOUDFLARE_ZONE_ID=…
 ## 流程
 
 1. 确认要改什么 DNS（或从发布目标推断）。
-2. 确认 Token + Zone ID。
+2. 确认 Token 可用；Zone/Account ID 可选。
 3. 不确定时先 **list**。
 4. 执行 create / update / upsert / delete。
 5. **验证：** list、`dig`、`curl`。
 
 ## 硬规则
 
-- 有 Token + Zone ID 时 **必须** 用 `dns.sh`。
+- 有 Token 时 **必须** 用 `dns.sh`；缺少 ID 时让脚本自动发现。
 - 可能多条匹配时删之前先 **list**，优先 `--id` 删除。
 - **不要**让人类自己跑 `dns.sh`（除非人类明确要求）— 由 Agent 执行。
 - 发布相关 DNS **不得**在步骤 ⑤ 之前改。
