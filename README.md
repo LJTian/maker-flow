@@ -100,7 +100,7 @@ maker-flow new my-first-mvp
 cd ~/projects/my-first-mvp
 ```
 
-Open the **product repo** in Cursor, `@AGENTS.md`, start at step ①.
+Open the **product repo** in an AI agent IDE, `@AGENTS.md`, start at step ①.
 
 <details>
 <summary>Contributors: install from a git clone</summary>
@@ -113,9 +113,9 @@ maker-flow new my-first-mvp
 
 </details>
 
-**A — Cursor Agent (recommended)**
+**A — AI Agent (recommended)**
 
-1. Open the **product repo** (`~/projects/<name>/`) in Cursor
+1. Open the **product repo** (`~/projects/<name>/`) in an AI agent IDE
 2. Start a chat:
 
    > Follow @AGENTS.md. I want to build [your idea], starting at step ①.
@@ -145,16 +145,6 @@ Full guide → **[docs/getting-started.md](docs/getting-started.md)** · [中文
 | Fork / clone | Use as the shared factory (public) |
 | Each new idea | **New private product repo** + [consumer guide](docs/consumer-project.md) (`maker-flow new <name>`) |
 | Pin agent behavior | Factory: [AGENTS.md](AGENTS.md) · Product repo: [AGENTS.consumer.example.md](AGENTS.consumer.example.md) |
-
----
-
-## Suggested machine roles
-
-| Machine | Role |
-|---------|------|
-| GPU box (optional) | Inference only; main machine calls via `AI_BASE_URL` |
-| Apple Silicon Mac | Dev, acceptance, product repos |
-| Cloud VPS | Docker Nginx gateway on port 80; MVPs on shared network `maker-flow` |
 
 ---
 
