@@ -1,0 +1,8 @@
+services:
+  cli:
+    build: .
+    env_file:
+      - .env
+    # CLI runs and exits, so no restart policy and no port exposure.
+    # We use profiles so it doesn't auto-run when `docker compose up` is used in a multi-app setup.
+    profiles: ["tools"]

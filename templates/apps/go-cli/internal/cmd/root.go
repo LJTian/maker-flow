@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"context"
-	"fmt"
 	"log/slog"
 	"os"
 	"os/signal"
@@ -35,7 +34,7 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print version",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("go-cli 0.1.0")
+		cmd.Println("go-cli 0.1.0")
 	},
 }
 

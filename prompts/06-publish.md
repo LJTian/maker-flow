@@ -10,7 +10,7 @@ MVP acceptance passed. Before going public, please confirm:
 2. **Where** should we publish?
    - Cloudflare Pages / GitHub Pages / Vercel — good for static or SPA
    - Your own VPS (Docker gateway) — good for APIs, workers, or full compose
-   - Split is OK (e.g. frontend on Pages + API on VPS)
+   - Split is OK (frontend on Pages + API on VPS) — agent follows `skills/publish-split-web-api.md`
 3. **Domain** preference? (platform default URL vs a hostname you already own)
 4. Are platform logins / tokens ready on this machine?
    - Cloudflare: if no account yet → [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up)

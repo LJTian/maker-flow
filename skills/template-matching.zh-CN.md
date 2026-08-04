@@ -33,12 +33,16 @@
 
 | PRO 特征 | App | 常用 Patterns |
 |----------|-----|---------------|
-| REST API、Gin | `go-api` | `retry-backoff`, `circuit-breaker`, `singleflight-cache` |
+| REST API、Gin | `go-api` | `retry-backoff`, `circuit-breaker`, `singleflight-cache`, `persistence-sqlx` |
+| 表结构 / 数据库 / 持久化 | `go-api` | `persistence-sqlx`（`DB_DRIVER`：sqlite \| postgres \| mysql） |
 | CLI / 命令行工具 | `go-cli` | `retry-backoff`, `worker-pool` |
 | 后台任务 / 多协程消费 | `go-worker` | `worker-pool`, `pipeline`, `retry-backoff` |
 | 浏览器 UI / SPA / 面板 | `web-vite` | —（可选片段放 `src/lib/`） |
+| API + 浏览器 UI | `go-api` + `web-vite` | 布局 [`web-api`](../templates/layouts/web-api/)；patterns 按需 |
 
-多 app 示例：`go-api` + `go-worker`（同步 API + 异步消费）；`go-api` + `go-cli`（服务 + 运维命令）；`go-api` + `web-vite`（API + 浏览器 UI）。
+多 app 示例：`go-api` + `go-worker`（同步 API + 异步消费）；`go-api` + `go-cli`（服务 + 运维命令）；`go-api` + `web-vite`（API + 浏览器 UI — 拷贝 [`templates/layouts/web-api/`](../templates/layouts/web-api/) 根文件）。
+
+匹配 `go-api` + `web-vite` 时，选型输出中 **必须** 写明布局 `web-api`（或说明为何用自定义根 compose）。
 
 ## 禁止
 

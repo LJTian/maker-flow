@@ -14,6 +14,7 @@
 | [`pro.example.md`](pro.example.md) | 2–3 | **PRO 完整样板**（待办 API） |
 | `03-pro-confirmed.example.md` | 3 | 固化人工确认的 PRO（门禁产物） |
 | `04-assemble-mvp.md` | 4 | 检索模版并组装（输出 = **产品仓**；见消费侧指南） |
+| `05-accept-mvp.md` | 5 | 对照 `pro.md` 出本地验收证据；人类批准/拒绝门禁 |
 | `06-publish.md` | 6 | 询问人类发到哪里；再跟 `skills/publish-<target>.md` |
 | [`../AGENTS.consumer.example.md`](../AGENTS.consumer.example.zh-CN.md) | — | **产品仓** `AGENTS.md` 模版（复制到产品仓） |
 
@@ -22,5 +23,6 @@
 - 步骤 ② 正文：把需求注入 `02-pro-draft.md`（或等价消息）；结构 MUST 符合 `pro.template.md` / `skills/pro-generation.md`。
 - 起草前优先阅读 `pro.example.md` 以对齐粒度。
 - 步骤 ④ 正文：注入**已确认** PRO；若门禁 ③ 缺失则拒绝。
+- 步骤 ⑤：组装后加载 `05-accept-mvp.md` / `skills/mvp-acceptance.md`；人类批准前拒绝进入步骤 ⑥。
 
 技能目录：`../skills/`。

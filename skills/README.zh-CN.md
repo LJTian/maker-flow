@@ -13,11 +13,13 @@
 | PRO 生成 | `pro-generation.md` | 2 |
 | 模版检索 | `template-matching.md` | 4 |
 | MVP 组装 | `mvp-assembly.md` | 4 |
+| MVP 验收 | `mvp-acceptance.md` | 5 |
 | 发布 | `deploy.md` | 6 |
 | 发布：VPS 网关 | `publish-vps-gateway.md` | 6 |
 | 发布：Cloudflare Pages | `publish-cloudflare-pages.md` | 6 |
 | 发布：GitHub Pages | `publish-github-pages.md` | 6 |
 | 发布：Vercel | `publish-vercel.md` | 6 |
+| 发布：拆分 Web+API | `publish-split-web-api.md` | 6 |
 | Cloudflare DNS | `cloudflare-dns.md` | 6（Cloudflare DNS 时） |
 
 ## Agent 规则

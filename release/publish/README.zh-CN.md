@@ -10,6 +10,7 @@
 | `cloudflare-pages` | [`skills/publish-cloudflare-pages.md`](../../skills/publish-cloudflare-pages.md) |
 | `github-pages` | [`skills/publish-github-pages.md`](../../skills/publish-github-pages.md) |
 | `vercel` | [`skills/publish-vercel.md`](../../skills/publish-vercel.md) |
+| `split-web-api` | [`skills/publish-split-web-api.md`](../../skills/publish-split-web-api.md)（SPA 主机 + VPS API） |
 
 ## 流程
 

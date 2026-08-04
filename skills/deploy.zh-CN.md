@@ -59,17 +59,18 @@ Agent 内部 VPS 发布用的是 **`CONTAINER_PORT`**，不是 `HOST_PORT`。
 
 | 目标 | 适合 | 不适合 | Agent 指南 |
 |------|------|--------|------------|
-| `vps-gateway` | API、worker、整包 Compose、自托管静态 | 没有 VPS 的用户 | [`publish-vps-gateway.md`](publish-vps-gateway.md) + [`cloudflare-dns.md`](cloudflare-dns.md)（自定义域） |
 | `cloudflare-pages` | 静态 / SPA（`web-vite` 构建） | DB、长驻 Go API | [`publish-cloudflare-pages.md`](publish-cloudflare-pages.md) + [`cloudflare-dns.md`](cloudflare-dns.md)（自定义域） |
 | `github-pages` | 静态 / SPA | 同上 | [`publish-github-pages.md`](publish-github-pages.md) |
 | `vercel` | 静态 / SPA | 未改造就塞自建 Postgres | [`publish-vercel.md`](publish-vercel.md) |
+| `vps-gateway` | API、worker、整包 Compose、自托管静态 | 没有 VPS 的用户 | [`publish-vps-gateway.md`](publish-vps-gateway.md) + [`cloudflare-dns.md`](cloudflare-dns.md)（自定义域） |
+| `split-web-api` | SPA 上 Pages/Vercel/GH Pages + API 上 VPS | 无 VPS / 纯静态 | [`publish-split-web-api.md`](publish-split-web-api.md) |
 
-混合产品：人类若要求，前端上 Pages/Vercel，API 走 `vps-gateway`。
+混合产品：人类若要求 **SPA 上 Pages/Vercel/GH Pages + API 上 VPS**，加载 [`publish-split-web-api.md`](publish-split-web-api.md)。布局/env：[`templates/layouts/web-api/`](../templates/layouts/web-api/)。
 
 ## 发布后
 
-- 把公网 URL 交给人类。
-- 按情况验证（`curl` / 打开 `/` 或 `/health`）。
+- 把公网 URL 交给人类 — 拆分配方须给 **web + api 两个** URL。
+- 按情况验证（`curl` / 打开 `/` 或 `/health`；拆分见 split skill 双 URL 检查）。
 - 若人类维护登记表，记下子域 / 项目名。
 
 ## 回滚

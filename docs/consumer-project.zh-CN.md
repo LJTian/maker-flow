@@ -93,7 +93,7 @@ cd ~/projects/my-todo
 | ② 起草 PRO | Agent 读 `$MAKER_FLOW_ROOT/skills/pro-generation.md` |
 | ③ 确认 PRO | 写入产品仓 **`pro.md`** |
 | ④ 组装 | 从 `$MAKER_FLOW_ROOT/templates/...` **拷贝**到产品仓；输出目录 = 产品根 |
-| ⑤ 验收 | 在产品仓 `docker compose up --build` |
+| ⑤ 验收 | Agent：在产品仓执行 `skills/mvp-acceptance.md`；你批准/拒绝 |
 | ⑥ 部署 | Agent 询问发到哪里（Pages / Vercel / VPS）；见 `skills/deploy.md` — 人类不跑 deploy CLI |
 
 Go 模版：从 `$MAKER_FLOW_ROOT/templates/images/` 拼装 Dockerfile 片段（app 模版已内联）。无需预构建步骤。
@@ -105,12 +105,15 @@ Go 模版：从 `$MAKER_FLOW_ROOT/templates/images/` 拼装 Dockerfile 片段（
 ```text
 my-todo/
 ├── pro.md
-├── docker-compose.yml
-├── api/
-└── web/
+├── docker-compose.yml        # 来自 templates/layouts/web-api
+├── .env.example
+├── api/                      # go-api
+└── web/                      # web-vite
 ```
 
-与 `go-api` 联调时，构建 `web/` 前设置 `VITE_API_BASE_URL`。
+组装 `go-api` + `web-vite` 时，拷贝 [`templates/layouts/web-api/`](../templates/layouts/web-api/) 根文件。设置 `VITE_API_BASE_URL`（浏览器→API）与 `CORS_ORIGINS`（API→SPA）。
+
+**拆分上线**（SPA 上 Pages/Vercel + API 上 VPS）：[`skills/publish-split-web-api.md`](../skills/publish-split-web-api.md)。
 
 ---
 

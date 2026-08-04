@@ -14,6 +14,7 @@
 
 <br/>
 
+[![CI](https://github.com/LJTian/maker-flow/actions/workflows/ci.yml/badge.svg)](https://github.com/LJTian/maker-flow/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Workflow](https://img.shields.io/badge/steps-6%20step-purple.svg)](#六步流水线)
 [![Stack](https://img.shields.io/badge/template-Go%20Gin-00ADD8.svg)](templates/apps/go-api/)
@@ -86,7 +87,7 @@ flowchart LR
 
 | 模块 | 目录 | 一句话 |
 |------|------|--------|
-| 技能库 | [`skills/`](skills/) · [**检索目录**](skills/CATALOG.md) | 约束 Agent：PRO 怎么写、模版怎么选、怎么发布 |
+| 技能库 | [`skills/`](skills/) · [**检索目录**](skills/CATALOG.md) | 约束 Agent：PRO / 组装 / 验收 / 发布 |
 | 模版集 | [`templates/`](templates/) · [**检索目录**](templates/CATALOG.md) | apps + images + patterns |
 | 发布基建 | [`release/`](release/) | 步骤 ⑥ 脚本（VPS 部署、Nginx 网关、Cloudflare DNS CLI） |
 | 可选 LLM | [`docs/optional-llm.zh-CN.md`](docs/optional-llm.zh-CN.md) | 少见：自建 OpenAI 兼容 API |

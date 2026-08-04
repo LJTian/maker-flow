@@ -14,7 +14,7 @@
    - 无 PRO → 步骤 ②
    - 有 PRO 草稿、未确认 → 停在步骤 ③
    - 已确认 PRO、尚无组装工程 → 步骤 ④
-   - 有 MVP、未批准 → 停在步骤 ⑤
+   - 已组装 MVP、尚未验收 → 步骤 ⑤（`skills/mvp-acceptance.md`）
    - 已批准 MVP → 步骤 ⑥
 
 ## 2. 执行当前步骤
@@ -23,6 +23,7 @@
 |----|------|------|
 | 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` + `prompts/pro.template.md`（样板：`pro.example.md`） |
 | 4 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | **产品仓根目录**（`maker-flow new <名字>`） |
+| 5 | `skills/mvp-acceptance.md` + `prompts/05-accept-mvp.md` | 证据包 → 等待人类批准/拒绝 |
 | 6 | `skills/deploy.md` + `prompts/06-publish.md` | 询问人类目标；跟 `skills/publish-<target>.md`；Cloudflare DNS 时加读 `skills/cloudflare-dns.md` |
 
 可选 LLM 配置说明：`ai-engine/`（若宿主 Agent 本身就是 LLM 则不必）。

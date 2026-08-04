@@ -52,7 +52,7 @@ flowchart TB
 | 2 | Agent | `skills/pro-generation.md`, `prompts/02-pro-draft.md` |
 | 3 | Human | confirmed PRO (`pro.md` in product repo, or factory example) |
 | 4 | Agent | `template-matching` + `mvp-assembly` + `templates/` → **product repo root** |
-| 5 | Human | assembled project + PRO acceptance |
+| 5 | Human (gate) + Agent (evidence) | assembled project + PRO acceptance (`mvp-acceptance`) |
 | 6 | Agent | `skills/deploy.md`, `prompts/06-publish.md`, `skills/publish-<target>.md` |
 
 ## Related

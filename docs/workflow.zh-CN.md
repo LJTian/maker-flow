@@ -53,17 +53,21 @@ Agent：若使用 `prompts/`，写入步骤 ② prompt 的用户需求区。
 
 ### 5 — 确认 MVP（人门禁）
 
-Agent 执行验证命令：
+- **MUST 阅读：** `skills/mvp-acceptance.md`
+- **MAY 使用：** `prompts/05-accept-mvp.md`
+- Agent 在**产品仓**做按形态验证（API / SPA / CLI / worker / 多 app），逐条走完 PRO 验收标准，并给出证据包。
+- 人类在本门禁只做通过/不通过确认。
+- 失败：迭代步骤 ④，或范围不对则回到步骤 ③。
+- **未批准 MUST NOT 发布。**
+
+常见拉起（细节以技能为准）：
 
 ```bash
 cd ~/projects/<name>   # 产品仓（maker-flow new <名字>）
 cp -n .env.example .env
 docker compose up --build
-curl -sf http://localhost:8080/health
+# 再按 skills/mvp-acceptance.md 逐条核验收标准
 ```
-
-由 Agent 核验 PRO 验收标准；人类在本门禁只做通过/不通过确认。失败：迭代步骤 ④，或范围不对则回到步骤 ③。  
-**未批准 MUST NOT 发布。**
 
 ### 6 — 发布（Agent）
 
@@ -78,8 +82,8 @@ curl -sf http://localhost:8080/health
 
 | 角色 | 允许步骤 |
 |------|----------|
-| 人 | 1、3、5（可触发 6） |
-| Agent | 2、4、6（6 仅在门禁 5 之后） |
+| 人 | 1、3、5（批准/拒绝；可触发 6） |
+| Agent | 2、4、5（跑验收证据）、6（仅在门禁 5 之后） |
 
 ## 相关
 

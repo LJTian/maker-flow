@@ -53,17 +53,21 @@ Agent: store/copy into the step-2 prompt user-requirement section if using `prom
 
 ### 5 — Confirm MVP (human gate)
 
-Agent runs verification commands:
+- **MUST read:** `skills/mvp-acceptance.md`
+- **MAY use:** `prompts/05-accept-mvp.md`
+- Agent runs verification in the **product repo** (shape-aware: API / SPA / CLI / worker / multi-app), walks every PRO acceptance criterion, and presents an evidence package.
+- Human only approves/rejects at this gate.
+- On fail: iterate step 4, or return to step 3 if scope is wrong.
+- **MUST NOT** deploy until approved.
+
+Typical bring-up (agent expands per skill):
 
 ```bash
 cd ~/projects/<name>   # product repo (maker-flow new <name>)
 cp -n .env.example .env
 docker compose up --build
-curl -sf http://localhost:8080/health
+# then criterion-by-criterion checks — see skills/mvp-acceptance.md
 ```
-
-Agent verifies PRO acceptance criteria; the human only approves/rejects at this gate. On fail: iterate step 4, or return to step 3 if scope is wrong.  
-**MUST NOT** deploy until approved.
 
 ### 6 — Publish (agent)
 
@@ -78,8 +82,8 @@ Agent verifies PRO acceptance criteria; the human only approves/rejects at this 
 
 | Role | Allowed steps |
 |------|----------------|
-| Human | 1, 3, 5 (and may trigger 6) |
-| Agent | 2, 4, 6 (6 only after gate 5) |
+| Human | 1, 3, 5 (approve/reject; and may trigger 6) |
+| Agent | 2, 4, 5 (run acceptance evidence), 6 (only after gate 5) |
 
 ## Related
 

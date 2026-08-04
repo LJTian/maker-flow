@@ -14,6 +14,7 @@ You provide **requirements** and **two approvals**. AI agents execute against a 
 
 <br/>
 
+[![CI](https://github.com/LJTian/maker-flow/actions/workflows/ci.yml/badge.svg)](https://github.com/LJTian/maker-flow/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Workflow](https://img.shields.io/badge/steps-6%20step-purple.svg)](#six-step-pipeline)
 [![Stack](https://img.shields.io/badge/template-Go%20Gin-00ADD8.svg)](templates/apps/go-api/)
@@ -85,7 +86,7 @@ Two gates are the core design: **align on what first, then how**.
 
 | Module | Path | One line |
 |--------|------|----------|
-| Skills | [`skills/`](skills/) · [**catalog**](skills/CATALOG.md) | How agents draft PRO, match templates, publish |
+| Skills | [`skills/`](skills/) · [**catalog**](skills/CATALOG.md) | How agents draft PRO, assemble, accept, publish |
 | Templates | [`templates/`](templates/) · [**catalog**](templates/CATALOG.md) | apps + images + patterns |
 | Release | [`release/`](release/) | Step-6 scripts (VPS deploy, Nginx gateway, Cloudflare DNS CLI) |
 | Optional LLM | [`docs/optional-llm.md`](docs/optional-llm.md) | Rare: self-hosted OpenAI-compatible APIs |

@@ -52,7 +52,7 @@ PRODUCT_NAME=my-todo
 | 2 | Agent: draft PRO | `$MAKER_FLOW_ROOT/skills/pro-generation.md`, `prompts/pro.template.md` | chat (no code) |
 | 3 | Human: approve PRO | — | **`pro.md`** |
 | 4 | Agent: assemble | `template-matching`, `mvp-assembly`, `templates/` | **this repo** (`./`, `./api/`, …) |
-| 5 | Human: accept MVP | `pro.md` criteria | — |
+| 5 | Agent: run acceptance; Human: approve MVP | `$MAKER_FLOW_ROOT/skills/mvp-acceptance.md`, `prompts/05-accept-mvp.md`, `pro.md` | evidence in chat; human yes/no |
 | 6 | Agent: publish | `$MAKER_FLOW_ROOT/skills/deploy.md`, `prompts/06-publish.md`, `skills/publish-<target>.md` | public URL(s) after **human chooses target(s) in chat** |
 
 Hard gates: **stop at 3 and 5 until human confirms.**  

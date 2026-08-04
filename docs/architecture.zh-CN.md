@@ -52,7 +52,7 @@ flowchart TB
 | 2 | Agent | `skills/pro-generation.md`、`prompts/02-pro-draft.md` |
 | 3 | 人 | 定稿 PRO（产品仓 `pro.md`，或工厂示例） |
 | 4 | Agent | `template-matching` + `mvp-assembly` + `templates/` → **产品仓根目录** |
-| 5 | 人 | 组装工程 + PRO 验收 |
+| 5 | 人（门禁）+ Agent（证据） | 组装工程 + PRO 验收（`mvp-acceptance`） |
 | 6 | Agent | `skills/deploy.md`、`prompts/06-publish.md`、`skills/publish-<target>.md` |
 
 ## 相关

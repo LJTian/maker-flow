@@ -96,7 +96,7 @@ cd ~/projects/my-todo
 | ② Draft PRO | Agent reads `$MAKER_FLOW_ROOT/skills/pro-generation.md` |
 | ③ Confirm PRO | Write `pro.md` in **product repo** |
 | ④ Assemble | Copy from `$MAKER_FLOW_ROOT/templates/...` into **product repo**; follow `mvp-assembly` (output = product root) |
-| ⑤ Accept | `docker compose up --build` in **product repo** |
+| ⑤ Accept | Agent: `skills/mvp-acceptance.md` in **product repo**; you approve/reject |
 | ⑥ Deploy | Agent asks where to publish (Pages / Vercel / VPS); see `skills/deploy.md` — humans do not run a deploy CLI |
 
 Go apps: compose Dockerfile fragments from `$MAKER_FLOW_ROOT/templates/images/` (already done in app templates). No pre-build step.
@@ -108,12 +108,15 @@ Go apps: compose Dockerfile fragments from `$MAKER_FLOW_ROOT/templates/images/` 
 ```text
 my-todo/
 ├── pro.md
-├── docker-compose.yml        # orchestrates api + web services
+├── docker-compose.yml        # from templates/layouts/web-api
+├── .env.example
 ├── api/                      # go-api
 └── web/                      # web-vite
 ```
 
-Set `VITE_API_BASE_URL` before building `web/` when pairing with `go-api`.
+When assembling `go-api` + `web-vite`, copy [`templates/layouts/web-api/`](../templates/layouts/web-api/) root files. Set `VITE_API_BASE_URL` (browser → API) and `CORS_ORIGINS` (API → SPA).
+
+**Split publish** (SPA on Pages/Vercel + API on VPS): [`skills/publish-split-web-api.md`](../skills/publish-split-web-api.md).
 
 ---
 

@@ -15,11 +15,13 @@
 | ② | `pro-generation` | [`pro-generation.md`](pro-generation.md) | 只出 PRO，不写代码 |
 | ④ | `template-matching` | [`template-matching.md`](template-matching.md) | 选 1～N 个 apps + 0～N patterns + images |
 | ④ | `mvp-assembly` | [`mvp-assembly.md`](mvp-assembly.md) | 复制 app、合并 patterns、容器可跑 |
+| ⑤ | `mvp-acceptance` | [`mvp-acceptance.md`](mvp-acceptance.md) | 对照 PRO 出本地证据；人类门禁 |
 | ⑥ | `deploy` | [`deploy.md`](deploy.md) | 对话选定发布目标后上线 |
 | ⑥ | `publish-vps-gateway` | [`publish-vps-gateway.md`](publish-vps-gateway.md) | VPS + 共享 Nginx 网关 |
 | ⑥ | `publish-cloudflare-pages` | [`publish-cloudflare-pages.md`](publish-cloudflare-pages.md) | Cloudflare Pages 静态 / SPA |
 | ⑥ | `publish-github-pages` | [`publish-github-pages.md`](publish-github-pages.md) | GitHub Pages 静态 / SPA |
 | ⑥ | `publish-vercel` | [`publish-vercel.md`](publish-vercel.md) | Vercel 静态 / SPA |
+| ⑥ | `publish-split-web-api` | [`publish-split-web-api.md`](publish-split-web-api.md) | SPA 上 Pages/Vercel + API 上 VPS |
 | ⑥ | `cloudflare-dns` | [`cloudflare-dns.md`](cloudflare-dns.md) | Cloudflare DNS 增删改查（发布需 DNS 时与 deploy 同读） |
 
 **配套 Prompt：** [`../prompts/`](../prompts/) · **模版检索：** [`../templates/CATALOG.md`](../templates/CATALOG.md) · **Patterns：** [`../templates/patterns/index.md`](../templates/patterns/index.md)
@@ -32,6 +34,7 @@
 |----------|------|
 | ② 出 PRO | `pro-generation.md` + `prompts/02-pro-draft.md`；结构 `prompts/pro.template.md`，样板 `prompts/pro.example.md` |
 | ④ 组装 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` |
+| ⑤ 验收 MVP | `mvp-acceptance.md` + `prompts/05-accept-mvp.md` + 产品仓 `pro.md` |
 | ⑥ 发布 | `deploy.md` + `prompts/06-publish.md` + 所选 `publish-<target>.md` |
 | ⑥ Cloudflare DNS | `cloudflare-dns.md` + `release/cloudflare/dns-api.md`（要查改 DNS 时） |
 
@@ -46,7 +49,9 @@
 | PRO 生成 | 含摘要/流程/模型/API/验收 | 输出实现代码、最终选定模版 |
 | 模版检索 | 读 CATALOG + index；写出 image 依赖 | 自创脚手架、未确认 PRO 就选 |
 | MVP 组装 | 输出到**产品仓根**；从镜像片段拼装 Dockerfile | 拷贝整个 `templates/images/` 树；本步部署；写入工厂仓 |
+| MVP 验收 | 逐条对照 PRO 验收项并给证据；等人批准 | 只靠 `/health` 过门；批准前部署；编造验收项 |
 | 发布 | 询问人类目标；跟 `publish-<target>.md`；VPS CLI 仅 Agent 内部 | 跳过门禁；让人类跑 `maker-flow deploy`；把需 DB 的 API 硬塞进纯 Pages |
+| 拆分 Web+API | API→VPS 后用公网 `VITE_API_BASE_URL` 重建 SPA；双 URL 验收 | 只把 Go API 丢到 Pages；SPA 未按公网 API 重建 |
 | Cloudflare DNS | 用 `dns.sh` 增删改查；确认 token + zone id；歧义删除前先 list | 编造 token；有 API 凭证仍让人点控制台；⑤ 之前改 DNS |
 
 ---

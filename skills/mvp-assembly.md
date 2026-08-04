@@ -29,8 +29,9 @@ Write into the **current product repository root** (created by `maker-flow new` 
 4. **Merge patterns (optional)** — copy pattern packages into `internal/...` of the **app that needs them** and wire them up
 5. **Config** — per app `.env.example` → `.env`; avoid port / name clashes across apps
 6. **Implement business logic** — per PRO and each app stack (Gin / Cobra / worker)
-7. **Update compose** — multi-service: root compose with multiple build contexts, or per-app compose
-8. **Self-check** — walk PRO acceptance criteria (cover every selected app)
+7. **Update compose** — multi-service: prefer a matching root layout from `templates/layouts/` (e.g. `web-api` for `api/` + `web/`), or write a root compose with multiple build contexts / per-app compose
+8. **Config for multi-app web+api** — set root `VITE_API_BASE_URL` (browser-reachable) and `CORS_ORIGINS` (see layout `.env.example`)
+9. **Self-check** — walk PRO acceptance criteria (cover every selected app)
 
 ## Code principles
 

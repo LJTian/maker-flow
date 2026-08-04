@@ -37,8 +37,8 @@
 | 2 | Agent | 起草 PRO | `skills/pro-generation.md`、`prompts/02-pro-draft.md`、`prompts/pro.template.md` | PRO Markdown（无代码） |
 | 3 | 人 | 确认 PRO | — | 定稿 PRO → `prompts/03-pro-confirmed.example.md` 或项目 `pro.md`（结构同 `pro.template.md`） |
 | 4 | Agent | 匹配模版并组装 MVP | `skills/template-matching.md`、`skills/mvp-assembly.md`、`templates/index.md`、`prompts/04-assemble-mvp.md` | **产品仓根目录**（`maker-flow new <名字>`） |
-| 5 | 人 | 确认 MVP | PRO 验收标准 | 通过 / 不通过 |
-| 6 | Agent（通过后） | 发布 | `skills/deploy.md`、`prompts/06-publish.md`、`skills/publish-<target>.md` | 公网 URL |
+| 5 | 人 | 确认 MVP | `skills/mvp-acceptance.md`、`prompts/05-accept-mvp.md`、产品仓 `pro.md` | 通过 / 不通过（含 Agent 证据包） |
+| 6 | Agent（批准后） | 发布 | `skills/deploy.md`、`prompts/06-publish.md`、`skills/publish-<target>.md` | 公网 URL |
 
 硬门禁：**在步骤 ③、⑤ 人类确认前必须停下。**
 

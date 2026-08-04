@@ -5,10 +5,78 @@ on:
     branches: [main]
   pull_request:
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check:
+    name: factory-check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install ripgrep
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
       - name: Factory checks
         run: bash scripts/check.sh
+
+  patterns:
+    name: pattern-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+          cache: true
+          cache-dependency-path: |
+            templates/patterns/*/go.sum
+            templates/patterns/*/go.mod
+      - name: CGO toolchain (sqlite patterns)
+        run: sudo apt-get update && sudo apt-get install -y gcc libc6-dev
+      - name: go test patterns
+        env:
+          CGO_ENABLED: "1"
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          for dir in templates/patterns/*/; do
+            echo "==> go test ${dir}"
+            (cd "$dir" && go mod download && go test ./...)
+          done
+
+  compose-build:
+    name: compose-build (${{ matrix.app }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: go-api
+            dir: templates/apps/go-api
+            kind: compose
+          - app: go-worker
+            dir: templates/apps/go-worker
+            kind: compose
+          - app: web-vite
+            dir: templates/apps/web-vite
+            kind: compose
+          - app: go-cli
+            dir: templates/apps/go-cli
+            kind: docker
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare .env
+        working-directory: ${{ matrix.dir }}
+        run: |
+          if [[ -f .env.example ]]; then
+            cp -n .env.example .env || cp .env.example .env
+          fi
+      - name: docker compose build
+        if: matrix.kind == 'compose'
+        working-directory: ${{ matrix.dir }}
+        run: docker compose build
+      - name: docker build
+        if: matrix.kind == 'docker'
+        working-directory: ${{ matrix.dir }}
+        run: docker build -t "maker-flow-ci-${{ matrix.app }}" .

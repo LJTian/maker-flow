@@ -13,7 +13,8 @@
 |------|:----:|----------|
 | 应用模版 (apps) | 4 | [index.md](index.md) · [`apps/`](apps/) |
 | 镜像基座 (images) | 2 | [images/index.md](images/index.md) |
-| 模式库 (patterns) | 5 | [patterns/index.md](patterns/index.md) |
+| 模式库 (patterns) | 6 | [patterns/index.md](patterns/index.md) |
+| 布局 (多 app 根) | 1 | [layouts/index.md](layouts/index.md) |
 
 ---
 
@@ -49,10 +50,21 @@ Agent：**1～N 个 app** 整目录复制到**产品仓**（多 app 时用子目
 | `singleflight-cache` | [`patterns/singleflight-cache/`](patterns/singleflight-cache/) | `cache` `singleflight` |
 | `retry-backoff` | [`patterns/retry-backoff/`](patterns/retry-backoff/) | `retry` `backoff` |
 | `circuit-breaker` | [`patterns/circuit-breaker/`](patterns/circuit-breaker/) | `circuit-breaker` |
+| `persistence-sqlx` | [`patterns/persistence-sqlx/`](patterns/persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` |
 
 Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改写**进对应 app 的产品仓目录，patterns 不单独部署。
 
 明细 → [`patterns/index.md`](patterns/index.md)
+
+---
+
+## 布局（多 app 产品仓根）
+
+| id | 路径 | Apps | 何时用 |
+|----|------|------|--------|
+| `web-api` | [`layouts/web-api/`](layouts/web-api/) | `go-api` + `web-vite` | 浏览器 UI + REST API 根 compose / env |
+
+先拷 `api/` + `web/`，再拷布局根文件。明细 → [`layouts/index.md`](layouts/index.md)。拆分上线 → [`skills/publish-split-web-api.md`](../skills/publish-split-web-api.md)。
 
 ---
 
@@ -63,6 +75,8 @@ Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改�
 需要 CLI？          → go-cli
 需要后台 worker？   → go-worker
 需要浏览器 UI？    → web-vite
+需要 API + SPA？   → go-api + web-vite + layout web-api
+需要数据库 / 表？  → go-api + persistence-sqlx
 需要并发/韧性片段？ → 从 patterns/ 按 tags 追加
 ```
 
@@ -72,4 +86,4 @@ Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改�
 
 ## 登记规则
 
-新增时同步更新：本文件 + `index.md` / `images/index.md` / `patterns/index.md` + `skills/template-matching.md`
+新增时同步更新：本文件 + `index.md` / `images/index.md` / `patterns/index.md` / `layouts/index.md`（若是布局）+ `skills/template-matching.md`

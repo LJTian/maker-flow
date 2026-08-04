@@ -13,7 +13,8 @@
 |----------|:-----:|--------------|
 | App templates (apps) | 4 | [index.md](index.md) · [`apps/`](apps/) |
 | Image bases (images) | 2 | [images/index.md](images/index.md) |
-| Pattern library (patterns) | 5 | [patterns/index.md](patterns/index.md) |
+| Pattern library (patterns) | 6 | [patterns/index.md](patterns/index.md) |
+| Layouts (multi-app roots) | 1 | [layouts/index.md](layouts/index.md) |
 
 ---
 
@@ -49,10 +50,21 @@ Inline into app Dockerfiles when assembling — see [`images/index.md`](images/i
 | `singleflight-cache` | [`patterns/singleflight-cache/`](patterns/singleflight-cache/) | `cache` `singleflight` |
 | `retry-backoff` | [`patterns/retry-backoff/`](patterns/retry-backoff/) | `retry` `backoff` |
 | `circuit-breaker` | [`patterns/circuit-breaker/`](patterns/circuit-breaker/) | `circuit-breaker` |
+| `persistence-sqlx` | [`patterns/persistence-sqlx/`](patterns/persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` |
 
 Agent: pick **1–N apps** first, then **0–N patterns**; **copy/adapt** into the matching app in the **product repo**. Patterns are never deployed alone.
 
 Detail → [`patterns/index.md`](patterns/index.md)
+
+---
+
+## Layouts (multi-app product roots)
+
+| id | Path | Apps | When to use |
+|----|------|------|-------------|
+| `web-api` | [`layouts/web-api/`](layouts/web-api/) | `go-api` + `web-vite` | Browser UI + REST API root compose / env |
+
+Copy apps into `api/` + `web/`, then copy the layout’s root files. Detail → [`layouts/index.md`](layouts/index.md). Split publish → [`skills/publish-split-web-api.md`](../skills/publish-split-web-api.md).
 
 ---
 
@@ -63,6 +75,8 @@ Need REST API?              → go-api
 Need CLI?                   → go-cli
 Need background worker?     → go-worker
 Need browser UI / SPA?      → web-vite
+Need API + SPA together?    → go-api + web-vite + layout web-api
+Need DB / tables?           → go-api + persistence-sqlx
 Need concurrency/resilience → append from patterns/ by tags
 ```
 
@@ -72,4 +86,4 @@ Field-level contract → [`index.md`](index.md)
 
 ## Registration rules
 
-When adding: update this file + `index.md` / `images/index.md` / `patterns/index.md` + `skills/template-matching.md`
+When adding: update this file + `index.md` / `images/index.md` / `patterns/index.md` / `layouts/index.md` (if layout) + `skills/template-matching.md`

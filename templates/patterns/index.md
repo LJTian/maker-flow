@@ -16,6 +16,7 @@ Each pattern has its own `go.mod` and can run `go test ./...` in-directory (or i
 | `singleflight-cache` | [`singleflight-cache/`](singleflight-cache/) | `cache` `singleflight` `ttl` | Collapse stampede + local TTL cache |
 | `retry-backoff` | [`retry-backoff/`](retry-backoff/) | `retry` `backoff` `resilience` | Cancellable exponential backoff retry |
 | `circuit-breaker` | [`circuit-breaker/`](circuit-breaker/) | `circuit-breaker` `resilience` | Simple circuit breaker |
+| `persistence-sqlx` | [`persistence-sqlx/`](persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` | PRO has tables / needs durable storage (pair with `go-api`) |
 
 ## Agent usage
 

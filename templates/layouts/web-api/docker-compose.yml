@@ -1,0 +1,38 @@
+# Root compose for go-api + web-vite (product repo).
+# Copy apps first: api/ ← go-api, web/ ← web-vite.
+# See README.md in this directory.
+
+services:
+  api:
+    build: ./api
+    ports:
+      - "${API_HOST_PORT:-8080}:8080"
+    env_file:
+      - ./api/.env
+    environment:
+      APP_ENV: ${APP_ENV:-development}
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  web:
+    build:
+      context: ./web
+      args:
+        # Browser-reachable API. Local laptop: http://localhost:8080
+        # Split publish: https://api.example.com (rebuild web after change)
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8080}
+    ports:
+      - "${WEB_HOST_PORT:-3000}:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

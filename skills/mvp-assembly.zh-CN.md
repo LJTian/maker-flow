@@ -29,8 +29,9 @@
 4. **合并 patterns（可选）** — 按检索结果，将 pattern 包拷入**需要它的那个 app** 目录下的 `internal/...` 并接线
 5. **修改配置** — 各 app 的 `.env.example` → `.env`；多 app 时端口 / 名称勿冲突
 6. **实现业务** — 按 PRO 与各 app 技术栈（Gin / Cobra / worker）分别实现
-7. **更新 compose** — 多服务可在项目根用 compose 编排多个 build context，或各 app 独立 compose
-8. **自检清单** — 对照 PRO 验收标准（覆盖所有选定 app）
+7. **更新 compose** — 多服务优先用 `templates/layouts/` 匹配的根布局（如 `api/` + `web/` → `web-api`），或自写根 compose / 各 app 独立 compose
+8. **多 app web+api 配置** — 设置根目录 `VITE_API_BASE_URL`（浏览器可达）与 `CORS_ORIGINS`（见布局 `.env.example`）
+9. **自检清单** — 对照 PRO 验收标准（覆盖所有选定 app）
 
 ## 代码原则
 

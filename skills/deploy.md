@@ -63,13 +63,14 @@ Agent-internal VPS publish uses **`CONTAINER_PORT`**, not `HOST_PORT`.
 | `github-pages` | Static / SPA | Same as above | [`publish-github-pages.md`](publish-github-pages.md) |
 | `vercel` | Static / SPA (and Vercel-native SSR later) | Self-hosted Postgres on Vercel free tier without redesign | [`publish-vercel.md`](publish-vercel.md) |
 | `vps-gateway` | APIs, workers, full Docker compose, self-hosted static | Users without a VPS | [`publish-vps-gateway.md`](publish-vps-gateway.md) + [`cloudflare-dns.md`](cloudflare-dns.md) for custom host |
+| `split-web-api` | SPA on Pages/Vercel/GH Pages + API on VPS | No VPS / pure static | [`publish-split-web-api.md`](publish-split-web-api.md) |
 
-Mixed products: publish frontend to Pages/Vercel **and** API to `vps-gateway` when the human wants that split.
+Mixed products: when the human wants **SPA on Pages/Vercel/GitHub Pages + API on VPS**, load [`publish-split-web-api.md`](publish-split-web-api.md) (uses the static skill + `publish-vps-gateway`). Layout/env: [`templates/layouts/web-api/`](../templates/layouts/web-api/).
 
 ## After publish
 
-- Give the human the public URL(s).
-- Verify (`curl` / open `/` or `/health` as appropriate).
+- Give the human the public URL(s) — for split recipes, **both** web and API URLs.
+- Verify (`curl` / open `/` or `/health` as appropriate; split: dual-URL checks in the split skill).
 - Record subdomain / project name if the human keeps a registry.
 
 ## Rollback

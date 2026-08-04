@@ -52,7 +52,7 @@ PRODUCT_NAME=my-todo
 | 2 | Agent：起草 PRO | `$MAKER_FLOW_ROOT/skills/pro-generation.md`、`prompts/pro.template.md` | 对话（无代码） |
 | 3 | 人：确认 PRO | — | **`pro.md`** |
 | 4 | Agent：组装 | `template-matching`、`mvp-assembly`、`templates/` | **本仓**（`./`、`./api/` …） |
-| 5 | 人：验收 MVP | `pro.md` 标准 | — |
+| 5 | Agent：跑验收；人：批准 MVP | `$MAKER_FLOW_ROOT/skills/mvp-acceptance.md`、`prompts/05-accept-mvp.md`、`pro.md` | 聊天中的证据包；人 yes/no |
 | 6 | Agent：发布 | `$MAKER_FLOW_ROOT/skills/deploy.md`、`prompts/06-publish.md`、`skills/publish-<target>.md` | **人类在对话中选定目标后** 得到公网 URL |
 
 硬门禁：**在步骤 ③、⑤ 人类确认前必须停下。**  

@@ -10,6 +10,7 @@ Index for step-6 publish targets. **Agent SOPs live in `skills/`** — not here.
 | `cloudflare-pages` | [`skills/publish-cloudflare-pages.md`](../../skills/publish-cloudflare-pages.md) |
 | `github-pages` | [`skills/publish-github-pages.md`](../../skills/publish-github-pages.md) |
 | `vercel` | [`skills/publish-vercel.md`](../../skills/publish-vercel.md) |
+| `split-web-api` | [`skills/publish-split-web-api.md`](../../skills/publish-split-web-api.md) (SPA host + VPS API) |
 
 ## Flow
 

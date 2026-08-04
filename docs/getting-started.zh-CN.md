@@ -122,6 +122,10 @@ pro.md 已确认。
 
 ### 步骤 5 · 本地验收
 
+Agent 按 `$MAKER_FLOW_ROOT/skills/mvp-acceptance.md`（prompt：`05-accept-mvp.md`）拉起 compose、按形态检查、逐条走完 `pro.md` 验收标准，再请你批准。
+
+常见拉起：
+
 ```bash
 cd ~/projects/my-todo
 cp .env.example .env
@@ -130,10 +134,9 @@ docker compose up --build
 curl http://localhost:8080/health
 # Web（web-vite）示例 — 本机端口常为 3000：
 # curl http://localhost:3000/health
-# 期望: {"status":"ok"}
 ```
 
-对照 `pro.md` 验收标准逐项勾选。
+你对照证据包与 `pro.md` **验收标准**确认。
 
 本地成功只说明本机映射可用；公网需要步骤 ⑥。
 

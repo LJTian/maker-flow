@@ -33,12 +33,16 @@
 
 | PRO signal | App | Common patterns |
 |------------|-----|-----------------|
-| REST API, Gin | `go-api` | `retry-backoff`, `circuit-breaker`, `singleflight-cache` |
+| REST API, Gin | `go-api` | `retry-backoff`, `circuit-breaker`, `singleflight-cache`, `persistence-sqlx` |
+| Tables / DB / persistence | `go-api` | `persistence-sqlx` (sqlite \| postgres \| mysql via `DB_DRIVER`) |
 | CLI / command-line tool | `go-cli` | `retry-backoff`, `worker-pool` |
 | Background jobs / multi-goroutine consumers | `go-worker` | `worker-pool`, `pipeline`, `retry-backoff` |
 | Browser UI / SPA / dashboard | `web-vite` | — (optional snippets in `src/lib/`) |
+| API + browser UI | `go-api` + `web-vite` | layout [`web-api`](../templates/layouts/web-api/); patterns as needed |
 
-Multi-app examples: `go-api` + `go-worker` (sync API + async consume); `go-api` + `go-cli` (service + ops commands); `go-api` + `web-vite` (API + browser UI).
+Multi-app examples: `go-api` + `go-worker` (sync API + async consume); `go-api` + `go-cli` (service + ops commands); `go-api` + `web-vite` (API + browser UI — copy [`templates/layouts/web-api/`](../templates/layouts/web-api/) root files).
+
+When matching `go-api` + `web-vite`, **MUST** mention layout `web-api` in the selection output (or explain why a custom root compose replaces it).
 
 ## MUST NOT
 

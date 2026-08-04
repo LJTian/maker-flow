@@ -7,16 +7,17 @@ Template id: `go-api`. Gin REST API scaffold for step-4 assembly.
 ## Capabilities
 
 - Gin router + binding-friendly handlers
-- CORS, structured logs, panic recover
+- CORS (env `CORS_ORIGINS`, default `*`), structured logs, panic recover
 - `GET /health`, `GET /api/v1/ping`
 - Docker + compose (host port via `HOST_PORT`, default 8080)
 - Dockerfile composed from `go-builder` + `go-runtime` fragments (`golang:1.22-alpine` / `alpine:3.20`)
+- Pair with `web-vite` via layout [`web-api`](../../layouts/web-api/); split publish: `skills/publish-split-web-api.md`
 
 ## Agent usage
 
 1. Copy this directory to the **product repo root** (or `<product-root>/<app-id>/` for multi-app). Do not edit the template in place.
 2. Add handlers under `internal/handler/` (`func(c *gin.Context)`); register routes in `internal/server/server.go`.
-3. Follow `skills/mvp-assembly.md`. Optional patterns: see `templates/patterns/index.md`.
+3. Follow `skills/mvp-assembly.md`. Optional patterns: see `templates/patterns/index.md`. For DB/tables use [`persistence-sqlx`](../../patterns/persistence-sqlx/).
 4. If customizing the Dockerfile, compose from `../../images/` fragments (see `images/index.md`).
 
 ## Layout

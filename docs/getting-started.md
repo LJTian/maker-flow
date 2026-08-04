@@ -122,6 +122,10 @@ Expect runnable code under `~/projects/my-todo/` (this repo root).
 
 ### Step 5 · Local acceptance
 
+Agent follows `$MAKER_FLOW_ROOT/skills/mvp-acceptance.md` (prompt: `05-accept-mvp.md`): bring up compose, run shape-aware checks, walk every criterion in `pro.md`, then ask you to approve.
+
+Typical bring-up:
+
 ```bash
 cd ~/projects/my-todo
 cp .env.example .env
@@ -130,10 +134,9 @@ docker compose up --build
 curl http://localhost:8080/health
 # Web (web-vite) example — host port is often 3000:
 # curl http://localhost:3000/health
-# expect: {"status":"ok"}
 ```
 
-Check every **acceptance criterion** in `pro.md`.
+You confirm the evidence package against **acceptance criteria** in `pro.md`.
 
 Local success only proves the laptop mapping works. Public URLs need step 6.
 

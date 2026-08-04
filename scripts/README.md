@@ -6,7 +6,7 @@
 |--------------|---------|
 | **`install.sh`** | Install factory to `~/.maker-flow`, link `maker-flow` CLI, auto PATH hint |
 | **`maker-flow`** | CLI: `new`, `install`, `upgrade`, `init`, `root`, `version` (+ agent-internal `deploy`) |
-| `check.sh` | Factory CI / local sanity checks |
+| `check.sh` | Factory CI / local sanity checks (used by `.github/workflows/ci.yml`) |
 
 ## Quick start
 

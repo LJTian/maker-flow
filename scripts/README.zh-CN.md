@@ -6,7 +6,7 @@
 |------------|------|
 | **`install.sh`** | 安装工厂到 `~/.maker-flow`，链接 `maker-flow` CLI，自动 PATH 提示 |
 | **`maker-flow`** | CLI：`new`、`install`、`upgrade`、`init`、`root`、`version`（另有 Agent 内部用的 `deploy`） |
-| `check.sh` | 工厂 CI / 本地自检 |
+| `check.sh` | 工厂 CI / 本地自检（由 `.github/workflows/ci.yml` 调用） |
 
 ## 快速开始
 

@@ -17,7 +17,7 @@
 | **when_to_use** | Go + Gin REST API MVP |
 | **includes** | Dockerfile (FROM 基座), docker-compose, CORS, recover, `/health` |
 | **images** | `go-builder`, `go-runtime` |
-| **suggested_patterns** | `retry-backoff`, `circuit-breaker`, `singleflight-cache` |
+| **suggested_patterns** | `retry-backoff`, `circuit-breaker`, `singleflight-cache`, `persistence-sqlx` |
 | **docs** | [apps/go-api/README.md](apps/go-api/README.md) |
 
 ### go-cli
@@ -79,6 +79,7 @@
   ├─ Web UI / SPA → + web-vite
   └─ 其它         → 扩展 apps/ 并登记
 
+需要数据库 / 表？ → + persistence-sqlx 挂到 go-api（DB_DRIVER：sqlite|postgres|mysql）
 需要并发/韧性片段？ → patterns/ 按 tags 追加到对应 app（不单独部署）
 多 app 布局        → `<产品根>/<app-id>/`
 ```

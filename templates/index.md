@@ -17,7 +17,7 @@ Step 4: read [`CATALOG.md`](CATALOG.md) first, then this file and [`patterns/ind
 | **when_to_use** | Go + Gin REST API MVP |
 | **includes** | Dockerfile (FROM bases), docker-compose, CORS, recover, `/health` |
 | **images** | `go-builder`, `go-runtime` |
-| **suggested_patterns** | `retry-backoff`, `circuit-breaker`, `singleflight-cache` |
+| **suggested_patterns** | `retry-backoff`, `circuit-breaker`, `singleflight-cache`, `persistence-sqlx` |
 | **docs** | [apps/go-api/README.md](apps/go-api/README.md) |
 
 ### go-cli
@@ -79,6 +79,7 @@ Shape? (multi-select OK)
   ├─ Web UI / SPA → + web-vite
   └─ Other        → extend apps/ and register
 
+Need DB / tables? → + persistence-sqlx into go-api (sqlite|postgres|mysql via DB_DRIVER)
 Need concurrency/resilience snippets? → append from patterns/ by tags into the matching app (do not deploy alone)
 Multi-app layout → `<product-root>/<app-id>/`
 ```

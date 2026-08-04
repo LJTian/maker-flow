@@ -14,7 +14,7 @@ Human quick start: [getting-started.md](getting-started.md) · Repo intro: [READ
    - no PRO → step 2
    - PRO draft, not confirmed → wait at step 3
    - confirmed PRO, no assembled project yet → step 4
-   - MVP exists, not approved → wait at step 5
+   - MVP assembled, not yet accepted → step 5 (`skills/mvp-acceptance.md`)
    - approved MVP → step 6
 
 ## 2. Execute current step
@@ -23,6 +23,7 @@ Human quick start: [getting-started.md](getting-started.md) · Repo intro: [READ
 |------|------------|------|
 | 2 | `skills/pro-generation.md` | `prompts/02-pro-draft.md` + `prompts/pro.template.md` (sample: `pro.example.md`) |
 | 4 | `template-matching.md` → `templates/CATALOG.md` → apps + patterns → `mvp-assembly.md` | **product repo root** (`maker-flow new <name>`) |
+| 5 | `skills/mvp-acceptance.md` + `prompts/05-accept-mvp.md` | Evidence package → wait for human approve/reject |
 | 6 | `skills/deploy.md` + `prompts/06-publish.md` | Ask human for target(s); follow `skills/publish-<target>.md`; add `skills/cloudflare-dns.md` when DNS on Cloudflare |
 
 Optional LLM config notes: `ai-engine/` (not required if the host agent is the LLM).

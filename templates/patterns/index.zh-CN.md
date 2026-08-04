@@ -16,6 +16,7 @@
 | `singleflight-cache` | [`singleflight-cache/`](singleflight-cache/) | `cache` `singleflight` `ttl` | 防击穿 + 本地 TTL 缓存 |
 | `retry-backoff` | [`retry-backoff/`](retry-backoff/) | `retry` `backoff` `resilience` | 可取消的指数退避重试 |
 | `circuit-breaker` | [`circuit-breaker/`](circuit-breaker/) | `circuit-breaker` `resilience` | 简易熔断器 |
+| `persistence-sqlx` | [`persistence-sqlx/`](persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` | PRO 有表 / 要持久化（配合 `go-api`） |
 
 ## Agent 用法
 
