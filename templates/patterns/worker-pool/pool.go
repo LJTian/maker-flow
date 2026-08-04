@@ -33,15 +33,19 @@ func (p *Pool[T]) Start(ctx context.Context) {
 		p.wg.Add(1)
 		go func() {
 			defer p.wg.Done()
-			for job := range p.jobs {
-				p.handle(ctx, job)
+			for {
+				select {
+				case <-ctx.Done():
+					return
+				case job, ok := <-p.jobs:
+					if !ok {
+						return
+					}
+					p.handle(ctx, job)
+				}
 			}
 		}()
 	}
-	go func() {
-		<-ctx.Done()
-		close(p.jobs)
-	}()
 }
 
 func (p *Pool[T]) Submit(job T) bool {

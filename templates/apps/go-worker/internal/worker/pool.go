@@ -42,10 +42,6 @@ func (p *Pool) Start(ctx context.Context) {
 			p.loop(ctx, id)
 		}()
 	}
-	go func() {
-		<-ctx.Done()
-		close(p.jobs)
-	}()
 }
 
 func (p *Pool) Submit(job Job) error {
@@ -63,10 +59,19 @@ func (p *Pool) Wait() {
 }
 
 func (p *Pool) loop(ctx context.Context, workerID int) {
-	for job := range p.jobs {
-		p.process(ctx, workerID, job)
+	for {
+		select {
+		case <-ctx.Done():
+			p.logger.Info("worker stopped via context", "worker", workerID)
+			return
+		case job, ok := <-p.jobs:
+			if !ok {
+				p.logger.Info("worker stopped via closed channel", "worker", workerID)
+				return
+			}
+			p.process(ctx, workerID, job)
+		}
 	}
-	p.logger.Info("worker stopped", "worker", workerID)
 }
 
 func (p *Pool) process(ctx context.Context, workerID int, job Job) {

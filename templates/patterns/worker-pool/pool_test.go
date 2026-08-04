@@ -28,3 +28,16 @@ func TestPoolProcessesJobs(t *testing.T) {
 		t.Fatalf("got %d want 5", n.Load())
 	}
 }
+
+func TestSubmitAfterCancel(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	p := New(1, 1, func(ctx context.Context, job int) {})
+	p.Start(ctx)
+
+	cancel()
+	p.Wait()
+
+	// Should not panic!
+	p.Submit(1)
+	p.Submit(2)
+}
