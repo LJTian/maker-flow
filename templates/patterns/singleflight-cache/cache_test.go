@@ -1,13 +1,16 @@
 package cache
 
 import (
+	"context"
 	"sync/atomic"
 	"testing"
 	"time"
 )
 
 func TestSingleflight(t *testing.T) {
-	c := New(time.Second)
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	c := New(ctx, time.Second)
 	var calls atomic.Int64
 	load := func() (any, error) {
 		calls.Add(1)

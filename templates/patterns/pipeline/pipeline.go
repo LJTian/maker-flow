@@ -1,17 +1,33 @@
 package pipeline
 
-import "sync"
+import (
+	"context"
+	"sync"
+)
 
 // FanOut runs n workers reading from in and writing to a shared out.
-func FanOut[T any](n int, in <-chan T, fn func(T) T) <-chan T {
+func FanOut[T any](ctx context.Context, n int, in <-chan T, fn func(T) T) <-chan T {
 	out := make(chan T)
 	var wg sync.WaitGroup
 	wg.Add(n)
 	for i := 0; i < n; i++ {
 		go func() {
 			defer wg.Done()
-			for v := range in {
-				out <- fn(v)
+			for {
+				select {
+				case <-ctx.Done():
+					return
+				case v, ok := <-in:
+					if !ok {
+						return
+					}
+					res := fn(v)
+					select {
+					case out <- res:
+					case <-ctx.Done():
+						return
+					}
+				}
 			}
 		}()
 	}
@@ -23,7 +39,7 @@ func FanOut[T any](n int, in <-chan T, fn func(T) T) <-chan T {
 }
 
 // Merge fans-in multiple channels into one.
-func Merge[T any](chans ...<-chan T) <-chan T {
+func Merge[T any](ctx context.Context, chans ...<-chan T) <-chan T {
 	out := make(chan T)
 	var wg sync.WaitGroup
 	wg.Add(len(chans))
@@ -31,8 +47,20 @@ func Merge[T any](chans ...<-chan T) <-chan T {
 		ch := ch
 		go func() {
 			defer wg.Done()
-			for v := range ch {
-				out <- v
+			for {
+				select {
+				case <-ctx.Done():
+					return
+				case v, ok := <-ch:
+					if !ok {
+						return
+					}
+					select {
+					case out <- v:
+					case <-ctx.Done():
+						return
+					}
+				}
 			}
 		}()
 	}

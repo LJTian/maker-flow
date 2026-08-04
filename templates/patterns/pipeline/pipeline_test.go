@@ -1,6 +1,9 @@
 package pipeline
 
-import "testing"
+import (
+	"context"
+	"testing"
+)
 
 func TestFanOutAndMerge(t *testing.T) {
 	in := make(chan int)
@@ -10,7 +13,7 @@ func TestFanOutAndMerge(t *testing.T) {
 		}
 		close(in)
 	}()
-	out := FanOut(2, in, func(v int) int { return v * 2 })
+	out := FanOut(context.Background(), 2, in, func(v int) int { return v * 2 })
 	sum := 0
 	for v := range out {
 		sum += v

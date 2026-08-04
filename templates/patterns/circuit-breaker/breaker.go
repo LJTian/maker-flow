@@ -23,6 +23,7 @@ type Breaker struct {
 	FailureThreshold int
 	OpenTimeout      time.Duration
 	openedAt         time.Time
+	halfOpens        int
 }
 
 func New(failureThreshold int, openTimeout time.Duration) *Breaker {
@@ -53,15 +54,25 @@ func (b *Breaker) Do(fn func() error) error {
 		b.mu.Unlock()
 		return ErrOpen
 	}
+	if b.state == HalfOpen {
+		if b.halfOpens > 0 {
+			b.mu.Unlock()
+			return ErrOpen
+		}
+		b.halfOpens++
+	}
 	b.mu.Unlock()
 
 	err := fn()
 
 	b.mu.Lock()
 	defer b.mu.Unlock()
+	if b.state == HalfOpen {
+		b.halfOpens--
+	}
 	if err != nil {
 		b.failures++
-		if b.failures >= b.FailureThreshold {
+		if b.failures >= b.FailureThreshold || b.state == HalfOpen {
 			b.state = Open
 			b.openedAt = time.Now()
 		}

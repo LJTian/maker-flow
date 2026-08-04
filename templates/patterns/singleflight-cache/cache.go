@@ -1,6 +1,7 @@
 package cache
 
 import (
+	"context"
 	"sync"
 	"time"
 
@@ -19,8 +20,34 @@ type Cache struct {
 	sf  singleflight.Group
 }
 
-func New(ttl time.Duration) *Cache {
-	return &Cache{ttl: ttl, m: make(map[string]entry)}
+func New(ctx context.Context, ttl time.Duration) *Cache {
+	c := &Cache{ttl: ttl, m: make(map[string]entry)}
+	go c.startCleanup(ctx)
+	return c
+}
+
+func (c *Cache) startCleanup(ctx context.Context) {
+	interval := c.ttl
+	if interval < time.Second {
+		interval = time.Second // Prevent tight loop if TTL is very small
+	}
+	ticker := time.NewTicker(interval)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		case <-ticker.C:
+			now := time.Now()
+			c.mu.Lock()
+			for k, v := range c.m {
+				if now.After(v.exp) {
+					delete(c.m, k)
+				}
+			}
+			c.mu.Unlock()
+		}
+	}
 }
 
 func (c *Cache) GetOrLoad(key string, load func() (any, error)) (any, error, bool) {

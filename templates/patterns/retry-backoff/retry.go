@@ -35,10 +35,12 @@ func Do(ctx context.Context, opt Options, fn func(context.Context) error) error 
 		if attempt == opt.MaxAttempts {
 			break
 		}
+		t := time.NewTimer(delay)
 		select {
 		case <-ctx.Done():
+			t.Stop()
 			return ctx.Err()
-		case <-time.After(delay):
+		case <-t.C:
 		}
 		delay = time.Duration(float64(delay) * opt.Multiplier)
 		if delay > opt.MaxDelay {
