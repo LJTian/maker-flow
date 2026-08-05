@@ -78,6 +78,15 @@ docker compose up --build
 - Execute the matching `skills/publish-<target>.md`
 - Prerequisites: human-approved MVP; credentials / host access as required by the chosen target(s)
 
+## Failure paths
+
+- **Step 3 (PRO gate) rejected by human:** Agent must revise the draft in-place or generate a new draft (`v2`) based on feedback, then wait for approval again. DO NOT proceed to Step 4 until the human confirms the revised PRO.
+- **Step 4 (Assemble) encounters ambiguous PRO:** If the Agent realizes during assembly that the PRO is contradictory or underspecified, the Agent MUST pause and return to Step 3, requesting human clarification before continuing to write code.
+- **Step 5 (MVP gate) rejected by human:**
+  - If the code has a bug or deviates from the PRO: iterate in Step 4 and fix the code.
+  - If the human realizes the PRO itself was wrong (scope change): return to Step 3, update the `pro.md` in the product repo, then return to Step 4 to adjust the code.
+- **Step 6 (Publish) failure:** Agent MUST follow the rollback instructions specified in the respective `skills/publish-<target>.md`. If none exist, ensure the system is left in a stable state and ask the human for help.
+
 ## Roles
 
 | Role | Allowed steps |
