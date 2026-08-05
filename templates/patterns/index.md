@@ -17,6 +17,8 @@ Each pattern has its own `go.mod` and can run `go test ./...` in-directory (or i
 | `retry-backoff` | [`retry-backoff/`](retry-backoff/) | `retry` `backoff` `resilience` | Cancellable exponential backoff retry |
 | `circuit-breaker` | [`circuit-breaker/`](circuit-breaker/) | `circuit-breaker` `resilience` | Simple circuit breaker |
 | `persistence-sqlx` | [`persistence-sqlx/`](persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` | PRO has tables / needs durable storage (pair with `go-api`) |
+| `auth-oauth-jwt` | [`auth-oauth-jwt/`](auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` | Multi-provider OAuth (Google, Apple, WeChat, GitHub) + JWT |
+| `payment-lemonsqueezy` | [`payment-lemonsqueezy/`](payment-lemonsqueezy/) | `payment` `stripe` `alipay` `wechat` `lemonsqueezy` | Lemon Squeezy payment webhook verification for MoR |
 
 ## Agent usage
 

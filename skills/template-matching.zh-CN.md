@@ -40,6 +40,12 @@
 | 浏览器 UI / SPA / 面板 | `web-vite` | —（可选片段放 `src/lib/`） |
 | API + 浏览器 UI | `go-api` + `web-vite` | 布局 [`web-api`](../templates/layouts/web-api/)；patterns 按需 |
 
+- **数据库 / 持久化存储:** 若需要状态，请加入 `persistence-sqlx`。
+- **用户登录 / Auth:** 若用户要求登录、OAuth (Google/Apple/微信/GitHub) 或 JWT，请加入 `auth-oauth-jwt`。
+- **支付 / 订阅:** 若用户要求集成支付收款（特别是针对独立开发者的微信/支付宝/全球支付），请加入 `payment-lemonsqueezy`。
+- **系统韧性:** 若要求对外部系统进行高可靠性调用，请加入 `circuit-breaker` 或 `retry-backoff`。
+- **并发处理:** 若需要高吞吐量的后台处理，请加入 `worker-pool` 或 `pipeline`。
+
 多 app 示例：`go-api` + `go-worker`（同步 API + 异步消费）；`go-api` + `go-cli`（服务 + 运维命令）；`go-api` + `web-vite`（API + 浏览器 UI — 拷贝 [`templates/layouts/web-api/`](../templates/layouts/web-api/) 根文件）。
 
 匹配 `go-api` + `web-vite` 时，选型输出中 **必须** 写明布局 `web-api`（或说明为何用自定义根 compose）。

@@ -17,6 +17,8 @@
 | `retry-backoff` | [`retry-backoff/`](retry-backoff/) | `retry` `backoff` `resilience` | 可取消的指数退避重试 |
 | `circuit-breaker` | [`circuit-breaker/`](circuit-breaker/) | `circuit-breaker` `resilience` | 简易熔断器 |
 | `persistence-sqlx` | [`persistence-sqlx/`](persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` | PRO 有表 / 要持久化（配合 `go-api`） |
+| `auth-oauth-jwt` | [`auth-oauth-jwt/`](auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` | 多渠道 OAuth 登录 (Google, Apple, 微信, GitHub) 与 JWT 签发 |
+| `payment-lemonsqueezy` | [`payment-lemonsqueezy/`](payment-lemonsqueezy/) | `payment` `stripe` `alipay` `wechat` `lemonsqueezy` | 针对个人开发者的 Lemon Squeezy 支付防伪校验 |
 
 ## Agent 用法
 

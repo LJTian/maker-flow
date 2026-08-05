@@ -40,6 +40,12 @@
 | Browser UI / SPA / dashboard | `web-vite` | — (optional snippets in `src/lib/`) |
 | API + browser UI | `go-api` + `web-vite` | layout [`web-api`](../templates/layouts/web-api/); patterns as needed |
 
+- **DB / Durable Storage:** Add `persistence-sqlx` to your selection (only use this if state is required).
+- **User Login / Auth:** Add `auth-oauth-jwt` to your selection if the user wants login, OAuth (Google, Apple, WeChat, GitHub), or JWT.
+- **Payments / Subscriptions:** Add `payment-lemonsqueezy` to your selection if the user wants to collect payments, especially for individual developers (supports Alipay, WeChat Pay, global MoR).
+- **Resilience:** Add `circuit-breaker` or `retry-backoff` if high reliability against external systems is requested.
+- **Concurrency:** Add `worker-pool` or `pipeline` if high-throughput background processing is needed.
+
 Multi-app examples: `go-api` + `go-worker` (sync API + async consume); `go-api` + `go-cli` (service + ops commands); `go-api` + `web-vite` (API + browser UI — copy [`templates/layouts/web-api/`](../templates/layouts/web-api/) root files).
 
 When matching `go-api` + `web-vite`, **MUST** mention layout `web-api` in the selection output (or explain why a custom root compose replaces it).

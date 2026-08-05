@@ -13,7 +13,7 @@
 |----------|:-----:|--------------|
 | App templates (apps) | 4 | [index.md](index.md) · [`apps/`](apps/) |
 | Image bases (images) | 2 | [images/index.md](images/index.md) |
-| Pattern library (patterns) | 6 | [patterns/index.md](patterns/index.md) |
+| Pattern library (patterns) | 8 | [patterns/index.md](patterns/index.md) |
 | Layouts (multi-app roots) | 1 | [layouts/index.md](layouts/index.md) |
 
 ---
@@ -51,6 +51,8 @@ Inline into app Dockerfiles when assembling — see [`images/index.md`](images/i
 | `retry-backoff` | [`patterns/retry-backoff/`](patterns/retry-backoff/) | `retry` `backoff` |
 | `circuit-breaker` | [`patterns/circuit-breaker/`](patterns/circuit-breaker/) | `circuit-breaker` |
 | `persistence-sqlx` | [`patterns/persistence-sqlx/`](patterns/persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` |
+| `auth-oauth-jwt` | [`patterns/auth-oauth-jwt/`](patterns/auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` |
+| `payment-lemonsqueezy` | [`patterns/payment-lemonsqueezy/`](patterns/payment-lemonsqueezy/) | `payment` `alipay` `wechat` `lemonsqueezy` |
 
 Agent: pick **1–N apps** first, then **0–N patterns**; **copy/adapt** into the matching app in the **product repo**. Patterns are never deployed alone.
 
@@ -77,6 +79,8 @@ Need background worker?     → go-worker
 Need browser UI / SPA?      → web-vite
 Need API + SPA together?    → go-api + web-vite + layout web-api
 Need DB / tables?           → go-api + persistence-sqlx
+Need User Login/Auth?       → go-api + auth-oauth-jwt
+Need to Collect Payments?   → go-api + payment-lemonsqueezy
 Need concurrency/resilience → append from patterns/ by tags
 ```
 
