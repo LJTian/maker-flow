@@ -13,7 +13,7 @@
 |------|:----:|----------|
 | 应用模版 (apps) | 4 | [index.md](index.md) · [`apps/`](apps/) |
 | 镜像基座 (images) | 2 | [images/index.md](images/index.md) |
-| 模式库 (patterns) | 8 | [patterns/index.md](patterns/index.md) |
+| 模式库 (patterns) | 13 | [patterns/index.md](patterns/index.md) |
 | 布局 (多 app 根) | 1 | [layouts/index.md](layouts/index.md) |
 
 ---
@@ -53,6 +53,11 @@ Agent：**1～N 个 app** 整目录复制到**产品仓**（多 app 时用子目
 | `persistence-sqlx` | [`patterns/persistence-sqlx/`](patterns/persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` |
 | `auth-oauth-jwt` | [`patterns/auth-oauth-jwt/`](patterns/auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` |
 | `payment-lemonsqueezy` | [`patterns/payment-lemonsqueezy/`](patterns/payment-lemonsqueezy/) | `payment` `alipay` `wechat` `lemonsqueezy` |
+| `notify-email` | [`patterns/notify-email/`](patterns/notify-email/) | `email` `resend` `notification` |
+| `storage-s3` | [`patterns/storage-s3/`](patterns/storage-s3/) | `storage` `s3` `r2` `upload` |
+| `ai-llm-client` | [`patterns/ai-llm-client/`](patterns/ai-llm-client/) | `ai` `llm` `openai` `streaming` |
+| `cron-scheduler` | [`patterns/cron-scheduler/`](patterns/cron-scheduler/) | `cron` `schedule` `job` |
+| `telemetry-posthog` | [`patterns/telemetry-posthog/`](patterns/telemetry-posthog/) | `telemetry` `analytics` `posthog` |
 
 Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改写**进对应 app 的产品仓目录，patterns 不单独部署。
 
@@ -81,6 +86,11 @@ Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改�
 需要数据库 / 表？  → go-api + persistence-sqlx
 需要用户登录/鉴权？  → go-api + auth-oauth-jwt
 需要集成支付收款？  → go-api + payment-lemonsqueezy
+需要发送通知邮件？  → go-api + notify-email
+需要存储/上传文件？  → go-api + storage-s3
+需要接入 AI/大模型？ → go-api + ai-llm-client
+需要定时计划任务？  → go-api + cron-scheduler / go-worker + cron-scheduler
+需要产品数据埋点？  → go-api + telemetry-posthog
 需要并发/韧性片段？ → 从 patterns/ 按 tags 追加
 ```
 

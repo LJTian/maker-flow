@@ -19,6 +19,11 @@
 | `persistence-sqlx` | [`persistence-sqlx/`](persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` | PRO 有表 / 要持久化（配合 `go-api`） |
 | `auth-oauth-jwt` | [`auth-oauth-jwt/`](auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` | 多渠道 OAuth 登录 (Google, Apple, 微信, GitHub) 与 JWT 签发 |
 | `payment-lemonsqueezy` | [`payment-lemonsqueezy/`](payment-lemonsqueezy/) | `payment` `stripe` `alipay` `wechat` `lemonsqueezy` | 针对个人开发者的 Lemon Squeezy 支付防伪校验 |
+| `notify-email` | [`notify-email/`](notify-email/) | `email` `resend` `notification` | 发送事务性通知邮件 |
+| `storage-s3` | [`storage-s3/`](storage-s3/) | `storage` `s3` `r2` `upload` | 兼容 AWS S3 / Cloudflare R2 的对象存储 |
+| `ai-llm-client` | [`ai-llm-client/`](ai-llm-client/) | `ai` `llm` `openai` `streaming` | 流式 AI 大模型客户端 (兼容 OpenAI) |
+| `cron-scheduler` | [`cron-scheduler/`](cron-scheduler/) | `cron` `schedule` `job` | 单机定时任务调度 |
+| `telemetry-posthog` | [`telemetry-posthog/`](telemetry-posthog/) | `telemetry` `analytics` `posthog` | 极简产品数据埋点分析 |
 
 ## Agent 用法
 

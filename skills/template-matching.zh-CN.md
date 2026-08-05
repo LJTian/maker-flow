@@ -43,6 +43,11 @@
 - **数据库 / 持久化存储:** 若需要状态，请加入 `persistence-sqlx`。
 - **用户登录 / Auth:** 若用户要求登录、OAuth (Google/Apple/微信/GitHub) 或 JWT，请加入 `auth-oauth-jwt`。
 - **支付 / 订阅:** 若用户要求集成支付收款（特别是针对独立开发者的微信/支付宝/全球支付），请加入 `payment-lemonsqueezy`。
+- **通知 / 邮件:** 若需要发送事务性邮件（欢迎信、验证码等），请加入 `notify-email`。
+- **存储 / 上传:** 若需要上传文件、用户头像或使用 S3/R2 对象存储，请加入 `storage-s3`。
+- **AI / 大模型:** 若需要集成 ChatGPT、Claude 或任意大模型流式对话功能，请加入 `ai-llm-client`。
+- **定时任务:** 若明确要求定时调度、周期性后台任务或 Cron，请加入 `cron-scheduler`。
+- **数据埋点:** 若需要用户追踪、使用量分析或对接 PostHog，请加入 `telemetry-posthog`。
 - **系统韧性:** 若要求对外部系统进行高可靠性调用，请加入 `circuit-breaker` 或 `retry-backoff`。
 - **并发处理:** 若需要高吞吐量的后台处理，请加入 `worker-pool` 或 `pipeline`。
 

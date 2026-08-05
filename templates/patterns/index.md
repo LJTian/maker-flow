@@ -19,6 +19,11 @@ Each pattern has its own `go.mod` and can run `go test ./...` in-directory (or i
 | `persistence-sqlx` | [`persistence-sqlx/`](persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` | PRO has tables / needs durable storage (pair with `go-api`) |
 | `auth-oauth-jwt` | [`auth-oauth-jwt/`](auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` | Multi-provider OAuth (Google, Apple, WeChat, GitHub) + JWT |
 | `payment-lemonsqueezy` | [`payment-lemonsqueezy/`](payment-lemonsqueezy/) | `payment` `stripe` `alipay` `wechat` `lemonsqueezy` | Lemon Squeezy payment webhook verification for MoR |
+| `notify-email` | [`notify-email/`](notify-email/) | `email` `resend` `notification` | Send transactional emails via HTTP API |
+| `storage-s3` | [`storage-s3/`](storage-s3/) | `storage` `s3` `r2` `upload` | AWS S3 / Cloudflare R2 object storage |
+| `ai-llm-client` | [`ai-llm-client/`](ai-llm-client/) | `ai` `llm` `openai` `streaming` | Streaming LLM client (OpenAI compatible) |
+| `cron-scheduler` | [`cron-scheduler/`](cron-scheduler/) | `cron` `schedule` `job` | Single-node cron job scheduler |
+| `telemetry-posthog` | [`telemetry-posthog/`](telemetry-posthog/) | `telemetry` `analytics` `posthog` | Product analytics event capture |
 
 ## Agent usage
 

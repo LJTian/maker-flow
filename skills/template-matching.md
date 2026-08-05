@@ -43,6 +43,11 @@
 - **DB / Durable Storage:** Add `persistence-sqlx` to your selection (only use this if state is required).
 - **User Login / Auth:** Add `auth-oauth-jwt` to your selection if the user wants login, OAuth (Google, Apple, WeChat, GitHub), or JWT.
 - **Payments / Subscriptions:** Add `payment-lemonsqueezy` to your selection if the user wants to collect payments, especially for individual developers (supports Alipay, WeChat Pay, global MoR).
+- **Email/Notifications:** Add `notify-email` if the user wants to send transactional emails (welcome, reset password, etc.).
+- **Storage/Uploads:** Add `storage-s3` if the user needs to upload files, avatars, or use S3/R2.
+- **AI/LLMs:** Add `ai-llm-client` if the user wants to integrate ChatGPT, Claude, or any LLM streaming features.
+- **Cron Jobs:** Add `cron-scheduler` if the user explicitly mentions scheduled tasks, recurring jobs, or daily/hourly cron.
+- **Analytics:** Add `telemetry-posthog` if the user asks for user tracking, telemetry, or analytics (PostHog).
 - **Resilience:** Add `circuit-breaker` or `retry-backoff` if high reliability against external systems is requested.
 - **Concurrency:** Add `worker-pool` or `pipeline` if high-throughput background processing is needed.
 
