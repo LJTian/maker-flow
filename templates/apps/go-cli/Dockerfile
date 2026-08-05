@@ -11,9 +11,7 @@ RUN go mod tidy && CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /src/cl
 FROM alpine:3.20
 RUN apk add --no-cache ca-certificates tzdata wget
 WORKDIR /app
-USER root
-COPY --from=builder /src/cli /app/cli
-RUN chown nobody:nobody /app/cli
 USER nobody
+COPY --chown=nobody:nobody --from=builder /src/cli /app/cli
 ENTRYPOINT ["/app/cli"]
 CMD ["version"]

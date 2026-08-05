@@ -12,6 +12,7 @@ Stage input contracts for agents. Prefer reading the matching `skills/` file fir
 | `02-pro-draft.md` | 2 | Draft PRO only (no code) |
 | [`pro.template.md`](pro.template.md) | 2–3 | **PRO blank skeleton** (output / confirm structure) |
 | [`pro.example.md`](pro.example.md) | 2–3 | **PRO full sample** (todo API) |
+| [`pro-multi.example.md`](pro-multi.example.md) | 2–3 | **PRO full sample** (multi-app: web + api) |
 | `03-pro-confirmed.example.md` | 3 | Persist human-approved PRO (gate artifact) |
 | `04-assemble-mvp.md` | 4 | Match template + assemble (output = **product repo**; see consumer guide) |
 | `05-accept-mvp.md` | 5 | Local acceptance evidence vs `pro.md`; human approve/reject gate |

@@ -18,14 +18,28 @@ fi
 
 if [[ -z "${SOURCE}" ]]; then
   if ! command -v git >/dev/null 2>&1; then
-    echo "install.sh: git is required for remote install" >&2
-    exit 1
+    echo "==> git not found, attempting to download zip archive..."
+    TMP="$(mktemp -d)"
+    trap 'rm -rf "${TMP}"' EXIT
+    ZIP_URL="${REPO_URL%.git}/archive/main.zip"
+    if command -v curl >/dev/null 2>&1; then
+      curl -fsSL "${ZIP_URL}" -o "${TMP}/main.zip"
+    elif command -v wget >/dev/null 2>&1; then
+      wget -qO "${TMP}/main.zip" "${ZIP_URL}"
+    else
+      echo "install.sh: curl or wget is required for remote install without git" >&2
+      exit 1
+    fi
+    unzip -q "${TMP}/main.zip" -d "${TMP}"
+    SOURCE="${TMP}/maker-flow-main"
+  else
+    TMP="$(mktemp -d)"
+    trap 'rm -rf "${TMP}"' EXIT
+    echo "==> Cloning ${REPO_URL} ..."
+    git clone --depth 1 "${REPO_URL}" "${TMP}/maker-flow"
+    SOURCE="${TMP}/maker-flow"
   fi
-  TMP="$(mktemp -d)"
-  trap 'rm -rf "${TMP}"' EXIT
-  echo "==> Cloning ${REPO_URL} ..."
-  git clone --depth 1 "${REPO_URL}" "${TMP}/maker-flow"
-  SOURCE="${TMP}/maker-flow"
+
 fi
 
 export MAKER_FLOW_INSTALL_DIR="${MAKER_FLOW_INSTALL_DIR:-${HOME}/.maker-flow}"

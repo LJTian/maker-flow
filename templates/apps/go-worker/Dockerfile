@@ -11,10 +11,8 @@ RUN go mod tidy && CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /src/wo
 FROM alpine:3.20
 RUN apk add --no-cache ca-certificates tzdata wget
 WORKDIR /app
-USER root
-COPY --from=builder /src/worker /app/worker
-RUN chown nobody:nobody /app/worker
 USER nobody
+COPY --chown=nobody:nobody --from=builder /src/worker /app/worker
 ENV APP_ENV=production HTTP_ADDR=:8080 WORKERS=4 QUEUE_SIZE=64
 EXPOSE 8080
 ENTRYPOINT ["/app/worker"]

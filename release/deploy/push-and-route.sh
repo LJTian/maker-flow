@@ -74,10 +74,11 @@ docker network connect --alias '${MVP_NAME}' maker-flow '${CONTAINER_ID}'
 EOF
 
 TMP_CONF="$(mktemp)"
+echo "==> Configuring Nginx..."
 sed \
-  -e "s/__DOMAIN__/${DOMAIN}/g" \
-  -e "s/__MVP_NAME__/${MVP_NAME}/g" \
-  -e "s/__CONTAINER_PORT__/${CONTAINER_PORT}/g" \
+  -e "s|__DOMAIN__|${DOMAIN}|g" \
+  -e "s|__MVP_NAME__|${MVP_NAME}|g" \
+  -e "s|__CONTAINER_PORT__|${CONTAINER_PORT}|g" \
   "${GATEWAY_SRC}/snippets/mvp-server.conf.example" > "${TMP_CONF}"
 
 echo "==> install conf.d/${MVP_NAME}.conf"
