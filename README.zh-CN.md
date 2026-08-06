@@ -172,6 +172,14 @@ Maker Flow 站在这些优秀项目之上，感谢维护者与社区：
 | Web UI（`web-vite`） | **Vite** · **React** · **Tailwind CSS** | https://vite.dev/ · https://react.dev/ · https://tailwindcss.com/ |
 | CLI 框架（`go-cli`） | **Cobra** | https://github.com/spf13/cobra |
 | singleflight（pattern） | **golang.org/x/sync** | https://pkg.go.dev/golang.org/x/sync/singleflight |
+| 令牌桶限流器（pattern） | **golang.org/x/time/rate** | https://pkg.go.dev/golang.org/x/time/rate |
+| JWT 鉴权（pattern） | **golang-jwt** | https://github.com/golang-jwt/jwt |
+| 邮件推送（pattern） | **Resend** | https://resend.com/ |
+| 全球支付（pattern） | **Lemon Squeezy** | https://www.lemonsqueezy.com/ |
+| 对象存储（pattern） | **AWS S3 / MinIO** | https://github.com/minio/minio-go |
+| LLM 客户端（pattern） | **go-openai** | https://github.com/sashabaranov/go-openai |
+| 定时任务（pattern） | **robfig/cron** | https://github.com/robfig/cron |
+| 数据打点（pattern） | **PostHog** | https://posthog.com/ |
 | 编译片段 (Go) | **golang** (official image) | https://hub.docker.com/_/golang |
 | 运行片段 (Alpine) | **Alpine Linux** | https://alpinelinux.org/ · https://hub.docker.com/_/alpine |
 | 容器运行时 | **Docker** | https://www.docker.com/ |

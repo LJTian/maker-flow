@@ -170,6 +170,14 @@ Maker Flow stands on these projects — thanks to maintainers and communities:
 | Web UI (`web-vite`) | **Vite** · **React** · **Tailwind CSS** | https://vite.dev/ · https://react.dev/ · https://tailwindcss.com/ |
 | CLI (`go-cli`) | **Cobra** | https://github.com/spf13/cobra |
 | singleflight (pattern) | **golang.org/x/sync** | https://pkg.go.dev/golang.org/x/sync/singleflight |
+| Rate Limiter (pattern) | **golang.org/x/time/rate** | https://pkg.go.dev/golang.org/x/time/rate |
+| Auth JWT (pattern) | **golang-jwt** | https://github.com/golang-jwt/jwt |
+| Email / Notify (pattern) | **Resend** | https://resend.com/ |
+| Payments (pattern) | **Lemon Squeezy** | https://www.lemonsqueezy.com/ |
+| Object Storage (pattern) | **AWS S3 / MinIO** | https://github.com/minio/minio-go |
+| AI Client (pattern) | **go-openai** | https://github.com/sashabaranov/go-openai |
+| Background Jobs (pattern) | **robfig/cron** | https://github.com/robfig/cron |
+| Analytics (pattern) | **PostHog** | https://posthog.com/ |
 | Build fragment (Go) | **golang** (official) | https://hub.docker.com/_/golang |
 | Runtime fragment (Alpine) | **Alpine Linux** | https://alpinelinux.org/ · https://hub.docker.com/_/alpine |
 | Containers | **Docker** | https://www.docker.com/ |
