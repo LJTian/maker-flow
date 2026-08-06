@@ -33,7 +33,7 @@ func InitOAuth(configs []Config) {
 		case "apple":
 			providers = append(providers, apple.New(c.ClientID, c.ClientSecret, c.CallbackURL, nil))
 		case "wechat":
-			providers = append(providers, wechat.New(c.ClientID, c.ClientSecret, c.CallbackURL))
+			providers = append(providers, wechat.New(c.ClientID, c.ClientSecret, c.CallbackURL, wechat.WECHAT_LANG_CN))
 		}
 	}
 	goth.UseProviders(providers...)
