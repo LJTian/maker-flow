@@ -3,6 +3,11 @@
 Lightweight, dependency-free HTTP client wrapper for pushing events to PostHog (or compatible analytics platforms).
 Helps indie developers track product usage and user flows easily without pulling in heavy SDKs.
 
+## 💰 Pricing / Free Tier
+- **Free Tier**: 1,000,000 events per month completely free (Cloud hosted).
+- **Self-Hosting**: Free and open-source if you deploy it yourself.
+- PostHog's free tier is extraordinarily generous and typically sufficient for MVP validation and early growth.
+
 ## Agent Usage Instructions
 
 1. **Copy** `telemetry.go` into `<product-root>/<app-id>/internal/telemetry/`.

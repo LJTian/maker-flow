@@ -3,6 +3,11 @@
 Lemon Squeezy payment integration pattern for individual developers.
 Provides secure Webhook HMAC SHA256 signature verification to prevent fraudulent orders.
 
+## 💰 Pricing / Free Tier
+- **Setup Fee**: $0. No fixed monthly costs.
+- **Transaction Fee**: Typically 5% + 50¢ per successful transaction.
+- **Value**: Acts as a Merchant of Record (MoR). They handle global sales tax compliance and payout distributions for you, meaning you only pay when you make money.
+
 ## Agent Usage Instructions
 
 1. **Copy** `webhook.go` into `<product-root>/<app-id>/internal/payment/`.
