@@ -41,6 +41,10 @@ jobs:
           set -euo pipefail
           shopt -s nullglob
           for dir in templates/patterns/*/; do
+            if [[ ! -f "${dir}go.mod" ]]; then
+              echo "==> skip ${dir} (no go.mod)"
+              continue
+            fi
             echo "==> go test ${dir}"
             (cd "$dir" && go mod download && go test ./...)
           done
