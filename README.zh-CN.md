@@ -102,10 +102,17 @@ maker-flow new my-first-mvp
 cd ~/projects/my-first-mvp
 ```
 
-用 Cursor 打开**产品仓**，`@AGENTS.md`，从步骤 ① 开始。
+接下来，**把剩下的工作交给 AI Agent**（推荐使用 Cursor 或 Cline）：
+
+1. 用 AI Agent 打开刚刚创建的**产品仓**（`~/projects/my-first-mvp`）
+2. 新建对话，向 AI 发送以下指令：
+
+   > 读取 @AGENTS.md，我要做一个 [你的想法]，请从步骤 ① 开始执行。
+
+3. 你只需要在步骤 ③（确认方案）和 ⑤（验收项目）时点头同意即可。
 
 <details>
-<summary>贡献者：从 git 克隆安装</summary>
+<summary>💻 贡献者：从源码克隆安装</summary>
 
 ```bash
 git clone https://github.com/LJTian/maker-flow.git && cd maker-flow
@@ -114,16 +121,6 @@ maker-flow new my-first-mvp
 ```
 
 </details>
-
-**方式 A — AI Agent（推荐）**
-
-1. 用 AI Agent 打开**产品仓**（`~/projects/<名字>/`）
-2. 新建对话，输入：
-
-   > 按 @AGENTS.md，我要做一个 [你的想法]，从步骤 ① 开始。
-
-3. 在步骤 ③、⑤ 确认 PRO 和 MVP
-
 
 完整教程 → **[docs/getting-started.zh-CN.md](docs/getting-started.zh-CN.md)**
 

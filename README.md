@@ -101,10 +101,17 @@ maker-flow new my-first-mvp
 cd ~/projects/my-first-mvp
 ```
 
-Open the **product repo** in an AI agent IDE, `@AGENTS.md`, start at step ①.
+Now, **hand over the rest to an AI Agent** (Cursor or Cline recommended):
+
+1. Open the new **product repo** (`~/projects/my-first-mvp`) in your AI IDE.
+2. Start a new chat and send this exact prompt:
+
+   > Read @AGENTS.md. I want to build [your idea], starting at step ①.
+
+3. Sit back and approve the design at step ③ and the final MVP at step ⑤.
 
 <details>
-<summary>Contributors: install from a git clone</summary>
+<summary>💻 Contributors: install from source</summary>
 
 ```bash
 git clone https://github.com/LJTian/maker-flow.git && cd maker-flow
@@ -113,15 +120,6 @@ maker-flow new my-first-mvp
 ```
 
 </details>
-
-**A — AI Agent (recommended)**
-
-1. Open the **product repo** (`~/projects/<name>/`) in an AI agent IDE
-2. Start a chat:
-
-   > Follow @AGENTS.md. I want to build [your idea], starting at step ①.
-
-3. Approve PRO and MVP at steps ③ and ⑤
 
 Full guide → **[docs/getting-started.md](docs/getting-started.md)** · [中文](docs/getting-started.zh-CN.md)
 
