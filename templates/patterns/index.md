@@ -24,6 +24,7 @@ Each pattern has its own `go.mod` and can run `go test ./...` in-directory (or i
 | `ai-llm-client` | [`ai-llm-client/`](ai-llm-client/) | `ai` `llm` `openai` `streaming` | Streaming LLM client (OpenAI compatible) |
 | `cron-scheduler` | [`cron-scheduler/`](cron-scheduler/) | `cron` `schedule` `job` | Single-node cron job scheduler |
 | `telemetry-posthog` | [`telemetry-posthog/`](telemetry-posthog/) | `telemetry` `analytics` `posthog` | Product analytics event capture |
+| `rate-limiter` | [`rate-limiter/`](rate-limiter/) | `rate-limit` `security` `api` | Token bucket IP rate limiter |
 
 ## Agent usage
 

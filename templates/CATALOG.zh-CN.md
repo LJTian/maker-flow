@@ -13,7 +13,7 @@
 |------|:----:|----------|
 | 应用模版 (apps) | 4 | [index.md](index.md) · [`apps/`](apps/) |
 | 镜像基座 (images) | 2 | [images/index.md](images/index.md) |
-| 模式库 (patterns) | 13 | [patterns/index.md](patterns/index.md) |
+| 模式库 (patterns) | 14 | [patterns/index.md](patterns/index.md) |
 | 布局 (多 app 根) | 1 | [layouts/index.md](layouts/index.md) |
 
 ---
@@ -58,6 +58,7 @@ Agent：**1～N 个 app** 整目录复制到**产品仓**（多 app 时用子目
 | `ai-llm-client` | [`patterns/ai-llm-client/`](patterns/ai-llm-client/) | `ai` `llm` `openai` `streaming` |
 | `cron-scheduler` | [`patterns/cron-scheduler/`](patterns/cron-scheduler/) | `cron` `schedule` `job` |
 | `telemetry-posthog` | [`patterns/telemetry-posthog/`](patterns/telemetry-posthog/) | `telemetry` `analytics` `posthog` |
+| `rate-limiter` | [`patterns/rate-limiter/`](patterns/rate-limiter/) | `rate-limit` `security` `api` |
 
 Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改写**进对应 app 的产品仓目录，patterns 不单独部署。
 
@@ -91,6 +92,7 @@ Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改�
 需要接入 AI/大模型？ → go-api + ai-llm-client
 需要定时计划任务？  → go-api + cron-scheduler / go-worker + cron-scheduler
 需要产品数据埋点？  → go-api + telemetry-posthog
+需要防刷/API 限流？ → go-api + rate-limiter
 需要并发/韧性片段？ → 从 patterns/ 按 tags 追加
 ```
 

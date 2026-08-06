@@ -24,6 +24,7 @@
 | `ai-llm-client` | [`ai-llm-client/`](ai-llm-client/) | `ai` `llm` `openai` `streaming` | 流式 AI 大模型客户端 (兼容 OpenAI) |
 | `cron-scheduler` | [`cron-scheduler/`](cron-scheduler/) | `cron` `schedule` `job` | 单机定时任务调度 |
 | `telemetry-posthog` | [`telemetry-posthog/`](telemetry-posthog/) | `telemetry` `analytics` `posthog` | 极简产品数据埋点分析 |
+| `rate-limiter` | [`rate-limiter/`](rate-limiter/) | `rate-limit` `security` `api` | 内存令牌桶 IP 限流器 |
 
 ## Agent 用法
 

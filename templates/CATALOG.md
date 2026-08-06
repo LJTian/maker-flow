@@ -13,7 +13,7 @@
 |----------|:-----:|--------------|
 | App templates (apps) | 4 | [index.md](index.md) · [`apps/`](apps/) |
 | Image bases (images) | 2 | [images/index.md](images/index.md) |
-| Pattern library (patterns) | 13 | [patterns/index.md](patterns/index.md) |
+| Pattern library (patterns) | 14 | [patterns/index.md](patterns/index.md) |
 | Layouts (multi-app roots) | 1 | [layouts/index.md](layouts/index.md) |
 
 ---
@@ -58,6 +58,7 @@ Inline into app Dockerfiles when assembling — see [`images/index.md`](images/i
 | `ai-llm-client` | [`patterns/ai-llm-client/`](patterns/ai-llm-client/) | `ai` `llm` `openai` `streaming` |
 | `cron-scheduler` | [`patterns/cron-scheduler/`](patterns/cron-scheduler/) | `cron` `schedule` `job` |
 | `telemetry-posthog` | [`patterns/telemetry-posthog/`](patterns/telemetry-posthog/) | `telemetry` `analytics` `posthog` |
+| `rate-limiter` | [`patterns/rate-limiter/`](patterns/rate-limiter/) | `rate-limit` `security` `api` |
 
 Agent: pick **1–N apps** first, then **0–N patterns**; **copy/adapt** into the matching app in the **product repo**. Patterns are never deployed alone.
 
@@ -91,6 +92,7 @@ Need File Uploads?          → go-api + storage-s3
 Need AI/LLM Features?       → go-api + ai-llm-client
 Need Scheduled Jobs?        → go-api + cron-scheduler / go-worker + cron-scheduler
 Need Product Analytics?     → go-api + telemetry-posthog
+Need API Rate Limiting?     → go-api + rate-limiter
 Need Concurrency/Resilience?→ Add from patterns/ by tags
 ```
 

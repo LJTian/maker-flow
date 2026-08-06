@@ -48,6 +48,7 @@
 - **AI / 大模型:** 若需要集成 ChatGPT、Claude 或任意大模型流式对话功能，请加入 `ai-llm-client`。
 - **定时任务:** 若明确要求定时调度、周期性后台任务或 Cron，请加入 `cron-scheduler`。
 - **数据埋点:** 若需要用户追踪、使用量分析或对接 PostHog，请加入 `telemetry-posthog`。
+- **安全 / 限流:** 若需要防止接口被刷、账单攻击或限制 IP 请求频率，请加入 `rate-limiter`。
 - **系统韧性:** 若要求对外部系统进行高可靠性调用，请加入 `circuit-breaker` 或 `retry-backoff`。
 - **并发处理:** 若需要高吞吐量的后台处理，请加入 `worker-pool` 或 `pipeline`。
 

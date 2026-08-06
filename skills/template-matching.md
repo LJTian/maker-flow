@@ -48,6 +48,7 @@
 - **AI/LLMs:** Add `ai-llm-client` if the user wants to integrate ChatGPT, Claude, or any LLM streaming features.
 - **Cron Jobs:** Add `cron-scheduler` if the user explicitly mentions scheduled tasks, recurring jobs, or daily/hourly cron.
 - **Analytics:** Add `telemetry-posthog` if the user asks for user tracking, telemetry, or analytics (PostHog).
+- **Security/Rate Limiting:** Add `rate-limiter` if the user wants to prevent abuse, protect APIs, or limit request frequency.
 - **Resilience:** Add `circuit-breaker` or `retry-backoff` if high reliability against external systems is requested.
 - **Concurrency:** Add `worker-pool` or `pipeline` if high-throughput background processing is needed.
 
