@@ -8,20 +8,15 @@ import (
 
 func TestScheduler(t *testing.T) {
 	scheduler := NewScheduler()
-	
-	executed := false
-	_, err := scheduler.AddJob("* * * * *", func() {
-		executed = true
-	})
-	
+
+	_, err := scheduler.AddJob("* * * * *", func() {})
 	if err != nil {
 		t.Fatalf("Failed to add job: %v", err)
 	}
 
 	scheduler.Start()
-	
-	// We won't actually wait a full minute to test it to keep unit tests fast, 
-	// we just test start and graceful stop.
+
+	// Keep unit tests fast: only exercise Start + graceful Stop (no minute wait).
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 

@@ -35,3 +35,7 @@ docker-compose.override.yml
 
 # Node (if added later)
 node_modules/
+
+# Local Go module/build caches (agent/CI helpers)
+.gomodcache/
+.gocache/

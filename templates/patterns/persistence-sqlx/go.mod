@@ -1,6 +1,6 @@
 module github.com/LJTian/maker-flow/templates/patterns/persistence-sqlx
 
-go 1.23.0
+go 1.22
 
 require (
 	github.com/jmoiron/sqlx v1.4.0
