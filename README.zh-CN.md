@@ -22,7 +22,7 @@
 
 <br/>
 
-[快速开始](docs/getting-started.zh-CN.md) · [线上示例](docs/examples/static-intro-github-pages.zh-CN.md) · [模版检索](templates/CATALOG.md) · [技能检索](skills/CATALOG.md) · [给 Agent 看](AGENTS.zh-CN.md) · [文档索引](docs/README.zh-CN.md)
+[快速开始](docs/getting-started.zh-CN.md) · [线上示例](docs/examples/static-intro-github-pages.zh-CN.md) · [下一步计划](docs/roadmap.zh-CN.md) · [模版检索](templates/CATALOG.md) · [技能检索](skills/CATALOG.md) · [给 Agent 看](AGENTS.zh-CN.md) · [文档索引](docs/README.zh-CN.md)
 
 </div>
 
@@ -154,8 +154,9 @@ maker-flow new my-first-mvp
 |--------|----------------|
 | [快速开始](docs/getting-started.zh-CN.md) | [AGENTS.md](AGENTS.zh-CN.md) |
 | [消费侧项目](docs/consumer-project.zh-CN.md) · [架构图解](docs/overview.zh-CN.md) | [workflow.zh-CN.md](docs/workflow.zh-CN.md) |
-| [模版检索](templates/CATALOG.md) · [技能检索](skills/CATALOG.md) | [agent-bootstrap.md](docs/agent-bootstrap.md) |
-| [文档索引](docs/README.zh-CN.md) · [国际化](docs/i18n.zh-CN.md) | [AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md)（产品仓） |
+| [下一步计划](docs/roadmap.zh-CN.md) | [agent-bootstrap.md](docs/agent-bootstrap.md) |
+| [模版检索](templates/CATALOG.md) · [技能检索](skills/CATALOG.md) | [AGENTS.consumer.example.zh-CN.md](AGENTS.consumer.example.zh-CN.md)（产品仓） |
+| [文档索引](docs/README.zh-CN.md) · [国际化](docs/i18n.zh-CN.md) | |
 
 ---
 

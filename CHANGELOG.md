@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Roadmap**: Added `docs/roadmap.md` (+ zh-CN) and linked it from the README homepage and docs index.
 - **Multi-app PRO example**: Added `prompts/pro-multi.example.md` (Web SPA + API).
 - **Git fallback in install script**: Added `curl/wget` + `unzip` fallback when `git` is not installed during remote setup.
 - **CI Workflows**: Added `.github/workflows/ci.yml` for automated testing and linting.

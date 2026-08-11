@@ -22,7 +22,7 @@ You provide **requirements** and **two approvals**. AI agents execute against a 
 
 <br/>
 
-[Getting started](docs/getting-started.md) · [Live example](docs/examples/static-intro-github-pages.md) · [Template catalog](templates/CATALOG.md) · [Skills catalog](skills/CATALOG.md) · [For agents](AGENTS.md) · [Docs index](docs/README.md)
+[Getting started](docs/getting-started.md) · [Live example](docs/examples/static-intro-github-pages.md) · [Roadmap](docs/roadmap.md) · [Template catalog](templates/CATALOG.md) · [Skills catalog](skills/CATALOG.md) · [For agents](AGENTS.md) · [Docs index](docs/README.md)
 
 </div>
 
@@ -153,8 +153,9 @@ Full guide → **[docs/getting-started.md](docs/getting-started.md)** · [中文
 |--------|-----------|
 | [Getting started](docs/getting-started.md) | [AGENTS.md](AGENTS.md) |
 | [Consumer project](docs/consumer-project.md) · [Overview](docs/overview.md) | [workflow.md](docs/workflow.md) |
-| [Template catalog](templates/CATALOG.md) · [Skills catalog](skills/CATALOG.md) | [agent-bootstrap.md](docs/agent-bootstrap.md) |
-| [Docs index](docs/README.md) · [i18n](docs/i18n.md) | [AGENTS.consumer.example.md](AGENTS.consumer.example.md) (product repos) |
+| [Roadmap / next plans](docs/roadmap.md) | [agent-bootstrap.md](docs/agent-bootstrap.md) |
+| [Template catalog](templates/CATALOG.md) · [Skills catalog](skills/CATALOG.md) | [AGENTS.consumer.example.md](AGENTS.consumer.example.md) (product repos) |
+| [Docs index](docs/README.md) · [i18n](docs/i18n.md) | |
 
 ---
 

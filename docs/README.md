@@ -20,6 +20,7 @@ Primary docs are **English**. Chinese siblings use the `.zh-CN.md` suffix. See [
 |:--:|-----|-------|
 | 🚀 | [getting-started.md](getting-started.md) | **Start here** — six-step tutorial |
 | ✨ | [examples/](examples/) · [static intro → Pages](examples/static-intro-github-pages.md) | **Live example** — `web-vite` + GitHub Pages |
+| 🗺 | [roadmap.md](roadmap.md) | **Next plans** — known gaps + prioritized backlog |
 | 📦 | [consumer-project.md](consumer-project.md) | **Product repos** — parallel dirs + `MAKER_FLOW_ROOT` |
 | 📄 | [../prompts/pro.template.md](../prompts/pro.template.md) | PRO blank skeleton |
 | 📄 | [../prompts/pro.example.md](../prompts/pro.example.md) | PRO full sample (todo API) |
