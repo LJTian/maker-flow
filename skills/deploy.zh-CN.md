@@ -61,7 +61,7 @@ Agent 内部 VPS 发布用的是 **`CONTAINER_PORT`**，不是 `HOST_PORT`。
 |------|------|--------|------------|
 | `cloudflare-pages` | 静态 / SPA（`web-vite` 构建） | DB、长驻 Go API | [`publish-cloudflare-pages.md`](publish-cloudflare-pages.md) + [`cloudflare-dns.md`](cloudflare-dns.md)（自定义域） |
 | `github-pages` | 静态 / SPA | 同上 | [`publish-github-pages.md`](publish-github-pages.md) |
-| `vercel` | 静态 / SPA | 未改造就塞自建 Postgres | [`publish-vercel.md`](publish-vercel.md) |
+| `vercel` | 静态 / SPA（`web-vite`） | DB API、SSR/Next.js（目录尚无） | [`publish-vercel.md`](publish-vercel.md) |
 | `vps-gateway` | API、worker、整包 Compose、自托管静态 | 没有 VPS 的用户 | [`publish-vps-gateway.md`](publish-vps-gateway.md) + [`cloudflare-dns.md`](cloudflare-dns.md)（自定义域） |
 | `split-web-api` | SPA 上 Pages/Vercel/GH Pages + API 上 VPS | 无 VPS / 纯静态 | [`publish-split-web-api.md`](publish-split-web-api.md) |
 

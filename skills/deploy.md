@@ -61,7 +61,7 @@ Agent-internal VPS publish uses **`CONTAINER_PORT`**, not `HOST_PORT`.
 |--------|----------|---------|-------------|
 | `cloudflare-pages` | Static / SPA (`web-vite` build) | DB, long-running Go API | [`publish-cloudflare-pages.md`](publish-cloudflare-pages.md) + [`cloudflare-dns.md`](cloudflare-dns.md) for custom host |
 | `github-pages` | Static / SPA | Same as above | [`publish-github-pages.md`](publish-github-pages.md) |
-| `vercel` | Static / SPA (and Vercel-native SSR later) | Self-hosted Postgres on Vercel free tier without redesign | [`publish-vercel.md`](publish-vercel.md) |
+| `vercel` | Static / SPA (`web-vite`) | DB APIs, SSR/Next.js (not in catalog) | [`publish-vercel.md`](publish-vercel.md) |
 | `vps-gateway` | APIs, workers, full Docker compose, self-hosted static | Users without a VPS | [`publish-vps-gateway.md`](publish-vps-gateway.md) + [`cloudflare-dns.md`](cloudflare-dns.md) for custom host |
 | `split-web-api` | SPA on Pages/Vercel/GH Pages + API on VPS | No VPS / pure static | [`publish-split-web-api.md`](publish-split-web-api.md) |
 

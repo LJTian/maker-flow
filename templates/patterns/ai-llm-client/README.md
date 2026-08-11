@@ -1,7 +1,7 @@
 # ai-llm-client
 
 Streaming AI client pattern built on `sashabaranov/go-openai`.
-Compatible with OpenAI, Anthropic (via proxy), and local Ollama instances. Ideal for adding LLM features with Server-Sent Events (SSE) streaming output in Go APIs.
+Works with OpenAI and any **OpenAI-compatible** gateway (some Anthropic/Ollama proxies). There is **no** native Anthropic SDK in this pattern.
 
 ## Agent Usage Instructions
 

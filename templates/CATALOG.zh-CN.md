@@ -52,7 +52,7 @@ Agent：**1～N 个 app** 整目录复制到**产品仓**（多 app 时用子目
 | `circuit-breaker` | [`patterns/circuit-breaker/`](patterns/circuit-breaker/) | `circuit-breaker` |
 | `persistence-sqlx` | [`patterns/persistence-sqlx/`](patterns/persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` |
 | `auth-oauth-jwt` | [`patterns/auth-oauth-jwt/`](patterns/auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` |
-| `payment-lemonsqueezy` | [`patterns/payment-lemonsqueezy/`](patterns/payment-lemonsqueezy/) | `payment` `alipay` `wechat` `lemonsqueezy` |
+| `payment-lemonsqueezy` | [`patterns/payment-lemonsqueezy/`](patterns/payment-lemonsqueezy/) | `payment` `lemonsqueezy` `mor` |
 | `notify-email` | [`patterns/notify-email/`](patterns/notify-email/) | `email` `resend` `notification` |
 | `storage-s3` | [`patterns/storage-s3/`](patterns/storage-s3/) | `storage` `s3` `r2` `upload` |
 | `ai-llm-client` | [`patterns/ai-llm-client/`](patterns/ai-llm-client/) | `ai` `llm` `openai` `streaming` |
@@ -86,15 +86,18 @@ Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改�
 需要 API + SPA？   → go-api + web-vite + layout web-api
 需要数据库 / 表？  → go-api + persistence-sqlx
 需要用户登录/鉴权？  → go-api + auth-oauth-jwt
-需要集成支付收款？  → go-api + payment-lemonsqueezy
-需要发送通知邮件？  → go-api + notify-email
-需要存储/上传文件？  → go-api + storage-s3
-需要接入 AI/大模型？ → go-api + ai-llm-client
+需要 Lemon Squeezy（MoR）收款？ → go-api + payment-lemonsqueezy
+需要微信/支付宝/Stripe 收款？ → **目录尚无** — 见 [`docs/roadmap.zh-CN.md`](../docs/roadmap.zh-CN.md)
+需要发送通知邮件？  → go-api + notify-email（仅 Resend）
+需要存储/上传文件？  → go-api + storage-s3（S3 兼容 / R2，aws-sdk-go-v2）
+需要接入 AI/大模型？ → go-api + ai-llm-client（OpenAI 兼容流式）
 需要定时计划任务？  → go-api + cron-scheduler / go-worker + cron-scheduler
 需要产品数据埋点？  → go-api + telemetry-posthog
 需要防刷/API 限流？ → go-api + rate-limiter
 需要并发/韧性片段？ → 从 patterns/ 按 tags 追加
 ```
+
+**栈边界（诚实）：** app 仅 Go + Vite。无 Python/Node API，无原生微信支付 / 支付宝 / Stripe，无 Vercel SSR / Next.js 模版。未实现清单 → [`docs/roadmap.zh-CN.md`](../docs/roadmap.zh-CN.md)。
 
 字段级契约 → [`index.md`](index.md)
 

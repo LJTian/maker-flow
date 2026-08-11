@@ -52,7 +52,7 @@ Inline into app Dockerfiles when assembling — see [`images/index.md`](images/i
 | `circuit-breaker` | [`patterns/circuit-breaker/`](patterns/circuit-breaker/) | `circuit-breaker` |
 | `persistence-sqlx` | [`patterns/persistence-sqlx/`](patterns/persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` |
 | `auth-oauth-jwt` | [`patterns/auth-oauth-jwt/`](patterns/auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` |
-| `payment-lemonsqueezy` | [`patterns/payment-lemonsqueezy/`](patterns/payment-lemonsqueezy/) | `payment` `alipay` `wechat` `lemonsqueezy` |
+| `payment-lemonsqueezy` | [`patterns/payment-lemonsqueezy/`](patterns/payment-lemonsqueezy/) | `payment` `lemonsqueezy` `mor` |
 | `notify-email` | [`patterns/notify-email/`](patterns/notify-email/) | `email` `resend` `notification` |
 | `storage-s3` | [`patterns/storage-s3/`](patterns/storage-s3/) | `storage` `s3` `r2` `upload` |
 | `ai-llm-client` | [`patterns/ai-llm-client/`](patterns/ai-llm-client/) | `ai` `llm` `openai` `streaming` |
@@ -86,15 +86,18 @@ Need Browser UI?            → web-vite
 Need API + SPA?             → go-api + web-vite + layout web-api
 Need DB / Tables?           → go-api + persistence-sqlx
 Need User Login/Auth?       → go-api + auth-oauth-jwt
-Need to Collect Payments?   → go-api + payment-lemonsqueezy
-Need to Send Emails?        → go-api + notify-email
-Need File Uploads?          → go-api + storage-s3
-Need AI/LLM Features?       → go-api + ai-llm-client
+Need Lemon Squeezy (MoR) pay? → go-api + payment-lemonsqueezy
+Need WeChat/Alipay/Stripe pay? → **not in catalog yet** — see [`docs/roadmap.md`](../docs/roadmap.md)
+Need to Send Emails?        → go-api + notify-email (Resend only)
+Need File Uploads?          → go-api + storage-s3 (S3-compatible / R2 via aws-sdk-go-v2)
+Need AI/LLM Features?       → go-api + ai-llm-client (OpenAI-compatible streaming)
 Need Scheduled Jobs?        → go-api + cron-scheduler / go-worker + cron-scheduler
 Need Product Analytics?     → go-api + telemetry-posthog
 Need API Rate Limiting?     → go-api + rate-limiter
 Need Concurrency/Resilience?→ Add from patterns/ by tags
 ```
+
+**Stack boundary (honest):** apps are Go + Vite only. No Python/Node API, no native WeChat Pay / Alipay / Stripe, no Vercel SSR / Next.js templates. Unimplemented list → [`docs/roadmap.md`](../docs/roadmap.md).
 
 Field-level contract → [`index.md`](index.md)
 

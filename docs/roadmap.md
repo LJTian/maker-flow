@@ -16,52 +16,92 @@ The six-step pipeline is usable end-to-end for Go API + Vite SPA MVPs:
 | Workflow + hard gates | `docs/workflow.md`, `AGENTS.md` |
 | Skills (PRO → match → assemble → accept → publish) | `skills/CATALOG.md` |
 | Apps | `go-api`, `go-cli`, `go-worker`, `web-vite` |
-| Patterns | 14 packages under `templates/patterns/` (incl. `persistence-sqlx`, auth, payments, cron, …) |
+| Patterns | 14 packages under `templates/patterns/` (incl. `persistence-sqlx`, OAuth login, Lemon Squeezy webhook, cron, …) |
 | Multi-app layout | `templates/layouts/web-api/` + `skills/publish-split-web-api.md` |
 | CI | `scripts/check.sh`, pattern `go test`, app `docker compose` / `docker build` |
 | Live example | [static intro → GitHub Pages](examples/static-intro-github-pages.md) |
 
-Earlier gaps (acceptance skill, sqlx pattern, split publish, compose CI) are **done**. What follows is the remaining backlog.
+---
+
+## Unimplemented inventory (honest)
+
+Things that were over-claimed in catalogs/skills, or are still missing. Agents **MUST NOT** invent these as if they already exist in the factory.
+
+### Patterns / payments / auth
+
+| ID | Missing | Notes |
+|----|---------|--------|
+| U-1 | **Native WeChat Pay** pattern | WeChat **OAuth login** exists in `auth-oauth-jwt`; **payment** does not |
+| U-2 | **Native Alipay** pattern | Not in catalog |
+| U-3 | **Native Stripe** pattern | Not in catalog (`payment-lemonsqueezy` is MoR webhook only) |
+| U-4 | Auth → DB assembly sample | `auth-oauth-jwt` still has `TODO: Save to DB` |
+| U-5 | Payment → DB upgrade sample | `payment-lemonsqueezy` still has `TODO: Upgrade VIP` |
+| U-6 | Production-ready **Sign in with Apple** | Current `apple.New(..., nil)` is a thin scaffold (no key/team wiring docs) |
+| U-7 | Light auth (API key / signed cookie) | No pattern yet; full OAuth only |
+| U-8 | Generic **SMTP** email | `notify-email` is **Resend-only** |
+| U-9 | Native **Anthropic** SDK | `ai-llm-client` is OpenAI-compatible only |
+
+### Apps / publish / examples
+
+| ID | Missing | Notes |
+|----|---------|--------|
+| U-10 | Python / Node API apps | Catalog is **Go + Vite** only |
+| U-11 | Vercel SSR / **Next.js** template | `publish-vercel` is static/SPA only |
+| U-12 | Extra live examples | Need `go-api`→VPS and `web-api` split walkthroughs (only static Pages demo today) |
+| U-13 | Static publish **scripts** | Pages / Vercel / GH Pages lack script parity with VPS `push-and-route.sh` |
+
+### Docs / factory hygiene
+
+| ID | Missing | Notes |
+|----|---------|--------|
+| U-14 | `CONTRIBUTING.zh-CN.md` | Linked from `CONTRIBUTING.md` but file missing |
+| U-15 | `skills/publish-*.zh-CN.md` | Several publish skills lack ZH siblings |
+| U-16 | `prompts/pro-multi.example.zh-CN.md` | EN example exists; ZH missing |
+| U-17 | First **git tag** / changelog cut | CLI says `0.5.0`; changelog still `[Unreleased]` |
+| U-18 | `web-vite` automated tests | CONTRIBUTING requires app tests; Vite has none |
+| U-19 | Pattern `go.sum` for all Go patterns | Many rely on CI `go mod tidy` only |
+| U-20 | Skill YAML frontmatter vs CONTRIBUTING | CONTRIBUTING claims frontmatter; skills have none — pick one |
 
 ---
 
 ## Priority 1 — high impact on real incubation
 
-Ship these first. They unblock “idea → public validation” for more shapes than a single static landing page.
+| ID | Item | Plan |
+|----|------|------|
+| P1-1 | More end-to-end examples | Cover **U-12** |
+| P1-2 | Static publish script parity | Cover **U-13** |
+| P1-3 | Auth + DB assembly sample | Cover **U-4** |
+| P1-4 | Payment + DB assembly sample | Cover **U-5** |
+| P1-6 | Native WeChat Pay pattern (optional next) | Cover **U-1** when prioritized |
+| P1-7 | Native Alipay / Stripe patterns (optional) | Cover **U-2** / **U-3** when prioritized |
 
-| ID | Item | Gap today | Plan |
-|----|------|-----------|------|
-| P1-1 | **More end-to-end examples** | Only one live walkthrough (`web-vite` → GitHub Pages) | Add walkthroughs (prefer live URLs): `go-api` → VPS gateway; `web-api` split (Pages/Vercel SPA + VPS API). Register under `docs/examples/` |
-| P1-2 | **Static publish script parity** | VPS has `release/deploy/push-and-route.sh`; Pages / Vercel / GH Pages are skill + manual CLI only | Add thin agent-callable scripts under `release/publish/` (or sibling dirs) wrapping build + upload; keep SOPs in `skills/publish-*.md` |
-| P1-3 | **Auth + DB assembly sample** | `auth-oauth-jwt` README still has `TODO: Save to DB` | Document + optional snippet wiring OAuth user → `persistence-sqlx` (users table, find-or-create, JWT subject) |
-| P1-4 | **Payment + DB assembly sample** | `payment-lemonsqueezy` has `TODO: Upgrade VIP` | Same pattern: webhook → sqlx upgrade path; keep MoR flow in README |
-| P1-5 | **Payment catalog honesty** | Tags include `stripe` / Alipay / WeChat but code is Lemon Squeezy only | Either implement extra providers **or** narrow tags/copy so agents do not mis-select |
-
-**Suggested order:** P1-1 → P1-2 → P1-3 → P1-4 → P1-5.
+**Suggested order:** P1-1 → P1-2 → P1-3 → P1-4 → then pick P1-6/P1-7 if domestic or Stripe pay is needed.
 
 ---
 
 ## Priority 2 — factory maturity
 
-| ID | Item | Gap today | Plan |
-|----|------|-----------|------|
-| P2-1 | **Versioned release** | CLI `VERSION=0.5.0`, `CHANGELOG` still all under `[Unreleased]`, no git tags | Cut first tagged release; move Unreleased notes into a version section; keep semver + Keep a Changelog |
-| P2-2 | **Chinese doc parity** | Linked but missing: `CONTRIBUTING.zh-CN.md`; missing `skills/publish-*.zh-CN.md`, `prompts/pro-multi.example.zh-CN.md`, `CHANGELOG.zh-CN.md` (optional) | Ship ZH siblings for user-facing / human docs; English remains the agent contract ([i18n.md](i18n.md)) |
-| P2-3 | **`web-vite` tests** | CONTRIBUTING requires app tests; Vite template has none | Add a minimal Vitest (or equivalent) smoke test; wire CI if cheap |
-| P2-4 | **Pattern `go.sum` coverage** | Many patterns lack committed `go.sum`; CI relies on `go mod tidy` | Commit `go.sum` for every Go pattern (match `cron-scheduler` / `persistence-sqlx`) |
-| P2-5 | **CONTRIBUTING ↔ reality** | CONTRIBUTING says skills need YAML frontmatter; current skills have none | Either add frontmatter to skills **or** relax CONTRIBUTING — pick one and stick to it |
-| P2-6 | **Stack boundary clarity** | Catalog is Go + Vite only; easy to assume Python/Node APIs exist | Explicit “supported stacks / not in scope” note in `templates/CATALOG.md` (and README if needed). New stacks only when someone owns CI + acceptance |
+| ID | Item | Covers |
+|----|------|--------|
+| P2-1 | Versioned release | U-17 |
+| P2-2 | Chinese doc parity | U-14, U-15, U-16 |
+| P2-3 | `web-vite` tests | U-18 |
+| P2-4 | Pattern `go.sum` coverage | U-19 |
+| P2-5 | CONTRIBUTING ↔ reality (frontmatter) | U-20 |
+| P2-6 | Stack boundary clarity | Done in `templates/CATALOG.md` (+ link here); keep updated |
 
 ---
 
-## Priority 3 — polish (nice to have)
+## Priority 3 — polish
 
-| ID | Item | Plan |
-|----|------|------|
-| P3-1 | Light auth pattern | Optional `api-key` or signed-cookie pattern for “personal tool login” without full OAuth |
-| P3-2 | `.gitignore` cleanup | Deduplicate `.gomodcache/` / `.gocache/` entries |
-| P3-3 | `ai-engine/` | Keep optional/docs-only unless Cursor-free LLM transport becomes a real need |
-| P3-4 | Queue backends | Stay out of default PRO scope (no Redis/Asynq unless a real product needs it) |
+| ID | Item | Covers |
+|----|------|--------|
+| P3-1 | Light auth pattern | U-7 |
+| P3-2 | `.gitignore` dedupe | — |
+| P3-3 | Harden Apple Sign In docs/wiring | U-6 |
+| P3-4 | Queue backends (Redis/Asynq) | Explicit non-goal unless a product needs it |
+| P3-5 | SMTP / multi-provider email | U-8 |
+| P3-6 | Native Anthropic client | U-9 |
 
 ---
 
@@ -70,26 +110,26 @@ Ship these first. They unblock “idea → public validation” for more shapes 
 - Assembling MVPs **into** this factory repo (product repos only)
 - Kubernetes / multi-service mesh for step-2 PROs
 - Replacing host agents (Cursor / Claude) with a mandatory self-hosted LLM
-- Full Stripe / domestic payment MoR parity before Lemon Squeezy + DB wiring is solid
+- Pretending Lemon Squeezy covers WeChat Pay / Alipay / Stripe native APIs
 
 ---
 
 ## How to use this doc
 
-- **Humans:** pick the next ID from Priority 1, open an Issue/PR, shrink the row when done.
-- **Agents:** do **not** treat this file as a workflow step. Active work still follows `docs/workflow.md` + `skills/*`.
-- When an item ships: update this table (strike or move to “Done” below) and note it in `CHANGELOG.md`.
+- **Humans:** pick the next ID from Priority 1, open an Issue/PR; when done, move the matching **U-*** row to Done.
+- **Agents:** do **not** treat this file as a workflow step. Active work still follows `docs/workflow.md` + `skills/*`. **MUST NOT** select missing payment providers as if they were `payment-lemonsqueezy`.
+- When an item ships: update this table and note it in `CHANGELOG.md`.
 
 ## Done (recently closed gaps)
 
 | Item | Where |
 |------|--------|
+| Catalog / skill honesty pass (remove fake `stripe`/`alipay`/`wechat` pay tags) | `templates/CATALOG*`, `patterns/index*`, `skills/template-matching*`, payment/auth READMEs |
 | MVP acceptance skill + prompt | `skills/mvp-acceptance.md`, `prompts/05-accept-mvp.md` |
 | `persistence-sqlx` pattern | `templates/patterns/persistence-sqlx/` |
 | Split web + API publish | `skills/publish-split-web-api.md`, `templates/layouts/web-api/` |
 | Publish target skills | `skills/publish-*.md` |
 | Compose / pattern CI | `.github/workflows/ci.yml` |
-| OAuth / cron / payments / … patterns | `templates/patterns/` |
 
 ---
 

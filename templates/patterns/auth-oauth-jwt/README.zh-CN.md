@@ -1,7 +1,9 @@
 # auth-oauth-jwt
 
 Maker Flow MVPs 的统一鉴权模式。
-结合了 `markbates/goth`（Google、Apple、微信、GitHub）与 `golang-jwt/jwt/v5`（无状态 Token 签发）。
+结合了 `markbates/goth`（Google、GitHub、微信；Apple 为薄骨架）与 `golang-jwt/jwt/v5`（无状态 Token 签发）。
+
+**范围（诚实）：** OAuth **登录** + JWT。**不是**微信支付 / 支付宝。用户落库仍是 README TODO — 见 [`docs/roadmap.zh-CN.md`](../../../docs/roadmap.zh-CN.md)。
 
 ## Agent 使用说明
 

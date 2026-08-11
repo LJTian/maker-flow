@@ -3,6 +3,9 @@
 Lemon Squeezy payment integration pattern for individual developers.
 Provides secure Webhook HMAC SHA256 signature verification to prevent fraudulent orders.
 
+**Scope (honest):** Lemon Squeezy MoR checkout + webhook only.  
+**Not included:** native WeChat Pay, Alipay, Stripe APIs — see [`docs/roadmap.md`](../../../docs/roadmap.md).
+
 ## 💰 Pricing / Free Tier
 - **Setup Fee**: $0. No fixed monthly costs.
 - **Transaction Fee**: Typically 5% + 50¢ per successful transaction.

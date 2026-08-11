@@ -7,7 +7,7 @@ Human confirmation required first ([`deploy.md`](deploy.md)).
 
 ## When
 
-Static or SPA (`web-vite`). Optional later: Vercel-native SSR — only if the PRO and stack match; do not invent Next.js.
+Static or SPA (`web-vite`). **No** Next.js / Vercel SSR app template in this factory — do not invent one.
 
 ## Prerequisites
 

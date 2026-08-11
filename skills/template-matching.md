@@ -41,11 +41,11 @@
 | API + browser UI | `go-api` + `web-vite` | layout [`web-api`](../templates/layouts/web-api/); patterns as needed |
 
 - **DB / Durable Storage:** Add `persistence-sqlx` to your selection (only use this if state is required).
-- **User Login / Auth:** Add `auth-oauth-jwt` to your selection if the user wants login, OAuth (Google, Apple, WeChat, GitHub), or JWT.
-- **Payments / Subscriptions:** Add `payment-lemonsqueezy` to your selection if the user wants to collect payments, especially for individual developers (supports Alipay, WeChat Pay, global MoR).
-- **Email/Notifications:** Add `notify-email` if the user wants to send transactional emails (welcome, reset password, etc.).
-- **Storage/Uploads:** Add `storage-s3` if the user needs to upload files, avatars, or use S3/R2.
-- **AI/LLMs:** Add `ai-llm-client` if the user wants to integrate ChatGPT, Claude, or any LLM streaming features.
+- **User Login / Auth:** Add `auth-oauth-jwt` for login / OAuth (Google, GitHub, WeChat; Apple is a thin scaffold) / JWT. This is **login only** — not WeChat Pay.
+- **Payments / Subscriptions:** Add `payment-lemonsqueezy` **only** for Lemon Squeezy MoR checkout + webhook verification. **MUST NOT** pick it for native WeChat Pay, Alipay, or Stripe — those patterns are not in the catalog yet (see `docs/roadmap.md`).
+- **Email/Notifications:** Add `notify-email` for Resend transactional email (Resend only — no generic SMTP pattern).
+- **Storage/Uploads:** Add `storage-s3` for S3-compatible object storage (AWS S3 / R2 / MinIO via `aws-sdk-go-v2` custom endpoint).
+- **AI/LLMs:** Add `ai-llm-client` for **OpenAI-compatible** streaming (ChatGPT or gateways that speak `/v1/chat/completions`; not a native Anthropic SDK).
 - **Cron Jobs:** Add `cron-scheduler` if the user explicitly mentions scheduled tasks, recurring jobs, or daily/hourly cron.
 - **Analytics:** Add `telemetry-posthog` if the user asks for user tracking, telemetry, or analytics (PostHog).
 - **Security/Rate Limiting:** Add `rate-limiter` if the user wants to prevent abuse, protect APIs, or limit request frequency.

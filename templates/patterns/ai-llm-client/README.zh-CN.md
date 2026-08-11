@@ -1,7 +1,7 @@
 # ai-llm-client
 
 流式 AI 大模型客户端封装（基于 `sashabaranov/go-openai`）。
-完全兼容 OpenAI API 规范，通过配置 BaseURL 可以轻松接入中转代理池、Anthropic 适配层或本地 Ollama 服务。完美契合 Go API 的 SSE（Server-Sent Events）流式响应需求。
+适用于 OpenAI 及任意 **OpenAI 兼容**网关（部分 Anthropic/Ollama 代理）。本 pattern **没有** Anthropic 原生 SDK。
 
 ## Agent 使用说明
 

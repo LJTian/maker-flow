@@ -174,7 +174,7 @@ Maker Flow 站在这些优秀项目之上，感谢维护者与社区：
 | JWT 鉴权（pattern） | **golang-jwt** | https://github.com/golang-jwt/jwt |
 | 邮件推送（pattern） | **Resend** | https://resend.com/ |
 | 全球支付（pattern） | **Lemon Squeezy** | https://www.lemonsqueezy.com/ |
-| 对象存储（pattern） | **AWS S3 / MinIO** | https://github.com/minio/minio-go |
+| 对象存储（pattern） | **AWS SDK for Go v2**（S3 API；R2/MinIO 经 endpoint） | https://github.com/aws/aws-sdk-go-v2 |
 | LLM 客户端（pattern） | **go-openai** | https://github.com/sashabaranov/go-openai |
 | 定时任务（pattern） | **robfig/cron** | https://github.com/robfig/cron |
 | 数据打点（pattern） | **PostHog** | https://posthog.com/ |

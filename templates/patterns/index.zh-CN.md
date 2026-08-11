@@ -17,8 +17,8 @@
 | `retry-backoff` | [`retry-backoff/`](retry-backoff/) | `retry` `backoff` `resilience` | 可取消的指数退避重试 |
 | `circuit-breaker` | [`circuit-breaker/`](circuit-breaker/) | `circuit-breaker` `resilience` | 简易熔断器 |
 | `persistence-sqlx` | [`persistence-sqlx/`](persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` | PRO 有表 / 要持久化（配合 `go-api`） |
-| `auth-oauth-jwt` | [`auth-oauth-jwt/`](auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` | 多渠道 OAuth 登录 (Google, Apple, 微信, GitHub) 与 JWT 签发 |
-| `payment-lemonsqueezy` | [`payment-lemonsqueezy/`](payment-lemonsqueezy/) | `payment` `stripe` `alipay` `wechat` `lemonsqueezy` | 针对个人开发者的 Lemon Squeezy 支付防伪校验 |
+| `auth-oauth-jwt` | [`auth-oauth-jwt/`](auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` | OAuth 登录（Google、GitHub、微信；Apple 为骨架）+ JWT — **不是**收款 |
+| `payment-lemonsqueezy` | [`payment-lemonsqueezy/`](payment-lemonsqueezy/) | `payment` `lemonsqueezy` `mor` | Lemon Squeezy Webhook HMAC 验签（仅 MoR 结账 — **不含** Stripe / 支付宝 / 微信支付） |
 | `notify-email` | [`notify-email/`](notify-email/) | `email` `resend` `notification` | 发送事务性通知邮件 |
 | `storage-s3` | [`storage-s3/`](storage-s3/) | `storage` `s3` `r2` `upload` | 兼容 AWS S3 / Cloudflare R2 的对象存储 |
 | `ai-llm-client` | [`ai-llm-client/`](ai-llm-client/) | `ai` `llm` `openai` `streaming` | 流式 AI 大模型客户端 (兼容 OpenAI) |

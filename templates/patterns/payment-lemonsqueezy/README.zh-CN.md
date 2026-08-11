@@ -3,6 +3,9 @@
 针对个人开发者的 Lemon Squeezy 支付集成模式。
 提供安全的 Webhook HMAC SHA256 签名验证，防止伪造的欺诈订单。
 
+**范围（诚实）：** 仅 Lemon Squeezy MoR 结账 + Webhook。  
+**不含：** 原生微信支付、支付宝、Stripe API — 见 [`docs/roadmap.zh-CN.md`](../../../docs/roadmap.zh-CN.md)。
+
 ## 💰 成本与免费额度 (Pricing)
 - **基础月费**：0 元。没有固定的月租费，零门槛接入。
 - **交易抽成**：每笔成功交易大约抽成 5% + $0.50（以实际条款为准）。

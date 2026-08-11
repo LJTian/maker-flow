@@ -8,8 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Roadmap unimplemented inventory**: Documented missing patterns (WeChat Pay, Alipay, Stripe, …) and factory gaps under `docs/roadmap.md`.
 - **Roadmap**: Added `docs/roadmap.md` (+ zh-CN) and linked it from the README homepage and docs index.
 - **Multi-app PRO example**: Added `prompts/pro-multi.example.md` (Web SPA + API).
+
+### Changed
+- **Catalog honesty**: Narrowed `payment-lemonsqueezy` tags/copy to Lemon Squeezy MoR only; clarified auth vs pay, OpenAI-compatible LLM, and Vercel static-only in matching/deploy skills.
 - **Git fallback in install script**: Added `curl/wget` + `unzip` fallback when `git` is not installed during remote setup.
 - **CI Workflows**: Added `.github/workflows/ci.yml` for automated testing and linting.
 - **Failure Paths Contract**: Added rollback and error handling instructions to `docs/workflow.md`.

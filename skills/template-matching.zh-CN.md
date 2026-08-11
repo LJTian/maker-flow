@@ -41,11 +41,11 @@
 | API + 浏览器 UI | `go-api` + `web-vite` | 布局 [`web-api`](../templates/layouts/web-api/)；patterns 按需 |
 
 - **数据库 / 持久化存储:** 若需要状态，请加入 `persistence-sqlx`。
-- **用户登录 / Auth:** 若用户要求登录、OAuth (Google/Apple/微信/GitHub) 或 JWT，请加入 `auth-oauth-jwt`。
-- **支付 / 订阅:** 若用户要求集成支付收款（特别是针对独立开发者的微信/支付宝/全球支付），请加入 `payment-lemonsqueezy`。
-- **通知 / 邮件:** 若需要发送事务性邮件（欢迎信、验证码等），请加入 `notify-email`。
-- **存储 / 上传:** 若需要上传文件、用户头像或使用 S3/R2 对象存储，请加入 `storage-s3`。
-- **AI / 大模型:** 若需要集成 ChatGPT、Claude 或任意大模型流式对话功能，请加入 `ai-llm-client`。
+- **用户登录 / Auth:** 若需要登录 / OAuth（Google、GitHub、微信；Apple 仅为薄骨架）/ JWT，加入 `auth-oauth-jwt`。这是**登录**，不是微信支付。
+- **支付 / 订阅:** **仅**在使用 Lemon Squeezy MoR 结账 + Webhook 验签时加入 `payment-lemonsqueezy`。**MUST NOT** 用它冒充原生微信支付、支付宝或 Stripe — 这些 pattern 尚未入库（见 `docs/roadmap.md`）。
+- **通知 / 邮件:** 事务邮件用 `notify-email`（仅 Resend，无通用 SMTP pattern）。
+- **存储 / 上传:** S3 兼容对象存储用 `storage-s3`（AWS S3 / R2 / MinIO，经 `aws-sdk-go-v2` 自定义 endpoint）。
+- **AI / 大模型:** `ai-llm-client` 为 **OpenAI 兼容**流式客户端（ChatGPT 或兼容 `/v1/chat/completions` 的网关；非 Anthropic 原生 SDK）。
 - **定时任务:** 若明确要求定时调度、周期性后台任务或 Cron，请加入 `cron-scheduler`。
 - **数据埋点:** 若需要用户追踪、使用量分析或对接 PostHog，请加入 `telemetry-posthog`。
 - **安全 / 限流:** 若需要防止接口被刷、账单攻击或限制 IP 请求频率，请加入 `rate-limiter`。

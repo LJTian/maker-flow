@@ -1,7 +1,9 @@
 # auth-oauth-jwt
 
 Unified authentication pattern for Maker Flow MVPs.
-Combines `markbates/goth` (Google, Apple, WeChat, GitHub) and `golang-jwt/jwt/v5` (Stateless token issuance).
+Combines `markbates/goth` (Google, GitHub, WeChat; Apple is a thin scaffold) and `golang-jwt/jwt/v5` (stateless token issuance).
+
+**Scope (honest):** OAuth **login** + JWT. **Not** WeChat Pay / Alipay. Persisting users to DB is still a README TODO — see [`docs/roadmap.md`](../../../docs/roadmap.md).
 
 ## Agent Usage Instructions
 

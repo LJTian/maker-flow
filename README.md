@@ -173,7 +173,7 @@ Maker Flow stands on these projects — thanks to maintainers and communities:
 | Auth JWT (pattern) | **golang-jwt** | https://github.com/golang-jwt/jwt |
 | Email / Notify (pattern) | **Resend** | https://resend.com/ |
 | Payments (pattern) | **Lemon Squeezy** | https://www.lemonsqueezy.com/ |
-| Object Storage (pattern) | **AWS S3 / MinIO** | https://github.com/minio/minio-go |
+| Object Storage (pattern) | **AWS SDK for Go v2** (S3 API; R2/MinIO via endpoint) | https://github.com/aws/aws-sdk-go-v2 |
 | AI Client (pattern) | **go-openai** | https://github.com/sashabaranov/go-openai |
 | Background Jobs (pattern) | **robfig/cron** | https://github.com/robfig/cron |
 | Analytics (pattern) | **PostHog** | https://posthog.com/ |
