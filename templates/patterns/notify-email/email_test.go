@@ -1,32 +1,38 @@
 package email
 
 import (
-	"net/http"
-	"net/http/httptest"
 	"testing"
 )
 
-func TestEmailClient(t *testing.T) {
-	// Mock Resend API
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Header.Get("Authorization") != "Bearer test-api-key" {
-			t.Errorf("Expected Bearer test-api-key, got %s", r.Header.Get("Authorization"))
-		}
-		w.WriteHeader(http.StatusOK)
-	}))
-	defer server.Close()
-
-	client := &Client{
-		config: ResendConfig{
-			APIKey: "test-api-key",
-			From:   "test@example.com",
-		},
-		client: server.Client(),
+func TestMockSender(t *testing.T) {
+	mock := NewMockSender()
+	err := mock.Send([]string{"user@example.com"}, "Welcome", "<p>Hello</p>")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
 	}
 
-	err := client.Send([]string{"user@example.com"}, "Hello", "<p>Testing</p>")
+	if len(mock.Emails) != 1 {
+		t.Fatalf("expected 1 sent email, got %d", len(mock.Emails))
+	}
+	if mock.Emails[0].Subject != "Welcome" {
+		t.Errorf("expected subject 'Welcome', got '%s'", mock.Emails[0].Subject)
+	}
+}
+
+func TestConsoleSender(t *testing.T) {
+	console := NewConsoleSender(Config{From: "noreply@example.com"})
+	err := console.Send([]string{"dev@example.com"}, "Test", "Body")
 	if err != nil {
-		// Expect failure since the URL is hardcoded in the implementation, but let's test the interface structure
-		// Actually, standard test just covers the struct fields. We won't patch the URL for this simple MVP template.
+		t.Errorf("console sender failed: %v", err)
+	}
+}
+
+func TestNewEmailSenderFactory(t *testing.T) {
+	sender, err := NewEmailSender(Config{Mode: "mock"})
+	if err != nil {
+		t.Fatalf("factory failed: %v", err)
+	}
+	if sender == nil {
+		t.Fatal("sender is nil")
 	}
 }
