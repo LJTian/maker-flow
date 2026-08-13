@@ -1,0 +1,13 @@
+# docker-compose snippet for local SQLite / PostgreSQL fallback in dev mode
+services:
+  db:
+    image: alpine:3.20
+    container_name: app-local-db
+    command: ["sh", "-c", "mkdir -p /data && tail -f /dev/null"]
+    volumes:
+      - db_data:/data
+    environment:
+      - SQLITE_PATH=/data/app.db
+
+volumes:
+  db_data:

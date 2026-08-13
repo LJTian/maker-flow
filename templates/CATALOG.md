@@ -13,7 +13,7 @@
 |----------|:-----:|--------------|
 | App templates (apps) | 4 | [index.md](index.md) · [`apps/`](apps/) |
 | Image bases (images) | 2 | [images/index.md](images/index.md) |
-| Pattern library (patterns) | 14 | [patterns/index.md](patterns/index.md) |
+| Pattern library (patterns) | 15 | [patterns/index.md](patterns/index.md) |
 | Layouts (multi-app roots) | 1 | [layouts/index.md](layouts/index.md) |
 
 ---
@@ -51,6 +51,7 @@ Inline into app Dockerfiles when assembling — see [`images/index.md`](images/i
 | `retry-backoff` | [`patterns/retry-backoff/`](patterns/retry-backoff/) | `retry` `backoff` |
 | `circuit-breaker` | [`patterns/circuit-breaker/`](patterns/circuit-breaker/) | `circuit-breaker` |
 | `persistence-sqlx` | [`patterns/persistence-sqlx/`](patterns/persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` |
+| `persistence-d1` | [`patterns/persistence-d1/`](patterns/persistence-d1/) | `db` `d1` `cloudflare` `sqlite` `persist` `docker` |
 | `auth-oauth-jwt` | [`patterns/auth-oauth-jwt/`](patterns/auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` |
 | `payment-lemonsqueezy` | [`patterns/payment-lemonsqueezy/`](patterns/payment-lemonsqueezy/) | `payment` `lemonsqueezy` `mor` |
 | `notify-email` | [`patterns/notify-email/`](patterns/notify-email/) | `email` `resend` `notification` |
@@ -84,7 +85,7 @@ Need CLI?                   → go-cli
 Need Background Worker?     → go-worker
 Need Browser UI?            → web-vite
 Need API + SPA?             → go-api + web-vite + layout web-api
-Need DB / Tables?           → go-api + persistence-sqlx
+Need DB / Tables?           → go-api + persistence-sqlx / persistence-d1 (Cloudflare D1 online + Docker local)
 Need User Login/Auth?       → go-api + auth-oauth-jwt
 Need Lemon Squeezy (MoR) pay? → go-api + payment-lemonsqueezy
 Need WeChat/Alipay/Stripe pay? → **not in catalog yet** — see [`docs/roadmap.md`](../docs/roadmap.md)

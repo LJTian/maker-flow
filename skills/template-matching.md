@@ -40,7 +40,7 @@
 | Browser UI / SPA / dashboard | `web-vite` | — (optional snippets in `src/lib/`) |
 | API + browser UI | `go-api` + `web-vite` | layout [`web-api`](../templates/layouts/web-api/); patterns as needed |
 
-- **DB / Durable Storage:** Add `persistence-sqlx` to your selection (only use this if state is required).
+- **DB / Durable Storage:** Add `persistence-sqlx` (for SQL/SQLite/Postgres) or `persistence-d1` (for Cloudflare D1 online + Docker local) to your selection (only use this if state is required).
 - **User Login / Auth:** Add `auth-oauth-jwt` for login / OAuth (Google, GitHub, WeChat; Apple is a thin scaffold) / JWT. This is **login only** — not WeChat Pay.
 - **Payments / Subscriptions:** Add `payment-lemonsqueezy` **only** for Lemon Squeezy MoR checkout + webhook verification. **MUST NOT** pick it for native WeChat Pay, Alipay, or Stripe — those patterns are not in the catalog yet (see `docs/roadmap.md`).
 - **Email/Notifications:** Add `notify-email` for Resend transactional email (Resend only — no generic SMTP pattern).

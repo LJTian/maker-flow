@@ -13,7 +13,7 @@
 |------|:----:|----------|
 | 应用模版 (apps) | 4 | [index.md](index.md) · [`apps/`](apps/) |
 | 镜像基座 (images) | 2 | [images/index.md](images/index.md) |
-| 模式库 (patterns) | 14 | [patterns/index.md](patterns/index.md) |
+| 模式组件库 (patterns) | 15 | [patterns/index.zh-CN.md](patterns/index.zh-CN.md) |
 | 布局 (多 app 根) | 1 | [layouts/index.md](layouts/index.md) |
 
 ---
@@ -51,6 +51,7 @@ Agent：**1～N 个 app** 整目录复制到**产品仓**（多 app 时用子目
 | `retry-backoff` | [`patterns/retry-backoff/`](patterns/retry-backoff/) | `retry` `backoff` |
 | `circuit-breaker` | [`patterns/circuit-breaker/`](patterns/circuit-breaker/) | `circuit-breaker` |
 | `persistence-sqlx` | [`patterns/persistence-sqlx/`](patterns/persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` |
+| `persistence-d1` | [`patterns/persistence-d1/`](patterns/persistence-d1/) | `db` `d1` `cloudflare` `sqlite` `persist` `docker` |
 | `auth-oauth-jwt` | [`patterns/auth-oauth-jwt/`](patterns/auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` |
 | `payment-lemonsqueezy` | [`patterns/payment-lemonsqueezy/`](patterns/payment-lemonsqueezy/) | `payment` `lemonsqueezy` `mor` |
 | `notify-email` | [`patterns/notify-email/`](patterns/notify-email/) | `email` `resend` `notification` |
@@ -84,7 +85,7 @@ Agent：先选 **1～N 个 app**，再选 **0～N 个 pattern**，**复制/改�
 需要后台 worker？   → go-worker
 需要浏览器 UI？    → web-vite
 需要 API + SPA？   → go-api + web-vite + layout web-api
-需要数据库 / 表？  → go-api + persistence-sqlx
+需要数据库表持久化？     → go-api + persistence-sqlx / persistence-d1 (线上 Cloudflare D1 + 本地 Docker)
 需要用户登录/鉴权？  → go-api + auth-oauth-jwt
 需要 Lemon Squeezy（MoR）收款？ → go-api + payment-lemonsqueezy
 需要微信/支付宝/Stripe 收款？ → **目录尚无** — 见 [`docs/roadmap.zh-CN.md`](../docs/roadmap.zh-CN.md)
