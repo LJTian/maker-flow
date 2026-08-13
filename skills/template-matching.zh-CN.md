@@ -33,14 +33,14 @@
 
 | PRO 特征 | App | 常用 Patterns |
 |----------|-----|---------------|
-| REST API、Gin | `go-api` | `retry-backoff`, `circuit-breaker`, `singleflight-cache`, `persistence-sqlx` |
-| 表结构 / 数据库 / 持久化 | `go-api` | `persistence-sqlx`（`DB_DRIVER`：sqlite \| postgres \| mysql） |
+| REST API、Gin | `go-api` | `retry-backoff`, `circuit-breaker`, `singleflight-cache`, `persistence-d1` |
+| 表结构 / 数据库 / 持久化 | `go-api` | `persistence-d1`（线上 Cloudflare D1 + 本地 Docker） |
 | CLI / 命令行工具 | `go-cli` | `retry-backoff`, `worker-pool` |
 | 后台任务 / 多协程消费 | `go-worker` | `worker-pool`, `pipeline`, `retry-backoff` |
 | 浏览器 UI / SPA / 面板 | `web-vite` | —（可选片段放 `src/lib/`） |
 | API + 浏览器 UI | `go-api` + `web-vite` | 布局 [`web-api`](../templates/layouts/web-api/)；patterns 按需 |
 
-- **数据库 / 持久化存储**：选中 `persistence-sqlx`（用于 SQL/SQLite/Postgres）或 `persistence-d1`（用于线上 Cloudflare D1 + 本地 Docker）。
+- **数据库 / 持久化存储**：选中 `persistence-d1`（线上 Cloudflare D1 + 本地 Docker）。
 - **用户登录 / Auth:** 若需要登录 / OAuth（Google、GitHub、微信；Apple 仅为薄骨架）/ JWT，加入 `auth-oauth-jwt`。这是**登录**，不是微信支付。
 - **支付 / 订阅:** **仅**在使用 Lemon Squeezy MoR 结账 + Webhook 验签时加入 `payment-lemonsqueezy`。**MUST NOT** 用它冒充原生微信支付、支付宝或 Stripe — 这些 pattern 尚未入库（见 `docs/roadmap.md`）。
 - **通知 / 邮件:** 事务邮件用 `notify-email`（仅 Resend，无通用 SMTP pattern）。

@@ -16,12 +16,11 @@ Each pattern has its own `go.mod` and can run `go test ./...` in-directory (or i
 | `singleflight-cache` | [`singleflight-cache/`](singleflight-cache/) | `cache` `singleflight` `ttl` | Collapse stampede + local TTL cache |
 | `retry-backoff` | [`retry-backoff/`](retry-backoff/) | `retry` `backoff` `resilience` | Cancellable exponential backoff retry |
 | `circuit-breaker` | [`circuit-breaker/`](circuit-breaker/) | `circuit-breaker` `resilience` | Simple circuit breaker |
-| `persistence-sqlx` | [`persistence-sqlx/`](persistence-sqlx/) | `db` `sqlx` `sqlite` `postgres` `mysql` | PRO has tables / needs durable storage (pair with `go-api`) |
 | `persistence-d1` | [`persistence-d1/`](persistence-d1/) | `db` `d1` `cloudflare` `sqlite` `persist` `docker` | Local Docker/SQLite + Online Cloudflare D1 HTTP API dual-mode persistence |
 | `auth-oauth-jwt` | [`auth-oauth-jwt/`](auth-oauth-jwt/) | `auth` `oauth` `jwt` `login` | OAuth login (Google, GitHub, WeChat; Apple scaffold) + JWT — **not** payment |
 | `payment-lemonsqueezy` | [`payment-lemonsqueezy/`](payment-lemonsqueezy/) | `payment` `lemonsqueezy` `mor` | Lemon Squeezy webhook HMAC verification (MoR checkout only — **not** Stripe / Alipay / WeChat Pay) |
 | `notify-email` | [`notify-email/`](notify-email/) | `email` `resend` `notification` | Send transactional emails via HTTP API |
-| `storage-s3` | [`storage-s3/`](storage-s3/) | `storage` `s3` `r2` `upload` | AWS S3 / Cloudflare R2 object storage |
+| `storage-s3` | [`storage-s3/`](storage-s3/) | `storage` `s3` `r2` `minio` `upload` | Local Docker MinIO + Online Cloudflare R2 object storage |
 | `ai-llm-client` | [`ai-llm-client/`](ai-llm-client/) | `ai` `llm` `openai` `streaming` | Streaming LLM client (OpenAI compatible) |
 | `cron-scheduler` | [`cron-scheduler/`](cron-scheduler/) | `cron` `schedule` `job` | Single-node cron job scheduler |
 | `telemetry-posthog` | [`telemetry-posthog/`](telemetry-posthog/) | `telemetry` `analytics` `posthog` | Product analytics event capture |

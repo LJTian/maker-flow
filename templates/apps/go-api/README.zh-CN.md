@@ -17,7 +17,7 @@
 
 1. 将本目录复制到**产品仓根**（或 `<产品根>/<app-id>/`，多 app）。不要原地改模版。
 2. 在 `internal/handler/` 添加 handlers（`func(c *gin.Context)`）；在 `internal/server/server.go` 注册路由。
-3. 遵循 `skills/mvp-assembly.md`。可选 patterns：见 `templates/patterns/index.md`。需要数据库/表时用 [`persistence-sqlx`](../../patterns/persistence-sqlx/)。
+3. 遵循 `skills/mvp-assembly.md`。可选 patterns：见 `templates/patterns/index.md`。需要数据库/表时用 [`persistence-d1`](../../patterns/persistence-d1/)。
 4. 若自定义 Dockerfile，从 `../../images/` 片段拼装（见 `images/index.md`）。
 
 ## 布局

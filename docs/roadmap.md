@@ -126,7 +126,7 @@ Things that were over-claimed in catalogs/skills, or are still missing. Agents *
 |------|--------|
 | Catalog / skill honesty pass (remove fake `stripe`/`alipay`/`wechat` pay tags) | `templates/CATALOG*`, `patterns/index*`, `skills/template-matching*`, payment/auth READMEs |
 | MVP acceptance skill + prompt | `skills/mvp-acceptance.md`, `prompts/05-accept-mvp.md` |
-| `persistence-sqlx` pattern | `templates/patterns/persistence-sqlx/` |
+| `persistence-d1` pattern (Cloudflare D1 + Docker local) | `templates/patterns/persistence-d1/` |
 | Split web + API publish | `skills/publish-split-web-api.md`, `templates/layouts/web-api/` |
 | Publish target skills | `skills/publish-*.md` |
 | Compose / pattern CI | `.github/workflows/ci.yml` |

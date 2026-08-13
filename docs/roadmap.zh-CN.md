@@ -125,7 +125,7 @@
 |------|------|
 | 目录/技能诚实化（去掉假的 `stripe`/`alipay`/`wechat` 收款标签） | `templates/CATALOG*`、`patterns/index*`、`skills/template-matching*`、支付/鉴权 README |
 | MVP 验收技能 + prompt | `skills/mvp-acceptance.md`、`prompts/05-accept-mvp.md` |
-| `persistence-sqlx` pattern | `templates/patterns/persistence-sqlx/` |
+| `persistence-d1` pattern (线上 Cloudflare D1 + 本地 Docker) | `templates/patterns/persistence-d1/` |
 | 前后端拆分发布 | `skills/publish-split-web-api.md`、`templates/layouts/web-api/` |
 | 各发布目标技能 | `skills/publish-*.md` |
 | Compose / pattern CI | `.github/workflows/ci.yml` |

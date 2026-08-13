@@ -17,7 +17,7 @@ Template id: `go-api`. Gin REST API scaffold for step-4 assembly.
 
 1. Copy this directory to the **product repo root** (or `<product-root>/<app-id>/` for multi-app). Do not edit the template in place.
 2. Add handlers under `internal/handler/` (`func(c *gin.Context)`); register routes in `internal/server/server.go`.
-3. Follow `skills/mvp-assembly.md`. Optional patterns: see `templates/patterns/index.md`. For DB/tables use [`persistence-sqlx`](../../patterns/persistence-sqlx/).
+3. Follow `skills/mvp-assembly.md`. Optional patterns: see `templates/patterns/index.md`. For DB/tables use [`persistence-d1`](../../patterns/persistence-d1/).
 4. If customizing the Dockerfile, compose from `../../images/` fragments (see `images/index.md`).
 
 ## Layout
