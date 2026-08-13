@@ -26,31 +26,32 @@ func TestConfigFromEnvDefaults(t *testing.T) {
 	if cfg.Mode != "local" {
 		t.Errorf("expected default Mode 'local', got '%s'", cfg.Mode)
 	}
-	if cfg.SQLitePath != "/data/app.db" {
-		t.Errorf("expected default SQLitePath '/data/app.db', got '%s'", cfg.SQLitePath)
+	if cfg.DatabaseURL != "/data/app.db" {
+		t.Errorf("expected default DatabaseURL '/data/app.db', got '%s'", cfg.DatabaseURL)
 	}
 }
 
-func TestNewClientD1MissingEnvs(t *testing.T) {
+func TestNewDBD1MissingEnvs(t *testing.T) {
 	cfg := Config{
 		Mode: "d1",
 	}
-	_, err := NewClient(cfg)
+	_, err := NewDB(cfg)
 	if err == nil {
 		t.Error("expected error when D1 environment variables are missing, got nil")
 	}
 }
 
-func TestExecQueryLocalMock(t *testing.T) {
+func TestExecQueryLocalSQLDriver(t *testing.T) {
 	cfg := Config{
 		Mode: "local",
 	}
-	client, err := NewClient(cfg)
+	db, err := NewDB(cfg)
 	if err != nil {
-		t.Fatalf("failed to create local client: %v", err)
+		t.Fatalf("failed to create DB in local mode: %v", err)
 	}
+	defer db.Close()
 
-	res, err := client.ExecQuery(context.Background(), "SELECT 1")
+	res, err := db.ExecQuery(context.Background(), "SELECT 1")
 	if err != nil {
 		t.Fatalf("ExecQuery failed in local mode: %v", err)
 	}
@@ -59,7 +60,7 @@ func TestExecQueryLocalMock(t *testing.T) {
 	}
 }
 
-func TestExecQueryMockD1API(t *testing.T) {
+func TestExecQueryD1Driver(t *testing.T) {
 	cfg := Config{
 		Mode:       "d1",
 		AccountID:  "acc_123",
@@ -67,12 +68,12 @@ func TestExecQueryMockD1API(t *testing.T) {
 		APIToken:   "mock_token",
 	}
 
-	client, err := NewClient(cfg)
+	driver, err := NewD1Driver(cfg)
 	if err != nil {
-		t.Fatalf("failed to create client: %v", err)
+		t.Fatalf("failed to create D1Driver: %v", err)
 	}
 
-	client.httpClient = &http.Client{
+	driver.httpClient = &http.Client{
 		Transport: &mockTripper{
 			fn: func(req *http.Request) (*http.Response, error) {
 				if req.Header.Get("Authorization") != "Bearer mock_token" {
@@ -103,7 +104,7 @@ func TestExecQueryMockD1API(t *testing.T) {
 		},
 	}
 
-	res, err := client.ExecQuery(context.Background(), "SELECT * FROM notes WHERE id = ?", "1")
+	res, err := driver.ExecQuery(context.Background(), "SELECT * FROM notes WHERE id = ?", "1")
 	if err != nil {
 		t.Fatalf("ExecQuery failed: %v", err)
 	}

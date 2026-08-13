@@ -2,32 +2,40 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-Dual-mode persistence driver: **Local Docker / SQLite** during local development, and **Cloudflare D1 HTTP API** during online production deployment.
+Decoupled database persistence pattern: **`DB` interface abstraction layer** with concrete implementations for **`D1Driver`** (Cloudflare D1 REST API) and **`LocalSQLDriver`** (Docker / local SQL database).
 
 Tags: `db` `d1` `cloudflare` `sqlite` `persist` `docker`
 
-## Strategy
+## Decoupled Architecture
 
-- **Local (`DB_MODE=local`)**: Uses local SQLite file or Docker container volume (`SQLITE_PATH=/data/app.db`). Zero external dependencies or credentials required.
-- **Online (`DB_MODE=d1`)**: Interacts directly with Cloudflare D1 REST API v4 using `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_D1_DATABASE_ID`, and `CLOUDFLARE_API_TOKEN`.
+```
+                 ┌──────────────────┐
+                 │   DB Interface   │
+                 └────────┬─────────┘
+                          │
+          ┌───────────────┴───────────────┐
+          ▼                               ▼
+  ┌───────────────┐               ┌───────────────┐
+  │   D1Driver    │               │LocalSQLDriver │
+  │(Cloudflare D1)│               │(Docker / SQL) │
+  └───────────────┘               └───────────────┘
+```
 
-## Env
+## Usage
 
-| Variable | Required | Notes |
-|----------|----------|-------|
-| `DB_MODE` | No (default `local`) | `local` \| `d1` |
-| `SQLITE_PATH` | Local mode | Used when `DB_MODE=local`; default `/data/app.db` |
-| `CLOUDFLARE_ACCOUNT_ID` | Yes (d1 mode) | Cloudflare Account ID |
-| `CLOUDFLARE_D1_DATABASE_ID` | Yes (d1 mode) | Cloudflare D1 Database ID |
-| `CLOUDFLARE_API_TOKEN` | Yes (d1 mode) | Cloudflare API Token (D1 Edit permissions) |
+```go
+import "your_app/internal/persistd1"
 
-## API Surface
+// Read config from env (DB_MODE=local or d1)
+cfg := persistd1.ConfigFromEnv()
 
-- `ConfigFromEnv()` → Reads environment variables.
-- `NewClient(cfg)` → Returns `*Client`.
-- `client.ExecQuery(ctx, sql, params...)` → Unified interface executing locally or via Cloudflare D1 HTTP API.
+// Factory constructor returns DB interface
+db, err := persistd1.NewDB(cfg)
+if err != nil {
+    log.Fatal(err)
+}
+defer db.Close()
 
-## Free Tier & Limits
-
-- **Cloudflare D1 Free Tier**: 5 Million reads / day, 100,000 writes / day, 5 GB storage.
-- **Cost**: $0.00 / mo within free tier boundaries.
+// Execute queries cleanly against DB interface
+res, err := db.ExecQuery(ctx, "SELECT * FROM users WHERE id = ?", userID)
+```
