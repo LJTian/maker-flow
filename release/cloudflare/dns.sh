@@ -68,6 +68,31 @@ pick_from_lines() {
   done
 }
 
+# Read stdout where the LAST line is a status token (e.g. done/more).
+# Sets globals: _PAGE_BODY (all prior lines joined by \n) and _PAGE_STATUS.
+read_page_body_status() {
+  local -a lines=()
+  while IFS= read -r line || [[ -n "${line:-}" ]]; do
+    lines+=("$line")
+  done
+  if ((${#lines[@]} == 0)); then
+    _PAGE_BODY=""
+    _PAGE_STATUS=""
+    return 1
+  fi
+  local last_idx=$((${#lines[@]} - 1))
+  _PAGE_STATUS="${lines[$last_idx]}"
+  if (( last_idx == 0 )); then
+    _PAGE_BODY=""
+  else
+    local body_lines=("${lines[@]:0:$last_idx}")
+    local joined
+    printf -v joined '%s\n' "${body_lines[@]}"
+    _PAGE_BODY="${joined%$'\n'}"
+  fi
+  return 0
+}
+
 memberships_tsv() {
   local json
   json="$(curl_api "https://api.cloudflare.com/client/v4/memberships?per_page=100")"
@@ -96,8 +121,7 @@ zones_tsv() {
     local json
     json="$(curl_api "https://api.cloudflare.com/client/v4/zones?${query}&page=${page}")"
     check_success "$json" "zones"
-    local chunk done
-    read -r chunk done < <(printf '%s' "$json" | python3 -c '
+    read_page_body_status < <(printf '%s' "$json" | python3 -c '
 import json,sys
 data=json.load(sys.stdin)
 for z in data.get("result") or []:
@@ -107,14 +131,18 @@ page=info.get("page") or 1
 total=info.get("total_pages") or 1
 print("done" if page >= total else "more")
 ')
-    while IFS= read -r line; do
-      [[ -z "$line" ]] && continue
-      out+=("$line")
-    done <<<"$chunk"
-    [[ "$done" == "done" ]] && break
+    if [[ -n "${_PAGE_BODY}" ]]; then
+      while IFS= read -r line; do
+        [[ -z "$line" ]] && continue
+        out+=("$line")
+      done <<<"${_PAGE_BODY}"
+    fi
+    [[ "${_PAGE_STATUS}" == "done" ]] && break
     page=$((page + 1))
   done
-  printf '%s\n' "${out[@]}"
+  if ((${#out[@]} > 0)); then
+    printf '%s\n' "${out[@]}"
+  fi
 }
 
 resolve_account_id() {
@@ -123,10 +151,14 @@ resolve_account_id() {
   while IFS= read -r line; do
     [[ -n "$line" ]] && rows+=("$line")
   done < <(memberships_tsv)
-  local picked
-  if picked="$(pick_from_lines "Multiple Cloudflare accounts found; choose one:" "${rows[@]}")"; then
+  local picked rc=0
+  picked="$(pick_from_lines "Multiple Cloudflare accounts found; choose one:" "${rows[@]}")" || rc=$?
+  if [[ "$rc" -eq 0 ]]; then
     IFS=$'\t' read -r ACCOUNT_ID _ <<<"$picked"
     return
+  fi
+  if ((${#rows[@]} == 0)); then
+    die "no Cloudflare accounts visible to this token"
   fi
   echo "Multiple accounts found. Choose one and rerun with --account-id or CLOUDFLARE_ACCOUNT_ID:" >&2
   printf '%s\n' "${rows[@]}" >&2
@@ -140,10 +172,14 @@ resolve_zone_id() {
   while IFS= read -r line; do
     [[ -n "$line" ]] && rows+=("$line")
   done < <(zones_tsv "$ACCOUNT_ID" "$ZONE_NAME")
-  local picked
-  if picked="$(pick_from_lines "Multiple zones found; choose one:" "${rows[@]}")"; then
+  local picked rc=0
+  picked="$(pick_from_lines "Multiple zones found; choose one:" "${rows[@]}")" || rc=$?
+  if [[ "$rc" -eq 0 ]]; then
     IFS=$'\t' read -r ZONE_ID ZONE_NAME <<<"$picked"
     return
+  fi
+  if ((${#rows[@]} == 0)); then
+    die "no zones found (check account/token or pass --zone-id / --zone-name)"
   fi
   echo "Multiple zones found. Choose one and rerun with --zone-id or --zone-name/CF_ZONE_NAME:" >&2
   printf '%s\n' "${rows[@]}" >&2
@@ -265,8 +301,7 @@ cmd_list() {
     local json
     json="$(curl_api "$(api_base)?${query}&page=${page}")"
     check_success "$json" "list"
-    local chunk done
-    read -r chunk done < <(printf '%s' "$json" | python3 -c '
+    read_page_body_status < <(printf '%s' "$json" | python3 -c '
 import json,sys
 data=json.load(sys.stdin)
 print(json.dumps(data.get("result") or []))
@@ -275,8 +310,8 @@ page=info.get("page") or 1
 total=info.get("total_pages") or 1
 print("done" if page >= total else "more")
 ')
-    all="$(python3 -c 'import json,sys; a=json.loads(sys.argv[1]); b=json.loads(sys.argv[2]); print(json.dumps(a+b))' "$all" "$chunk")"
-    [[ "$done" == "done" ]] && break
+    all="$(python3 -c 'import json,sys; a=json.loads(sys.argv[1]); b=json.loads(sys.argv[2]); print(json.dumps(a+b))' "$all" "${_PAGE_BODY}")"
+    [[ "${_PAGE_STATUS}" == "done" ]] && break
     page=$((page + 1))
   done
 
@@ -380,14 +415,15 @@ cmd_create() {
 
 cmd_update() {
   local id=""
+  local have_type=0 have_name=0 have_content=0 have_proxied=0
   TYPE="" NAME="" CONTENT="" PROXIED=""
   while [[ $# -gt 0 ]]; do
     case "$1" in
       --id) id="$2"; shift 2 ;;
-      --type) TYPE="$2"; shift 2 ;;
-      --name) NAME="$2"; shift 2 ;;
-      --content) CONTENT="$2"; shift 2 ;;
-      --proxied) PROXIED="$2"; shift 2 ;;
+      --type) TYPE="$2"; have_type=1; shift 2 ;;
+      --name) NAME="$2"; have_name=1; shift 2 ;;
+      --content) CONTENT="$2"; have_content=1; shift 2 ;;
+      --proxied) PROXIED="$2"; have_proxied=1; shift 2 ;;
       *) die "update: unknown option $1" ;;
     esac
   done
@@ -398,18 +434,29 @@ cmd_update() {
     [[ -n "$id" ]] || die "update: no record for type=${TYPE} name=${NAME}"
   fi
 
-  if [[ -z "$TYPE" || -z "$NAME" || -z "$CONTENT" || -z "$PROXIED" ]]; then
-    local cur
+  if [[ "$have_type" -eq 0 || "$have_name" -eq 0 || "$have_content" -eq 0 || "$have_proxied" -eq 0 ]]; then
+    local cur cur_type cur_name cur_content cur_proxied
     cur="$(curl_api "$(api_base)/${id}")"
     check_success "$cur" "get"
-    read -r TYPE NAME CONTENT PROXIED < <(printf '%s' "$cur" | python3 -c '
+    # Tab-separated so names/content with spaces stay intact.
+    IFS=$'\t' read -r cur_type cur_name cur_content cur_proxied < <(printf '%s' "$cur" | python3 -c '
 import json,sys
 r=json.load(sys.stdin)["result"]
-print(r.get("type",""), r.get("name",""), r.get("content",""), str(r.get("proxied")).lower())
+print("\t".join([
+  str(r.get("type") or ""),
+  str(r.get("name") or ""),
+  str(r.get("content") or ""),
+  str(r.get("proxied")).lower(),
+]))
 ')
+    [[ "$have_type" -eq 1 ]] || TYPE="$cur_type"
+    [[ "$have_name" -eq 1 ]] || NAME="$cur_name"
+    [[ "$have_content" -eq 1 ]] || CONTENT="$cur_content"
+    [[ "$have_proxied" -eq 1 ]] || PROXIED="$cur_proxied"
   fi
 
   [[ -n "$CONTENT" ]] || die "update: need --content (or existing record must have content)"
+  case "${PROXIED:-true}" in true|false) ;; *) die "--proxied must be true or false" ;; esac
   PROXIED="${PROXIED:-true}"
 
   local body json
