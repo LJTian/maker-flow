@@ -2,25 +2,41 @@ package storage
 
 import (
 	"context"
+	"bytes"
 	"testing"
 )
 
-func TestStorageClientInitialization(t *testing.T) {
-	// Simple test to ensure the initialization doesn't panic and logic runs correctly
-	cfg := Config{
-		Endpoint:        "https://example.com",
-		AccessKeyID:     "test",
-		SecretAccessKey: "test",
-		Region:          "auto",
-		Bucket:          "my-bucket",
-	}
+func TestMockStorageDriver(t *testing.T) {
+	s := NewMockStorageDriver()
+	ctx := context.Background()
 
-	client, err := NewClient(context.Background(), cfg)
+	err := s.UploadFile(ctx, "test.txt", []byte("hello storage"), "text/plain")
 	if err != nil {
-		t.Fatalf("Failed to initialize client: %v", err)
+		t.Fatalf("Failed to upload to mock storage: %v", err)
 	}
 
-	if client == nil {
-		t.Fatal("Client is nil")
+	data, err := s.DownloadFile(ctx, "test.txt")
+	if err != nil {
+		t.Fatalf("Failed to download from mock storage: %v", err)
+	}
+
+	if !bytes.Equal(data, []byte("hello storage")) {
+		t.Errorf("Expected 'hello storage', got '%s'", string(data))
+	}
+}
+
+func TestNewStorageFactory(t *testing.T) {
+	ctx := context.Background()
+	cfg := Config{
+		Mode: "mock",
+	}
+
+	s, err := NewStorage(ctx, cfg)
+	if err != nil {
+		t.Fatalf("Failed to initialize storage via factory: %v", err)
+	}
+
+	if s == nil {
+		t.Fatal("Storage is nil")
 	}
 }
