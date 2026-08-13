@@ -41,6 +41,24 @@ func TestNewClientD1MissingEnvs(t *testing.T) {
 	}
 }
 
+func TestExecQueryLocalMock(t *testing.T) {
+	cfg := Config{
+		Mode: "local",
+	}
+	client, err := NewClient(cfg)
+	if err != nil {
+		t.Fatalf("failed to create local client: %v", err)
+	}
+
+	res, err := client.ExecQuery(context.Background(), "SELECT 1")
+	if err != nil {
+		t.Fatalf("ExecQuery failed in local mode: %v", err)
+	}
+	if !res.Success {
+		t.Error("expected res.Success to be true in local mode")
+	}
+}
+
 func TestExecQueryMockD1API(t *testing.T) {
 	cfg := Config{
 		Mode:       "d1",
